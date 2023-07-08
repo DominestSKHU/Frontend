@@ -1,7 +1,9 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+import React from 'react'
 
-export default function Home() {
-  return (<></>
-  )
+type Props = {}
+
+function Home({}: Props) {
+  return <div>Home</div>
 }
+
+export default Home
