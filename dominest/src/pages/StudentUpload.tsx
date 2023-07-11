@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import React, { useState } from "react";
 import StudentDate from "../components/studentdate";
 import "../app/globals.css";
@@ -18,7 +19,7 @@ export default function studentupload() {
   };
 
   return (
-    <div
+    <UploadForm
       css={css`
         display: flex;
         justify-content: center;
@@ -28,12 +29,11 @@ export default function studentupload() {
     >
       <div
         css={css`
-          background-color: yellow;
           width: 80%;
           height: 100%;
         `}
       >
-        <p>학생정보 업로드</p>
+        <h1>학생정보 업로드</h1>
         <div
           css={css`
             text-align: center;
@@ -69,8 +69,64 @@ export default function studentupload() {
           </button>
           <h3>미리보기</h3>
           <StudentDate />
+          <div className="buttondiv">
+            <button
+              onClick={handleUpload}
+              css={css`
+                padding: 10px 20px;
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+
+                &:disabled {
+                  background-color: #ccc;
+                  cursor: not-allowed;
+                }
+              `}
+            >
+              저장
+            </button>
+            <button
+              onClick={handleUpload}
+              css={css`
+                padding: 10px 20px;
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+
+                &:disabled {
+                  background-color: #ccc;
+                  cursor: not-allowed;
+                }
+              `}
+            >
+              취소
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </UploadForm>
   );
 }
+const UploadForm = styled.div`
+  button {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .buttondiv {
+    display: flex;
+    justify-content: flex-end;
+  }
+`;
