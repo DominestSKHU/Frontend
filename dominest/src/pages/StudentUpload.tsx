@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import React, { useState } from "react";
-
+import StudentDate from "../components/studentdate";
 import "../app/globals.css";
 /** @jsxImportSource @emotion/react */
 
@@ -12,9 +12,7 @@ export default function studentupload() {
   };
 
   const handleUpload = () => {
-    // 파일 업로드 로직 구현
     if (selectedFile) {
-      // 선택한 파일을 서버로 업로드하는 코드를 작성하세요
       console.log("파일 업로드:", selectedFile);
     }
   };
@@ -69,6 +67,8 @@ export default function studentupload() {
           >
             업로드
           </button>
+          <h3>미리보기</h3>
+          <StudentDate />
         </div>
       </div>
     </div>
