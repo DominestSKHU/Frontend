@@ -39,26 +39,11 @@ export default function studentupload() {
             text-align: center;
           `}
         >
-          <input
-            type="file"
-            accept=".xlsx"
-            onChange={handleFileChange}
-            css={css`
-              margin-bottom: 10px;
-            `}
-          />
+          <input type="file" accept=".xlsx" onChange={handleFileChange} />
           <button
             onClick={handleUpload}
             disabled={!selectedFile}
             css={css`
-              padding: 10px 20px;
-              background-color: #007bff;
-              color: #fff;
-              border: none;
-              border-radius: 5px;
-              cursor: pointer;
-              font-size: 16px;
-
               &:disabled {
                 background-color: #ccc;
                 cursor: not-allowed;
@@ -67,20 +52,12 @@ export default function studentupload() {
           >
             업로드
           </button>
-          <h3>미리보기</h3>
+          <h3>업로드 정보</h3>
           <StudentDate />
           <div className="buttondiv">
             <button
               onClick={handleUpload}
               css={css`
-                padding: 10px 20px;
-                background-color: #007bff;
-                color: #fff;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                font-size: 16px;
-
                 &:disabled {
                   background-color: #ccc;
                   cursor: not-allowed;
@@ -92,14 +69,6 @@ export default function studentupload() {
             <button
               onClick={handleUpload}
               css={css`
-                padding: 10px 20px;
-                background-color: #007bff;
-                color: #fff;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                font-size: 16px;
-
                 &:disabled {
                   background-color: #ccc;
                   cursor: not-allowed;
@@ -128,5 +97,16 @@ const UploadForm = styled.div`
   .buttondiv {
     display: flex;
     justify-content: flex-end;
+  }
+  input {
+    margin-bottom: 10px;
+    border: 1px solid black;
+    width: 50%;
+    hight: 41px;
+    padding: 10px 20px;
+    font-size: 15px;
+    border-radius: 10px;
+    color: #333;
+    background-color: #f7f7f7;
   }
 `;
