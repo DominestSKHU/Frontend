@@ -10,13 +10,13 @@ import "../app/globals.css";
 export default function Login() {
   return (
     <div
-        css={css`
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: rgb(255, 255, 255);
-            `}      
+      css={css`
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: rgb(255, 255, 255);
+      `}
     >
       <Form action="" className="form_main">
         <p className="heading">Login</p>
