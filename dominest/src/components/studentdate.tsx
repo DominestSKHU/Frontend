@@ -48,37 +48,20 @@ export default function studentdate() {
         display: flex;
         justify-content: center;
         width: 100%;
-        height: 100%;
+        height: 600px;
+        max-height: 600px;
         align-items: center;
+        overflow: auto;
+        border: 1px solid black;
       `}
     >
       <div
         css={css`
-          border: 1px solid black;
-          width: 80%;
-          height: 600px;
-          max-height: 600px;
-          overflow: auto;
+          width: 100%;
+          height: 100%;
         `}
       >
-        <div
-          css={css`
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-          `}
-        >
-          <div
-            css={css`
-              width: 100%;
-            `}
-          >
-            {renderTable()}
-          </div>
-        </div>
+        {renderTable()}
       </div>
     </div>
   );
