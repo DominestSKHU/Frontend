@@ -9,18 +9,42 @@ export default function StudentDate() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
+<<<<<<< HEAD
     // 데이터 조회 요청을 useEffect 내에서 수행합니다.
+=======
+>>>>>>> main
     axios
       .get("http://domidomi.duckdns.org/residents")
       .then((response) => {
         setData(response.data);
+<<<<<<< HEAD
         console.log(response.data); // 조회된 데이터를 상태로 설정합니다.
+=======
+>>>>>>> main
       })
       .catch((error) => {
         console.error("데이터 조회 중 오류 발생:", error);
       });
   }, []);
 
+<<<<<<< HEAD
+=======
+  useEffect(() => {
+    console.log(data.length);
+  }, [data]);
+
+  useEffect(() => {
+    if (data.length > 0) {
+      const parsedData = JSON.parse(data);
+      const residents = parsedData.data.residents;
+
+      for (const resident of residents) {
+        console.log(resident.name, resident.gender, resident.studentId);
+      }
+    }
+  }, [data]);
+
+>>>>>>> main
   const renderTable = () => {
     const rows = [];
 
@@ -95,6 +119,11 @@ export default function StudentDate() {
           height: 100%;
         `}
       >
+<<<<<<< HEAD
+=======
+        <p>{data[1]}</p>
+        <p>ㅎㅇ</p>
+>>>>>>> main
         {renderTable()}
       </div>
     </div>
