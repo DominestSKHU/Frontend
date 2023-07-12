@@ -34,6 +34,7 @@ export default function studentdate() {
         css={css`
           border-collapse: collapse;
           margin: 10px;
+          border-rounder: 5px;
         `}
       >
         <tbody>{rows}</tbody>

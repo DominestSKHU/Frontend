@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import React, { useState } from "react";
 import StudentDate from "../components/studentdate";
 import "../app/globals.css";
+import axios from "axios";
 /** @jsxImportSource @emotion/react */
 
 export default function studentupload() {
@@ -14,8 +15,28 @@ export default function studentupload() {
 
   const handleUpload = () => {
     if (selectedFile) {
-      console.log("파일 업로드:", selectedFile);
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+
+      const curlCommand = `curl -X POST -F "file=@${selectedFile.name}" http://domidomi.duckdns.org/residents/upload-excel`;
+
+      sendRequestToServer(curlCommand);
     }
+  };
+
+  const sendRequestToServer = (command) => {
+    axios
+      .post("http://domidomi.duckdns.org/residents/upload-excel", {
+        command: command,
+      })
+      .then((response) => {
+        console.log("요청이 성공적으로 전송되었습니다.");
+        // 추가로 처리할 작업을 수행할 수 있습니다.
+      })
+      .catch((error) => {
+        console.error("요청 전송 중 오류가 발생했습니다:", error);
+        // 오류 처리를 수행할 수 있습니다.
+      });
   };
 
   return (
@@ -56,7 +77,6 @@ export default function studentupload() {
           <StudentDate />
           <div className="buttondiv">
             <button
-              onClick={handleUpload}
               css={css`
                 &:disabled {
                   background-color: #ccc;
@@ -67,7 +87,6 @@ export default function studentupload() {
               저장
             </button>
             <button
-              onClick={handleUpload}
               css={css`
                 &:disabled {
                   background-color: #ccc;
