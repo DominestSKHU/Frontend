@@ -6,8 +6,7 @@ import "../app/globals.css";
 /** @jsxImportSource @emotion/react */
 
 export default function StudentData() {
-  const [data, setData] = useState<any[]>([]);
-  residents = data.residents;
+  const [data, setData] = useState<any[]>(null);
 
   useEffect(() => {
     // 데이터 조회 요청을 useEffect 내에서 수행합니다.
@@ -112,7 +111,8 @@ export default function StudentData() {
         </table>
       );
     } else {
-      console.log("작동안함", data.residents instanceof Array);
+      console.log("작동안함", data?.data?.residents, Array.isArray(data));
+
       return null;
     }
   };
