@@ -5,99 +5,119 @@ import axios from "axios";
 import "../app/globals.css";
 /** @jsxImportSource @emotion/react */
 
-export default function StudentDate() {
-  const [data, setData] = useState([]);
+export default function StudentData() {
+  const [data, setData] = useState<any[]>([]);
+  residents = data.residents;
 
   useEffect(() => {
-<<<<<<< HEAD
     // 데이터 조회 요청을 useEffect 내에서 수행합니다.
-=======
->>>>>>> main
     axios
       .get("http://domidomi.duckdns.org/residents")
       .then((response) => {
         setData(response.data);
-<<<<<<< HEAD
-        console.log(response.data); // 조회된 데이터를 상태로 설정합니다.
-=======
->>>>>>> main
+        console.log(response.data);
+        // 조회된 데이터를 상태로 설정합니다.
       })
       .catch((error) => {
         console.error("데이터 조회 중 오류 발생:", error);
       });
   }, []);
 
-<<<<<<< HEAD
-=======
-  useEffect(() => {
-    console.log(data.length);
-  }, [data]);
+  // ...
 
-  useEffect(() => {
-    if (data.length > 0) {
-      const parsedData = JSON.parse(data);
-      const residents = parsedData.data.residents;
-
-      for (const resident of residents) {
-        console.log(resident.name, resident.gender, resident.studentId);
-      }
-    }
-  }, [data]);
-
->>>>>>> main
   const renderTable = () => {
-    const rows = [];
-
-    if (data.length > 0) {
-      const headerRow = Object.keys(data[0]).map((key) => (
-        <th
-          key={key}
+    if (data && Array.isArray(data) && data.length > 0) {
+      console.log(data);
+      return (
+        <table
           css={css`
-            padding: 5px 1px;
-            min-width: 120px;
-            white-space: nowrap;
-            border: 1px solid black;
+            border-collapse: collapse;
+            width: 100%;
           `}
         >
-          {key}
-        </th>
-      ));
-
-      rows.push(<tr key="header">{headerRow}</tr>);
-
-      for (let i = 0; i < data.length; i++) {
-        const rowData = (Object.values(data[i]) as string[]).map(
-          (value, index) => (
-            <td
-              key={index}
-              css={css`
-                padding: 5px 1px;
-                min-width: 120px;
-                white-space: nowrap;
-                border: 1px solid black;
-              `}
-            >
-              {value}
-            </td>
-          )
-        );
-
-        rows.push(<tr key={i}>{rowData}</tr>);
-      }
+          <thead>
+            <tr>
+              <th
+                css={css`
+                  border: 1px solid black;
+                  padding: 8px;
+                `}
+              >
+                Name
+              </th>
+              <th
+                css={css`
+                  border: 1px solid black;
+                  padding: 8px;
+                `}
+              >
+                Gender
+              </th>
+              <th
+                css={css`
+                  border: 1px solid black;
+                  padding: 8px;
+                `}
+              >
+                Student ID
+              </th>
+              <th
+                css={css`
+                  border: 1px solid black;
+                  padding: 8px;
+                `}
+              >
+                Major
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((resident) => (
+              <tr key={resident.id}>
+                <td
+                  css={css`
+                    border: 1px solid black;
+                    padding: 8px;
+                  `}
+                >
+                  {resident.name}
+                </td>
+                <td
+                  css={css`
+                    border: 1px solid black;
+                    padding: 8px;
+                  `}
+                >
+                  {resident.gender}
+                </td>
+                <td
+                  css={css`
+                    border: 1px solid black;
+                    padding: 8px;
+                  `}
+                >
+                  {resident.studentId}
+                </td>
+                <td
+                  css={css`
+                    border: 1px solid black;
+                    padding: 8px;
+                  `}
+                >
+                  {resident.major}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      );
+    } else {
+      console.log("작동안함", data.residents instanceof Array);
+      return null;
     }
-
-    return (
-      <table
-        css={css`
-          border-collapse: collapse;
-          margin: 10px;
-          border-radius: 5px;
-        `}
-      >
-        <tbody>{rows}</tbody>
-      </table>
-    );
   };
+
+  // ...
 
   return (
     <div
@@ -119,11 +139,6 @@ export default function StudentDate() {
           height: 100%;
         `}
       >
-<<<<<<< HEAD
-=======
-        <p>{data[1]}</p>
-        <p>ㅎㅇ</p>
->>>>>>> main
         {renderTable()}
       </div>
     </div>
