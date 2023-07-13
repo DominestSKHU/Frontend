@@ -29,6 +29,17 @@ export default function studentupload() {
     }
   };
 
+  const delet = () => {
+    axios
+      .delete("http://domidomi.duckdns.org/residents")
+      .then((response) => {
+        console.log("요청이 성공적으로 전송되었습니다.");
+      })
+      .catch((error) => {
+        console.error("요청 전송 중 오류가 발생했습니다:", error);
+      });
+  };
+
   return (
     <UploadForm
       css={css`
@@ -85,6 +96,17 @@ export default function studentupload() {
               `}
             >
               취소
+            </button>
+            <button
+              onClick={delet}
+              css={css`
+                &:disabled {
+                  background-color: #ccc;
+                  cursor: not-allowed;
+                }
+              `}
+            >
+              삭제(임시생성)
             </button>
           </div>
         </div>
