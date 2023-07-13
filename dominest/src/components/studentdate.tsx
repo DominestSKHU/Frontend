@@ -6,118 +6,83 @@ import "../app/globals.css";
 /** @jsxImportSource @emotion/react */
 
 export default function StudentData() {
-  const [data, setData] = useState<any[]>(null);
+  const [data, setData] = useState<any[]>();
 
   useEffect(() => {
-    // 데이터 조회 요청을 useEffect 내에서 수행합니다.
     axios
       .get("http://domidomi.duckdns.org/residents")
       .then((response) => {
-        setData(response.data);
-        console.log(response.data);
-        // 조회된 데이터를 상태로 설정합니다.
+        setData(response.data?.data?.residents);
       })
       .catch((error) => {
         console.error("데이터 조회 중 오류 발생:", error);
       });
   }, []);
 
-  // ...
-
   const renderTable = () => {
     if (data && Array.isArray(data) && data.length > 0) {
-      console.log(data);
       return (
-        <table
-          css={css`
-            border-collapse: collapse;
-            width: 100%;
-          `}
-        >
+        <table css={tableStyle}>
           <thead>
             <tr>
-              <th
-                css={css`
-                  border: 1px solid black;
-                  padding: 8px;
-                `}
-              >
-                Name
-              </th>
-              <th
-                css={css`
-                  border: 1px solid black;
-                  padding: 8px;
-                `}
-              >
-                Gender
-              </th>
-              <th
-                css={css`
-                  border: 1px solid black;
-                  padding: 8px;
-                `}
-              >
-                Student ID
-              </th>
-              <th
-                css={css`
-                  border: 1px solid black;
-                  padding: 8px;
-                `}
-              >
-                Major
-              </th>
+              <th>번호</th>
+              <th>이름</th>
+              <th>성별</th>
+              <th>학번</th>
+              <th>차수</th>
+              <th>현재상태</th>
+              <th>생년월일</th>
+              <th>기숙사</th>
+              <th>전공</th>
+              <th>학년</th>
+              <th>기간</th>
+              <th>호실</th>
+              <th>배정방</th>
+              <th>입사일자</th>
+              <th>퇴사일시</th>
+              <th>차수시작일</th>
+              <th>차수종료일</th>
+              <th>HP</th>
+              <th>사회코드</th>
+              <th>사회명</th>
+              <th>ZIP</th>
+              <th>주소</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((resident) => (
+            {data.map((resident, index) => (
               <tr key={resident.id}>
-                <td
-                  css={css`
-                    border: 1px solid black;
-                    padding: 8px;
-                  `}
-                >
-                  {resident.name}
-                </td>
-                <td
-                  css={css`
-                    border: 1px solid black;
-                    padding: 8px;
-                  `}
-                >
-                  {resident.gender}
-                </td>
-                <td
-                  css={css`
-                    border: 1px solid black;
-                    padding: 8px;
-                  `}
-                >
-                  {resident.studentId}
-                </td>
-                <td
-                  css={css`
-                    border: 1px solid black;
-                    padding: 8px;
-                  `}
-                >
-                  {resident.major}
-                </td>
+                <td>{index + 1}</td>
+                <td>{resident.name}</td>
+                <td>{resident.gender}</td>
+                <td>{resident.studentId}</td>
+                <td>{resident.period}</td>
+                <td>{resident.currentStatus}</td>
+                <td>{resident.dateOfBirth}</td>
+                <td>{resident.dormitory}</td>
+                <td>{resident.major}</td>
+                <td>{resident.grade}</td>
+                <td>{resident.semester}</td>
+                <td>{resident.roomNumber}</td>
+                <td>{resident.assignedRoom}</td>
+                <td>{resident.admissionDate}</td>
+                <td>{resident.leavingDate}</td>
+                <td>{resident.semesterStartDate}</td>
+                <td>{resident.semesterEndDate}</td>
+                <td>{resident.phoneNumber}</td>
+                <td>{resident.socialCode}</td>
+                <td>{resident.socialName}</td>
+                <td>{resident.zipCode}</td>
+                <td>{resident.address}</td>
               </tr>
             ))}
           </tbody>
         </table>
       );
     } else {
-      console.log("작동안함", data?.data?.residents, Array.isArray(data));
-
-      return null;
+      return <p>데이터가 없습니다.</p>;
     }
   };
-
-  // ...
 
   return (
     <div
@@ -144,3 +109,13 @@ export default function StudentData() {
     </div>
   );
 }
+const tableStyle = css`
+  border-collapse: collapse;
+  width: 300%;
+
+  th,
+  td {
+    border: 1px solid black;
+    padding: 8px;
+  }
+`;
