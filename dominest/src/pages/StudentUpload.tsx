@@ -1,6 +1,6 @@
+import React, { useState } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import React, { useState } from "react";
 import StudentDate from "../components/studentdate";
 import "../app/globals.css";
 import axios from "axios";
@@ -8,9 +8,15 @@ import axios from "axios";
 
 export default function studentupload() {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [residenceSemester, setresidenceSemester] = useState("");
+  const [showStudentDate, setShowStudentDate] = useState(false);
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
+  };
+
+  const handleSemesterChange = (event) => {
+    setresidenceSemester(event.target.value);
   };
 
   const handleUpload = () => {
@@ -22,6 +28,7 @@ export default function studentupload() {
         .post("http://domidomi.duckdns.org/residents/upload-excel", formData)
         .then((response) => {
           console.log("요청이 성공적으로 전송되었습니다.");
+          setShowStudentDate(true);
         })
         .catch((error) => {
           console.error("요청 전송 중 오류가 발생했습니다:", error);
@@ -62,6 +69,12 @@ export default function studentupload() {
           `}
         >
           <input type="file" accept=".xlsx" onChange={handleFileChange} />
+          <select value={residenceSemester} onChange={handleSemesterChange}>
+            <option value="S2023_1">1학기</option>
+            <option value="S2023_SUMMER">여름학기</option>
+            <option value="S2023_2">2학기</option>
+            <option value="S2023_WINTER">겨울학기</option>
+          </select>
           <button
             onClick={handleUpload}
             disabled={!selectedFile}
@@ -75,7 +88,7 @@ export default function studentupload() {
             업로드
           </button>
           <h3>업로드 정보</h3>
-          <StudentDate />
+          {showStudentDate && <StudentDate />}
           <div className="buttondiv">
             <button
               css={css`
