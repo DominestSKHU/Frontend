@@ -10,7 +10,7 @@ export default function StudentData() {
 
   useEffect(() => {
     axios
-      .get("http://domidomi.duckdns.org/residents")
+      .get("http://domidomi.duckdns.org/residents?residenceSemester=S2023_2")
       .then((response) => {
         setData(response.data?.data?.residents);
       })

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import StudentDate from "../components/studentdate";
@@ -9,7 +9,8 @@ import axios from "axios";
 export default function studentupload() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [residenceSemester, setresidenceSemester] = useState("");
-  const [showStudentDate, setShowStudentDate] = useState(false);
+  const [year, setYear] = useState("");
+  const [showStudentDate, setShowStudentDate] = useState(true);
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -18,20 +19,37 @@ export default function studentupload() {
   const handleSemesterChange = (event) => {
     setresidenceSemester(event.target.value);
   };
+  const handleYearChange = (event) => {
+    setYear(event.target.value);
+  };
 
   const handleUpload = () => {
+    if (residenceSemester === "") {
+    }
     if (selectedFile) {
+      const degree = year + residenceSemester;
       const formData = new FormData();
       formData.append("file", selectedFile);
-
+      formData.append("residenceSemester", degree);
       axios
         .post("http://domidomi.duckdns.org/residents/upload-excel", formData)
         .then((response) => {
           console.log("요청이 성공적으로 전송되었습니다.");
-          setShowStudentDate(true);
         })
         .catch((error) => {
-          console.error("요청 전송 중 오류가 발생했습니다:", error);
+          if (
+            error.response.data.errorMessage ===
+            "읽어들인 컬럼 개수가 21개가 아닙니다."
+          ) {
+            return alert("파일형식에 문제가 있습니다.");
+          }
+          if (
+            error.response.data.errorMessage ===
+            "Required request parameter 'residenceSemester' for method parameter type ResidenceSemester is not present"
+          ) {
+            return alert("거주학기 선택을 해주세요");
+          }
+          console.log(error.response.data.errorMessage);
         });
     }
   };
@@ -69,11 +87,23 @@ export default function studentupload() {
           `}
         >
           <input type="file" accept=".xlsx" onChange={handleFileChange} />
+          <select value={year} onChange={handleYearChange}>
+            <option value="">연도를 선택해 주세요</option>
+            <option value="S2023">2023년</option>
+            <option value="S2024">2024년</option>
+            <option value="S2025">2025년</option>
+            <option value="S2026">2026년</option>
+            <option value="S2027">2027년</option>
+            <option value="S2028">2028년</option>
+            <option value="S2029">2029년</option>
+            <option value="S2030">2030년</option>
+          </select>
           <select value={residenceSemester} onChange={handleSemesterChange}>
-            <option value="S2023_1">1학기</option>
-            <option value="S2023_SUMMER">여름학기</option>
-            <option value="S2023_2">2학기</option>
-            <option value="S2023_WINTER">겨울학기</option>
+            <option value="">차수를 선택해 주세요</option>
+            <option value="_1">1학기</option>
+            <option value="_SUMMER">여름학기</option>
+            <option value="_2">2학기</option>
+            <option value="_WINTER">겨울학기</option>
           </select>
           <button
             onClick={handleUpload}
