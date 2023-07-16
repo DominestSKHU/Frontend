@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import StudentDate from "../components/studentdate";
 import "../app/globals.css";
 import axios from "axios";
+import { handleUpload } from "@/utils/uploadutil";
 /** @jsxImportSource @emotion/react */
 
 export default function studentupload() {
@@ -22,43 +23,14 @@ export default function studentupload() {
   const handleYearChange = (event) => {
     setYear(event.target.value);
   };
-
-  const handleUpload = () => {
-    if (residenceSemester === "") {
-    }
-    if (selectedFile) {
-      const degree = year + residenceSemester;
-      const formData = new FormData();
-      formData.append("file", selectedFile);
-      formData.append("residenceSemester", degree);
-      axios
-        .post("http://domidomi.duckdns.org/residents/upload-excel", formData)
-        .then((response) => {
-          console.log("요청이 성공적으로 전송되었습니다.");
-        })
-        .catch((error) => {
-          if (
-            error.response.data.errorMessage ===
-            "읽어들인 컬럼 개수가 21개가 아닙니다."
-          ) {
-            return alert("파일형식에 문제가 있습니다.");
-          }
-          if (
-            error.response.data.errorMessage ===
-            "Required request parameter 'residenceSemester' for method parameter type ResidenceSemester is not present"
-          ) {
-            return alert("거주학기 선택을 해주세요");
-          }
-          console.log(error.response.data.errorMessage);
-        });
-    }
-  };
+  handleUpload(selectedFile, residenceSemester, year);
 
   const delet = () => {
     axios
       .delete("http://domidomi.duckdns.org/residents")
       .then((response) => {
         console.log("요청이 성공적으로 전송되었습니다.");
+        return alert("삭제되었습니다.");
       })
       .catch((error) => {
         console.error("요청 전송 중 오류가 발생했습니다:", error);
