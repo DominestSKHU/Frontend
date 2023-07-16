@@ -1,5 +1,6 @@
 import axios from "axios";
 
+//업로드 함수
 export const handleUpload = (selectedFile, residenceSemester, year) => {
   if (year === "") {
     return "연도를 선택해주세요";
@@ -32,4 +33,17 @@ export const handleUpload = (selectedFile, residenceSemester, year) => {
         }
       });
   }
+};
+
+//data 삭제 함수
+export const delet = () => {
+  axios
+    .delete("http://domidomi.duckdns.org/residents")
+    .then((response) => {
+      console.log("요청이 성공적으로 전송되었습니다.");
+      return alert("삭제되었습니다.");
+    })
+    .catch((error) => {
+      console.error("요청 전송 중 오류가 발생했습니다:", error);
+    });
 };

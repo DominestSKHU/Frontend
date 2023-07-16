@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import StudentDate from "../components/studentdate";
 import "../app/globals.css";
 import axios from "axios";
-import { handleUpload } from "@/utils/uploadutil";
+import { handleUpload, delet } from "@/utils/uploadutil";
 /** @jsxImportSource @emotion/react */
 
 export default function studentupload() {
@@ -22,19 +22,6 @@ export default function studentupload() {
   };
   const handleYearChange = (event) => {
     setYear(event.target.value);
-  };
-  handleUpload(selectedFile, residenceSemester, year);
-
-  const delet = () => {
-    axios
-      .delete("http://domidomi.duckdns.org/residents")
-      .then((response) => {
-        console.log("요청이 성공적으로 전송되었습니다.");
-        return alert("삭제되었습니다.");
-      })
-      .catch((error) => {
-        console.error("요청 전송 중 오류가 발생했습니다:", error);
-      });
   };
 
   return (
@@ -78,8 +65,8 @@ export default function studentupload() {
             <option value="_WINTER">겨울학기</option>
           </select>
           <button
-            onClick={handleUpload}
-            disabled={!selectedFile}
+            onClick={() => handleUpload(selectedFile, residenceSemester, year)}
+            disabled={!selectedFile || year === "" || residenceSemester === ""}
             css={css`
               &:disabled {
                 background-color: #ccc;
@@ -89,6 +76,8 @@ export default function studentupload() {
           >
             업로드
           </button>
+          <hr />
+
           <h3>조회</h3>
           {showStudentDate && <StudentDate />}
           <div className="buttondiv">
@@ -113,7 +102,7 @@ export default function studentupload() {
               취소
             </button>
             <button
-              onClick={delet}
+              onClick={() => delet()}
               css={css`
                 &:disabled {
                   background-color: #ccc;
@@ -133,8 +122,9 @@ const UploadForm = styled.div`
   select {
     width: 90px;
     height: 41px;
-    margin: 3px;
+    margin: 5px;
     border-radius: 5px;
+    background-color: #f7f7f7;
   }
   button {
     padding: 10px 20px;
