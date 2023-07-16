@@ -80,7 +80,7 @@ export default function studentupload() {
           height: 100%;
         `}
       >
-        <h1>학생정보 업로드</h1>
+        <h1>학생 정보 관리</h1>
         <div
           css={css`
             text-align: center;
@@ -88,7 +88,7 @@ export default function studentupload() {
         >
           <input type="file" accept=".xlsx" onChange={handleFileChange} />
           <select value={year} onChange={handleYearChange}>
-            <option value="">연도를 선택해 주세요</option>
+            <option value="">연도 선택</option>
             <option value="S2023">2023년</option>
             <option value="S2024">2024년</option>
             <option value="S2025">2025년</option>
@@ -99,7 +99,7 @@ export default function studentupload() {
             <option value="S2030">2030년</option>
           </select>
           <select value={residenceSemester} onChange={handleSemesterChange}>
-            <option value="">차수를 선택해 주세요</option>
+            <option value="">차수 선택</option>
             <option value="_1">1학기</option>
             <option value="_SUMMER">여름학기</option>
             <option value="_2">2학기</option>
@@ -117,7 +117,7 @@ export default function studentupload() {
           >
             업로드
           </button>
-          <h3>업로드 정보</h3>
+          <h3>조회</h3>
           {showStudentDate && <StudentDate />}
           <div className="buttondiv">
             <button
@@ -158,6 +158,12 @@ export default function studentupload() {
   );
 }
 const UploadForm = styled.div`
+  select {
+    width: 90px;
+    height: 41px;
+    margin: 3px;
+    border-radius: 5px;
+  }
   button {
     padding: 10px 20px;
     margin: 5px;
@@ -176,7 +182,6 @@ const UploadForm = styled.div`
     margin-bottom: 10px;
     border: 1px solid black;
     width: 50%;
-    hight: 41px;
     padding: 10px 20px;
     font-size: 15px;
     border-radius: 10px;
