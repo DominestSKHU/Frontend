@@ -11,8 +11,20 @@ export default function studentupload() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [residenceSemester, setresidenceSemester] = useState("");
   const [year, setYear] = useState("");
-  const [showStudentDate, setShowStudentDate] = useState(true);
+  const [residenceSemester_result, setresidenceSemester_result] = useState("");
+  const [year_result, setYear_result] = useState("");
+  const [showStudentDate, setShowStudentDate] = useState(false);
+  const [degree, setDegree] = useState("");
 
+  useEffect(() => {
+    setDegree(year + residenceSemester); // degree 설정
+    console.log(degree);
+  }, [year, residenceSemester]);
+
+  useEffect(() => {
+    setDegree(year_result + residenceSemester_result); // degree 설정
+    console.log(degree);
+  }, [year_result, residenceSemester_result]);
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
@@ -24,6 +36,16 @@ export default function studentupload() {
     setYear(event.target.value);
   };
 
+  const handleSemesterresultChange = (event) => {
+    setresidenceSemester_result(event.target.value);
+  };
+  const handleYearresultChange = (event) => {
+    setYear_result(event.target.value);
+  };
+
+  const ResultStudent = () => {
+    setShowStudentDate(true);
+  };
   return (
     <UploadForm
       css={css`
@@ -65,7 +87,14 @@ export default function studentupload() {
             <option value="_WINTER">겨울학기</option>
           </select>
           <button
-            onClick={() => handleUpload(selectedFile, residenceSemester, year)}
+            onClick={() =>
+              handleUpload(
+                selectedFile,
+                residenceSemester,
+                year,
+                setShowStudentDate
+              )
+            }
             disabled={!selectedFile || year === "" || residenceSemester === ""}
             css={css`
               &:disabled {
@@ -77,9 +106,55 @@ export default function studentupload() {
             업로드
           </button>
           <hr />
-
-          <h3>조회</h3>
-          {showStudentDate && <StudentDate />}
+          <div
+            css={css`
+              display: flex;
+              justify-content: center;
+            `}
+          >
+            <h1
+              css={css`
+                font-size: 20px;
+                margin: 10px;
+              `}
+            >
+              조회
+            </h1>
+            <select value={year_result} onChange={handleYearresultChange}>
+              <option value="">연도 선택</option>
+              <option value="S2023">2023년</option>
+              <option value="S2024">2024년</option>
+              <option value="S2025">2025년</option>
+              <option value="S2026">2026년</option>
+              <option value="S2027">2027년</option>
+              <option value="S2028">2028년</option>
+              <option value="S2029">2029년</option>
+              <option value="S2030">2030년</option>
+            </select>
+            <select
+              value={residenceSemester_result}
+              onChange={handleSemesterresultChange}
+            >
+              <option value="">차수 선택</option>
+              <option value="_1">1학기</option>
+              <option value="_SUMMER">여름학기</option>
+              <option value="_2">2학기</option>
+              <option value="_WINTER">겨울학기</option>
+            </select>
+            <button
+              onClick={() => ResultStudent()}
+              disabled={year_result === "" || residenceSemester_result === ""}
+              css={css`
+                &:disabled {
+                  background-color: #ccc;
+                  cursor: not-allowed;
+                }
+              `}
+            >
+              조회
+            </button>
+          </div>
+          {showStudentDate && <StudentDate degree={degree} />}
           <div className="buttondiv">
             <button
               css={css`

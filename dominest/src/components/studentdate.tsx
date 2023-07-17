@@ -5,19 +5,23 @@ import axios from "axios";
 import "../app/globals.css";
 /** @jsxImportSource @emotion/react */
 
-export default function StudentData() {
+export default function StudentData(props) {
   const [data, setData] = useState<any[]>();
 
   useEffect(() => {
     axios
-      .get("http://domidomi.duckdns.org/residents?residenceSemester=S2023_2")
+      .get(
+        `http://domidomi.duckdns.org/residents?residenceSemester=${props.degree}`
+      )
       .then((response) => {
         setData(response.data?.data?.residents);
       })
       .catch((error) => {
+        console.log("deegr", props.degree);
         console.error("데이터 조회 중 오류 발생:", error);
       });
-  }, []);
+    console.log(props);
+  }, [props]);
 
   const renderTable = () => {
     if (data && Array.isArray(data) && data.length > 0) {
