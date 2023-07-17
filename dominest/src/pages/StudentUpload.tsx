@@ -133,7 +133,7 @@ const UploadForm = styled.div`
     margin-bottom: 10px;
     border: 1px solid black;
     width: 50%;
-    hight: 41px;
+    height: 41px;
     padding: 10px 20px;
     font-size: 15px;
     border-radius: 10px;

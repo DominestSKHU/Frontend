@@ -2,6 +2,7 @@ import Link from "next/link";
 import styled from "@emotion/styled";
 import { css, keyframes } from "@emotion/react";
 import React from "react";
+import axios from "axios";
 /** @jsxImportSource @emotion/react */
 
 const pulseAnimation = keyframes`
@@ -128,8 +129,39 @@ const Signin = styled.p`
     }
   }
 `;
-
+const passwordError = css`
+  color: red;
+  padding: 0%;
+  margin: auto;
+  font-size: 0.8em;
+`;
 export default function signup() {
+  const [email, setEmail] = React.useState("");
+  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+  const sendEmail = () => {
+    email === ""
+      ? alert("이메일을 입력해주세요")
+      : axios
+          .post("http://localhost:3000/api/email", {
+            email: email,
+          })
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => console.log(err));
+  };
+  const [passwords, setPasswords] = React.useState({
+    password0: "",
+    password1: "",
+  });
+
+  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setPasswords((prevState) => ({ ...prevState, [name]: value }));
+  };
+
   return (
     <div
       css={css`
@@ -143,7 +175,7 @@ export default function signup() {
       <Form>
         <Title>회원가입</Title>
         <Label>
-          <Input required type="email" />
+          <Input required type="email" onChange={handleEmail} />
           <span>이메일</span>
         </Label>
         <FlexContainer>
@@ -171,18 +203,37 @@ export default function signup() {
                 background-color: #6a6a6a;
               }
             `}
+            onClick={sendEmail}
           >
             인증번호확인
           </button>
         </FlexContainer>
         <Label>
-          <Input required type="password" />
+          <Input
+            required
+            type="password"
+            name="password0"
+            value={passwords.password0}
+            onChange={handlePassword}
+          />
           <span>비밀번호</span>
         </Label>
         <Label>
-          <Input required type="password" />
+          <Input
+            required
+            type="password"
+            name="password1"
+            value={passwords.password1}
+            onChange={handlePassword}
+          />
           <span>비밀번호 확인</span>
         </Label>
+        {passwords.password0 !== passwords.password1 && (
+          <p css={passwordError}>비밀번호가 일치하지 않습니다.</p>
+        )}
+        {passwords.password0 === "" && (
+          <p css={passwordError}>비밀번호를 입력해주세요</p>
+        )}
         <SubmitButton>회원가입</SubmitButton>
         <Signin>
           이미 계정이 있습니까? <Link href="/login">로그인</Link>
