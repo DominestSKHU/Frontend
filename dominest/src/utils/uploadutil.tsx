@@ -53,3 +53,14 @@ export const delet = () => {
       console.error("요청 전송 중 오류가 발생했습니다:", error);
     });
 };
+
+export const fetchData = (degree, setData) => {
+  axios
+    .get(`http://domidomi.duckdns.org/residents?residenceSemester=${degree}`)
+    .then((response) => {
+      setData(response.data?.data?.residents);
+    })
+    .catch((error) => {
+      console.error("데이터 조회 중 오류 발생:", error);
+    });
+};

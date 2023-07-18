@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import StudentDate from "../components/studentdate";
+import StudentData from "@/components/StudentData";
 import "../app/globals.css";
-import axios from "axios";
 import { handleUpload, delet } from "@/utils/uploadutil";
+import StudentEdit from "@/components/StudentEdit";
 /** @jsxImportSource @emotion/react */
 
 export default function studentupload() {
@@ -14,17 +14,18 @@ export default function studentupload() {
   const [residenceSemester_result, setresidenceSemester_result] = useState("");
   const [year_result, setYear_result] = useState("");
   const [showStudentDate, setShowStudentDate] = useState(false);
+  const [showStudentEdit, setshowStudentEdit] = useState(false);
   const [degree, setDegree] = useState("");
 
   useEffect(() => {
     setDegree(year + residenceSemester); // degree 설정
     console.log(degree);
-  }, [year, residenceSemester]);
+  }, [year, residenceSemester, degree]);
 
   useEffect(() => {
     setDegree(year_result + residenceSemester_result); // degree 설정
     console.log(degree);
-  }, [year_result, residenceSemester_result]);
+  }, [year_result, residenceSemester_result, degree]);
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
@@ -45,6 +46,10 @@ export default function studentupload() {
 
   const ResultStudent = () => {
     setShowStudentDate(true);
+  };
+
+  const EditStudent = () => {
+    setshowStudentEdit(true);
   };
   return (
     <UploadForm
@@ -107,6 +112,7 @@ export default function studentupload() {
           </button>
           <hr />
           <div
+            className="check"
             css={css`
               display: flex;
               justify-content: center;
@@ -154,9 +160,11 @@ export default function studentupload() {
               조회
             </button>
           </div>
-          {showStudentDate && <StudentDate degree={degree} />}
+
           <div className="buttondiv">
             <button
+              onClick={() => EditStudent()}
+              disabled={!showStudentDate}
               css={css`
                 &:disabled {
                   background-color: #ccc;
@@ -164,7 +172,7 @@ export default function studentupload() {
                 }
               `}
             >
-              저장
+              학생정보 수정
             </button>
             <button
               css={css`
@@ -174,7 +182,7 @@ export default function studentupload() {
                 }
               `}
             >
-              취소
+              학생정보 추가
             </button>
             <button
               onClick={() => delet()}
@@ -185,9 +193,19 @@ export default function studentupload() {
                 }
               `}
             >
-              삭제(임시생성)
+              전체 삭제(임시생성)
             </button>
           </div>
+          {showStudentEdit && (
+            <>
+              <StudentEdit degree={degree} />
+            </>
+          )}
+          {showStudentDate && (
+            <>
+              <StudentData degree={degree} />
+            </>
+          )}
         </div>
       </div>
     </UploadForm>
