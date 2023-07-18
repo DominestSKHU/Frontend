@@ -243,4 +243,36 @@ const UploadForm = styled.div`
     color: #333;
     background-color: #f7f7f7;
   }
+
+  .edit {
+    display: flex;
+    justify-content: center;
+    table {
+      border: 1px solid black;
+      border-collapse: collapse;
+      th,
+      td {
+        border: 1px solid black;
+        padding: 0px 20px;
+      }
+    }
+  }
+  .editresult {
+    input {
+      padding: 0;
+      background-color: white;
+      border-radius: 0px;
+      width: 100%;
+      height: 100%;
+    }
+    table {
+      border: 1px solid black;
+      border-collapse: collapse;
+      th,
+      td {
+        border: 1px solid black;
+        padding: 0px 20px;
+      }
+    }
+  }
 `;
