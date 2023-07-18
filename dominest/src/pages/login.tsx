@@ -5,45 +5,49 @@ import { BiUser } from "react-icons/bi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { css } from "@emotion/react";
 import "../app/globals.css";
+import AdminNavbar from "../components/AdminNavbar";
 /** @jsxImportSource @emotion/react */
 
 export default function Login() {
   return (
-    <div
-      css={css`
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: rgb(255, 255, 255);
-      `}
-    >
-      <Form action="" className="form_main">
-        <p className="heading">Login</p>
-        <div className="inputContainer">
-          <BiUser />
-          <input
-            type="text"
-            className="inputField"
-            id="username"
-            placeholder="아이디를 입력해주세요"
-          />
-        </div>
+    <div>
+      <AdminNavbar />
+      <div
+        css={css`
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 90vh;
+          background-color: rgb(255, 255, 255);
+        `}
+      >
+        <Form action="" className="form_main">
+          <p className="heading">Login</p>
+          <div className="inputContainer">
+            <BiUser />
+            <input
+              type="text"
+              className="inputField"
+              id="username"
+              placeholder="아이디를 입력해주세요"
+            />
+          </div>
 
-        <div className="inputContainer">
-          <RiLockPasswordLine />
-          <input
-            type="password"
-            className="inputField"
-            id="password"
-            placeholder="비밀번호를 입력해주세요"
-          />
-        </div>
+          <div className="inputContainer">
+            <RiLockPasswordLine />
+            <input
+              type="password"
+              className="inputField"
+              id="password"
+              placeholder="비밀번호를 입력해주세요"
+            />
+          </div>
 
-        <button id="button">Submit</button>
-        <Link href="/">아이디를 잃어버리셨나요?</Link>
-        <Link href="/">비밀번호를 잃어버리셨나요?</Link>
-      </Form>
+          <button id="button">Submit</button>
+          <Link href="/">아이디를 잃어버리셨나요?</Link>
+          <Link href="/">비밀번호를 잃어버리셨나요?</Link>
+        </Form>
+      </div>
     </div>
   );
 }
