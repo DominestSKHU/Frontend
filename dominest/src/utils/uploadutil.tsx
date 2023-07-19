@@ -54,6 +54,7 @@ export const delet = () => {
     });
 };
 
+//data 차수조회
 export const fetchData = (degree, setData) => {
   axios
     .get(`http://domidomi.duckdns.org/residents?residenceSemester=${degree}`)

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import axios from "axios";
 import { fetchData } from "@/utils/uploadutil";
 
 export default function StudentEdit(props) {
@@ -9,7 +9,8 @@ export default function StudentEdit(props) {
   const [showStudentEdituploadData, setshowStudentEdituploadData] =
     useState(false);
   const [filteredData, setFilteredData] = useState([]);
-  const [residentId, setresidentId] = useState([]);
+  const [residentId, setResidentId] = useState({});
+
   useEffect(() => {
     fetchData(props.degree, setData);
   }, [props]);
@@ -27,12 +28,70 @@ export default function StudentEdit(props) {
     }
   };
 
-  const handleUpdate = (resident) => {
-    setresidentId(resident);
-    setshowStudentEdituploadData(true);
+  const handleChangeUpdate = () => {
+    if (residentId.dateOfBirth) {
+      residentId.dateOfBirth = residentId.dateOfBirth
+        .replace(/-/g, "")
+        .slice(2);
+    }
+
+    if (residentId.leavingDate) {
+      residentId.leavingDate = residentId.leavingDate.replace(/-/g, "");
+    }
+
+    if (residentId.admissionDate) {
+      residentId.admissionDate = residentId.admissionDate.replace(/-/g, "");
+    }
+
+    if (residentId.semesterStartDate) {
+      residentId.semesterStartDate = residentId.semesterStartDate.replace(
+        /-/g,
+        ""
+      );
+    }
+
+    if (residentId.semesterEndDate) {
+      residentId.semesterEndDate = residentId.semesterEndDate.replace(/-/g, "");
+    }
+    setshowStudentEdituploadData(false);
+    axios
+      .patch(
+        `http://domidomi.duckdns.org/residents/${residentId.id}`,
+        residentId,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log("유저 수정 완료:", response.data);
+        return alert("수정 완료되었습니다.");
+      })
+      .catch((error) => {
+        console.error("유저 수정 실패:", error);
+        console.log(residentId);
+      });
   };
-  const handleInputChange = (e, residentId, field) => {
-    const value = e.target.value;
+
+  const handleUpdate = (resident) => {
+    const updatedResident = {
+      ...resident,
+      residenceSemester: props.degree,
+    };
+    setResidentId(updatedResident);
+    setshowStudentEdituploadData(true);
+    setShowStudentEditData(false);
+  };
+
+  const handleInputChange = (e, field) => {
+    let value = e.target.value;
+
+    setResidentId((prevResident) => ({
+      ...prevResident,
+      [field]: value,
+    }));
+    console.log(value);
   };
   return (
     <div>
@@ -60,8 +119,8 @@ export default function StudentEdit(props) {
               </tr>
             </thead>
             <tbody>
-              {filteredData.map((resident) => (
-                <tr key={resident.id}>
+              {filteredData.map((resident, index) => (
+                <tr key={`${resident.id}_${index}`}>
                   <td>{resident.name}</td>
                   <td>{resident.studentId}</td>
                   <td>{resident.dateOfBirth}</td>
@@ -96,54 +155,42 @@ export default function StudentEdit(props) {
                   <input
                     type="text"
                     value={residentId.name}
-                    onChange={(e) =>
-                      handleInputChange(e, residentId.id, "name")
-                    }
+                    onChange={(e) => handleInputChange(e, "name")}
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.gender}
-                    onChange={(e) =>
-                      handleInputChange(e, residentId.id, "gender")
-                    }
+                    onChange={(e) => handleInputChange(e, "gender")}
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.studentId}
-                    onChange={(e) =>
-                      handleInputChange(e, residentId.id, "studentId")
-                    }
+                    onChange={(e) => handleInputChange(e, "studentId")}
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.period}
-                    onChange={(e) =>
-                      handleInputChange(e, residentId.id, "period")
-                    }
+                    onChange={(e) => handleInputChange(e, "period")}
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.currentStatus}
-                    onChange={(e) =>
-                      handleInputChange(e, residentId.id, "currentStatus")
-                    }
+                    onChange={(e) => handleInputChange(e, "currentStatus")}
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.dateOfBirth}
-                    onChange={(e) =>
-                      handleInputChange(e, residentId.id, "dateOfBirth")
-                    }
+                    onChange={(e) => handleInputChange(e, "dateOfBirth")}
                   />
                 </td>
               </tr>
@@ -160,54 +207,42 @@ export default function StudentEdit(props) {
                   <input
                     type="text"
                     value={residentId.dormitory}
-                    onChange={(e) =>
-                      handleInputChange(e, residentId.id, "dormitory")
-                    }
+                    onChange={(e) => handleInputChange(e, "dormitory")}
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.major}
-                    onChange={(e) =>
-                      handleInputChange(e, residentId.id, "major")
-                    }
+                    onChange={(e) => handleInputChange(e, "major")}
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.grade}
-                    onChange={(e) =>
-                      handleInputChange(e, residentId.id, "grade")
-                    }
+                    onChange={(e) => handleInputChange(e, "grade")}
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.semester}
-                    onChange={(e) =>
-                      handleInputChange(e, residentId.id, "semester")
-                    }
+                    onChange={(e) => handleInputChange(e, "semester")}
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.roomNumber}
-                    onChange={(e) =>
-                      handleInputChange(e, residentId.id, "roomNumber")
-                    }
+                    onChange={(e) => handleInputChange(e, "roomNumber")}
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.assignedRoom}
-                    onChange={(e) =>
-                      handleInputChange(e, residentId.id, "assignedRoom")
-                    }
+                    onChange={(e) => handleInputChange(e, "assignedRoom")}
                   />
                 </td>
               </tr>
@@ -224,54 +259,42 @@ export default function StudentEdit(props) {
                   <input
                     type="text"
                     value={residentId.admissionDate}
-                    onChange={(e) =>
-                      handleInputChange(e, residentId.id, "admissionDate")
-                    }
+                    onChange={(e) => handleInputChange(e, "admissionDate")}
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.leavingDate}
-                    onChange={(e) =>
-                      handleInputChange(e, residentId.id, "leavingDate")
-                    }
+                    onChange={(e) => handleInputChange(e, "leavingDate")}
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.semesterStartDate}
-                    onChange={(e) =>
-                      handleInputChange(e, residentId.id, "semesterStartDate")
-                    }
+                    onChange={(e) => handleInputChange(e, "semesterStartDate")}
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.semesterEndDate}
-                    onChange={(e) =>
-                      handleInputChange(e, residentId.id, "semesterEndDate")
-                    }
+                    onChange={(e) => handleInputChange(e, "semesterEndDate")}
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.phoneNumber}
-                    onChange={(e) =>
-                      handleInputChange(e, residentId.id, "phoneNumber")
-                    }
+                    onChange={(e) => handleInputChange(e, "phoneNumber")}
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.socialCode}
-                    onChange={(e) =>
-                      handleInputChange(e, residentId.id, "socialCode")
-                    }
+                    onChange={(e) => handleInputChange(e, "socialCode")}
                   />
                 </td>
               </tr>
@@ -286,31 +309,25 @@ export default function StudentEdit(props) {
                   <input
                     type="text"
                     value={residentId.socialName}
-                    onChange={(e) =>
-                      handleInputChange(e, residentId.id, "socialName")
-                    }
+                    onChange={(e) => handleInputChange(e, "socialName")}
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.zipCode}
-                    onChange={(e) =>
-                      handleInputChange(e, residentId.id, "zipCode")
-                    }
+                    onChange={(e) => handleInputChange(e, "zipCode")}
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.address}
-                    onChange={(e) =>
-                      handleInputChange(e, residentId.id, "address")
-                    }
+                    onChange={(e) => handleInputChange(e, "address")}
                   />
                 </td>
                 <td colSpan="3">
-                  <button onClick={() => handleUpdate(resident)}>수정</button>
+                  <button onClick={handleChangeUpdate}>수정</button>
                 </td>
               </tr>
             </tbody>

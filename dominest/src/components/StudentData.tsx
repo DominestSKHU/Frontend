@@ -7,7 +7,7 @@ import "../app/globals.css";
 
 export default function StudentData(props) {
   const [data, setData] = useState<any[]>();
-  const [showStudentDate, setShowStudentDate] = useState(false);
+
   useEffect(() => {
     fetchData(props.degree, setData);
   }, [props]);
@@ -110,7 +110,6 @@ const tableStyle = css`
 
   th,
   td {
-    border: 1px solid black;
     padding: 5px;
     input {
       border-round: 0px;
