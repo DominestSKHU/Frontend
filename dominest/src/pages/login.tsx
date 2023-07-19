@@ -6,9 +6,23 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { css } from "@emotion/react";
 import "../app/globals.css";
 import AdminNavbar from "../components/AdminNavbar";
+import axios from "axios";
 /** @jsxImportSource @emotion/react */
 
 export default function Login() {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const login = () => {
+    axios
+      .post("http://localhost:3000/api/auth/login", {
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <div>
       <AdminNavbar />

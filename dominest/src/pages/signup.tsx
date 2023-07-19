@@ -96,7 +96,7 @@ const Input = styled.input`
   }
 
   &:focus + span,
-  &:valid + span {
+  &:valid + span{
     top: 30px;
     font-size: 0.7em;
     font-weight: 600;
@@ -140,6 +140,10 @@ export default function signup() {
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
+  const isEmailValid = (email: string) => {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailPattern.test(email);
+  };
   const sendEmail = () => {
     email === ""
       ? alert("이메일을 입력해주세요")
@@ -178,11 +182,16 @@ export default function signup() {
           <Input required type="email" onChange={handleEmail} />
           <span>이메일</span>
         </Label>
+        {!isEmailValid(email) && email !== "" && (
+          <p css={passwordError}>올바른 이메일 형식으로 작성해주세요.</p>
+        )}
+        <SubmitButton>인증번호 전송</SubmitButton>
         <FlexContainer>
           <Label>
             <Input
               required
               type="text"
+              autoComplete="off"
               css={css`
                 width: auto;
               `}
@@ -231,7 +240,7 @@ export default function signup() {
         {passwords.password0 !== passwords.password1 && (
           <p css={passwordError}>비밀번호가 일치하지 않습니다.</p>
         )}
-        {passwords.password0 === "" && (
+        {passwords.password0 === "" && passwords.password1 === "" && (
           <p css={passwordError}>비밀번호를 입력해주세요</p>
         )}
         <SubmitButton>회원가입</SubmitButton>

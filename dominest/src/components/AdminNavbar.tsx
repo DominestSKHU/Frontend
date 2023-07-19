@@ -43,23 +43,23 @@ const ListStyle = styled.li`
 const UserStyle = styled.p`
   margin-right: 5px;
   font-weight: bold;
-  width: 3em;
+  width: fit-content;
 `;
 const User = styled.div`
   display: flex;
   align-items: center;
   width: fit-content;
-  background-color: #dcdcdc;
-  border-radius: 20px;
   padding: 0px 10px;
-  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.147);
-  width: fit-content;
 `;
 const LogoutStyle = styled.div`
   margin-right: 10%;
-  `
+  background-color: #dcdcdc;
+  border-radius: 20px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.147);
+  width: fit-content;
+`;
 export default function Navber() {
-  const [name, setName] = React.useState("이용자");
+  const [name, setName] = React.useState("이용ddd자");
   const [role, setRole] = React.useState("근로생");
   return (
     <div>
@@ -143,6 +143,7 @@ export default function Navber() {
         <LogoutStyle>
           <User className="login">
             <HiOutlineUserCircle
+            className="loginIcon"
               size={25}
               css={css`
                 margin-right: 5px;
