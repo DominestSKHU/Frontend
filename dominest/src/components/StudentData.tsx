@@ -106,10 +106,11 @@ export default function StudentData(props) {
 }
 const tableStyle = css`
   border-collapse: collapse;
-  width: 300%;
+  width: 250%;
 
   th,
   td {
+    border: 1px solid black;
     padding: 5px;
     input {
       border-round: 0px;
