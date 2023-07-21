@@ -96,7 +96,7 @@ const Input = styled.input`
   }
 
   &:focus + span,
-  &:valid + span{
+  &:valid + span {
     top: 30px;
     font-size: 0.7em;
     font-weight: 600;
