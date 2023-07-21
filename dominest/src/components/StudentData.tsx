@@ -7,7 +7,7 @@ import "../app/globals.css";
 
 export default function StudentData(props) {
   const [data, setData] = useState<any[]>();
-  const [showStudentDate, setShowStudentDate] = useState(false);
+
   useEffect(() => {
     fetchData(props.degree, setData);
   }, [props]);
@@ -106,7 +106,7 @@ export default function StudentData(props) {
 }
 const tableStyle = css`
   border-collapse: collapse;
-  width: 300%;
+  width: 250%;
 
   th,
   td {

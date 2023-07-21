@@ -25,6 +25,7 @@ export const handleUpload = (
         return alert("성공적으로 업로드 되었습니다.");
       })
       .catch((error) => {
+        console.log(error);
         if (
           error.response.data.errorMessage ===
           "읽어들인 컬럼 개수가 21개가 아닙니다."
@@ -54,6 +55,7 @@ export const delet = () => {
     });
 };
 
+//data 차수조회
 export const fetchData = (degree, setData) => {
   axios
     .get(`http://domidomi.duckdns.org/residents?residenceSemester=${degree}`)
@@ -62,5 +64,61 @@ export const fetchData = (degree, setData) => {
     })
     .catch((error) => {
       console.error("데이터 조회 중 오류 발생:", error);
+    });
+};
+
+// 데이터 input 수정
+export const handleInputChange = (e, field) => {
+  let value = e.target.value;
+
+  setResidentId((prevResident) => ({
+    ...prevResident,
+    [field]: value,
+  }));
+  console.log(value);
+};
+
+//데이터 수정
+export const handleChangeUpdate = (residentId, showStudentEdituploadData) => {
+  if (residentId.dateOfBirth) {
+    residentId.dateOfBirth = residentId.dateOfBirth.replace(/-/g, "").slice(2);
+  }
+
+  if (residentId.leavingDate) {
+    residentId.leavingDate = residentId.leavingDate.replace(/-/g, "");
+  }
+
+  if (residentId.admissionDate) {
+    residentId.admissionDate = residentId.admissionDate.replace(/-/g, "");
+  }
+
+  if (residentId.semesterStartDate) {
+    residentId.semesterStartDate = residentId.semesterStartDate.replace(
+      /-/g,
+      ""
+    );
+  }
+
+  if (residentId.semesterEndDate) {
+    residentId.semesterEndDate = residentId.semesterEndDate.replace(/-/g, "");
+  }
+  setshowStudentEdituploadData(false);
+  axios
+    .patch(
+      `http://domidomi.duckdns.org/residents/${residentId.id}`,
+      residentId,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+    .then((response) => {
+      console.log("유저 수정 완료:", response.data);
+      return alert("수정 완료되었습니다.");
+    })
+    .catch((error) => {
+      console.error("유저 수정 실패:", error);
+      console.log(residentId);
     });
 };
