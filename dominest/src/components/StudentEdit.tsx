@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+
 import { fetchData } from "@/utils/uploadutil";
 import {
   handleSearch,
@@ -234,42 +234,54 @@ export default function StudentEdit(props) {
                   <input
                     type="text"
                     value={residentId.admissionDate}
-                    onChange={(e) => handleInputChange(e, "admissionDate",setResidentId)}
+                    onChange={(e) =>
+                      handleInputChange(e, "admissionDate", setResidentId)
+                    }
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.leavingDate}
-                    onChange={(e) => handleInputChange(e, "leavingDate"setResidentId)}
+                    onChange={(e) =>
+                      handleInputChange(e, "leavingDate", setResidentId)
+                    }
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.semesterStartDate}
-                    onChange={(e) => handleInputChange(e, "semesterStartDate",setResidentId)}
+                    onChange={(e) =>
+                      handleInputChange(e, "semesterStartDate", setResidentId)
+                    }
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.semesterEndDate}
-                    onChange={(e) => handleInputChange(e, "semesterEndDate",setResidentId)}
+                    onChange={(e) =>
+                      handleInputChange(e, "semesterEndDate", setResidentId)
+                    }
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.phoneNumber}
-                    onChange={(e) => handleInputChange(e, "phoneNumber",setResidentId)}
+                    onChange={(e) =>
+                      handleInputChange(e, "phoneNumber", setResidentId)
+                    }
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.socialCode}
-                    onChange={(e) => handleInputChange(e, "socialCode",setResidentId)}
+                    onChange={(e) =>
+                      handleInputChange(e, "socialCode", setResidentId)
+                    }
                   />
                 </td>
               </tr>
@@ -284,21 +296,27 @@ export default function StudentEdit(props) {
                   <input
                     type="text"
                     value={residentId.socialName}
-                    onChange={(e) => handleInputChange(e, "socialName",setResidentId)}
+                    onChange={(e) =>
+                      handleInputChange(e, "socialName", setResidentId)
+                    }
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.zipCode}
-                    onChange={(e) => handleInputChange(e, "zipCode",setResidentId)}
+                    onChange={(e) =>
+                      handleInputChange(e, "zipCode", setResidentId)
+                    }
                   />
                 </td>
                 <td>
                   <input
                     type="text"
                     value={residentId.address}
-                    onChange={(e) => handleInputChange(e, "address",setResidentId)}
+                    onChange={(e) =>
+                      handleInputChange(e, "address", setResidentId)
+                    }
                   />
                 </td>
                 <td colSpan="3">
@@ -320,5 +338,4 @@ export default function StudentEdit(props) {
       )}
     </div>
   );
-  
 }

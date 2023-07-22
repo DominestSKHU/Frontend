@@ -15,6 +15,7 @@ export default function studentupload() {
   const [year_result, setYear_result] = useState("");
   const [showStudentDate, setShowStudentDate] = useState(false);
   const [showStudentEdit, setshowStudentEdit] = useState(false);
+  const [showStudentAdd, setshowStudentAdd] = useState(false);
   const [degree, setDegree] = useState("");
 
   useEffect(() => {
@@ -50,6 +51,9 @@ export default function studentupload() {
 
   const EditStudent = () => {
     setshowStudentEdit(true);
+  };
+  const AddEditStudent = () => {
+    setshowStudentAdd(true);
   };
   return (
     <UploadForm
@@ -175,6 +179,8 @@ export default function studentupload() {
               학생정보 수정
             </button>
             <button
+              onClick={() => AddStudent()}
+              disabled={!showStudentDate}
               css={css`
                 &:disabled {
                   background-color: #ccc;
