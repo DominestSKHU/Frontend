@@ -3,10 +3,7 @@ import { useEffect, useState } from "react";
 import { fetchData } from "@/utils/uploadutil";
 
 export default function StudentAdd(props) {
-  const [showStudentEdituploadData, setshowStudentEdituploadData] =
-    useState(false);
-
-  const [residentId, setResidentId] = useState({});
+  const [Data, setData] = useState([]);
 
   useEffect(() => {
     fetchData(props.degree, setData);
@@ -27,61 +24,45 @@ export default function StudentAdd(props) {
             </tr>
           </thead>
           <tbody>
-            <tr key={residentId.id}>
+            <tr>
               <td>
                 <input
                   type="text"
-                  value={residentId.name}
-                  onChange={(e) => handleInputChange(e, "name", setResidentId)}
+                  onChange={(e) => handleInputChange(e, "name")}
                 />
               </td>
               <td>
                 <input
                   type="text"
-                  value={residentId.gender}
-                  onChange={(e) =>
-                    handleInputChange(e, "gender", setResidentId)
-                  }
+                  onChange={(e) => handleInputChange(e, "gender")}
                 />
               </td>
               <td>
                 <input
                   type="text"
-                  value={residentId.studentId}
-                  onChange={(e) =>
-                    handleInputChange(e, "studentId", setResidentId)
-                  }
+                  onChange={(e) => handleInputChange(e, "studentId")}
                 />
               </td>
               <td>
                 <input
                   type="text"
-                  value={residentId.period}
-                  onChange={(e) =>
-                    handleInputChange(e, "period", setResidentId)
-                  }
+                  onChange={(e) => handleInputChange(e, "period")}
                 />
               </td>
               <td>
                 <input
                   type="text"
-                  value={residentId.currentStatus}
-                  onChange={(e) =>
-                    handleInputChange(e, "currentStatus", setResidentId)
-                  }
+                  onChange={(e) => handleInputChange(e, "currentStatus")}
                 />
               </td>
               <td>
                 <input
                   type="text"
-                  value={residentId.dateOfBirth}
-                  onChange={(e) =>
-                    handleInputChange(e, "dateOfBirth", setResidentId)
-                  }
+                  onChange={(e) => handleInputChange(e, "dateOfBirth")}
                 />
               </td>
             </tr>
-            <tr key={residentId.id}>
+            <tr>
               <td>기숙사</td>
               <td>전공</td>
               <td>학년</td>
@@ -89,59 +70,45 @@ export default function StudentAdd(props) {
               <td>호실</td>
               <td>배정방</td>
             </tr>
-            <tr key={residentId.id}>
+            <tr>
               <td>
                 <input
                   type="text"
-                  value={residentId.dormitory}
-                  onChange={(e) =>
-                    handleInputChange(e, "dormitory", setResidentId)
-                  }
+                  onChange={(e) => handleInputChange(e, "dormitory")}
                 />
               </td>
               <td>
                 <input
                   type="text"
-                  value={residentId.major}
-                  onChange={(e) => handleInputChange(e, "major", setResidentId)}
+                  onChange={(e) => handleInputChange(e, "major")}
                 />
               </td>
               <td>
                 <input
                   type="text"
-                  value={residentId.grade}
-                  onChange={(e) => handleInputChange(e, "grade", setResidentId)}
+                  onChange={(e) => handleInputChange(e, "grade")}
                 />
               </td>
               <td>
                 <input
                   type="text"
-                  value={residentId.semester}
-                  onChange={(e) =>
-                    handleInputChange(e, "semester", setResidentId)
-                  }
+                  onChange={(e) => handleInputChange(e, "semester")}
                 />
               </td>
               <td>
                 <input
                   type="text"
-                  value={residentId.roomNumber}
-                  onChange={(e) =>
-                    handleInputChange(e, "roomNumber", setResidentId)
-                  }
+                  onChange={(e) => handleInputChange(e, "roomNumber")}
                 />
               </td>
               <td>
                 <input
                   type="text"
-                  value={residentId.assignedRoom}
-                  onChange={(e) =>
-                    handleInputChange(e, "assignedRoom", setResidentId)
-                  }
+                  onChange={(e) => handleInputChange(e, "assignedRoom")}
                 />
               </td>
             </tr>
-            <tr key={residentId.id}>
+            <tr>
               <td>입사일자</td>
               <td>퇴사일시</td>
               <td>차수시작일</td>
@@ -149,104 +116,71 @@ export default function StudentAdd(props) {
               <td>HP</td>
               <td>사회코드</td>
             </tr>
-            <tr key={residentId.id}>
+            <tr>
               <td>
                 <input
                   type="text"
-                  value={residentId.admissionDate}
-                  onChange={(e) =>
-                    handleInputChange(e, "admissionDate", setResidentId)
-                  }
+                  onChange={(e) => handleInputChange(e, "admissionDate")}
                 />
               </td>
               <td>
                 <input
                   type="text"
-                  value={residentId.leavingDate}
-                  onChange={(e) =>
-                    handleInputChange(e, "leavingDate", setResidentId)
-                  }
+                  onChange={(e) => handleInputChange(e, "leavingDate")}
                 />
               </td>
               <td>
                 <input
                   type="text"
-                  value={residentId.semesterStartDate}
-                  onChange={(e) =>
-                    handleInputChange(e, "semesterStartDate", setResidentId)
-                  }
+                  onChange={(e) => handleInputChange(e, "semesterStartDate")}
                 />
               </td>
               <td>
                 <input
                   type="text"
-                  value={residentId.semesterEndDate}
-                  onChange={(e) =>
-                    handleInputChange(e, "semesterEndDate", setResidentId)
-                  }
+                  onChange={(e) => handleInputChange(e, "semesterEndDate")}
                 />
               </td>
               <td>
                 <input
                   type="text"
-                  value={residentId.phoneNumber}
-                  onChange={(e) =>
-                    handleInputChange(e, "phoneNumber", setResidentId)
-                  }
+                  onChange={(e) => handleInputChange(e, "phoneNumber")}
                 />
               </td>
               <td>
                 <input
                   type="text"
-                  value={residentId.socialCode}
-                  onChange={(e) =>
-                    handleInputChange(e, "socialCode", setResidentId)
-                  }
+                  onChange={(e) => handleInputChange(e, "socialCode")}
                 />
               </td>
             </tr>
-            <tr key={residentId.id}>
+            <tr>
               <td>사회명</td>
               <td>ZIP</td>
               <td>주소</td>
               <td colSpan="3"></td>
             </tr>
-            <tr key={residentId.id}>
+            <tr>
               <td>
                 <input
                   type="text"
-                  value={residentId.socialName}
-                  onChange={(e) =>
-                    handleInputChange(e, "socialName", setResidentId)
-                  }
+                  onChange={(e) => handleInputChange(e, "socialName")}
                 />
               </td>
               <td>
                 <input
                   type="text"
-                  value={residentId.zipCode}
-                  onChange={(e) =>
-                    handleInputChange(e, "zipCode", setResidentId)
-                  }
+                  onChange={(e) => handleInputChange(e, "zipCode")}
                 />
               </td>
               <td>
                 <input
                   type="text"
-                  value={residentId.address}
-                  onChange={(e) =>
-                    handleInputChange(e, "address", setResidentId)
-                  }
+                  onChange={(e) => handleInputChange(e, "address")}
                 />
               </td>
               <td colSpan="3">
-                <button
-                  onClick={(e) =>
-                    handleChangeUpdate(residentId, setshowStudentEdituploadData)
-                  }
-                >
-                  수정
-                </button>
+                <button onClick={(e) => handleChangeUpdate()}>수정</button>
               </td>
             </tr>
           </tbody>
