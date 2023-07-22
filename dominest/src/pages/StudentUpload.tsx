@@ -5,6 +5,7 @@ import StudentData from "@/components/StudentData";
 import "../app/globals.css";
 import { handleUpload, delet } from "@/utils/uploadutil";
 import StudentEdit from "@/components/StudentEdit";
+import StudentAdd from "@/components/StudentAdd";
 /** @jsxImportSource @emotion/react */
 
 export default function studentupload() {
@@ -52,7 +53,7 @@ export default function studentupload() {
   const EditStudent = () => {
     setshowStudentEdit(true);
   };
-  const AddEditStudent = () => {
+  const AddStudent = () => {
     setshowStudentAdd(true);
   };
   return (
@@ -205,6 +206,11 @@ export default function studentupload() {
           {showStudentEdit && (
             <>
               <StudentEdit degree={degree} />
+            </>
+          )}
+          {showStudentAdd && (
+            <>
+              <StudentAdd degree={degree} />
             </>
           )}
           {showStudentDate && (

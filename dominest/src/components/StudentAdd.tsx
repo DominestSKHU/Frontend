@@ -1,13 +1,77 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-import { fetchData } from "@/utils/uploadutil";
+export default function StuendtAdd(props) {
+  const [data, setData] = useState([]);
 
-export default function StudentAdd(props) {
-  const [Data, setData] = useState([]);
+  const [formData, setFormData] = useState({
+    name: "",
+    gender: "",
+    studentId: "",
+    period: "",
+    currentStatus: "",
+    dateOfBirth: "",
+    dormitory: "",
+    major: "",
+    grade: "",
+    semester: "",
+    roomNumber: "",
+    assignedRoom: "",
+    admissionDate: "",
+    leavingDate: "",
+    semesterStartDate: "",
+    semesterEndDate: "",
+    phoneNumber: "",
+    socialCode: "",
+    socialName: "",
+    zipCode: "",
+    address: "",
+    residenceSemester: props.degree,
+  });
 
-  useEffect(() => {
-    fetchData(props.degree, setData);
-  }, [props]);
+  const handleInputChange = (e, fieldName) => {
+    setFormData({
+      ...formData,
+      [fieldName]: e.target.value,
+    });
+  };
+
+  const handleAddStudent = () => {
+    if (formData.dateOfBirth) {
+      formData.dateOfBirth = formData.dateOfBirth.replace(/-/g, "").slice(2);
+    }
+
+    if (formData.leavingDate) {
+      formData.leavingDate = formData.leavingDate.replace(/-/g, "");
+    }
+
+    if (formData.admissionDate) {
+      formData.admissionDate = formData.admissionDate.replace(/-/g, "");
+    }
+
+    if (formData.semesterStartDate) {
+      formData.semesterStartDate = formData.semesterStartDate.replace(/-/g, "");
+    }
+
+    if (formData.semesterEndDate) {
+      formData.semesterEndDate = formData.semesterEndDate.replace(/-/g, "");
+    }
+
+    axios
+      .post(`http://domidomi.duckdns.org/residents`, formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        console.log("유저 추가 완료:", response.data);
+        return alert("추가 완료되었습니다.");
+      })
+      .catch((error) => {
+        console.error("유저 수정 실패:", error);
+        console.log(formData);
+      });
+  };
 
   return (
     <div>
@@ -180,7 +244,7 @@ export default function StudentAdd(props) {
                 />
               </td>
               <td colSpan="3">
-                <button onClick={(e) => handleChangeUpdate()}>수정</button>
+                <button onClick={(e) => handleAddStudent()}>수정</button>
               </td>
             </tr>
           </tbody>
