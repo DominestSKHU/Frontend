@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function StuendtAdd(props) {
-  const [data, setData] = useState([]);
-
   const [formData, setFormData] = useState({
     name: "",
     gender: "",

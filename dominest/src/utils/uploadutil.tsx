@@ -66,3 +66,15 @@ export const fetchData = (degree, setData) => {
       console.error("데이터 조회 중 오류 발생:", error);
     });
 };
+
+//삭제
+export const StudentDelete = (id) => {
+  axios
+    .delete(`http://domidomi.duckdns.org/residents/${id}`)
+    .then((response) => {
+      return alert("삭제를 성공했습니다.");
+    })
+    .catch((error) => {
+      console.error("데이터 조회 중 오류 발생:", error);
+    });
+};
