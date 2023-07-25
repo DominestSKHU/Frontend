@@ -1,19 +1,23 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import styled from "@emotion/styled";
 import Link from "next/link";
 import { css } from "@emotion/react";
 import { HiOutlineUserCircle } from "react-icons/hi";
+import { CiStar } from "react-icons/ci";
+import { useRouter } from 'next/navigation'
+
 /** @jsxImportSource @emotion/react */
 
 const ListStyle = styled.li`
-  margin-left: 10%;
+  margin-left: 8vh;
   width: 7rem;
   & > ul {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
     list-style: none;
     width: max-content;
     position: absolute;
-    top: 32px;
+    top: 2.3%;
     & > p {
       margin: 5px;
     }
@@ -48,19 +52,56 @@ const UserStyle = styled.p`
 const User = styled.div`
   display: flex;
   align-items: center;
-  width: fit-content;
+  width: 11em;
+  height: 3em;
   padding: 0px 10px;
 `;
+
 const LogoutStyle = styled.div`
   margin-right: 10%;
   background-color: #dcdcdc;
   border-radius: 20px;
+  width: 10%;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.147);
-  width: fit-content;
+  width: 11em;
+  height: 3em;
+  display: flex;
+  align-items: center;
+  &:hover,
+  &:focus {
+    & > .login {
+      display: none;
+    }
+    & > .logout {
+      display: flex;
+      justify-content: center;
+    }
+    & {
+      width: 150px;
+    }
+  }
+`;
+const Bookmark = css`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+const LinkP = styled.p`
+  margin: 0px 5px;
 `;
 export default function Navber() {
   const [name, setName] = React.useState("이용ddd자");
   const [role, setRole] = React.useState("근로생");
+  const [loginState, setLoginState] = React.useState(true);
+  
+  const router = useRouter();
+
+  const onLogout: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("authToken");
+    router.push("/login");
+  };
+
   return (
     <div>
       <nav
@@ -69,7 +110,7 @@ export default function Navber() {
           justify-content: space-between;
           align-items: center;
           width: 100vw;
-          height: 10vh;
+          height: 8vh;
           background-color: rgb(173, 173, 173);
         `}
       >
@@ -85,9 +126,8 @@ export default function Navber() {
           <div
             className="logo"
             css={css`
-              font-size: 1.2em;
+              font-size: 1.7em;
               font-weight: bold;
-              margin-right: 10%;
             `}
           >
             Dominest
@@ -106,7 +146,10 @@ export default function Navber() {
               <ul>
                 <p>즐겨찾기</p>
                 <li>
-                  <Link href="/login">땡땡이</Link>
+                  <Link href="/login" css={Bookmark}>
+                    <LinkP>땡땡이</LinkP>
+                    <CiStar size={20} />
+                  </Link>
                 </li>
               </ul>
             </ListStyle>
@@ -114,13 +157,22 @@ export default function Navber() {
               <ul>
                 <p>관리자 업무</p>
                 <li>
-                  <Link href="/login">권한 부여</Link>
+                  <Link href="/login" css={Bookmark}>
+                    <LinkP>권한 부여</LinkP>
+                    <CiStar size={20} />
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/login">땡땡이</Link>
+                  <Link href="/login" css={Bookmark}>
+                    <LinkP>땡땡이</LinkP>
+                    <CiStar size={20} />
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/login">빵빵이</Link>
+                  <Link href="/login" css={Bookmark}>
+                    <LinkP>땡땡이</LinkP>
+                    <CiStar size={20} />
+                  </Link>
                 </li>
               </ul>
             </ListStyle>
@@ -128,13 +180,22 @@ export default function Navber() {
               <ul>
                 <p>근로생 업무</p>
                 <li>
-                  <Link href="/login">땡땡이</Link>
+                  <Link href="/login" css={Bookmark}>
+                    <LinkP>땡땡이</LinkP>
+                    <CiStar size={20} />
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/login">빵빵이</Link>
+                  <Link href="/login" css={Bookmark}>
+                    <LinkP>빵빵이</LinkP>
+                    <CiStar size={20} />
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/login">옥지얌</Link>
+                  <Link href="/login" css={Bookmark}>
+                    <LinkP>옥지얌</LinkP>
+                    <CiStar size={20} />
+                  </Link>
                 </li>
               </ul>
             </ListStyle>
@@ -143,7 +204,7 @@ export default function Navber() {
         <LogoutStyle>
           <User className="login">
             <HiOutlineUserCircle
-            className="loginIcon"
+              className="loginIcon"
               size={25}
               css={css`
                 margin-right: 5px;
@@ -161,6 +222,25 @@ export default function Navber() {
             >
               {name}
             </UserStyle>
+          </User>
+          <User
+            className="logout"
+            css={css`
+              display: none;
+            `}
+          >
+            <button
+              css={css`
+                border: none;
+                background-color: inherit;
+                font-size: 1.3em;
+                text-align: end;
+              `}
+              type="button"
+              onClick={onLogout}
+            >
+              로그아웃 하기
+            </button>
           </User>
         </LogoutStyle>
       </nav>

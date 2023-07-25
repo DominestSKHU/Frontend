@@ -1,9 +1,26 @@
-import React from 'react'
+'use client'
+import AdminNavbar from "@/components/AdminNavbar";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 
-type Props = {}
+type Props = {};
 
 function Home({}: Props) {
-  return <div>Home</div>
+  const router = useRouter();
+
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+
+    if (!authToken) {
+      router.push("/login");
+    }
+  }, []);
+
+  return (
+    <>
+      <AdminNavbar />
+    </>
+  );
 }
 
-export default Home
+export default Home;
