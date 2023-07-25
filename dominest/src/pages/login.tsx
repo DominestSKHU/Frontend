@@ -84,7 +84,7 @@ export default function Login() {
             Submit
           </button>
           <Link href="/signup">회원가입 하러 가기</Link>
-          <Link href="/">비밀번호를 잃어버리셨나요?</Link>
+          <Link href="/losePassword">비밀번호를 잃어버리셨나요?</Link>
         </Form>
       </div>
     </div>

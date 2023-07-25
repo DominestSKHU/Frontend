@@ -1,249 +1,184 @@
-import React, { MouseEventHandler } from "react";
-import styled from "@emotion/styled";
-import Link from "next/link";
+// import React from "react";
 import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { CiStar } from "react-icons/ci";
-import { useRouter } from 'next/navigation'
-
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import React from "react";
 /** @jsxImportSource @emotion/react */
 
-const ListStyle = styled.li`
-  margin-left: 8vh;
-  width: 7rem;
-  & > ul {
-    display: flex;
-    flex-direction: column;
-    list-style: none;
-    width: max-content;
-    position: absolute;
-    top: 2.3%;
-    & > p {
-      margin: 5px;
-    }
-    &:hover {
-      & > li {
-        display: block;
-      }
-    }
-    & > li {
-      background-color: rgb(202, 202, 202);
-      margin-top: 5px;
-      padding: 5px 10px;
-      width: initial;
-      border-radius: 5px;
-      display: none;
-      &:hover {
-        background-color: rgb(189, 189, 189);
-        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.147);
-      }
-      & > a {
-        text-decoration: none;
-        color: black;
-      }
-    }
-  }
-`;
-const UserStyle = styled.p`
-  margin-right: 5px;
+const title = css`
   font-weight: bold;
-  width: fit-content;
-`;
-const User = styled.div`
-  display: flex;
-  align-items: center;
-  width: 11em;
-  height: 3em;
-  padding: 0px 10px;
-`;
-
-const LogoutStyle = styled.div`
-  margin-right: 10%;
-  background-color: #dcdcdc;
-  border-radius: 20px;
   width: 10%;
-  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.147);
-  width: 11em;
-  height: 3em;
+  color: #575757;
+  font-size: larger;
+`;
+const LeftNav = css`
   display: flex;
+  justify-content: space-around;
   align-items: center;
-  &:hover,
-  &:focus {
-    & > .login {
+  width: 42%;
+`;
+const NavStyle = css`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
+  height: 10vh;
+`;
+const NavList = css`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+  padding-left: 0px;
+  width: 30vw;
+`;
+const NavItem = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding-left: 0px;
+`;
+const LoginState = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15%;
+  & > .loginIcon,
+  span {
+    width: fit-content;
+  }
+  & > .logout {
+    display: none;
+  }
+  &:hover {
+    & > .loginIcon,
+    span {
       display: none;
     }
     & > .logout {
-      display: flex;
-      justify-content: center;
-    }
-    & {
-      width: 150px;
+      display: block;
     }
   }
 `;
-const Bookmark = css`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-const LinkP = styled.p`
-  margin: 0px 5px;
-`;
-export default function Navber() {
+
+const Navber = () => {
   const [name, setName] = React.useState("이용ddd자");
   const [role, setRole] = React.useState("근로생");
-  const [loginState, setLoginState] = React.useState(true);
-  
+  const [bookmark, setBookmark] = React.useState(false);
+  const [admin, setAdmin] = React.useState(false);
+  const [worker, setWorker] = React.useState(false);
   const router = useRouter();
 
-  const onLogout: MouseEventHandler<HTMLButtonElement> = (e) => {
+  const onLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    // 로컬 스토리지에서 토큰 삭제
     localStorage.removeItem("authToken");
+    // 로그아웃 후 로그인 페이지로 이동
     router.push("/login");
   };
 
   return (
-    <div>
-      <nav
-        css={css`
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          width: 100vw;
-          height: 8vh;
-          background-color: rgb(173, 173, 173);
-        `}
-      >
-        <div
+    <div css={NavStyle}>
+      <div css={LeftNav}>
+        <div className="logo" css={title}>
+          Dominest
+        </div>
+        <ul css={NavList}>
+          <li>
+            <button css={NavItem} onClick={() => setBookmark(!bookmark)}>
+              <p>즐겨찾기</p>
+            </button>
+            {bookmark ? (
+              <ul css={NavItem}>
+                <li>
+                  <Link
+                    href="/login"
+                    css={css`
+                      display: flex;
+                      align-items: center;
+                    `}
+                  >
+                    <span>빵빵이</span>
+                    <CiStar size={20} />
+                  </Link>
+                </li>
+              </ul>
+            ) : (
+              <></>
+            )}
+            {/* 다른 즐겨찾기 아이템들 추가 */}
+          </li>
+          <li>
+            <button css={NavItem} onClick={() => setAdmin(!admin)}>
+              <p>관리자 목록</p>
+            </button>
+            {admin ? (
+              <ul css={NavItem}>
+                <li>
+                  <Link
+                    href="/login"
+                    css={css`
+                      display: flex;
+                      align-items: center;
+                    `}
+                  >
+                    <span>빵빵이</span>
+                    <CiStar size={20} />
+                  </Link>
+                </li>
+              </ul>
+            ) : (
+              <></>
+            )}
+          </li>
+          <li>
+            <button css={NavItem} onClick={() => setWorker(!worker)}>
+              <p>근로생 목록</p>
+            </button>
+            {worker ? (
+              <ul css={NavItem}>
+                <li>
+                  <Link
+                    href="/login"
+                    css={css`
+                      display: flex;
+                      align-items: center;
+                    `}
+                  >
+                    <span>빵빵이</span>
+                    <CiStar size={20} />
+                  </Link>
+                </li>
+              </ul>
+            ) : (
+              <></>
+            )}
+            {/* 다른 근로생 목록 아이템들 추가 */}
+          </li>
+        </ul>
+      </div>
+      <LoginState>
+        <HiOutlineUserCircle className="loginIcon" size={25} />
+        {role === "근로생" ? <span>근로생</span> : <span>관리자</span>}
+        <span
           css={css`
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: fit-content;
-            padding-left: 10%;
+            color: green;
+            margin-right: 5px;
           `}
         >
-          <div
-            className="logo"
-            css={css`
-              font-size: 1.7em;
-              font-weight: bold;
-            `}
-          >
-            Dominest
-          </div>
-          <ul
-            css={css`
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              background-color: var(--background-color);
-              padding: 8px 12px;
-              list-style: none;
-            `}
-          >
-            <ListStyle>
-              <ul>
-                <p>즐겨찾기</p>
-                <li>
-                  <Link href="/login" css={Bookmark}>
-                    <LinkP>땡땡이</LinkP>
-                    <CiStar size={20} />
-                  </Link>
-                </li>
-              </ul>
-            </ListStyle>
-            <ListStyle>
-              <ul>
-                <p>관리자 업무</p>
-                <li>
-                  <Link href="/login" css={Bookmark}>
-                    <LinkP>권한 부여</LinkP>
-                    <CiStar size={20} />
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/login" css={Bookmark}>
-                    <LinkP>땡땡이</LinkP>
-                    <CiStar size={20} />
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/login" css={Bookmark}>
-                    <LinkP>땡땡이</LinkP>
-                    <CiStar size={20} />
-                  </Link>
-                </li>
-              </ul>
-            </ListStyle>
-            <ListStyle>
-              <ul>
-                <p>근로생 업무</p>
-                <li>
-                  <Link href="/login" css={Bookmark}>
-                    <LinkP>땡땡이</LinkP>
-                    <CiStar size={20} />
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/login" css={Bookmark}>
-                    <LinkP>빵빵이</LinkP>
-                    <CiStar size={20} />
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/login" css={Bookmark}>
-                    <LinkP>옥지얌</LinkP>
-                    <CiStar size={20} />
-                  </Link>
-                </li>
-              </ul>
-            </ListStyle>
-          </ul>
-        </div>
-        <LogoutStyle>
-          <User className="login">
-            <HiOutlineUserCircle
-              className="loginIcon"
-              size={25}
-              css={css`
-                margin-right: 5px;
-              `}
-            />
-            {role === "근로생" ? (
-              <UserStyle>근로생</UserStyle>
-            ) : (
-              <UserStyle>관리자</UserStyle>
-            )}
-            <UserStyle
-              css={css`
-                color: green;
-              `}
-            >
-              {name}
-            </UserStyle>
-          </User>
-          <User
-            className="logout"
-            css={css`
-              display: none;
-            `}
-          >
-            <button
-              css={css`
-                border: none;
-                background-color: inherit;
-                font-size: 1.3em;
-                text-align: end;
-              `}
-              type="button"
-              onClick={onLogout}
-            >
-              로그아웃 하기
-            </button>
-          </User>
-        </LogoutStyle>
-      </nav>
+          {name}
+        </span>
+        <button className="logout" onClick={onLogout}>
+          로그아웃 하기
+        </button>
+      </LoginState>
     </div>
   );
-}
+};
+
+export default Navber;
