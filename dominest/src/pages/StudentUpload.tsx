@@ -77,6 +77,12 @@ export default function studentupload() {
             text-align: center;
           `}
         >
+          <div className="filebox">
+            <label htmlFor="file">파일찾기</label>
+            <input className="upload-name" placeholder="메롱" />
+            <input type="file" id="file" />
+          </div>
+
           <input type="file" accept=".xlsx" onChange={handleFileChange} />
           <select value={year} onChange={handleYearChange}>
             <option value="">연도 선택</option>
