@@ -10,7 +10,7 @@ const body = css`
   align-items: center;
 `;
 const formContainer = css`
-  width: auto;
+  width: 20%;
   background-color: #fff;
   padding: 32px 24px;
   font-size: 14px;
@@ -135,8 +135,13 @@ export default function losePassword() {
         </form>
 
         <p className="signup-link" css={signupLink}>
-          계정이 없으신가요?<br/>
-          <Link css={[link, signupLinkText]} href="#" className="signup-link link">
+          계정이 없으신가요?
+          <br />
+          <Link
+            css={[link, signupLinkText]}
+            href="/signup"
+            className="signup-link link"
+          >
             회원가입 하러 가기
           </Link>
         </p>

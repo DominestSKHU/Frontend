@@ -25,7 +25,8 @@ const NavStyle = css`
   justify-content: space-around;
   align-items: center;
   width: 100vw;
-  height: 10vh;
+  height: 8vh;
+  background-color: #dcdcdc;
 `;
 const NavList = css`
   display: flex;
@@ -66,6 +67,7 @@ const LoginState = styled.div`
   }
 `;
 
+
 const Navber = () => {
   const [name, setName] = React.useState("이용ddd자");
   const [role, setRole] = React.useState("근로생");
@@ -73,6 +75,12 @@ const Navber = () => {
   const [admin, setAdmin] = React.useState(false);
   const [worker, setWorker] = React.useState(false);
   const router = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    setIsLoggedIn(false);
+  };
 
   const onLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

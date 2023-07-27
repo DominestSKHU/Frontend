@@ -6,4 +6,3 @@ export const loginUtil = (email: string, password: string)=>
       email,
       password,
     })
-

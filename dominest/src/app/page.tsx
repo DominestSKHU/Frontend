@@ -8,14 +8,6 @@ type Props = {};
 function Home({}: Props) {
   const router = useRouter();
 
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-
-  const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    setIsLoggedIn(false);
-  };
-
-
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
 
