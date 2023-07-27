@@ -4,38 +4,59 @@ import React from "react";
 import { BiUser } from "react-icons/bi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { css } from "@emotion/react";
+import { loginUtil } from "@/utils/loginUtil";
 import "../app/globals.css";
-import AdminNavbar from "../components/AdminNavbar";
 import axios from "axios";
+import { useRouter } from "next/router";
 /** @jsxImportSource @emotion/react */
 
 export default function Login() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const login = () => {
-    axios
-      .post("http://localhost:3000/api/auth/login", {
-        email: email,
-        password: password,
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
+  const router = useRouter();
+
+  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("e.target.value", e.target.value);
+
+    setEmail(e.target.value);
   };
+  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+  const onLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("email", email, password);
+
+    loginUtil(email, password)
+      .then((res) => {
+        console.log("res", res.data.data.accessToken);
+
+        const token = res.data.data.accessToken;
+        localStorage.setItem("authToken", token);
+        alert("로그인이 완료되었습니다.");
+        router.push("/");
+      })
+      .catch((err) => {
+        if (err.response && err.response.data) {
+          alert(err.response.data.message);
+        } else {
+          alert("오류가 발생하였습니다.");
+        }
+      });
+  };
+
   return (
     <div>
-      <AdminNavbar />
       <div
         css={css`
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 90vh;
+          height: 100vh;
           background-color: rgb(255, 255, 255);
         `}
       >
-        <Form action="" className="form_main">
+        <Form action="" className="form_main" onSubmit={onLogin}>
           <p className="heading">Login</p>
           <div className="inputContainer">
             <BiUser />
@@ -44,6 +65,7 @@ export default function Login() {
               className="inputField"
               id="username"
               placeholder="아이디를 입력해주세요"
+              onChange={onChangeEmail}
             />
           </div>
 
@@ -54,12 +76,15 @@ export default function Login() {
               className="inputField"
               id="password"
               placeholder="비밀번호를 입력해주세요"
+              onChange={onChangePassword}
             />
           </div>
 
-          <button id="button">Submit</button>
-          <Link href="/">아이디를 잃어버리셨나요?</Link>
-          <Link href="/">비밀번호를 잃어버리셨나요?</Link>
+          <button type="submit" onSubmit={() => onLogin}>
+            Submit
+          </button>
+          <Link href="/signup">회원가입 하러 가기</Link>
+          <Link href="/losePassword">비밀번호를 잃어버리셨나요?</Link>
         </Form>
       </div>
     </div>
