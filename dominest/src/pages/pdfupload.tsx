@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import styled from "@emotion/styled";
-import PdfList from "@/components/pdflist";
+import PdfList from "@/components/PdfList";
+import { FileUpload, DormitoryYear } from "@/style/InputStyle";
+import Navber from "@/components/AdminNavbar";
 
 export default function pdfupload() {
   return (
-    <UploadForm>
-      <div className="time">
+    <div>
+      <Navber />
+      <DormitoryYear>
         <select>
           <option value="">연도 선택</option>
           <option value="S2023">2023년</option>
@@ -25,68 +27,13 @@ export default function pdfupload() {
           <option value="_WINTER">겨울학기</option>
         </select>
         <button>조회</button>
-      </div>
-      <div className="upload">
+      </DormitoryYear>
+      <FileUpload>
         <label htmlFor="file">파일 업로드</label>
         <input type="file" id="file" accept=".zip" />
         <button>업로드 </button>
-      </div>
+      </FileUpload>
       <PdfList />
-    </UploadForm>
+    </div>
   );
 }
-const UploadForm = styled.div`
-  .time {
-    display: flex;
-    justify-content: center;
-    margin-left: 10px;
-    select {
-      margin-left: 10px;
-      border-radius: 10px;
-      height: 40px;
-    }
-  }
-  .upload {
-    margin: 30px;
-
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    input {
-      padding-left: 10px;
-      width: 50%;
-      height: 50px;
-      border: 1px solid rgb(77, 77, 77);
-      border-radius: 0px 10px 10px 0px;
-      text-align: left;
-      line-height: 50px;
-    }
-    label {
-      line-height: 50px;
-      padding: auto;
-      text-align: center;
-      width: 10%;
-      height: 50px;
-      border: 1px solid rgb(77, 77, 77);
-      border-radius: 10px 0px 0px 10px;
-      cursor: pointer;
-      &:hover {
-        background: rgb(77, 77, 77);
-        color: #fff;
-      }
-    }
-    input[type="file"]::file-selector-button {
-      display: none;
-    }
-  }
-  button {
-    margin-left: 20px;
-    border-radius: 10px;
-    width: 80px;
-
-    &:hover {
-      background: rgb(77, 77, 77);
-      color: #fff;
-    }
-  }
-`;

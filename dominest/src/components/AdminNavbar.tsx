@@ -67,9 +67,8 @@ const LoginState = styled.div`
   }
 `;
 
-
 const Navber = () => {
-  const [name, setName] = React.useState("이용ddd자");
+  const [name, setName] = React.useState("이용자");
   const [role, setRole] = React.useState("근로생");
   const [bookmark, setBookmark] = React.useState(false);
   const [admin, setAdmin] = React.useState(false);
