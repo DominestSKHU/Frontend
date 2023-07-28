@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import PdfList from "dominest/src/components/PdfList.tsx";
-/** @jsxImportSource @emotion/react */
+import PdfList from "@/components/pdflist";
+
 export default function pdfupload() {
   return (
     <UploadForm>
