@@ -1,6 +1,0 @@
-# pack-refs with: peeled fully-peeled sorted 
-d4cb5a4aa8bc9cac3d63985a8556136e536ee76d refs/heads/domi_1
-c39362b78f7b657f3f4e12f08cd9177b4a9b4374 refs/heads/domi_2
-08b17d238c87428509a927aca1bca66d13213059 refs/heads/domi_3
-c39362b78f7b657f3f4e12f08cd9177b4a9b4374 refs/heads/main
-09d446792309fd2823fc034d77208444b14e5657 refs/heads/patch-1

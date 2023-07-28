@@ -5,7 +5,6 @@ import PdfList from "@/components/pdflist";
 export default function pdfupload() {
   return (
     <UploadForm>
-      <PdfList></PdfList>
       <div className="time">
         <select>
           <option value="">연도 선택</option>
@@ -32,6 +31,7 @@ export default function pdfupload() {
         <input type="file" id="file" accept=".zip" />
         <button>업로드 </button>
       </div>
+      <PdfList />
     </UploadForm>
   );
 }
