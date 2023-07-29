@@ -5,7 +5,8 @@ export const handleUpload = (
   selectedFile,
   residenceSemester,
   year,
-  setShowStudentDate
+  setShowStudentDate,
+  authToken
 ) => {
   if (year === "") {
     return "연도를 선택해주세요";
@@ -18,8 +19,17 @@ export const handleUpload = (
     const formData = new FormData();
     formData.append("file", selectedFile);
     formData.append("residenceSemester", degree);
+    const config = {
+      headers: {
+        AuthToken: `Bearer ${authToken}`,
+      },
+    };
     axios
-      .post("http://domidomi.duckdns.org/residents/upload-excel", formData)
+      .post(
+        "http://domidomi.duckdns.org/residents/upload-excel",
+        formData,
+        config
+      )
       .then((response) => {
         setShowStudentDate(true);
         return alert("성공적으로 업로드 되었습니다.");
