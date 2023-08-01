@@ -8,6 +8,7 @@ import { handleUpload, delet } from "@/utils/uploadutil";
 import StudentEdit from "@/components/StudentEdit";
 import StudentAdd from "@/components/StudentAdd";
 import Navber from "@/components/AdminNavbar";
+import { FileUpload } from "@/style/InputStyle";
 
 /** @jsxImportSource @emotion/react */
 
@@ -16,11 +17,11 @@ export default function studentupload() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [residenceSemester, setresidenceSemester] = useState("");
   const [year, setYear] = useState("");
-  const [residenceSemester_result, setresidenceSemester_result] = useState("");
-  const [year_result, setYear_result] = useState("");
   const [showStudentDate, setShowStudentDate] = useState(false);
   const [showStudentEdit, setshowStudentEdit] = useState(false);
   const [showStudentAdd, setshowStudentAdd] = useState(false);
+  const [showStudentManagement, setshowStudentManagement] = useState(false);
+  const [showStudnetUpload, setshowStudnetUpload] = useState(false);
   const [degree, setDegree] = useState("");
   const [Token, setToken] = useState("");
 
@@ -33,12 +34,9 @@ export default function studentupload() {
   }, []);
 
   useEffect(() => {
-    setDegree(year + residenceSemester); // degree 설정
+    setDegree(year + residenceSemester);
   }, [year, residenceSemester, degree]);
 
-  useEffect(() => {
-    setDegree(year_result + residenceSemester_result); // degree 설정
-  }, [year_result, residenceSemester_result, degree]);
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
@@ -50,23 +48,6 @@ export default function studentupload() {
     setYear(event.target.value);
   };
 
-  const handleSemesterresultChange = (event) => {
-    setresidenceSemester_result(event.target.value);
-  };
-  const handleYearresultChange = (event) => {
-    setYear_result(event.target.value);
-  };
-
-  const ResultStudent = () => {
-    setShowStudentDate(true);
-  };
-
-  const EditStudent = () => {
-    setshowStudentEdit(true);
-  };
-  const AddStudent = () => {
-    setshowStudentAdd(true);
-  };
   return (
     <div>
       <Navber />
@@ -84,13 +65,11 @@ export default function studentupload() {
             height: 100%;
           `}
         >
-          <h1>학생 정보 관리</h1>
           <div
             css={css`
               text-align: center;
             `}
           >
-            <input type="file" accept=".xlsx" onChange={handleFileChange} />
             <select value={year} onChange={handleYearChange}>
               <option value="">연도 선택</option>
               <option value="S2023">2023년</option>
@@ -110,18 +89,8 @@ export default function studentupload() {
               <option value="_WINTER">겨울학기</option>
             </select>
             <button
-              onClick={() =>
-                handleUpload(
-                  selectedFile,
-                  residenceSemester,
-                  year,
-                  setShowStudentDate,
-                  Token
-                )
-              }
-              disabled={
-                !selectedFile || year === "" || residenceSemester === ""
-              }
+              onClick={() => setShowStudentDate(true)}
+              disabled={year === "" || residenceSemester === ""}
               css={css`
                 &:disabled {
                   background-color: #ccc;
@@ -129,96 +98,116 @@ export default function studentupload() {
                 }
               `}
             >
-              업로드
+              조회
             </button>
-            <hr />
-            <div
-              className="check"
+            <button
+              onClick={() => {
+                setshowStudentManagement(true);
+                setshowStudnetUpload(false);
+                setshowStudentEdit(false);
+                setshowStudentAdd(false);
+              }}
+              disabled={year === "" || residenceSemester === ""}
               css={css`
-                display: flex;
-                justify-content: center;
+                &:disabled {
+                  background-color: #ccc;
+                  cursor: not-allowed;
+                }
               `}
             >
-              <h1
-                css={css`
-                  font-size: 20px;
-                  margin: 10px;
-                `}
-              >
-                조회
-              </h1>
-              <select value={year_result} onChange={handleYearresultChange}>
-                <option value="">연도 선택</option>
-                <option value="S2023">2023년</option>
-                <option value="S2024">2024년</option>
-                <option value="S2025">2025년</option>
-                <option value="S2026">2026년</option>
-                <option value="S2027">2027년</option>
-                <option value="S2028">2028년</option>
-                <option value="S2029">2029년</option>
-                <option value="S2030">2030년</option>
-              </select>
-              <select
-                value={residenceSemester_result}
-                onChange={handleSemesterresultChange}
-              >
-                <option value="">차수 선택</option>
-                <option value="_1">1학기</option>
-                <option value="_SUMMER">여름학기</option>
-                <option value="_2">2학기</option>
-                <option value="_WINTER">겨울학기</option>
-              </select>
-              <button
-                onClick={() => ResultStudent()}
-                disabled={year_result === "" || residenceSemester_result === ""}
-                css={css`
-                  &:disabled {
-                    background-color: #ccc;
-                    cursor: not-allowed;
+              학생 관리
+            </button>
+            <br />
+            {showStudentManagement && (
+              <>
+                <div className="buttondiv">
+                  <button
+                    onClick={() => {
+                      setshowStudnetUpload(true);
+                      setshowStudentManagement(false);
+                      setshowStudentEdit(false);
+                      setshowStudentAdd(false);
+                    }}
+                    css={css`
+                      &:disabled {
+                        background-color: #ccc;
+                        cursor: not-allowed;
+                      }
+                    `}
+                  >
+                    업로드
+                  </button>
+                  <button
+                    onClick={() => {
+                      setshowStudentEdit(true);
+                      setshowStudnetUpload(false);
+                      setshowStudentManagement(false);
+                      setshowStudentAdd(false);
+                    }}
+                    css={css`
+                      &:disabled {
+                        background-color: #ccc;
+                        cursor: not-allowed;
+                      }
+                    `}
+                  >
+                    학생정보 수정
+                  </button>
+                  <button
+                    onClick={() => {
+                      setshowStudentAdd(true);
+                      setshowStudentManagement(false);
+                    }}
+                    css={css`
+                      &:disabled {
+                        background-color: #ccc;
+                        cursor: not-allowed;
+                      }
+                    `}
+                  >
+                    학생정보 추가
+                  </button>
+                  <button
+                    onClick={() => delet()}
+                    css={css`
+                      &:disabled {
+                        background-color: #ccc;
+                        cursor: not-allowed;
+                      }
+                    `}
+                  >
+                    전체 삭제(임시생성)
+                  </button>
+                </div>
+              </>
+            )}
+            {showStudnetUpload && (
+              <>
+                <input type="file" accept=".xlsx" onChange={handleFileChange} />
+                <button
+                  onClick={() =>
+                    handleUpload(
+                      selectedFile,
+                      residenceSemester,
+                      year,
+                      setShowStudentDate,
+                      Token
+                    )
                   }
-                `}
-              >
-                조회
-              </button>
-            </div>
-
-            <div className="buttondiv">
-              <button
-                onClick={() => EditStudent()}
-                disabled={!showStudentDate}
-                css={css`
-                  &:disabled {
-                    background-color: #ccc;
-                    cursor: not-allowed;
+                  disabled={
+                    !selectedFile || year === "" || residenceSemester === ""
                   }
-                `}
-              >
-                학생정보 수정
-              </button>
-              <button
-                onClick={() => AddStudent()}
-                disabled={!showStudentDate}
-                css={css`
-                  &:disabled {
-                    background-color: #ccc;
-                    cursor: not-allowed;
-                  }
-                `}
-              >
-                학생정보 추가
-              </button>
-              <button
-                onClick={() => delet()}
-                css={css`
-                  &:disabled {
-                    background-color: #ccc;
-                    cursor: not-allowed;
-                  }
-                `}
-              >
-                전체 삭제(임시생성)
-              </button>
-            </div>
+                  css={css`
+                    &:disabled {
+                      background-color: #ccc;
+                      cursor: not-allowed;
+                    }
+                  `}
+                >
+                  업로드
+                </button>
+              </>
+            )}
             {showStudentEdit && (
               <>
                 <StudentEdit degree={degree} />
