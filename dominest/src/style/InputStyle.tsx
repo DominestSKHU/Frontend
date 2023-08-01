@@ -76,3 +76,14 @@ export const DormitoryYear = styled.div`
     }
   }
 `;
+export const Button = styled.button`
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 20px;
+  border-radius: 10px;
+  width: 80px;
+  &:hover {
+    background: rgb(77, 77, 77);
+    color: #fff;
+  }
+`;

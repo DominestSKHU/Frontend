@@ -34,12 +34,10 @@ export default function studentupload() {
 
   useEffect(() => {
     setDegree(year + residenceSemester); // degree 설정
-    console.log(degree);
   }, [year, residenceSemester, degree]);
 
   useEffect(() => {
     setDegree(year_result + residenceSemester_result); // degree 설정
-    console.log(degree);
   }, [year_result, residenceSemester_result, degree]);
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);

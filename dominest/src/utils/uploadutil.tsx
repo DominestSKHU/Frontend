@@ -1,6 +1,5 @@
 import axios from "axios";
 
-//업로드 함수
 export const handleUpload = (
   selectedFile,
   residenceSemester,
@@ -19,23 +18,20 @@ export const handleUpload = (
     const formData = new FormData();
     formData.append("file", selectedFile);
     formData.append("residenceSemester", degree);
-    const config = {
-      headers: {
-        AuthToken: `Bearer ${authToken}`,
-      },
-    };
+
     axios
-      .post(
-        "http://domidomi.duckdns.org/residents/upload-excel",
-        formData,
-        config
-      )
+      .post("http://domidomi.duckdns.org/residents/upload-excel", formData, {
+        headers: {
+          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBQ0NFU1MiLCJhdWQiOiJVc2VybmFtZVBhc3N3b3JkQXV0aGVudGljYXRpb25Ub2tlbiBbUHJpbmNpcGFsPWVlZWVAZW1haWwuY29tLCBDcmVkZW50aWFscz1bUFJPVEVDVEVEXSwgQXV0aGVudGljYXRlZD1mYWxzZSwgRGV0YWlscz1udWxsLCBHcmFudGVkIEF1dGhvcml0aWVzPVtdXSIsImlhdCI6MTY5MDY1MzkzMywiZXhwIjoxNjkxODY0NDMzfQ.mlCfMGhMplch1fXBvImTk2DtSAL0UggY5Kf_CAHiiHBZ2dIc1j1K5QYMZJZ2kdhPjpf2O4FSbQwnCj10NjLtkw`, // 헤더에 토큰 설정
+        },
+      })
       .then((response) => {
         setShowStudentDate(true);
         return alert("성공적으로 업로드 되었습니다.");
       })
       .catch((error) => {
         console.log(error);
+        /*
         if (
           error.response.data.errorMessage ===
           "읽어들인 컬럼 개수가 21개가 아닙니다."
@@ -48,6 +44,7 @@ export const handleUpload = (
         ) {
           return alert("연도 및 차수 에러");
         }
+        */
       });
   }
 };
