@@ -1,3 +1,4 @@
+
 "use client";
 import Navbar from "@/components/AdminNavbar";
 import { useRouter } from "next/navigation";
@@ -18,9 +19,10 @@ function Home({}: Props) {
 
   return (
     <>
-      <Navbar />
+       <Navbar />
     </>
   );
 }
 
 export default Home;
+
