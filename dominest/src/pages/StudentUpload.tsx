@@ -227,17 +227,17 @@ export default function studentupload() {
             )}
             {showStudentEdit && (
               <>
-                <StudentEdit degree={degree} />
+                <StudentEdit degree={degree} Token={Token} />
               </>
             )}
             {showStudentAdd && (
               <>
-                <StudentAdd degree={degree} />
+                <StudentAdd degree={degree} Token={Token} />
               </>
             )}
             {showStudentDate && (
               <>
-                <StudentData degree={degree} />
+                <StudentData degree={degree} Token={Token} />
               </>
             )}
           </div>

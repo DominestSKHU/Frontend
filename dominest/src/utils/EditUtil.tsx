@@ -21,7 +21,8 @@ export const handleSearch = (
 //데이터 수정 결과물 업로드
 export const handleChangeUpdate = (
   residentId,
-  setshowStudentEdituploadData
+  setshowStudentEdituploadData,
+  authToken
 ) => {
   if (residentId.dateOfBirth) {
     residentId.dateOfBirth = residentId.dateOfBirth.replace(/-/g, "").slice(2);
@@ -53,6 +54,7 @@ export const handleChangeUpdate = (
       {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
         },
       }
     )

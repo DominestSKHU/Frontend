@@ -59,7 +59,7 @@ export default function StudentEdit(props) {
             </thead>
             <tbody>
               {filteredData.map((resident, index) => (
-                <tr key={`${resident.id}_${index}`}>
+                <tr key={`${resident.id}`}>
                   <td>{resident.name}</td>
                   <td>{resident.studentId}</td>
                   <td>{resident.dateOfBirth}</td>
@@ -101,7 +101,7 @@ export default function StudentEdit(props) {
               </tr>
             </thead>
             <tbody>
-              <tr key={residentId.id}>
+              <tr key={`${residentId.id}_info`}>
                 <td>
                   <input
                     type="text"
@@ -157,7 +157,7 @@ export default function StudentEdit(props) {
                   />
                 </td>
               </tr>
-              <tr key={residentId.id}>
+              <tr key={`${residentId.id}_dormitory`}>
                 <td>기숙사</td>
                 <td>전공</td>
                 <td>학년</td>
@@ -165,7 +165,7 @@ export default function StudentEdit(props) {
                 <td>호실</td>
                 <td>배정방</td>
               </tr>
-              <tr key={residentId.id}>
+              <tr key={`${residentId.id}_dormitory_values`}>
                 <td>
                   <input
                     type="text"
@@ -221,7 +221,7 @@ export default function StudentEdit(props) {
                   />
                 </td>
               </tr>
-              <tr key={residentId.id}>
+              <tr key={`${residentId.id}_admission`}>
                 <td>입사일자</td>
                 <td>퇴사일시</td>
                 <td>차수시작일</td>
@@ -229,7 +229,7 @@ export default function StudentEdit(props) {
                 <td>HP</td>
                 <td>사회코드</td>
               </tr>
-              <tr key={residentId.id}>
+              <tr key={`${residentId.id}_admission_values`}>
                 <td>
                   <input
                     type="text"
@@ -285,13 +285,13 @@ export default function StudentEdit(props) {
                   />
                 </td>
               </tr>
-              <tr key={residentId.id}>
+              <tr key={`${residentId.id}_social`}>
                 <td>사회명</td>
                 <td>ZIP</td>
                 <td>주소</td>
                 <td colSpan="3"></td>
               </tr>
-              <tr key={residentId.id}>
+              <tr key={`${residentId.id}_social_values`}>
                 <td>
                   <input
                     type="text"
@@ -324,7 +324,8 @@ export default function StudentEdit(props) {
                     onClick={(e) =>
                       handleChangeUpdate(
                         residentId,
-                        setshowStudentEdituploadData
+                        setshowStudentEdituploadData,
+                        props.Token
                       )
                     }
                   >

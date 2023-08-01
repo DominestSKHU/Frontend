@@ -70,7 +70,9 @@ export default function StudentData(props) {
                   <td>{resident.zipCode}</td>
                   <td>{resident.address}</td>
                   <td>
-                    <button onClick={() => StudentDelete(resident.id)}>
+                    <button
+                      onClick={() => StudentDelete(resident.id, props.Token)}
+                    >
                       삭제
                     </button>
                   </td>

@@ -59,6 +59,7 @@ export default function StuendtAdd(props) {
       .post(`http://domidomi.duckdns.org/residents`, formData, {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${props.Token}`,
         },
       })
       .then((response) => {
@@ -220,7 +221,11 @@ export default function StuendtAdd(props) {
               <td>사회명</td>
               <td>ZIP</td>
               <td>주소</td>
-              <td colSpan="3"></td>
+              <td colSpan="3" rowspan="2">
+                <button onClick={(e) => handleAddStudent()}>
+                  학생 데이터 추가
+                </button>
+              </td>
             </tr>
             <tr>
               <td>
@@ -240,9 +245,6 @@ export default function StuendtAdd(props) {
                   type="text"
                   onChange={(e) => handleInputChange(e, "address")}
                 />
-              </td>
-              <td colSpan="3">
-                <button onClick={(e) => handleAddStudent()}>수정</button>
               </td>
             </tr>
           </tbody>

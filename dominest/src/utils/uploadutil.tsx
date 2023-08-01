@@ -22,7 +22,7 @@ export const handleUpload = (
     axios
       .post("http://domidomi.duckdns.org/residents/upload-excel", formData, {
         headers: {
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBQ0NFU1MiLCJhdWQiOiJVc2VybmFtZVBhc3N3b3JkQXV0aGVudGljYXRpb25Ub2tlbiBbUHJpbmNpcGFsPWVlZWVAZW1haWwuY29tLCBDcmVkZW50aWFscz1bUFJPVEVDVEVEXSwgQXV0aGVudGljYXRlZD1mYWxzZSwgRGV0YWlscz1udWxsLCBHcmFudGVkIEF1dGhvcml0aWVzPVtdXSIsImlhdCI6MTY5MDY1MzkzMywiZXhwIjoxNjkxODY0NDMzfQ.mlCfMGhMplch1fXBvImTk2DtSAL0UggY5Kf_CAHiiHBZ2dIc1j1K5QYMZJZ2kdhPjpf2O4FSbQwnCj10NjLtkw`, // 헤더에 토큰 설정
+          Authorization: `Bearer ${authToken}`,
         },
       })
       .then((response) => {
@@ -31,7 +31,7 @@ export const handleUpload = (
       })
       .catch((error) => {
         console.log(error);
-        /*
+
         if (
           error.response.data.errorMessage ===
           "읽어들인 컬럼 개수가 21개가 아닙니다."
@@ -44,15 +44,18 @@ export const handleUpload = (
         ) {
           return alert("연도 및 차수 에러");
         }
-        */
       });
   }
 };
 
 //data 삭제 함수
-export const delet = () => {
+export const delet = (authToken) => {
   axios
-    .delete("http://domidomi.duckdns.org/residents")
+    .delete("http://domidomi.duckdns.org/residents", {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    })
     .then((response) => {
       console.log("요청이 성공적으로 전송되었습니다.");
       return alert("삭제되었습니다.");
@@ -75,9 +78,13 @@ export const fetchData = (degree, setData) => {
 };
 
 //삭제
-export const StudentDelete = (id) => {
+export const StudentDelete = (id, authToken) => {
   axios
-    .delete(`http://domidomi.duckdns.org/residents/${id}`)
+    .delete(`http://domidomi.duckdns.org/residents/${id}`, {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    })
     .then((response) => {
       return alert("삭제를 성공했습니다.");
     })
