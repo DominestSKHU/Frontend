@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PdfList from "@/components/PdfList";
-import { FileUpload, DormitoryYear } from "@/style/InputStyle";
+import { FileUpload, DormitoryYear, Button } from "@/style/InputStyle";
 import Navber from "@/components/AdminNavbar";
 
 export default function pdfupload() {
@@ -26,12 +26,12 @@ export default function pdfupload() {
           <option value="_2">2학기</option>
           <option value="_WINTER">겨울학기</option>
         </select>
-        <button>조회</button>
+        <Button>조회</Button>
       </DormitoryYear>
       <FileUpload>
         <label htmlFor="file">파일 업로드</label>
         <input type="file" id="file" accept=".zip" />
-        <button>업로드 </button>
+        <Button>업로드 </Button>
       </FileUpload>
       <PdfList />
     </div>

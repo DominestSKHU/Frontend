@@ -13,10 +13,11 @@ export const FileUpload = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
+  height: 50px;
   input {
     padding-left: 10px;
     width: 40%;
-    height: 50px;
+    height: 100%;
     border: 1px solid rgb(77, 77, 77);
     border-radius: 0px 10px 10px 0px;
     text-align: left;
@@ -27,7 +28,7 @@ export const FileUpload = styled.div`
     padding: auto;
     text-align: center;
     width: 10%;
-    height: 50px;
+    height: 100%;
     border: 1px solid rgb(77, 77, 77);
     border-radius: 10px 0px 0px 10px;
     cursor: pointer;
@@ -44,8 +45,10 @@ export const FileUpload = styled.div`
     font-weight: bold;
     margin-left: 20px;
     border-radius: 10px;
-    width: 80px;
-
+    width: 100px;
+    height: 100%;
+    margin: 0px;
+    margin-left: 10px;
     &:hover {
       background: rgb(77, 77, 77);
       color: #fff;
@@ -58,32 +61,28 @@ export const DormitoryYear = styled.div`
   justify-content: center;
   margin-top: 20px;
   select {
-    width: 90px;
+    width: 180px;
     height: 41px;
     margin: 5px;
     border-radius: 5px;
     background-color: #f7f7f7;
   }
-  button {
-    font-size: 16px;
-    font-weight: bold;
-    margin-left: 20px;
-    border-radius: 10px;
-    width: 80px;
-    &:hover {
-      background: rgb(77, 77, 77);
-      color: #fff;
-    }
-  }
 `;
 export const Button = styled.button`
   font-size: 16px;
   font-weight: bold;
+  margin: 5px;
   margin-left: 20px;
+
   border-radius: 10px;
-  width: 80px;
+  width: 180px;
+  height: 40px;
   &:hover {
     background: rgb(77, 77, 77);
     color: #fff;
+  }
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
   }
 `;

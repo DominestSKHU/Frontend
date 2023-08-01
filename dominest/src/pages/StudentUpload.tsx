@@ -8,7 +8,7 @@ import { handleUpload, delet } from "@/utils/uploadutil";
 import StudentEdit from "@/components/StudentEdit";
 import StudentAdd from "@/components/StudentAdd";
 import Navber from "@/components/AdminNavbar";
-import { FileUpload } from "@/style/InputStyle";
+import { FileUpload, Button, DormitoryYear } from "@/style/InputStyle";
 
 /** @jsxImportSource @emotion/react */
 
@@ -70,58 +70,63 @@ export default function studentupload() {
               text-align: center;
             `}
           >
-            <select value={year} onChange={handleYearChange}>
-              <option value="">연도 선택</option>
-              <option value="S2023">2023년</option>
-              <option value="S2024">2024년</option>
-              <option value="S2025">2025년</option>
-              <option value="S2026">2026년</option>
-              <option value="S2027">2027년</option>
-              <option value="S2028">2028년</option>
-              <option value="S2029">2029년</option>
-              <option value="S2030">2030년</option>
-            </select>
-            <select value={residenceSemester} onChange={handleSemesterChange}>
-              <option value="">차수 선택</option>
-              <option value="_1">1학기</option>
-              <option value="_SUMMER">여름학기</option>
-              <option value="_2">2학기</option>
-              <option value="_WINTER">겨울학기</option>
-            </select>
-            <button
-              onClick={() => setShowStudentDate(true)}
-              disabled={year === "" || residenceSemester === ""}
-              css={css`
-                &:disabled {
-                  background-color: #ccc;
-                  cursor: not-allowed;
-                }
-              `}
-            >
-              조회
-            </button>
-            <button
-              onClick={() => {
-                setshowStudentManagement(true);
-                setshowStudnetUpload(false);
-                setshowStudentEdit(false);
-                setshowStudentAdd(false);
-              }}
-              disabled={year === "" || residenceSemester === ""}
-              css={css`
-                &:disabled {
-                  background-color: #ccc;
-                  cursor: not-allowed;
-                }
-              `}
-            >
-              학생 관리
-            </button>
+            <DormitoryYear>
+              <select value={year} onChange={handleYearChange}>
+                <option value="">연도 선택</option>
+                <option value="S2023">2023년</option>
+                <option value="S2024">2024년</option>
+                <option value="S2025">2025년</option>
+                <option value="S2026">2026년</option>
+                <option value="S2027">2027년</option>
+                <option value="S2028">2028년</option>
+                <option value="S2029">2029년</option>
+                <option value="S2030">2030년</option>
+              </select>
+              <select value={residenceSemester} onChange={handleSemesterChange}>
+                <option value="">차수 선택</option>
+                <option value="_1">1학기</option>
+                <option value="_SUMMER">여름학기</option>
+                <option value="_2">2학기</option>
+                <option value="_WINTER">겨울학기</option>
+              </select>
+
+              <Button
+                onClick={() => {
+                  setShowStudentDate(true);
+                  setshowStudentManagement(false);
+                  setshowStudnetUpload(false);
+                  setshowStudentEdit(false);
+                  setshowStudentAdd(false);
+                }}
+                disabled={year === "" || residenceSemester === ""}
+                css={css``}
+              >
+                조회
+              </Button>
+
+              <Button
+                onClick={() => {
+                  setshowStudentManagement(true);
+                  setshowStudnetUpload(false);
+                  setshowStudentEdit(false);
+                  setshowStudentAdd(false);
+                }}
+                disabled={year === "" || residenceSemester === ""}
+                css={css`
+                  &:disabled {
+                    background-color: #ccc;
+                    cursor: not-allowed;
+                  }
+                `}
+              >
+                학생 관리
+              </Button>
+            </DormitoryYear>
             <br />
             {showStudentManagement && (
               <>
                 <div className="buttondiv">
-                  <button
+                  <Button
                     onClick={() => {
                       setshowStudnetUpload(true);
                       setshowStudentManagement(false);
@@ -136,8 +141,8 @@ export default function studentupload() {
                     `}
                   >
                     업로드
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     onClick={() => {
                       setshowStudentEdit(true);
                       setshowStudnetUpload(false);
@@ -152,8 +157,8 @@ export default function studentupload() {
                     `}
                   >
                     학생정보 수정
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     onClick={() => {
                       setshowStudentAdd(true);
                       setshowStudentManagement(false);
@@ -166,8 +171,8 @@ export default function studentupload() {
                     `}
                   >
                     학생정보 추가
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     onClick={() => delet()}
                     css={css`
                       &:disabled {
@@ -177,35 +182,47 @@ export default function studentupload() {
                     `}
                   >
                     전체 삭제(임시생성)
-                  </button>
+                  </Button>
                 </div>
               </>
             )}
             {showStudnetUpload && (
               <>
-                <input type="file" accept=".xlsx" onChange={handleFileChange} />
-                <button
-                  onClick={() =>
-                    handleUpload(
-                      selectedFile,
-                      residenceSemester,
-                      year,
-                      setShowStudentDate,
-                      Token
-                    )
-                  }
-                  disabled={
-                    !selectedFile || year === "" || residenceSemester === ""
-                  }
-                  css={css`
-                    &:disabled {
-                      background-color: #ccc;
-                      cursor: not-allowed;
+                <FileUpload>
+                  <label htmlFor="file">파일 업로드</label>
+                  <input
+                    type="file"
+                    id="file"
+                    accept=".xlsx"
+                    onChange={handleFileChange}
+                  />
+
+                  <Button
+                    onClick={() => {
+                      handleUpload(
+                        selectedFile,
+                        residenceSemester,
+                        year,
+                        setShowStudentDate,
+                        Token
+                      );
+
+                      setshowStudnetUpload(false);
+                      setshowStudentManagement(false);
+                    }}
+                    disabled={
+                      !selectedFile || year === "" || residenceSemester === ""
                     }
-                  `}
-                >
-                  업로드
-                </button>
+                    css={css`
+                      &:disabled {
+                        background-color: #ccc;
+                        cursor: not-allowed;
+                      }
+                    `}
+                  >
+                    업로드
+                  </Button>
+                </FileUpload>
               </>
             )}
             {showStudentEdit && (
@@ -237,29 +254,10 @@ const UploadForm = styled.div`
     border-radius: 5px;
     background-color: #f7f7f7;
   }
-  button {
-    padding: 10px 20px;
-    margin: 5px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
+
   .buttondiv {
     display: flex;
     justify-content: flex-end;
-  }
-  input {
-    margin-bottom: 10px;
-    border: 1px solid black;
-    width: 50%;
-    padding: 10px 20px;
-    font-size: 15px;
-    border-radius: 10px;
-    color: #333;
-    background-color: #f7f7f7;
   }
 
   .edit {
