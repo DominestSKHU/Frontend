@@ -6,36 +6,12 @@ import { CiStar } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import React from "react";
+import { NavStyle, LeftNav,NavList } from "@/style/NavStyle";
 /** @jsxImportSource @emotion/react */
 
-const title = css`
-  font-weight: bold;
-  width: 10%;
-  color: #575757;
-  font-size: larger;
-`;
-const LeftNav = css`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 42%;
-`;
-const NavStyle = css`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100vw;
-  height: 8vh;
-  background-color: #dcdcdc;
-`;
-const NavList = css`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  list-style: none;
-  padding-left: 0px;
-  width: 30vw;
-`;
+
+
+
 const NavItem = css`
   display: flex;
   flex-direction: column;
@@ -69,11 +45,8 @@ const LoginState = styled.div`
 
 
 const Navber = () => {
-  const [name, setName] = React.useState("이용ddd자");
+  const [name, setName] = React.useState("이용자");
   const [role, setRole] = React.useState("근로생");
-  const [bookmark, setBookmark] = React.useState(false);
-  const [admin, setAdmin] = React.useState(false);
-  const [worker, setWorker] = React.useState(false);
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
@@ -91,18 +64,15 @@ const Navber = () => {
   };
 
   return (
-    <div css={NavStyle}>
-      <div css={LeftNav}>
-        <div className="logo" css={title}>
-          Dominest
-        </div>
-        <ul css={NavList}>
+    <NavStyle>
+           <h1>Dominest</h1>  
+      <LeftNav>
+     
+        <NavList>
           <li>
-            <button css={NavItem} onClick={() => setBookmark(!bookmark)}>
               <p>즐겨찾기</p>
-            </button>
-            {bookmark ? (
-              <ul css={NavItem}>
+        
+              <ul >
                 <li>
                   <Link
                     href="/login"
@@ -116,16 +86,15 @@ const Navber = () => {
                   </Link>
                 </li>
               </ul>
-            ) : (
-              <></>
-            )}
+          
+            
             {/* 다른 즐겨찾기 아이템들 추가 */}
           </li>
           <li>
-            <button css={NavItem} onClick={() => setAdmin(!admin)}>
+          
               <p>관리자 목록</p>
-            </button>
-            {admin ? (
+           
+           
               <ul css={NavItem}>
                 <li>
                   <Link
@@ -140,15 +109,13 @@ const Navber = () => {
                   </Link>
                 </li>
               </ul>
-            ) : (
-              <></>
-            )}
+          
           </li>
           <li>
-            <button css={NavItem} onClick={() => setWorker(!worker)}>
+           
               <p>근로생 목록</p>
-            </button>
-            {worker ? (
+           
+         
               <ul css={NavItem}>
                 <li>
                   <Link
@@ -163,13 +130,11 @@ const Navber = () => {
                   </Link>
                 </li>
               </ul>
-            ) : (
-              <></>
-            )}
+          
             {/* 다른 근로생 목록 아이템들 추가 */}
           </li>
-        </ul>
-      </div>
+          </NavList>
+      </LeftNav>
       <LoginState>
         <HiOutlineUserCircle className="loginIcon" size={25} />
         {role === "근로생" ? <span>근로생</span> : <span>관리자</span>}
@@ -185,7 +150,7 @@ const Navber = () => {
           로그아웃 하기
         </button>
       </LoginState>
-    </div>
+    </NavStyle>
   );
 };
 
