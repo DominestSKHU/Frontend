@@ -22,22 +22,54 @@ export const NavList = styled.ul`
   align-items: center;
   list-style: none;
   padding-left: 0px;
-  width: 30vw;
+
   li {
     width: 200px;
-    text-align: center;
-    
+    text-align: center; 
+   
     &:hover {
-        background-color: black;
         ul{
-      
+      width: 200px;
       display:block;
+     
     }}
     ul {
-  
-        display:none;
- 
       align-items: center; 
+      position: absolute;
+    
+      display: flex;
+      justify-content: center;
+    }
+  }
+`;
+export const LoginState = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 80%;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+  
+  button{
+    background-color: white;
+    border: none;
+  }
+  & > .loginIcon,
+  span {
+    width: fit-content;
+  }
+  & > .logout {
+    display: none;
+  }
+  &:hover {
+    & > .loginIcon,
+    span {
+      display: none;
+    }
+    & > .logout {
+      display: block;
     }
   }
 `;

@@ -6,7 +6,7 @@ import { CiStar } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import React from "react";
-import { NavStyle, LeftNav,NavList } from "@/style/NavStyle";
+import { NavStyle, LeftNav,NavList,LoginState} from "@/style/NavStyle";
 /** @jsxImportSource @emotion/react */
 
 
@@ -20,28 +20,7 @@ const NavItem = css`
   list-style: none;
   padding-left: 0px;
 `;
-const LoginState = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 15%;
-  & > .loginIcon,
-  span {
-    width: fit-content;
-  }
-  & > .logout {
-    display: none;
-  }
-  &:hover {
-    & > .loginIcon,
-    span {
-      display: none;
-    }
-    & > .logout {
-      display: block;
-    }
-  }
-`;
+
 
 
 const Navber = () => {
@@ -72,7 +51,7 @@ const Navber = () => {
           <li>
               <p>즐겨찾기</p>
         
-              <ul >
+              <ol >
                 <li>
                   <Link
                     href="/login"
@@ -83,9 +62,24 @@ const Navber = () => {
                   >
                     <span>빵빵이</span>
                     <CiStar size={20} />
+                    
+                   
+                  </Link>
+                  </li>
+                  <li>
+                    <Link
+                    href="/login"
+                    css={css`
+                      display: flex;
+                      align-items: center;
+                    `}
+                  >
+                    <span>빵빵이</span>
+                    <CiStar size={20} />
+                    
                   </Link>
                 </li>
-              </ul>
+              </ol>
           
             
             {/* 다른 즐겨찾기 아이템들 추가 */}
@@ -147,7 +141,7 @@ const Navber = () => {
           {name}
         </span>
         <button className="logout" onClick={onLogout}>
-          로그아웃 하기
+          로그아웃
         </button>
       </LoginState>
     </NavStyle>
