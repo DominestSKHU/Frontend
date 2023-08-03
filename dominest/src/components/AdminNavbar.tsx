@@ -6,11 +6,8 @@ import { CiStar } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import React from "react";
-import { NavStyle, LeftNav,NavList,LoginState} from "@/style/NavStyle";
+import { NavStyle, LeftNav, NavList, LoginState } from "@/style/NavStyle";
 /** @jsxImportSource @emotion/react */
-
-
-
 
 const NavItem = css`
   display: flex;
@@ -20,8 +17,6 @@ const NavItem = css`
   list-style: none;
   padding-left: 0px;
 `;
-
-
 
 const Navber = () => {
   const [name, setName] = React.useState("이용자");
@@ -44,90 +39,64 @@ const Navber = () => {
 
   return (
     <NavStyle>
-           <h1>Dominest</h1>  
+      <Link className="Link" href="/">
+        <h1>Dominest</h1>
+      </Link>
+
       <LeftNav>
-     
         <NavList>
           <li>
-              <p>즐겨찾기</p>
-        
-              <ol >
-                <li>
-                  <Link
-                    href="/login"
-                    css={css`
-                      display: flex;
-                      align-items: center;
-                    `}
-                  >
-                    <span>빵빵이</span>
-                    <CiStar size={20} />
-                    
-                   
-                  </Link>
-                  </li>
-                  <li>
-                    <Link
-                    href="/login"
-                    css={css`
-                      display: flex;
-                      align-items: center;
-                    `}
-                  >
-                    <span>빵빵이</span>
-                    <CiStar size={20} />
-                    
-                  </Link>
-                </li>
-              </ol>
-          
-            
+            <p>즐겨찾기</p>
+            <ul css={NavItem}>
+              <li>
+                <Link href="/login" className="Link">
+                  <span>빵빵이</span>
+                  <CiStar size={20} />
+                </Link>
+              </li>
+              <li>
+                <Link href="/login" className="Link">
+                  <span>빵빵이</span>
+                  <CiStar size={20} />
+                </Link>
+              </li>
+            </ul>
+
             {/* 다른 즐겨찾기 아이템들 추가 */}
           </li>
           <li>
-          
-              <p>관리자 목록</p>
-           
-           
-              <ul css={NavItem}>
-                <li>
-                  <Link
-                    href="/login"
-                    css={css`
-                      display: flex;
-                      align-items: center;
-                    `}
-                  >
-                    <span>빵빵이</span>
-                    <CiStar size={20} />
-                  </Link>
-                </li>
-              </ul>
-          
+            <p>관리자 목록</p>
+
+            <ul css={NavItem}>
+              <li>
+                <Link href="/studentupload" className="Link">
+                  <span>학생정보 업로드</span>
+                  <CiStar size={20} />
+                </Link>
+              </li>
+              <li>
+                <Link href="/student" className="Link">
+                  <span>학생정보 업로드</span>
+                  <CiStar size={20} />
+                </Link>
+              </li>
+            </ul>
           </li>
           <li>
-           
-              <p>근로생 목록</p>
-           
-         
-              <ul css={NavItem}>
-                <li>
-                  <Link
-                    href="/login"
-                    css={css`
-                      display: flex;
-                      align-items: center;
-                    `}
-                  >
-                    <span>빵빵이</span>
-                    <CiStar size={20} />
-                  </Link>
-                </li>
-              </ul>
-          
+            <p>근로생 목록</p>
+
+            <ul css={NavItem}>
+              <li>
+                <Link href="/pdfupload" className="Link">
+                  <span>PDF 업로드</span>
+                  <CiStar size={20} />
+                </Link>
+              </li>
+            </ul>
+
             {/* 다른 근로생 목록 아이템들 추가 */}
           </li>
-          </NavList>
+        </NavList>
       </LeftNav>
       <LoginState>
         <HiOutlineUserCircle className="loginIcon" size={25} />
