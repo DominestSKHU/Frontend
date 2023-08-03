@@ -1,11 +1,11 @@
 import axios from "axios";
 
-//업로드 함수
 export const handleUpload = (
   selectedFile,
   residenceSemester,
   year,
-  setShowStudentDate
+  setShowStudentDate,
+  authToken
 ) => {
   if (year === "") {
     return "연도를 선택해주세요";
@@ -18,14 +18,20 @@ export const handleUpload = (
     const formData = new FormData();
     formData.append("file", selectedFile);
     formData.append("residenceSemester", degree);
+
     axios
-      .post("http://domidomi.duckdns.org/residents/upload-excel", formData)
+      .post("http://domidomi.duckdns.org/residents/upload-excel", formData, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      })
       .then((response) => {
         setShowStudentDate(true);
         return alert("성공적으로 업로드 되었습니다.");
       })
       .catch((error) => {
         console.log(error);
+
         if (
           error.response.data.errorMessage ===
           "읽어들인 컬럼 개수가 21개가 아닙니다."
@@ -43,9 +49,13 @@ export const handleUpload = (
 };
 
 //data 삭제 함수
-export const delet = () => {
+export const delet = (authToken) => {
   axios
-    .delete("http://domidomi.duckdns.org/residents")
+    .delete("http://domidomi.duckdns.org/residents", {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    })
     .then((response) => {
       console.log("요청이 성공적으로 전송되었습니다.");
       return alert("삭제되었습니다.");
@@ -67,58 +77,18 @@ export const fetchData = (degree, setData) => {
     });
 };
 
-// 데이터 input 수정
-export const handleInputChange = (e, field) => {
-  let value = e.target.value;
-
-  setResidentId((prevResident) => ({
-    ...prevResident,
-    [field]: value,
-  }));
-  console.log(value);
-};
-
-//데이터 수정
-export const handleChangeUpdate = (residentId, showStudentEdituploadData) => {
-  if (residentId.dateOfBirth) {
-    residentId.dateOfBirth = residentId.dateOfBirth.replace(/-/g, "").slice(2);
-  }
-
-  if (residentId.leavingDate) {
-    residentId.leavingDate = residentId.leavingDate.replace(/-/g, "");
-  }
-
-  if (residentId.admissionDate) {
-    residentId.admissionDate = residentId.admissionDate.replace(/-/g, "");
-  }
-
-  if (residentId.semesterStartDate) {
-    residentId.semesterStartDate = residentId.semesterStartDate.replace(
-      /-/g,
-      ""
-    );
-  }
-
-  if (residentId.semesterEndDate) {
-    residentId.semesterEndDate = residentId.semesterEndDate.replace(/-/g, "");
-  }
-  setshowStudentEdituploadData(false);
+//삭제
+export const StudentDelete = (id, authToken) => {
   axios
-    .patch(
-      `http://domidomi.duckdns.org/residents/${residentId.id}`,
-      residentId,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
+    .delete(`http://domidomi.duckdns.org/residents/${id}`, {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    })
     .then((response) => {
-      console.log("유저 수정 완료:", response.data);
-      return alert("수정 완료되었습니다.");
+      return alert("삭제를 성공했습니다.");
     })
     .catch((error) => {
-      console.error("유저 수정 실패:", error);
-      console.log(residentId);
+      console.error("데이터 조회 중 오류 발생:", error);
     });
 };

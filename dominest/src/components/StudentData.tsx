@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
-import { fetchData } from "@/utils/uploadutil";
+import { fetchData, StudentDelete } from "@/utils/uploadutil";
 
 import "../app/globals.css";
 /** @jsxImportSource @emotion/react */
@@ -41,6 +41,7 @@ export default function StudentData(props) {
                 <th>사회명</th>
                 <th>ZIP</th>
                 <th>주소</th>
+                <th>삭제</th>
               </tr>
             </thead>
             <tbody>
@@ -68,6 +69,13 @@ export default function StudentData(props) {
                   <td>{resident.socialName}</td>
                   <td>{resident.zipCode}</td>
                   <td>{resident.address}</td>
+                  <td>
+                    <button
+                      onClick={() => StudentDelete(resident.id, props.Token)}
+                    >
+                      삭제
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
