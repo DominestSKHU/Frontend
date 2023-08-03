@@ -6,15 +6,22 @@ export const NavStyle = styled.div`
   justify-content: space-around;
   align-items: center;
   width: 100vw;
-  height: 6vh;
+  height: 7.5vh;
   background-color: #dcdcdc;
+
+  .Link {
+    text-decoration: none;
+    color: inherit;
+
+    align-items: center;
+  }
 `;
 
 export const LeftNav = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 50%;
+  width: 70%;
 `;
 export const NavList = styled.ul`
   display: flex;
@@ -24,21 +31,36 @@ export const NavList = styled.ul`
   padding-left: 0px;
 
   li {
-    width: 200px;
-    text-align: center; 
-   
+    width: 150px;
+    text-align: center;
+
     &:hover {
-        ul{
-      width: 200px;
-      display:block;
-     
-    }}
+      ul {
+        width: 200px;
+        display: block;
+      }
+    }
     ul {
-      align-items: center; 
+      top: 7vh;
+      align-items: center;
       position: absolute;
-    
-      display: flex;
+      display: none;
       justify-content: center;
+      background-color: #dcdcdc;
+      border-radius: 5px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      text-align: center;
+
+      li {
+        width: 100%;
+
+        &:hover {
+          background-color: #fff;
+          padding-left: auto;
+          padding-right: auto;
+        }
+      }
     }
   }
 `;
@@ -51,8 +73,8 @@ export const LoginState = styled.div`
   background-color: white;
   border-radius: 15px;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
-  
-  button{
+
+  button {
     background-color: white;
     border: none;
   }
