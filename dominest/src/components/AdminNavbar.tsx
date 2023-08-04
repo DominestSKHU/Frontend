@@ -20,6 +20,7 @@ const NavItem = css`
 
 const Navber = () => {
   const [name, setName] = React.useState("이용자");
+
   const [role, setRole] = React.useState("근로생");
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);

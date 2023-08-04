@@ -1,5 +1,8 @@
 
-"use client";
+
+'use client'
+
+
 import Navbar from "@/components/AdminNavbar";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
@@ -19,7 +22,11 @@ function Home({}: Props) {
 
   return (
     <>
+
+
        <Navbar />
+
+
     </>
   );
 }
