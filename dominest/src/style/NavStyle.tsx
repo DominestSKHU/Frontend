@@ -33,8 +33,11 @@ export const NavList = styled.ul`
   li {
     width: 150px;
     text-align: center;
-
+    width: 200px;
     &:hover {
+      p {
+        font-weight: bold;
+      }
       ul {
         width: 200px;
         display: block;
@@ -54,7 +57,6 @@ export const NavList = styled.ul`
 
       li {
         width: 100%;
-
         &:hover {
           background-color: #fff;
           padding-left: auto;
