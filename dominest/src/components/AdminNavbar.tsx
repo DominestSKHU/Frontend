@@ -88,7 +88,13 @@ const Navber = () => {
             <ul css={NavItem}>
               <li>
                 <Link href="/pdfupload" className="Link">
-                  <span>PDF 업로드</span>
+                  <span>입관신청서</span>
+                  <CiStar size={20} />
+                </Link>
+              </li>
+              <li>
+                <Link href="/pdfupload" className="Link">
+                  <span>퇴관신청서</span>
                   <CiStar size={20} />
                 </Link>
               </li>
