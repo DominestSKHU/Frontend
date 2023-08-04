@@ -37,15 +37,15 @@ export default function studentupload() {
     setDegree(year + residenceSemester);
   }, [year, residenceSemester, degree]);
 
-  const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
   };
 
-  const handleSemesterChange = (event) => {
-    setresidenceSemester(event.target.value);
+  const handleSemesterChange = (e) => {
+    setresidenceSemester(e.target.value);
   };
-  const handleYearChange = (event) => {
-    setYear(event.target.value);
+  const handleYearChange = (e) => {
+    setYear(e.target.value);
   };
 
   return (
@@ -201,8 +201,7 @@ export default function studentupload() {
                     onClick={() => {
                       handleUpload(
                         selectedFile,
-                        residenceSemester,
-                        year,
+                        degree,
                         setShowStudentDate,
                         Token
                       );
