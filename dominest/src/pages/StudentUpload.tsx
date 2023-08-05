@@ -246,14 +246,6 @@ export default function studentupload() {
   );
 }
 const UploadForm = styled.div`
-  select {
-    width: 90px;
-    height: 41px;
-    margin: 5px;
-    border-radius: 5px;
-    background-color: #f7f7f7;
-  }
-
   .buttondiv {
     display: flex;
     justify-content: flex-end;

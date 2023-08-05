@@ -15,36 +15,36 @@ export default function PdfList(props) {
   const renderTable = () => {
     if (data && Array.isArray(data) && data.length > 0) {
       return (
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th>번호</th>
-                <th>이름</th>
-                <th>학번</th>
-                <th>삭제</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((resident, index) => (
-                <tr key={resident.id}>
-                  <td>{index + 1}</td>
-                  <td>{resident.name}</td>
-
-                  <td>{resident.studentId}</td>
-
-                  <td>
-                    <button
-                      onClick={() => StudentDelete(resident.id, props.Token)}
-                    >
-                      삭제
-                    </button>
-                  </td>
+        
+            <table>
+              <thead>
+                <tr>
+                  <th>번호</th>
+                  <th>이름</th>
+                  <th>학번</th>
+                  <th>삭제</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {data.map((resident, index) => (
+                  <tr key={resident.id}>
+                    <td>{index + 1}</td>
+                    <td>{resident.name}</td>
+
+                    <td>{resident.studentId}</td>
+
+                    <td>
+                      <button
+                        onClick={() => StudentDelete(resident.id, props.Token)}
+                      >
+                        삭제
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+     
       );
     } else {
       return <p>데이터가 없습니다.</p>;

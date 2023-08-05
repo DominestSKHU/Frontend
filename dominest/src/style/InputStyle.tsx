@@ -86,3 +86,9 @@ export const Button = styled.button`
     cursor: not-allowed;
   }
 `;
+
+export const ComponentDiv = styled.div`
+  margin-left:auto;
+  margin-right:auto;
+  width: 80%;
+`;

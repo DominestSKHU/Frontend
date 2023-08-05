@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
 import PdfList from "@/components/PdfList";
-import { FileUpload, DormitoryYear, Button } from "@/style/InputStyle";
+import {
+  FileUpload,
+  DormitoryYear,
+  Button,
+  ComponentDiv,
+} from "@/style/InputStyle";
 import Navber from "@/components/AdminNavbar";
 import axios from "axios";
 export default function pdfupload() {
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedSemester, setSelectedSemester] = useState("");
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [PdfLists, setPdfLists] = useState(false);
   const [degree, setDegree] = useState("");
   const [Token, setToken] = useState("");
   useEffect(() => {
@@ -88,19 +94,24 @@ export default function pdfupload() {
           <option value="_WINTER">겨울학기</option>
         </select>
         <Button onClick={fetchData}>조회</Button>
+        <Button onClick={() => setPdfLists(true)}>PDF 관리</Button>
       </DormitoryYear>
-      <FileUpload>
-        <label htmlFor="file">파일 업로드</label>
-        <input
-          type="file"
-          multiple
-          id="file"
-          accept=".pdf"
-          onChange={handleFileChange}
-        />
-        <Button onClick={handleUpload}>업로드 </Button>
-      </FileUpload>
-      <PdfList degree={degree} />
+      {PdfLists && (
+        <FileUpload>
+          <label htmlFor="file">파일 업로드</label>
+          <input
+            type="file"
+            multiple
+            id="file"
+            accept=".pdf"
+            onChange={handleFileChange}
+          />
+          <Button onClick={handleUpload}>업로드 </Button>
+        </FileUpload>
+      )}
+      <ComponentDiv>
+        <PdfList degree={degree} />
+      </ComponentDiv>
     </div>
   );
 }

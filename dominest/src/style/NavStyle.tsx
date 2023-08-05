@@ -31,37 +31,34 @@ export const NavList = styled.ul`
   padding-left: 0px;
 
   li {
-    width: 150px;
+
     text-align: center;
-    width: 200px;
+    width: 190px;
     &:hover {
+      background-color: #c4c4c4;
+      
       p {
         font-weight: bold;
       }
       ul {
-        width: 200px;
+    
         display: block;
       }
     }
     ul {
-      top: 7vh;
-      align-items: center;
+      box-shadow: 5px 5px 5px gray;
+      border:   1px solid #c4c4c4;
+      width: 189px;
+      top: 7.5vh;
       position: absolute;
       display: none;
-      justify-content: center;
-      background-color: #dcdcdc;
-      border-radius: 5px;
+      background-color: white;
+      border-radius: 0px 0px 5px 5px;
       padding-top: 5px;
       padding-bottom: 5px;
       text-align: center;
 
-      li {
-        width: 100%;
-        &:hover {
-          background-color: #fff;
-          padding-left: auto;
-          padding-right: auto;
-        }
+      
       }
     }
   }
