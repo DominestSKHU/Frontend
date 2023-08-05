@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
 import { fetchData, StudentDelete } from "@/utils/uploadutil";
-
+import { ComponentTable } from "@/style/ComponentStyle";
 import "../app/globals.css";
 /** @jsxImportSource @emotion/react */
 
@@ -16,34 +16,39 @@ export default function PdfList(props) {
     if (data && Array.isArray(data) && data.length > 0) {
       return (
         
-            <table>
+            <ComponentTable>
               <thead>
                 <tr>
-                  <th>번호</th>
+                 <th>순서</th>
                   <th>이름</th>
                   <th>학번</th>
-                  <th>삭제</th>
+                  <th>조회  업로드</th>
                 </tr>
               </thead>
               <tbody>
-                {data.map((resident, index) => (
+                {data.map((resident,index) => (
                   <tr key={resident.id}>
-                    <td>{index + 1}</td>
+                    <td>{index+1}</td>
                     <td>{resident.name}</td>
 
                     <td>{resident.studentId}</td>
 
                     <td>
+                    <button
+                        onClick={() => StudentDelete(resident.id, props.Token)}
+                      >
+                        조회
+                      </button>
                       <button
                         onClick={() => StudentDelete(resident.id, props.Token)}
                       >
-                        삭제
+                        업로드
                       </button>
                     </td>
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </ComponentTable>
      
       );
     } else {

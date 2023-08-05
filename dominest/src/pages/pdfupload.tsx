@@ -4,8 +4,8 @@ import {
   FileUpload,
   DormitoryYear,
   Button,
-  ComponentDiv,
 } from "@/style/InputStyle";
+import { ComponentDiv } from "@/style/ComponentStyle";
 import Navber from "@/components/AdminNavbar";
 import axios from "axios";
 export default function pdfupload() {
