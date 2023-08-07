@@ -1,7 +1,8 @@
 import { css } from "@emotion/react";
+
 import { useEffect, useState } from "react";
 import { fetchData, StudentDelete } from "@/utils/uploadutil";
-import {ComponentDiv2,ComponentTable} from "@/style/ComponentStyle";
+import {ComponentDiv2,StudentDataTable} from "@/style/ComponentStyle";
 import "../app/globals.css";
 /** @jsxImportSource @emotion/react */
 
@@ -16,7 +17,7 @@ export default function StudentData(props) {
     if (data && Array.isArray(data) && data.length > 0) {
       return (
         <div>
-          <ComponentTable>
+          <StudentDataTable>
             <thead>
               <tr>
                 <th>번호</th>
@@ -79,7 +80,7 @@ export default function StudentData(props) {
                 </tr>
               ))}
             </tbody>
-          </ComponentTable>
+          </StudentDataTable>
         </div>
       );
     } else {

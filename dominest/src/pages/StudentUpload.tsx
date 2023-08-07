@@ -52,25 +52,8 @@ export default function studentupload() {
   return (
     <div>
       <Navber />
-      <UploadForm
-        css={css`
-          display: flex;
-          justify-content: center;
-          width: 100%;
-          height: 100%;
-        `}
-      >
-        <div
-          css={css`
-            width: 80%;
-            height: 100%;
-          `}
-        >
-          <div
-            css={css`
-              text-align: center;
-            `}
-          >
+     
+    
             <DormitoryYear>
               <select value={year} onChange={handleYearChange}>
                 <option value="">연도 선택</option>
@@ -240,9 +223,7 @@ export default function studentupload() {
                 <StudentData degree={degree} Token={Token} />
               </ComponentDiv>
             )}
-          </div>
-        </div>
-      </UploadForm>
+
     </div>
   );
 }
