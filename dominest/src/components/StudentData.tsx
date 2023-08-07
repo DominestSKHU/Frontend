@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
 import { fetchData, StudentDelete } from "@/utils/uploadutil";
-
+import {ComponentDiv2,ComponentTable} from "@/style/ComponentStyle";
 import "../app/globals.css";
 /** @jsxImportSource @emotion/react */
 
@@ -16,7 +16,7 @@ export default function StudentData(props) {
     if (data && Array.isArray(data) && data.length > 0) {
       return (
         <div>
-          <table css={tableStyle}>
+          <ComponentTable>
             <thead>
               <tr>
                 <th>번호</th>
@@ -68,7 +68,7 @@ export default function StudentData(props) {
                   <td>{resident.socialCode}</td>
                   <td>{resident.socialName}</td>
                   <td>{resident.zipCode}</td>
-                  <td>{resident.address}</td>
+                  <td >{resident.address}</td>
                   <td>
                     <button
                       onClick={() => StudentDelete(resident.id, props.Token)}
@@ -79,7 +79,7 @@ export default function StudentData(props) {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </ComponentTable>
         </div>
       );
     } else {
@@ -88,28 +88,11 @@ export default function StudentData(props) {
   };
 
   return (
-    <div
-      css={css`
-        margin: 20px;
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        height: 600px;
-        max-height: 600px;
-        align-items: center;
-        overflow: auto;
-        border: 1px solid black;
-      `}
-    >
-      <div
-        css={css`
-          width: 100%;
-          height: 100%;
-        `}
-      >
+    <ComponentDiv2>
+   
         {renderTable()}
-      </div>
-    </div>
+      </ComponentDiv2>
+ 
   );
 }
 const tableStyle = css`

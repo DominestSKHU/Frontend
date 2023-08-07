@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import StudentData from "@/components/StudentData";
+import {ComponentDiv} from "@/style/ComponentStyle";
 import "../app/globals.css";
 import { handleUpload, delet } from "@/utils/uploadutil";
 import StudentEdit from "@/components/StudentEdit";
@@ -235,9 +236,9 @@ export default function studentupload() {
               </>
             )}
             {showStudentDate && (
-              <>
+              <ComponentDiv>
                 <StudentData degree={degree} Token={Token} />
-              </>
+              </ComponentDiv>
             )}
           </div>
         </div>

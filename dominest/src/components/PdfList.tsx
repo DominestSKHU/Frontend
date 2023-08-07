@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
 import { fetchData, StudentDelete } from "@/utils/uploadutil";
-import { ComponentTable } from "@/style/ComponentStyle";
+import { ComponentTable,ComponentDiv2 } from "@/style/ComponentStyle";
 import "../app/globals.css";
 /** @jsxImportSource @emotion/react */
 
@@ -57,27 +57,8 @@ export default function PdfList(props) {
   };
 
   return (
-    <div
-      css={css`
-        margin: 20px;
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        height: 600px;
-        max-height: 600px;
-        align-items: center;
-        overflow: auto;
-        border: 1px solid black;
-      `}
-    >
-      <div
-        css={css`
-          width: 100%;
-          height: 100%;
-        `}
-      >
+    <ComponentDiv2>
         {renderTable()}
-      </div>
-    </div>
+    </ComponentDiv2>
   );
 }
