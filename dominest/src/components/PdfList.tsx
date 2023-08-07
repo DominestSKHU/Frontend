@@ -15,16 +15,21 @@ export default function PdfList(props) {
     fetchData(props.degree, setData);
   }, [props]);
 
-
+  const StudentOnePdf = (id, Token) => {
+    axios
+      .post(`http://domidomi.duckdns.org/residents/${id}/pdf`,Token)
+      .then((response) => {
+        setData(response.data?.data?.pdfs)
+      })
+      .catch((error) => {
+        console.error("데이터 조회 중 오류 발생:", error);
+      });
+  };
   const fetchData = () => {
     axios
       .get(`http://domidomi.duckdns.org/residents/pdf?residenceSemester=${props.degree}`)
       .then((response) => {
         setData(response.data?.data?.pdfs)
-        console.log(response)
-        console.log(setData)
-        console.log("조회성공");
-        console;
       })
       .catch((error) => {
         console.error("데이터 조회 중 오류 발생:", error);
@@ -41,7 +46,10 @@ export default function PdfList(props) {
                   <th>순서</th>
                   <th>이름</th>
                   <th>결과</th>
+           
                   <th>조회  업로드</th>
+
+                
                 </tr>
               </thead>
               <tbody>
@@ -50,6 +58,7 @@ export default function PdfList(props) {
                     <td>{index+1}</td>
                     <td>{pdfs.residentName}</td>
                     <td>{pdfs.existsFile}</td>
+                   
                     <td>
                     <button
                         onClick={() => StudentDelete(pdfs.id, props.Token)}
@@ -57,7 +66,7 @@ export default function PdfList(props) {
                         조회
                       </button>
                       <button
-                        onClick={() => StudentDelete(pdfs.id, props.Token)}
+                        onClick={() => StudentOnePdf(pdfs.id, props.Token)}
                       >
                         업로드
                       </button>
