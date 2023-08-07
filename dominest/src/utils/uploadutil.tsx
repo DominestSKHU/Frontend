@@ -2,19 +2,11 @@ import axios from "axios";
 
 export const handleUpload = (
   selectedFile,
-  residenceSemester,
-  year,
+  degree,
   setShowStudentDate,
   authToken
 ) => {
-  if (year === "") {
-    return "연도를 선택해주세요";
-  }
-  if (residenceSemester === "") {
-    return "차수를 선택해주세요";
-  }
   if (selectedFile) {
-    const degree = year + residenceSemester;
     const formData = new FormData();
     formData.append("file", selectedFile);
     formData.append("residenceSemester", degree);
@@ -71,6 +63,8 @@ export const fetchData = (degree, setData) => {
     .get(`http://domidomi.duckdns.org/residents?residenceSemester=${degree}`)
     .then((response) => {
       setData(response.data?.data?.residents);
+      console.log("조회성공");
+      console;
     })
     .catch((error) => {
       console.error("데이터 조회 중 오류 발생:", error);

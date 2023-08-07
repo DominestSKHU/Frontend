@@ -6,36 +6,9 @@ import { CiStar } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import React from "react";
+import { NavStyle, LeftNav, NavList, LoginState } from "@/style/NavStyle";
 /** @jsxImportSource @emotion/react */
 
-const title = css`
-  font-weight: bold;
-  width: 10%;
-  color: #575757;
-  font-size: larger;
-`;
-const LeftNav = css`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 42%;
-`;
-const NavStyle = css`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100vw;
-  height: 8vh;
-  background-color: #dcdcdc;
-`;
-const NavList = css`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  list-style: none;
-  padding-left: 0px;
-  width: 30vw;
-`;
 const NavItem = css`
   display: flex;
   flex-direction: column;
@@ -44,36 +17,11 @@ const NavItem = css`
   list-style: none;
   padding-left: 0px;
 `;
-const LoginState = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 15%;
-  & > .loginIcon,
-  span {
-    width: fit-content;
-  }
-  & > .logout {
-    display: none;
-  }
-  &:hover {
-    & > .loginIcon,
-    span {
-      display: none;
-    }
-    & > .logout {
-      display: block;
-    }
-  }
-`;
 
 const Navber = () => {
   const [name, setName] = React.useState("이용자");
 
   const [role, setRole] = React.useState("근로생");
-  const [bookmark, setBookmark] = React.useState(false);
-  const [admin, setAdmin] = React.useState(false);
-  const [worker, setWorker] = React.useState(false);
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
@@ -91,85 +39,72 @@ const Navber = () => {
   };
 
   return (
-    <div css={NavStyle}>
-      <div css={LeftNav}>
-        <div className="logo" css={title}>
-          Dominest
-        </div>
-        <ul css={NavList}>
+    <NavStyle>
+      <Link className="Link" href="/">
+        <h1>Dominest</h1>
+      </Link>
+
+      <LeftNav>
+        <NavList>
           <li>
-            <button css={NavItem} onClick={() => setBookmark(!bookmark)}>
-              <p>즐겨찾기</p>
-            </button>
-            {bookmark ? (
-              <ul css={NavItem}>
-                <li>
-                  <Link
-                    href="/login"
-                    css={css`
-                      display: flex;
-                      align-items: center;
-                    `}
-                  >
-                    <span>빵빵이</span>
-                    <CiStar size={20} />
-                  </Link>
-                </li>
-              </ul>
-            ) : (
-              <></>
-            )}
+            <p>즐겨찾기</p>
+            <ul css={NavItem}>
+              <li>
+                <Link href="/login" className="Link">
+                  <span>빵빵이</span>
+                  <CiStar size={20} />
+                </Link>
+              </li>
+              <li>
+                <Link href="/login" className="Link">
+                  <span>빵빵이</span>
+                  <CiStar size={20} />
+                </Link>
+              </li>
+            </ul>
+
             {/* 다른 즐겨찾기 아이템들 추가 */}
           </li>
           <li>
-            <button css={NavItem} onClick={() => setAdmin(!admin)}>
-              <p>관리자 목록</p>
-            </button>
-            {admin ? (
-              <ul css={NavItem}>
-                <li>
-                  <Link
-                    href="/login"
-                    css={css`
-                      display: flex;
-                      align-items: center;
-                    `}
-                  >
-                    <span>빵빵이</span>
-                    <CiStar size={20} />
-                  </Link>
-                </li>
-              </ul>
-            ) : (
-              <></>
-            )}
+            <p>관리자 목록</p>
+
+            <ul css={NavItem}>
+              <li>
+                <Link href="/studentupload" className="Link">
+                  <span>학생정보 업로드</span>
+                  <CiStar size={20} />
+                </Link>
+              </li>
+              <li>
+                <Link href="/student" className="Link">
+                  <span>학생정보 업로드</span>
+                  <CiStar size={20} />
+                </Link>
+              </li>
+            </ul>
           </li>
           <li>
-            <button css={NavItem} onClick={() => setWorker(!worker)}>
-              <p>근로생 목록</p>
-            </button>
-            {worker ? (
-              <ul css={NavItem}>
-                <li>
-                  <Link
-                    href="/login"
-                    css={css`
-                      display: flex;
-                      align-items: center;
-                    `}
-                  >
-                    <span>빵빵이</span>
-                    <CiStar size={20} />
-                  </Link>
-                </li>
-              </ul>
-            ) : (
-              <></>
-            )}
+            <p>근로생 목록</p>
+
+            <ul css={NavItem}>
+              <li>
+                <Link href="/pdfupload" className="Link">
+                  <span>입관신청서</span>
+                  <CiStar size={20} />
+                </Link>
+              </li>
+              <li>
+                <Link href="/pdfupload" className="Link">
+                  <span>퇴관신청서</span>
+                  <CiStar size={20} />
+                </Link>
+              </li>
+            </ul>
+
             {/* 다른 근로생 목록 아이템들 추가 */}
           </li>
-        </ul>
-      </div>
+        </NavList>
+      </LeftNav>
       <LoginState>
         <HiOutlineUserCircle className="loginIcon" size={25} />
         {role === "근로생" ? <span>근로생</span> : <span>관리자</span>}
@@ -182,10 +117,10 @@ const Navber = () => {
           {name}
         </span>
         <button className="logout" onClick={onLogout}>
-          로그아웃 하기
+          로그아웃
         </button>
       </LoginState>
-    </div>
+    </NavStyle>
   );
 };
 
