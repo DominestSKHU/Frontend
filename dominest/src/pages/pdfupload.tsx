@@ -15,6 +15,8 @@ export default function pdfupload() {
   const [PdfLists, setPdfLists] = useState(false);
   const [degree, setDegree] = useState("");
   const [Token, setToken] = useState("");
+  const [SetData, setSetData] = useState([])
+  const [PdfListShow, setPdfListShow] = useState(false);
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
     setToken(authToken);
@@ -41,9 +43,9 @@ export default function pdfupload() {
 
   const fetchData = () => {
     axios
-      .get(`http://domidomi.duckdns.org/residents?residenceSemester=${degree}`)
+      .get(`http://domidomi.duckdns.org/residents/pdf?residenceSemester=${degree}`)
       .then((response) => {
-        setData(response.data?.data?.residents);
+        setSetData(response.data?.data?.residents)
         console.log("조회성공");
         console;
       })
