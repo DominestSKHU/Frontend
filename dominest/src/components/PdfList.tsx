@@ -22,6 +22,7 @@ export default function PdfList(props) {
                  <th>순서</th>
                   <th>이름</th>
                   <th>학번</th>
+                  <th>결과</th>
                   <th>조회  업로드</th>
                 </tr>
               </thead>
