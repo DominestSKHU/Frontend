@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 import { use, useEffect, useState } from "react";
 import { StudentDelete } from "@/utils/uploadutil";
 import { ComponentTable, ComponentDiv2 } from "@/style/ComponentStyle";
+import PdfViewer from "./PdfViewer";
 import "../app/globals.css";
 import axios from "axios";
 
@@ -92,7 +93,7 @@ export default function PdfList(props) {
                 <td>{pdfs.existsAdmissionFile}</td>
 
                 <td>
-                  <button>조회</button>
+                  <PdfViewer pdfUrl={pdfs.pdfUrl} />
 
                   <button
                     onClick={() => {
