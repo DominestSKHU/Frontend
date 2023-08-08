@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
-import { useEffect, useState } from "react";
-import {  StudentDelete } from "@/utils/uploadutil";
-import { ComponentTable,ComponentDiv2 } from "@/style/ComponentStyle";
+import { use, useEffect, useState } from "react";
+import { StudentDelete } from "@/utils/uploadutil";
+import { ComponentTable, ComponentDiv2 } from "@/style/ComponentStyle";
 import "../app/globals.css";
 import axios from "axios";
 
@@ -9,27 +9,60 @@ import axios from "axios";
 
 export default function PdfList(props) {
   const [data, setData] = useState<any[]>();
-
+  const [selectedFiles, setSelectedFiles] = useState(null);
+  const [Token, setToken] = useState("");
+  const [id, setId] = useState("");
 
   useEffect(() => {
-    fetchData(props.degree, setData);
+    const authToken = localStorage.getItem("authToken");
+    setToken(authToken);
+  }, []);
+
+  useEffect(() => {
+    fetchData();
   }, [props]);
 
-  const StudentOnePdf = (id, Token) => {
+  const handleFileChange = (e) => {
+    setSelectedFiles(e.target.files[0]);
+  };
+  useEffect(() => {
+    StudentOnePdf();
+  }, [selectedFiles]);
+
+  const handleUploadButtonClick = () => {
+    const fileInput = document.getElementById("pdfone");
+    if (fileInput) {
+      fileInput.click();
+    }
+  };
+
+  const StudentOnePdf = () => {
+    const formData = new FormData();
+    formData.append("pdf", selectedFiles);
+    formData.append("residenceSemester", props.degree);
+    formData.append("pdfType", "admission");
     axios
-      .post(`http://domidomi.duckdns.org/residents/${id}/pdf`,Token)
+      .post(`http://domidomi.duckdns.org/residents/${id}/pdf`, formData, {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      })
+
       .then((response) => {
-        setData(response.data?.data?.pdfs)
+        console.log("업로드 성공:", response.data);
       })
       .catch((error) => {
-        console.error("데이터 조회 중 오류 발생:", error);
+        console.error("업로드 중 오류 발생:", error);
+        console.error(formData);
       });
   };
   const fetchData = () => {
     axios
-      .get(`http://domidomi.duckdns.org/residents/pdf?residenceSemester=${props.degree}`)
+      .get(
+        `http://domidomi.duckdns.org/residents/pdf?residenceSemester=${props.degree}`
+      )
       .then((response) => {
-        setData(response.data?.data?.pdfs)
+        setData(response.data?.data?.pdfs);
       })
       .catch((error) => {
         console.error("데이터 조회 중 오류 발생:", error);
@@ -39,52 +72,51 @@ export default function PdfList(props) {
   const renderTable = () => {
     if (data && Array.isArray(data) && data.length > 0) {
       return (
-        
-            <ComponentTable>
-              <thead>
-                <tr>
-                  <th>순서</th>
-                  <th>이름</th>
-                  <th>결과</th>
-           
-                  <th>조회  업로드</th>
+        <ComponentTable>
+          <thead>
+            <tr>
+              <th>순서</th>
+              <th>이름</th>
+              <th>결과</th>
+              <th>조회 업로드</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((pdfs, index) => (
+              <tr key={pdfs.id}>
+                <td>{index + 1}</td>
+                <td>{pdfs.residentName}</td>
+                <td>{pdfs.existsAdmissionFile}</td>
 
-                
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((pdfs,index) => (
-                  <tr key={pdfs.id}>
-                    <td>{index+1}</td>
-                    <td>{pdfs.residentName}</td>
-                    <td>{pdfs.existsFile}</td>
-                   
-                    <td>
-                    <button
-                        onClick={() => StudentDelete(pdfs.id, props.Token)}
-                      >
-                        조회
-                      </button>
-                      <button
-                        onClick={() => StudentOnePdf(pdfs.id, props.Token)}
-                      >
-                        업로드
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </ComponentTable>
-     
+                <td>
+                  <button>조회</button>
+
+                  <button
+                    onClick={() => {
+                      handleUploadButtonClick();
+                      setId(pdfs.id);
+                    }}
+                  >
+                    업로드
+                  </button>
+
+                  <input
+                    type="file"
+                    name="file"
+                    id="pdfone"
+                    onChange={handleFileChange}
+                    style={{ display: "none" }}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </ComponentTable>
       );
     } else {
       return <p>데이터가 없습니다.</p>;
     }
   };
 
-  return (
-    <ComponentDiv2>
-        {renderTable()}
-    </ComponentDiv2>
-  );
+  return <ComponentDiv2>{renderTable()}</ComponentDiv2>;
 }

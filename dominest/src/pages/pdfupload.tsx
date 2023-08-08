@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PdfList from "@/components/PdfList";
-import {
-  FileUpload,
-  DormitoryYear,
-  Button,
-} from "@/style/InputStyle";
+import { FileUpload, DormitoryYear, Button } from "@/style/InputStyle";
 import { ComponentDiv } from "@/style/ComponentStyle";
 import Navber from "@/components/AdminNavbar";
 import axios from "axios";
@@ -15,7 +11,7 @@ export default function pdfupload() {
   const [PdfLists, setPdfLists] = useState(false);
   const [degree, setDegree] = useState("");
   const [Token, setToken] = useState("");
-  const [SetData, setSetData] = useState([])
+
   const [PdfListShow, setPdfListShow] = useState(false);
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
@@ -41,18 +37,6 @@ export default function pdfupload() {
     setSelectedFiles(e.target.files);
   };
 
-  const fetchData = () => {
-    axios
-      .get(`http://domidomi.duckdns.org/residents/pdf?residenceSemester=${degree}`)
-      .then((response) => {
-        setSetData(response.data?.data?.residents)
-        console.log("조회성공");
-        console;
-      })
-      .catch((error) => {
-        console.error("데이터 조회 중 오류 발생:", error);
-      });
-  };
   const handleUpload = () => {
     const formData = new FormData();
     formData.append("residenceSemester", selectedYear + selectedSemester);
@@ -76,7 +60,9 @@ export default function pdfupload() {
   return (
     <div>
       <Navber />
+
       <DormitoryYear>
+        <h1>입관</h1>
         <select onChange={handleYearChange}>
           <option value="">연도 선택</option>
           <option value="S2023">2023년</option>
@@ -95,7 +81,7 @@ export default function pdfupload() {
           <option value="_2">2학기</option>
           <option value="_WINTER">겨울학기</option>
         </select>
-        <Button onClick={fetchData}>조회</Button>
+        <Button onClick={() => setPdfListShow(true)}>조회</Button>
         <Button onClick={() => setPdfLists(true)}>PDF 관리</Button>
       </DormitoryYear>
       {PdfLists && (
@@ -111,9 +97,11 @@ export default function pdfupload() {
           <Button onClick={handleUpload}>업로드 </Button>
         </FileUpload>
       )}
-      <ComponentDiv>
-        <PdfList degree={degree} />
-      </ComponentDiv>
+      {PdfListShow && (
+        <ComponentDiv>
+          <PdfList degree={degree} />
+        </ComponentDiv>
+      )}
     </div>
   );
 }
