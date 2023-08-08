@@ -18,7 +18,7 @@ const NavItem = css`
   padding-left: 0px;
 `;
 
-const Navber = () => {
+const Navber = (props) => {
   const [name, setName] = React.useState("이용자");
   const [role, setRole] = React.useState("근로생");
   const router = useRouter();
@@ -104,6 +104,7 @@ const Navber = () => {
           </li>
         </NavList>
       </LeftNav>
+      <strong>{props.page}</strong>
       <LoginState>
         <HiOutlineUserCircle className="loginIcon" size={25} />
         {role === "근로생" ? <span>근로생</span> : <span>관리자</span>}

@@ -41,6 +41,8 @@ export default function pdfupload() {
     formData.append("residenceSemester", selectedYear + selectedSemester);
     for (let i = 0; i < selectedFiles.length; i++) {
       formData.append("pdfs", selectedFiles[i]);
+      formData.append("residenceSemester", degree);
+      formData.append("pdfType", "admission");
     }
     axios
       .post("http://domidomi.duckdns.org/residents/pdf", formData, {
@@ -50,6 +52,7 @@ export default function pdfupload() {
       })
       .then((response) => {
         console.log("업로드 성공:", response.data);
+        return alert("업로드에 성공하였습니다.");
       })
       .catch((error) => {
         console.error("업로드 실패:", error);
@@ -58,7 +61,7 @@ export default function pdfupload() {
 
   return (
     <div>
-      <Navber />
+      <Navber page="입관 신청서PDF" />
 
       <DormitoryYear>
         <select onChange={handleYearChange}>

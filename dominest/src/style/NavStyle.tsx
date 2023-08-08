@@ -21,7 +21,7 @@ export const LeftNav = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 70%;
+  width: 45%;
 `;
 export const NavList = styled.ul`
   display: flex;
@@ -33,7 +33,7 @@ export const NavList = styled.ul`
   li {
 
     text-align: center;
-    width: 190px;
+    width: 170px;
     &:hover {
       background-color: #c4c4c4;
       
@@ -48,7 +48,7 @@ export const NavList = styled.ul`
     ul {
       box-shadow: 5px 5px 5px gray;
       border:   1px solid #c4c4c4;
-      width: 189px;
+      width: 169px;
       top: 7.5vh;
       position: absolute;
       display: none;
