@@ -87,13 +87,13 @@ const Navber = (props) => {
 
             <ul css={NavItem}>
               <li>
-                <Link href="/pdfupload" className="Link">
+                <Link href="/admissionform" className="Link">
                   <span>입관신청서</span>
                   <CiStar size={20} />
                 </Link>
               </li>
               <li>
-                <Link href="/pdfupload" className="Link">
+                <Link href="/departureform" className="Link">
                   <span>퇴관신청서</span>
                   <CiStar size={20} />
                 </Link>

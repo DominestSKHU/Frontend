@@ -91,9 +91,8 @@ export default function PdfList(props) {
                 <td>{index + 1}</td>
                 <td>{pdfs.residentName}</td>
                 <td>{pdfs.existsAdmissionFile}</td>
-
                 <td>
-                  <PdfViewer pdfUrl={pdfs.pdfUrl} />
+                  <PdfViewer id={pdfs.id} chosenFormType={"admission"} />
 
                   <button
                     onClick={() => {
