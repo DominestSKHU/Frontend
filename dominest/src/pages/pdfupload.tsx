@@ -16,7 +16,6 @@ export default function pdfupload() {
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
     setToken(authToken);
-    console.log(authToken);
     if (!authToken) {
       router.push("/login");
     }
@@ -62,7 +61,6 @@ export default function pdfupload() {
       <Navber />
 
       <DormitoryYear>
-        <h1>입관</h1>
         <select onChange={handleYearChange}>
           <option value="">연도 선택</option>
           <option value="S2023">2023년</option>

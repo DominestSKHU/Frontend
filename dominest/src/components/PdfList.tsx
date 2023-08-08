@@ -22,13 +22,15 @@ export default function PdfList(props) {
     fetchData();
   }, [props]);
 
+  useEffect(() => {
+    if (selectedFiles !== null) {
+      StudentOnePdf();
+    }
+  }, [selectedFiles]);
+
   const handleFileChange = (e) => {
     setSelectedFiles(e.target.files[0]);
   };
-  useEffect(() => {
-    StudentOnePdf();
-  }, [selectedFiles]);
-
   const handleUploadButtonClick = () => {
     const fileInput = document.getElementById("pdfone");
     if (fileInput) {
@@ -50,6 +52,7 @@ export default function PdfList(props) {
 
       .then((response) => {
         console.log("업로드 성공:", response.data);
+        return alert("업로드에 성공하였습니다.");
       })
       .catch((error) => {
         console.error("업로드 중 오류 발생:", error);
