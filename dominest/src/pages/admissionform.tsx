@@ -5,7 +5,7 @@ import { ComponentDiv } from "@/style/ComponentStyle";
 import Navber from "@/components/AdminNavbar";
 import { handleUpload } from "@/utils/PdfUtil";
 
-export default function pdfupload() {
+export default function admissionform() {
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedSemester, setSelectedSemester] = useState("");
   const [selectedFiles, setSelectedFiles] = useState([]);
