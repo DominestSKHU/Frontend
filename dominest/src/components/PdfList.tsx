@@ -43,7 +43,7 @@ export default function PdfList(props) {
     const formData = new FormData();
     formData.append("pdf", selectedFiles);
     formData.append("residenceSemester", props.degree);
-    formData.append("pdfType", "admission");
+    formData.append("pdfType", props.chosenFormType);
     axios
       .post(`http://domidomi.duckdns.org/residents/${id}/pdf`, formData, {
         headers: {
@@ -76,45 +76,96 @@ export default function PdfList(props) {
   const renderTable = () => {
     if (data && Array.isArray(data) && data.length > 0) {
       return (
-        <ComponentTable>
-          <thead>
-            <tr>
-              <th>순서</th>
-              <th>이름</th>
-              <th>결과</th>
-              <th>조회 업로드</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((pdfs, index) => (
-              <tr key={pdfs.id}>
-                <td>{index + 1}</td>
-                <td>{pdfs.residentName}</td>
-                <td>{pdfs.existsAdmissionFile}</td>
-                <td>
-                  <PdfViewer id={pdfs.id} chosenFormType={"admission"} />
+        <div>
+          {props.chosenFormType === "admission" && (
+            <ComponentTable>
+              <thead>
+                <tr>
+                  <th>순서</th>
+                  <th>이름</th>
+                  <th>결과</th>
+                  <th>조회 업로드</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((pdfs, index) => (
+                  <tr key={pdfs.id}>
+                    <td>{index + 1}</td>
+                    <td>{pdfs.residentName}</td>
+                    <td>{pdfs.existsAdmissionFile}</td>
+                    <td>
+                      <PdfViewer
+                        id={pdfs.id}
+                        chosenFormType={props.chosenFormType}
+                      />
 
-                  <button
-                    onClick={() => {
-                      handleUploadButtonClick();
-                      setId(pdfs.id);
-                    }}
-                  >
-                    업로드
-                  </button>
+                      <button
+                        onClick={() => {
+                          handleUploadButtonClick();
+                          setId(pdfs.id);
+                        }}
+                      >
+                        업로드
+                      </button>
 
-                  <input
-                    type="file"
-                    name="file"
-                    id="pdfone"
-                    onChange={handleFileChange}
-                    style={{ display: "none" }}
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </ComponentTable>
+                      <input
+                        type="file"
+                        name="file"
+                        id="pdfone"
+                        onChange={handleFileChange}
+                        style={{ display: "none" }}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </ComponentTable>
+          )}
+          {props.chosenFormType === "departure" && (
+            <ComponentTable>
+              <thead>
+                <tr>
+                  <th>순서</th>
+                  <th>이름</th>
+                  <th>결과</th>
+                  <th>조회 업로드</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((pdfs, index) => (
+                  <tr key={pdfs.id}>
+                    <td>{index + 1}</td>
+                    <td>{pdfs.residentName}</td>
+                    <td>{pdfs.existsDepartureFile}</td>
+                    <td>
+                      <PdfViewer
+                        id={pdfs.id}
+                        chosenFormType={props.chosenFormType}
+                      />
+
+                      <button
+                        onClick={() => {
+                          handleUploadButtonClick();
+                          setId(pdfs.id);
+                        }}
+                      >
+                        업로드
+                      </button>
+
+                      <input
+                        type="file"
+                        name="file"
+                        id="pdfone"
+                        onChange={handleFileChange}
+                        style={{ display: "none" }}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </ComponentTable>
+          )}
+        </div>
       );
     } else {
       return <p>데이터가 없습니다.</p>;

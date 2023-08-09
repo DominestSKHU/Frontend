@@ -3,7 +3,8 @@ import PdfList from "@/components/PdfList";
 import { FileUpload, DormitoryYear, Button } from "@/style/InputStyle";
 import { ComponentDiv } from "@/style/ComponentStyle";
 import Navber from "@/components/AdminNavbar";
-import axios from "axios";
+import { handleUpload } from "@/utils/PdfUtil";
+
 export default function pdfupload() {
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedSemester, setSelectedSemester] = useState("");
@@ -34,29 +35,6 @@ export default function pdfupload() {
 
   const handleFileChange = (e) => {
     setSelectedFiles(e.target.files);
-  };
-
-  const handleUpload = () => {
-    const formData = new FormData();
-    formData.append("residenceSemester", selectedYear + selectedSemester);
-    for (let i = 0; i < selectedFiles.length; i++) {
-      formData.append("pdfs", selectedFiles[i]);
-      formData.append("residenceSemester", degree);
-      formData.append("pdfType", "admission");
-    }
-    axios
-      .post("http://domidomi.duckdns.org/residents/pdf", formData, {
-        headers: {
-          Authorization: `Bearer ${Token}`,
-        },
-      })
-      .then((response) => {
-        console.log("업로드 성공:", response.data);
-        return alert("업로드에 성공하였습니다.");
-      })
-      .catch((error) => {
-        console.error("업로드 실패:", error);
-      });
   };
 
   return (
@@ -95,12 +73,18 @@ export default function pdfupload() {
             accept=".pdf"
             onChange={handleFileChange}
           />
-          <Button onClick={handleUpload}>업로드 </Button>
+          <Button
+            onClick={() =>
+              handleUpload(degree, selectedFiles, Token, "admission")
+            }
+          >
+            업로드
+          </Button>
         </FileUpload>
       )}
       {PdfListShow && (
         <ComponentDiv>
-          <PdfList degree={degree} />
+          <PdfList degree={degree} chosenFormType="admission" />
         </ComponentDiv>
       )}
     </div>
