@@ -4,6 +4,7 @@ import { FileUpload, DormitoryYear, Button } from "@/style/InputStyle";
 import { ComponentDiv } from "@/style/ComponentStyle";
 import Navber from "@/components/AdminNavbar";
 import { handleUpload } from "@/utils/PdfUtil";
+import router from "next/router";
 
 export default function departureform() {
   const [selectedYear, setSelectedYear] = useState("");
