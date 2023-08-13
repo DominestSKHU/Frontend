@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 
 import { useEffect, useState } from "react";
 import { fetchData, StudentDelete } from "@/utils/uploadutil";
-import {ComponentDiv2,StudentDataTable} from "@/style/ComponentStyle";
+import { ComponentDiv2, StudentDataTable } from "@/style/ComponentStyle";
 import "../app/globals.css";
 /** @jsxImportSource @emotion/react */
 
@@ -69,7 +69,7 @@ export default function StudentData(props) {
                   <td>{resident.socialCode}</td>
                   <td>{resident.socialName}</td>
                   <td>{resident.zipCode}</td>
-                  <td >{resident.address}</td>
+                  <td>{resident.address}</td>
                   <td>
                     <button
                       onClick={() => StudentDelete(resident.id, props.Token)}
@@ -88,13 +88,7 @@ export default function StudentData(props) {
     }
   };
 
-  return (
-    <ComponentDiv2>
-   
-        {renderTable()}
-      </ComponentDiv2>
- 
-  );
+  return <ComponentDiv2>{renderTable()}</ComponentDiv2>;
 }
 const tableStyle = css`
   border-collapse: collapse;
