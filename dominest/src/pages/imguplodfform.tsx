@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "../app/globals.css";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -16,7 +16,7 @@ const ImageInputStyle = css`
 `;
 
 const Inputt = styled.div`
-  input[type="file"]::file-selector-button {
+  input {
     display: none;
   }
 `;
@@ -28,11 +28,12 @@ const ImageInputContainer = styled.div`
 const PreviewContainer = styled.div`
   display: flex;
   overflow-x: auto;
-  gap: 10px; /* 조절하여 이미지 사이의 간격 설정 */
+  gap: 10px;
 `;
 
 export default function ImageUploadForm() {
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const fileInputRef = useRef(null);
 
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
@@ -43,6 +44,10 @@ export default function ImageUploadForm() {
     event.preventDefault();
     const files = Array.from(event.dataTransfer.files);
     setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
+  };
+
+  const handleUploadTextClick = () => {
+    fileInputRef.current.click();
   };
 
   return (
@@ -56,10 +61,12 @@ export default function ImageUploadForm() {
           <div
             className="upload-box"
             onDrop={handleDrop}
+            onClick={handleUploadTextClick}
             onDragOver={(e) => e.preventDefault()}
           >
             <Inputt>
               <input
+                ref={fileInputRef}
                 className="btn-file d-none"
                 type="file"
                 onChange={handleFileChange}
