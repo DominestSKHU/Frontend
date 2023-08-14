@@ -98,6 +98,12 @@ const Navber = (props) => {
                   <CiStar size={20} />
                 </Link>
               </li>
+              <li>
+                <Link href="/imguplodfform" className="Link">
+                  <span>이미지 업로드</span>
+                  <CiStar size={20} />
+                </Link>
+              </li>
             </ul>
 
             {/* 다른 근로생 목록 아이템들 추가 */}
