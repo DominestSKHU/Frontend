@@ -25,6 +25,12 @@ const ImageInputContainer = styled.div`
   ${ImageInputStyle}
 `;
 
+const PreviewContainer = styled.div`
+  display: flex;
+  overflow-x: auto;
+  gap: 10px; /* 조절하여 이미지 사이의 간격 설정 */
+`;
+
 export default function ImageUploadForm() {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
@@ -62,7 +68,7 @@ export default function ImageUploadForm() {
               {selectedFiles.length > 0 ? (
                 <div>
                   <p>미리보기:</p>
-                  <div className="preview-container">
+                  <PreviewContainer>
                     {selectedFiles.map((file, index) => (
                       <div key={index} className="file-preview">
                         <Image
@@ -73,7 +79,7 @@ export default function ImageUploadForm() {
                         />
                       </div>
                     ))}
-                  </div>
+                  </PreviewContainer>
                 </div>
               ) : (
                 <p>여기에 파일을 드래그 앤 드롭하세요.</p>
