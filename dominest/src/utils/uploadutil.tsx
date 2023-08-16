@@ -63,6 +63,7 @@ export const fetchData = (degree, setData) => {
     .get(`http://domidomi.duckdns.org/residents?residenceSemester=${degree}`)
     .then((response) => {
       setData(response.data?.data?.residents);
+      console.log(setData);
       console.log("조회성공");
       console;
     })

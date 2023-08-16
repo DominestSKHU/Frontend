@@ -18,7 +18,7 @@ const NavItem = css`
   padding-left: 0px;
 `;
 
-const Navber = () => {
+const Navber = (props) => {
   const [name, setName] = React.useState("이용자");
 
   const [role, setRole] = React.useState("근로생");
@@ -88,14 +88,20 @@ const Navber = () => {
 
             <ul css={NavItem}>
               <li>
-                <Link href="/pdfupload" className="Link">
+                <Link href="/admissionform" className="Link">
                   <span>입관신청서</span>
                   <CiStar size={20} />
                 </Link>
               </li>
               <li>
-                <Link href="/pdfupload" className="Link">
+                <Link href="/departureform" className="Link">
                   <span>퇴관신청서</span>
+                  <CiStar size={20} />
+                </Link>
+              </li>
+              <li>
+                <Link href="/imguplodfform" className="Link">
+                  <span>이미지 업로드</span>
                   <CiStar size={20} />
                 </Link>
               </li>
@@ -105,6 +111,7 @@ const Navber = () => {
           </li>
         </NavList>
       </LeftNav>
+      <strong>{props.page}</strong>
       <LoginState>
         <HiOutlineUserCircle className="loginIcon" size={25} />
         {role === "근로생" ? <span>근로생</span> : <span>관리자</span>}

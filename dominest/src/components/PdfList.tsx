@@ -1,49 +1,170 @@
 import { css } from "@emotion/react";
-import { useEffect, useState } from "react";
-import { fetchData, StudentDelete } from "@/utils/uploadutil";
-
+import { use, useEffect, useState } from "react";
+import { StudentDelete } from "@/utils/uploadutil";
+import { ComponentTable, ComponentDiv2 } from "@/style/ComponentStyle";
+import PdfViewer from "./PdfViewer";
 import "../app/globals.css";
+import axios from "axios";
+
 /** @jsxImportSource @emotion/react */
 
 export default function PdfList(props) {
   const [data, setData] = useState<any[]>();
+  const [selectedFiles, setSelectedFiles] = useState(null);
+  const [Token, setToken] = useState("");
+  const [id, setId] = useState("");
 
   useEffect(() => {
-    fetchData(props.degree, setData);
+    const authToken = localStorage.getItem("authToken");
+    setToken(authToken);
+  }, []);
+
+  useEffect(() => {
+    fetchData();
   }, [props]);
+
+  useEffect(() => {
+    if (selectedFiles !== null) {
+      StudentOnePdf();
+    }
+  }, [selectedFiles]);
+
+  const handleFileChange = (e) => {
+    setSelectedFiles(e.target.files[0]);
+  };
+  const handleUploadButtonClick = () => {
+    const fileInput = document.getElementById("pdfone");
+    if (fileInput) {
+      fileInput.click();
+    }
+  };
+
+  const StudentOnePdf = () => {
+    const formData = new FormData();
+    formData.append("pdf", selectedFiles);
+    formData.append("residenceSemester", props.degree);
+    formData.append("pdfType", props.chosenFormType);
+    axios
+      .post(`http://domidomi.duckdns.org/residents/${id}/pdf`, formData, {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      })
+
+      .then((response) => {
+        console.log("업로드 성공:", response.data);
+        return alert("업로드에 성공하였습니다.");
+      })
+      .catch((error) => {
+        console.error("업로드 중 오류 발생:", error);
+        console.error(formData);
+      });
+  };
+  const fetchData = () => {
+    axios
+      .get(
+        `http://domidomi.duckdns.org/residents/pdf?residenceSemester=${props.degree}`
+      )
+      .then((response) => {
+        setData(response.data?.data?.pdfs);
+      })
+      .catch((error) => {
+        console.error("데이터 조회 중 오류 발생:", error);
+      });
+  };
 
   const renderTable = () => {
     if (data && Array.isArray(data) && data.length > 0) {
       return (
         <div>
-          <table>
-            <thead>
-              <tr>
-                <th>번호</th>
-                <th>이름</th>
-                <th>학번</th>
-                <th>삭제</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((resident, index) => (
-                <tr key={resident.id}>
-                  <td>{index + 1}</td>
-                  <td>{resident.name}</td>
-
-                  <td>{resident.studentId}</td>
-
-                  <td>
-                    <button
-                      onClick={() => StudentDelete(resident.id, props.Token)}
-                    >
-                      삭제
-                    </button>
-                  </td>
+          {props.chosenFormType === "admission" && (
+            <ComponentTable>
+              <thead>
+                <tr>
+                  <th>순서</th>
+                  <th>이름</th>
+                  <th>결과</th>
+                  <th>조회 업로드</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {data.map((pdfs, index) => (
+                  <tr key={pdfs.id}>
+                    <td>{index + 1}</td>
+                    <td>{pdfs.residentName}</td>
+                    <td>{pdfs.existsAdmissionFile}</td>
+                    <td>
+                      <PdfViewer
+                        id={pdfs.id}
+                        chosenFormType={props.chosenFormType}
+                      />
+
+                      <button
+                        onClick={() => {
+                          handleUploadButtonClick();
+                          setId(pdfs.id);
+                        }}
+                      >
+                        업로드
+                      </button>
+
+                      <input
+                        type="file"
+                        name="file"
+                        id="pdfone"
+                        onChange={handleFileChange}
+                        style={{ display: "none" }}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </ComponentTable>
+          )}
+          {props.chosenFormType === "departure" && (
+            <ComponentTable>
+              <thead>
+                <tr>
+                  <th>순서</th>
+                  <th>이름</th>
+                  <th>결과</th>
+                  <th>조회 업로드</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((pdfs, index) => (
+                  <tr key={pdfs.id}>
+                    <td>{index + 1}</td>
+                    <td>{pdfs.residentName}</td>
+                    <td>{pdfs.existsDepartureFile}</td>
+                    <td>
+                      <PdfViewer
+                        id={pdfs.id}
+                        chosenFormType={props.chosenFormType}
+                      />
+
+                      <button
+                        onClick={() => {
+                          handleUploadButtonClick();
+                          setId(pdfs.id);
+                        }}
+                      >
+                        업로드
+                      </button>
+
+                      <input
+                        type="file"
+                        name="file"
+                        id="pdfone"
+                        onChange={handleFileChange}
+                        style={{ display: "none" }}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </ComponentTable>
+          )}
         </div>
       );
     } else {
@@ -51,28 +172,5 @@ export default function PdfList(props) {
     }
   };
 
-  return (
-    <div
-      css={css`
-        margin: 20px;
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        height: 600px;
-        max-height: 600px;
-        align-items: center;
-        overflow: auto;
-        border: 1px solid black;
-      `}
-    >
-      <div
-        css={css`
-          width: 100%;
-          height: 100%;
-        `}
-      >
-        {renderTable()}
-      </div>
-    </div>
-  );
+  return <ComponentDiv2>{renderTable()}</ComponentDiv2>;
 }
