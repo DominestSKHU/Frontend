@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
 import PdfList from "@/components/PdfList";
 import { FileUpload, DormitoryYear, Button } from "@/style/InputStyle";
+import { ComponentDiv } from "@/style/ComponentStyle";
 import Navber from "@/components/AdminNavbar";
-import axios from "axios";
-export default function pdfupload() {
+import { handleUpload } from "@/utils/PdfUtil";
+
+export default function departureform() {
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedSemester, setSelectedSemester] = useState("");
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [PdfLists, setPdfLists] = useState(false);
   const [degree, setDegree] = useState("");
   const [Token, setToken] = useState("");
+
+  const [PdfListShow, setPdfListShow] = useState(false);
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
     setToken(authToken);
-    console.log(authToken);
     if (!authToken) {
       router.push("/login");
     }
@@ -33,41 +37,10 @@ export default function pdfupload() {
     setSelectedFiles(e.target.files);
   };
 
-  const fetchData = () => {
-    axios
-      .get(`http://domidomi.duckdns.org/residents?residenceSemester=${degree}`)
-      .then((response) => {
-        setData(response.data?.data?.residents);
-        console.log("조회성공");
-        console;
-      })
-      .catch((error) => {
-        console.error("데이터 조회 중 오류 발생:", error);
-      });
-  };
-  const handleUpload = () => {
-    const formData = new FormData();
-    formData.append("residenceSemester", selectedYear + selectedSemester);
-    for (let i = 0; i < selectedFiles.length; i++) {
-      formData.append("pdfs", selectedFiles[i]);
-    }
-    axios
-      .post("http://domidomi.duckdns.org/residents/pdf", formData, {
-        headers: {
-          Authorization: `Bearer ${Token}`,
-        },
-      })
-      .then((response) => {
-        console.log("업로드 성공:", response.data);
-      })
-      .catch((error) => {
-        console.error("업로드 실패:", error);
-      });
-  };
-
   return (
     <div>
-      <Navber />
+      <Navber page="퇴관 신청서PDF" />
+
       <DormitoryYear>
         <select onChange={handleYearChange}>
           <option value="">연도 선택</option>
@@ -87,20 +60,33 @@ export default function pdfupload() {
           <option value="_2">2학기</option>
           <option value="_WINTER">겨울학기</option>
         </select>
-        <Button onClick={fetchData}>조회</Button>
+        <Button onClick={() => setPdfListShow(true)}>조회</Button>
+        <Button onClick={() => setPdfLists(true)}>PDF 관리</Button>
       </DormitoryYear>
-      <FileUpload>
-        <label htmlFor="file">파일 업로드</label>
-        <input
-          type="file"
-          multiple
-          id="file"
-          accept=".pdf"
-          onChange={handleFileChange}
-        />
-        <Button onClick={handleUpload}>업로드 </Button>
-      </FileUpload>
-      <PdfList degree={degree} />
+      {PdfLists && (
+        <FileUpload>
+          <label htmlFor="file">파일 업로드</label>
+          <input
+            type="file"
+            multiple
+            id="file"
+            accept=".pdf"
+            onChange={handleFileChange}
+          />
+          <Button
+            onClick={() =>
+              handleUpload(degree, selectedFiles, Token, "departure")
+            }
+          >
+            업로드
+          </Button>
+        </FileUpload>
+      )}
+      {PdfListShow && (
+        <ComponentDiv>
+          <PdfList degree={degree} chosenFormType="departure" />
+        </ComponentDiv>
+      )}
     </div>
   );
 }

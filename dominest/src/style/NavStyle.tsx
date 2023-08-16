@@ -6,7 +6,7 @@ export const NavStyle = styled.div`
   justify-content: space-around;
   align-items: center;
   width: 100vw;
-  height: 7.5vh;
+  height: 56px;
   background-color: #dcdcdc;
 
   .Link {
@@ -21,7 +21,7 @@ export const LeftNav = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 70%;
+  width: 45%;
 `;
 export const NavList = styled.ul`
   display: flex;
@@ -31,37 +31,34 @@ export const NavList = styled.ul`
   padding-left: 0px;
 
   li {
-    width: 150px;
+
     text-align: center;
-    width: 200px;
+    width: 170px;
     &:hover {
+      background-color: #c4c4c4;
+      
       p {
         font-weight: bold;
       }
       ul {
-        width: 200px;
+    
         display: block;
       }
     }
     ul {
-      top: 7vh;
-      align-items: center;
+      box-shadow: 5px 5px 5px gray;
+      border:   1px solid #c4c4c4;
+      width: 169px;
+      top:56px;
       position: absolute;
       display: none;
-      justify-content: center;
-      background-color: #dcdcdc;
-      border-radius: 5px;
+      background-color: white;
+      border-radius: 0px 0px 5px 5px;
       padding-top: 5px;
       padding-bottom: 5px;
       text-align: center;
 
-      li {
-        width: 100%;
-        &:hover {
-          background-color: #fff;
-          padding-left: auto;
-          padding-right: auto;
-        }
+      
       }
     }
   }
