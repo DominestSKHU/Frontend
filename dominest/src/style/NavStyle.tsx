@@ -68,7 +68,8 @@ export const LoginState = styled.div`
   justify-content: center;
   align-items: center;
   width: 150px;
-  height: 80%;
+  height: 60%;
+  margin-right: 1rem;
   background-color: white;
   border-radius: 15px;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);

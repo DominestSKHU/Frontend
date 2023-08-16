@@ -1,15 +1,26 @@
 "use client";
 import Navbar from "@/components/AdminNavbar";
-import { css, Global } from "@emotion/react";
-import styled from "@emotion/styled";
+import {
+  formStyle,
+  CategoryBox,
+  Category,
+  CaregorySub,
+  CategoryPlus,
+  CategoryMoveBox,
+  SaveChange,
+  explanInput,
+} from "@/style/DragListStyle";
 import { useRouter } from "next/navigation";
 import { BsList } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import { RxDividerVertical } from "react-icons/rx";
-import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
+import { ReactSortable } from "react-sortablejs";
+import { css, Global } from "@emotion/react";
+import { getCategory } from "@/utils/category";
 /** @jsxImportSource @emotion/react */
-const globalStyles = css`
+
+export const globalStyles = css`
   html,
   body {
     margin: 0;
@@ -26,156 +37,33 @@ const globalStyles = css`
   }
 `;
 
-const formStyle = css`
-  width: 80vw;
-  height: 85vh;
-  background-color: #f0f0f0;
-  border-radius: 20px;
-  padding: 0% 2% 2% 2%;
-  margin: 4%;
-`;
-
-const CategoryBox = styled.div`
-  background-color: white;
-  border: 1px solid #cdcdcd;
-  border-radius: 20px;
-  padding: 2%;
-  height: 88%;
-  & > .boxComment {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 6%;
-    & > .control {
-      width: fit-content;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      & > .categoryCount {
-        margin-right: 1%;
-      }
-      & > button {
-        background-color: white;
-        border: 1px solid lightgray;
-        padding: 3%;
-        font-size: 1em;
-        border-radius: 8px;
-        width: 7em;
-        margin: 2%;
-        &:hover {
-          background-color: #f0f0f0;
-        }
-      }
-    }
-  }
-`;
-
-const Category = styled.div`
-  background-color: #f3f3f3;
-  height: 90%;
-  margin: 1% 0%;
-  padding: 10px;
-`;
-
-const CaregorySub = styled.div`
-  background-color: white;
-  padding: 3%;
-  border-radius: 20px;
-  height: 80%;
-`;
-
-const CategoryPlus = styled.button`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5%;
-  font-size: 1.2em;
-  border: 1px solid lightgrey;
-  width: 100%;
-  background-color: white;
-`;
-
-const SaveChange = styled.button`
-  background-color: #ffffff;
-  padding: 1%;
-  border: 1px solid #aeaeae;
-  border-radius: 10px;
-  margin: 0.6% 2%;
-  font-size: large;
-`;
-
-const CategoryMoveBox = styled.div`
-  height: 82%;
-  border: 1px solid lightgrey;
-  overflow: scroll;
-  & > .moveBtn {
-    background-color: white;
-  }
-`;
-const explanInput = css`
-  width: 20em;
-  font-size: 1.2em;
-  outline: none;
-  border: none;
-  background-color: aliceblue;
-`;
-
-const CategoryPlusBox = () => {
-  return (
-    <div
-      css={css`
-        display: flex;
-        border-bottom: 1px solid lightgrey;
-        align-items: center;
-        height: 14.1%;
-      `}
-    >
-      <button
-        className="moveBtn"
-        css={css`
-          background-color: #e3e3e3;
-          border: none;
-          height: 100%;
-        `}
-      >
-        <BsList size={25} />
-      </button>
-      <div
-        css={css`
-          font-size: 1.2rem;
-          font-weight: bold;
-          display: flex;
-          align-items: center;
-          width: 96%;
-          height: 100%;
-          justify-content: space-evenly;
-        `}
-      >
-        <span
-          css={css`
-            width: 20em;
-          `}
-        >
-          방역 및 호실 점검
-        </span>
-
-        <RxDividerVertical size={40} color="#d4d4d4" />
-        <input css={explanInput}></input>
-      </div>
-    </div>
-  );
-};
-
+interface CategoryPlusBoxProps {
+  id: number;
+  title: string;
+  explan: string;
+}
 const categoryManage = () => {
   const router = useRouter();
+  const [category, setCategory] = useState<CategoryPlusBoxProps[]>([
 
+  ]);
+  const [authToken, setAuthToken] = useState<string>("");
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
-
+    authToken && setAuthToken(authToken);
     if (!authToken) {
       router.push("/login");
     }
   }, []);
+
+  useEffect(() => {
+    getCategory(authToken).then((res) => {
+      setCategory(res.data);
+    }).catch((err) => console.log(err));
+  }, []);
+
+  console.log(category);
+
   return (
     <>
       <Global styles={globalStyles} />
@@ -203,9 +91,7 @@ const categoryManage = () => {
                 <br />
               </span>
               <div className="control">
-                <div className="categoryCount">22/500</div>
-                <button>전체 펼치기</button>
-                <button>전체 접기</button>
+                <div className="lastPost">최종 수정자</div>
               </div>
             </div>
             <Category className="categoryBox">
@@ -230,16 +116,71 @@ const categoryManage = () => {
                   </span>
                 </div>
                 <CategoryMoveBox>
-                  <CategoryPlusBox></CategoryPlusBox>
-                  <CategoryPlusBox></CategoryPlusBox>
-                  <CategoryPlusBox></CategoryPlusBox>
-                  <CategoryPlusBox></CategoryPlusBox>
-                  <CategoryPlusBox></CategoryPlusBox>
-                  <CategoryPlusBox></CategoryPlusBox>
-                  <CategoryPlusBox></CategoryPlusBox>
-                  <CategoryPlusBox></CategoryPlusBox>
-                  <CategoryPlusBox></CategoryPlusBox>
-                  <CategoryPlusBox></CategoryPlusBox>
+                  <ReactSortable list={category} setList={setCategory}>
+                    {category.map((item) => (
+                      <div
+                        css={css`
+                          display: flex;
+                          border-bottom: 1px solid lightgrey;
+                          align-items: center;
+                          height: 14.1%;
+                          background-color: white;
+                        `}
+                        key={item.id}
+                      >
+                        <div
+                          className="moveBtn"
+                          css={css`
+                            background-color: #e3e3e3;
+                            border: none;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            padding: 1%;
+                          `}
+                        >
+                          <BsList size={25} />
+                        </div>
+                        <div
+                          css={css`
+                            display: flex;
+                            align-items: center;
+                            width: 96%;
+                            height: 100%;
+                            justify-content: space-evenly;
+                          `}
+                        >
+                          <input
+                            css={css`
+                              width: 20em;
+                              outline: none;
+                              border: none;
+                              font-size: 1.2rem;
+                              font-weight: bold;
+                              padding: 3px;
+                              &:focus {
+                                border: 1px solid black;
+                              }
+                            `}
+                            value={item.title}
+                            onChange={(e) => {
+                              for (let i = 0; i < category.length; i++) {
+                                if (category[i].id === item.id) {
+                                  category[i].title = e.target.value;
+                                }
+                              }
+                            }}
+                          />
+
+                          <RxDividerVertical size={40} color="#d4d4d4" />
+                          <input
+                            css={explanInput}
+                            defaultValue={item.explan}
+                          ></input>
+                        </div>
+                      </div>
+                    ))}
+                  </ReactSortable>
                 </CategoryMoveBox>
                 <CategoryPlus>
                   <div
