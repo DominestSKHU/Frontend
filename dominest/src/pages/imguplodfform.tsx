@@ -1,10 +1,8 @@
 import React, { useState, useRef } from "react";
 import "../app/globals.css";
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Navbar from "@/components/AdminNavbar";
 import Image from "next/image";
-import cloudImage from "style/cloude.png";
 
 const Inputt = styled.div`
   input {
@@ -149,12 +147,7 @@ export default function ImageUploadForm() {
                   </div>
                 ) : (
                   <div className="noneimg">
-                    <img
-                      src={cloudImage}
-                      alt="클라우드 이미지"
-                      width={1000}
-                      height={1000}
-                    />
+                    <img src="/cloude.png" alt="클라우드 이미지" />
                     <p>사진을 끌어서 넣거나 클릭해주세요</p>
                   </div>
                 )}
