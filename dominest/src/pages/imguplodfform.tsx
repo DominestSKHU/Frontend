@@ -1,126 +1,57 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "../app/globals.css";
-import styled from "@emotion/styled";
 import Navbar from "@/components/AdminNavbar";
 import Image from "next/image";
-
-const Inputt = styled.div`
-  input {
-    display: none;
-  }
-`;
-
-const PreviewContainer = styled.div`
-  display: flex;
-  overflow-x: auto;
-  gap: 10px;
-`;
-const TitleInput = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 10px;
-  input {
-    margin-left: 10px;
-    width: 90%;
-    height: 30px;
-    border: 1px solid gray;
-    border-radius: 10px;
-  }
-`;
-const Container = styled.div`
-  width: 80%;
-  margin: 0 auto;
-  margin-top: 50px;
-  section {
-    width: 100%;
-    height: 100%;
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    button {
-      margin-top: 20px;
-      width: 100%;
-      height: 40px;
-      border-radius: 10px;
-      border: none;
-      background: rgb(77, 77, 77);
-      color: #fff;
-      &:hover {
-        background: rgb(0, 0, 0);
-      }
-    }
-  }
-`;
-
-const ImageInput = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin-top: 30px;
-  .file-preview {
-    width: 100px;
-    height: 100px;
-    border: 1px solid gray;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  .file-preview img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .file-preview + .file-preview {
-    margin-left: 10px;
-  }
-  .file-preview:first-of-type {
-    margin-left: 0;
-  }
-  .file-preview:last-of-type {
-    margin-right: 0;
-  }
-
-  .viewer {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .upload-box {
-    width: 100%;
-    height: 300px;
-    border: 1px solid gray;
-    box-shadow: 2px 3px 9px hsl(0, 0%, 47%);
-    padding: 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    &:hover {
-      background: rgb(77, 77, 77);
-      color: #fff;
-  }
-  .noneimg {
-    width: 100%;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    img {
-
-      height: 80%;
-    }
-    p {
-      margin-top: 10px;
-    }
-  }
-
-`;
+import {
+  Inputt,
+  Container,
+  TitleInput,
+  ImageInput,
+} from "@/style/ImgUploadStyle";
+import axios from "axios";
 
 export default function ImageUploadForm() {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const fileInputRef = useRef(null);
+  const [title, setTitle] = useState("");
+  const [Token, setToken] = useState("");
+
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    setToken(authToken);
+    if (!authToken) {
+      router.push("/login");
+    }
+  }, []);
+
+  const handleUpload = () => {
+    if (selectedFiles) {
+      const formData = new FormData();
+      formData.append("title", title);
+      for (const file of selectedFiles) {
+        formData.append("postImages", file);
+      }
+      axios
+        .post(
+          "http://domidomi.duckdns.org/categories/1/posts/image-types",
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${Token}`,
+            },
+          }
+        )
+        .then((response) => {
+          return alert("성공적으로 업로드 되었습니다.");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+  };
 
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
@@ -139,12 +70,13 @@ export default function ImageUploadForm() {
 
   return (
     <div>
-      <Navbar pageTitle="이미지 업로드 Form" />
+      <Navbar page="이미지 업로드 Form" />
       <Container>
         <section id="ex9">
           <h1>사진</h1>
           <TitleInput>
-            <label>제목</label> <input type="text" />
+            <label>제목</label>{" "}
+            <input type="text" value={title} onChange={handleTitleChange} />
           </TitleInput>
           <ImageInput>
             <div
@@ -185,7 +117,9 @@ export default function ImageUploadForm() {
               </Inputt>
             </div>
           </ImageInput>
-          <button className="btn btn-primary">등록</button>
+          <button className="btn btn-primary" onClick={() => handleUpload()}>
+            등록
+          </button>
         </section>
       </Container>
     </div>
