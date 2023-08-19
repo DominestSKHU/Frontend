@@ -22,10 +22,35 @@ const TitleInput = styled.div`
   margin-bottom: 10px;
   input {
     margin-left: 10px;
-    width: 80%;
+    width: 90%;
     height: 30px;
     border: 1px solid gray;
     border-radius: 10px;
+  }
+`;
+const Container = styled.div`
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 50px;
+  section {
+    width: 100%;
+    height: 100%;
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      height: 40px;
+      border-radius: 10px;
+      border: none;
+      background: rgb(77, 77, 77);
+      color: #fff;
+      &:hover {
+        background: rgb(0, 0, 0);
+      }
+    }
   }
 `;
 
@@ -57,9 +82,14 @@ const ImageInput = styled.div`
     margin-right: 0;
   }
 
+  .viewer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
 
   .upload-box {
-    width: 80%;
+    width: 100%;
     height: 300px;
     border: 1px solid gray;
     box-shadow: 2px 3px 9px hsl(0, 0%, 47%);
@@ -71,13 +101,15 @@ const ImageInput = styled.div`
       color: #fff;
   }
   .noneimg {
+    width: 100%;
+    height: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     img {
-      width: 100px;
-      height: 100px;
+
+      height: 80%;
     }
     p {
       margin-top: 10px;
@@ -108,7 +140,7 @@ export default function ImageUploadForm() {
   return (
     <div>
       <Navbar pageTitle="이미지 업로드 Form" />
-      <div>
+      <Container>
         <section id="ex9">
           <h1>사진</h1>
           <TitleInput>
@@ -131,8 +163,7 @@ export default function ImageUploadForm() {
                 />
                 {selectedFiles.length > 0 ? (
                   <div>
-                    <p>미리보기:</p>
-                    <div>
+                    <div className="viewer">
                       {selectedFiles.map((file, index) => (
                         <div key={index} className="file-preview">
                           <Image
@@ -154,8 +185,9 @@ export default function ImageUploadForm() {
               </Inputt>
             </div>
           </ImageInput>
+          <button className="btn btn-primary">등록</button>
         </section>
-      </div>
+      </Container>
     </div>
   );
 }
