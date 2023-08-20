@@ -13,6 +13,7 @@ import axios from "axios";
 export default function ImageUploadForm() {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const fileInputRef = useRef(null);
+  const [isUploading, setIsUploading] = useState(false);
   const [title, setTitle] = useState("");
   const [Token, setToken] = useState("");
 
@@ -25,7 +26,8 @@ export default function ImageUploadForm() {
   }, []);
 
   const handleUpload = () => {
-    if (selectedFiles) {
+    if (selectedFiles.length > 0 && !isUploading) {
+      setIsUploading(true);
       const formData = new FormData();
       formData.append("title", title);
       for (const file of selectedFiles) {
@@ -42,10 +44,13 @@ export default function ImageUploadForm() {
           }
         )
         .then((response) => {
+          setIsUploading(false);
+          setSelectedFiles([]);
           return alert("성공적으로 업로드 되었습니다.");
         })
         .catch((error) => {
           console.log(error);
+          setIsUploading(false);
         });
     }
   };
@@ -90,6 +95,7 @@ export default function ImageUploadForm() {
                   ref={fileInputRef}
                   className="btn-file d-none"
                   type="file"
+                  accept="image/*"
                   onChange={handleFileChange}
                   multiple
                 />
@@ -117,8 +123,12 @@ export default function ImageUploadForm() {
               </Inputt>
             </div>
           </ImageInput>
-          <button className="btn btn-primary" onClick={() => handleUpload()}>
-            등록
+          <button
+            className="btn btn-primary"
+            onClick={handleUpload}
+            disabled={isUploading} // 업로드 중일 때 버튼을 비활성화
+          >
+            {isUploading ? "업로드 중..." : "등록"}
           </button>
         </section>
       </Container>
