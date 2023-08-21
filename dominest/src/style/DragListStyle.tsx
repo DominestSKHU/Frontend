@@ -1,8 +1,6 @@
 import styled from "@emotion/styled";
 import { css, Global } from "@emotion/react";
 
-
-
 export const formStyle = css`
   width: 80vw;
   height: 85vh;
@@ -77,8 +75,26 @@ export const CategoryMoveBox = styled.div`
 `;
 export const explanInput = css`
   width: 20em;
-  font-size: 1.2em;
   outline: none;
   border: none;
-  background-color: #e1f1ff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 3px;
+  &:focus {
+    border: 1px solid black;
+  }
+`;
+
+export const DeleteCategory = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  border: none;
+  border-radius: 50%;
+  background: #ffffff;
+  margin-right: 2px;
+  &:hover, &:focus {
+    background-color: #f5f5f5;
+  }
 `;

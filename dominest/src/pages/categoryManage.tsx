@@ -9,15 +9,17 @@ import {
   CategoryMoveBox,
   SaveChange,
   explanInput,
+  DeleteCategory,
 } from "@/style/DragListStyle";
 import { useRouter } from "next/navigation";
 import { BsList } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
+import { IoIosRemove } from "react-icons/io";
 import { RxDividerVertical } from "react-icons/rx";
 import React, { FC, useEffect, useState } from "react";
 import { ReactSortable } from "react-sortablejs";
 import { css, Global } from "@emotion/react";
-import { getCategory } from "@/utils/category";
+import { deleteCategory, getCategory, postCategory } from "@/utils/category";
 /** @jsxImportSource @emotion/react */
 
 export const globalStyles = css`
@@ -39,30 +41,89 @@ export const globalStyles = css`
 
 interface CategoryPlusBoxProps {
   id: number;
-  title: string;
-  explan: string;
+  categoryName: string;
+  categoryType: string;
+  explanation: string;
+  name: string;
+}
+
+interface CategorySaveProps {
+  id: number;
+  categoryName: string;
 }
 const categoryManage = () => {
   const router = useRouter();
-  const [category, setCategory] = useState<CategoryPlusBoxProps[]>([
-
-  ]);
+  const [category, setCategory] = useState<CategoryPlusBoxProps[]>([]);
+  const [categorySave, setCategorySave] = useState([]); // 카테고리 저장용
   const [authToken, setAuthToken] = useState<string>("");
+  const [total, setTotal] = useState<number>(0);
+
+
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
     authToken && setAuthToken(authToken);
     if (!authToken) {
       router.push("/login");
-    }
+    };
   }, []);
 
   useEffect(() => {
-    getCategory(authToken).then((res) => {
-      setCategory(res.data);
-    }).catch((err) => console.log(err));
+    getCategory(authToken)
+      .then((res) => {
+        setCategory(res.data.data.categories);
+        setTotal(res.data.data.categories.length);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
-  console.log(category);
+  const handleAddCategory = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    const newCategoryId = total + 1; // 임의로 아이디 생성, 필요에 따라 변경 가능
+    const newCategory = {
+      id: newCategoryId,
+      categoryName: `${newCategoryId}번째 카테고리`,
+      categoryType: "",
+      explanation: "카테고리 설명을 입력해주세요",
+      name: `${newCategoryId}번째 카테고리`,
+    };
+
+    setCategory((prevCategory) => [...prevCategory, newCategory]);
+    setTotal((prevTotal) => prevTotal + 1);
+  };
+
+  const deleteInput = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    categoryId: number
+  ) => {
+    e.preventDefault();
+
+    const updatedCategory = category.filter((item) => item.id !== categoryId);
+
+    setCategory(updatedCategory);
+
+    deleteCategory(authToken, categoryId)
+      .then((response) => {
+        console.log(categoryId)
+        console.log("카테고리 삭제 성공:", response.data);
+      })
+      .catch((error) => {
+        console.error("카테고리 삭제 실패:", error);
+      });
+  };
+
+  const fixCategory = (e: React.InputHTMLAttributes<HTMLInputElement>, category: any) => {
+    const newCategory = category.map((item: any) => {
+      return { id: item.id, categoryName: item.categoryName };
+    });
+    setCategorySave(newCategory);
+  };
+
+
+  const saveChange = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    postCategory(authToken, categorySave);
+  };
 
   return (
     <>
@@ -162,22 +223,36 @@ const categoryManage = () => {
                                 border: 1px solid black;
                               }
                             `}
-                            value={item.title}
+                            defaultValue={item.categoryName}
                             onChange={(e) => {
-                              for (let i = 0; i < category.length; i++) {
-                                if (category[i].id === item.id) {
-                                  category[i].title = e.target.value;
+                              const updatedCategory = category.map(catItem => {
+                                if (catItem.id === item.id) {
+                                  return { ...catItem, categoryName: e.target.value };
                                 }
-                              }
+                                return catItem;
+                              });
+                              fixCategory(e, updatedCategory);
                             }}
                           />
 
                           <RxDividerVertical size={40} color="#d4d4d4" />
                           <input
                             css={explanInput}
-                            defaultValue={item.explan}
+                            defaultValue={item.explanation}
+                            onChange={(e) => {
+                              for (let i = 0; i < category.length; i++) {
+                                if (category[i].id === item.id) {
+                                  category[i].explanation = e.target.value;
+                                }
+                              }
+                            }}
                           ></input>
                         </div>
+                        <DeleteCategory
+                          onClick={(e) => deleteInput(e, item.id)}
+                        >
+                          <IoIosRemove size={35} />
+                        </DeleteCategory>
                       </div>
                     ))}
                   </ReactSortable>
@@ -189,6 +264,7 @@ const categoryManage = () => {
                       display: flex;
                       align-items: center;
                     `}
+                    onClick={handleAddCategory}
                   >
                     <AiOutlinePlus />
                     <span
@@ -199,7 +275,7 @@ const categoryManage = () => {
                       카테고리 추가
                     </span>
                   </div>
-                  <span className="rightPlus">22/500</span>
+                  <span className="rightPlus">{total}/500</span>
                 </CategoryPlus>
               </CaregorySub>
               <div
@@ -209,7 +285,7 @@ const categoryManage = () => {
                   justify-content: flex-end;
                 `}
               >
-                <SaveChange>변경사항 저장</SaveChange>
+                <SaveChange onClick={saveChange}>변경사항 저장</SaveChange>
               </div>
             </Category>
           </CategoryBox>
