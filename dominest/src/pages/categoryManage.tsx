@@ -35,22 +35,17 @@ export const globalStyles = css`
     align-items: center;
     justify-content: center;
     width: 100vw;
-    height: 92vh;
+    height: 94vh;
   }
 `;
 
 interface CategoryPlusBoxProps {
   id: number;
-  categoryName: string;
-  categoryType: string;
-  explanation: string;
   name: string;
+  type: string;
+  explanation: string;
 }
 
-interface CategorySaveProps {
-  id: number;
-  categoryName: string;
-}
 const categoryManage = () => {
   const router = useRouter();
   const [category, setCategory] = useState<CategoryPlusBoxProps[]>([]);
@@ -81,10 +76,9 @@ const categoryManage = () => {
     const newCategoryId = total + 1; // 임의로 아이디 생성, 필요에 따라 변경 가능
     const newCategory = {
       id: newCategoryId,
-      categoryName: `${newCategoryId}번째 카테고리`,
-      categoryType: "",
-      explanation: "카테고리 설명을 입력해주세요",
       name: `${newCategoryId}번째 카테고리`,
+      type: "",
+      explanation: "카테고리 설명을 입력해주세요",
     };
 
     setCategory((prevCategory) => [...prevCategory, newCategory]);
@@ -113,7 +107,7 @@ const categoryManage = () => {
 
   const fixCategory = (e: React.InputHTMLAttributes<HTMLInputElement>, category: any) => {
     const newCategory = category.map((item: any) => {
-      return { id: item.id, categoryName: item.categoryName };
+      return { id: item.id, categoryName: item.name };
     });
     setCategorySave(newCategory);
   };
@@ -223,11 +217,11 @@ const categoryManage = () => {
                                 border: 1px solid black;
                               }
                             `}
-                            defaultValue={item.categoryName}
+                            defaultValue={item.name}
                             onChange={(e) => {
                               const updatedCategory = category.map(catItem => {
                                 if (catItem.id === item.id) {
-                                  return { ...catItem, categoryName: e.target.value };
+                                  return { ...catItem, name: e.target.value };
                                 }
                                 return catItem;
                               });

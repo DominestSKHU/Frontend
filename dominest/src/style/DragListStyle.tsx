@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { css, Global } from "@emotion/react";
+import { css } from "@emotion/react";
 
 export const formStyle = css`
   width: 80vw;
@@ -31,6 +31,14 @@ export const CategoryBox = styled.div`
     }
   }
 `;
+
+export const MainBox = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 92vh;
+    `;
 
 export const Category = styled.div`
   background-color: #f3f3f3;
