@@ -5,24 +5,38 @@ import { css, Global } from "@emotion/react";
 import { topLevelDiv, twiceLevelDiv, ListLi } from "@/style/DivStyle";
 import { use, useEffect, useState } from "react";
 import { getCategory } from "@/utils/category";
+import router from "next/router";
 /** @jsxImportSource @emotion/react */
-
+interface categoryProps {
+  id: number;
+  name: string;
+  type: string;
+  explanation: string;
+}
 const boardlist = () => {
   const [authToken, setAuthToken] = useState<string>("");
-  const [category, setCategory] = useState<any>([]);
+  const [category, setCategory] = useState<categoryProps[]>([]);
 
   useEffect(() => {
-    const authToken = localStorage.getItem("authToken") ?? "";
-    setAuthToken(authToken);
-
+    const loginToken = localStorage.getItem("authToken");
+    loginToken && setAuthToken(loginToken);
+    if (!loginToken) {
+      router.push("/login");
+    }
+  }, []);
+  
+  useEffect(() => {
     const fetchData = async () => {
       const result = await getCategory(authToken);
-      setCategory(result.data.data);
+      setCategory(result.data.data.categories);
     };
-
-    fetchData();
-    console.log(category);
-  });
+  
+    if (authToken && category.length === 0) {
+      fetchData();
+    }
+  }, [authToken, category]);
+  
+  console.log(category);
   return (
     <>
       <Global styles={globalStyles} />
