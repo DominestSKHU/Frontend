@@ -3,6 +3,7 @@ import Navbar from "@/components/AdminNavbar";
 import "../app/globals.css";
 import styled from "@emotion/styled";
 import axios from "axios";
+import Link from "next/link";
 
 export default function ImgBoard() {
   const [posts, setPosts] = useState([]);
@@ -35,18 +36,20 @@ export default function ImgBoard() {
         <Table>
           <thead>
             <tr>
-              <th>id</th>
-              <th>제목</th>
+              <th className="id">번호</th>
+              <th className="title">제목</th>
               <th>작성자</th>
-              <th>시간</th>
+              <th>작성일</th>
             </tr>
           </thead>
           <tbody>
             {posts.length > 0 ? (
               posts.map((post) => (
                 <tr key={post.id}>
-                  <td>{post.id}</td>
-                  <td>{post.title}</td>
+                  <td className="id">{post.id}</td>
+                  <td className="titlecontent">
+                    <Link href={`/imgform/${post.id}`}>{post.title}</Link>
+                  </td>
                   <td>{post.writer}</td>
                   <td>{post.createTime}</td>
                 </tr>
@@ -91,15 +94,36 @@ const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
   background-color: white;
-  th,
-  td {
-    background-color: white;
-    border: 1px solid #e5e5e5;
-    padding: 8px;
-    text-align: center;
+  .id {
+    width: 10%;
+  }
+  .title {
+    width: 60%;
+  }
+  .titlecontent {
+    text-align: left;
+    width: 60%;
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+  tr {
+    &:hover {
+      background-color: #999999;
+    }
+    td {
+      border: none;
+      border-bottom: 1px solid #e5e5e5;
+      padding: 8px;
+      text-align: center;
+    }
   }
   th {
+    border-bottom: 1px solid black;
     background-color: white;
+    padding: 8px;
+    text-align: center;
   }
 `;
 
