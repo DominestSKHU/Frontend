@@ -1,4 +1,5 @@
 // import React from "react";
+import { useState, useEffect } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { HiOutlineUserCircle } from "react-icons/hi";
@@ -7,6 +8,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import React from "react";
 import { NavStyle, LeftNav, NavList, LoginState } from "@/style/NavStyle";
+import axios from "axios";
+
 /** @jsxImportSource @emotion/react */
 
 const NavItem = css`
@@ -23,10 +26,44 @@ const Navber = (props) => {
   const [role, setRole] = React.useState("근로생");
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [Token, setToken] = useState("");
 
-  const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    setIsLoggedIn(false);
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    setToken(authToken);
+    if (!authToken) {
+      router.push("/login");
+    }
+  }, []);
+  const startSelect = () => {
+    axios
+      .post("http://domidomi.duckdns.org/categories/1/favorites", {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      })
+      .then((response) => {
+        return alert("즐찾추가 우효 www");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const startList = () => {
+    axios
+      .get("http://domidomi.duckdns.org/favorites", {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        return alert("즐찾 리스트 조회 우효 www");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const onLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -104,6 +141,12 @@ const Navber = (props) => {
                   <CiStar size={20} />
                 </Link>
               </li>
+              <li>
+                <Link href="/imgboard" className="Link">
+                  <span>이미지 게시판</span>
+                </Link>
+                <CiStar size={20} onClick={() => startSelect()} />
+              </li>
             </ul>
 
             {/* 다른 근로생 목록 아이템들 추가 */}
@@ -126,6 +169,7 @@ const Navber = (props) => {
           로그아웃
         </button>
       </LoginState>
+      <button onClick={() => startList()}></button>
     </NavStyle>
   );
 };

@@ -55,6 +55,8 @@ export default function imgPage() {
           )}
         </div>
       </Container>
+      <button>수정</button>
+      <button>삭제</button>
     </div>
   );
 }

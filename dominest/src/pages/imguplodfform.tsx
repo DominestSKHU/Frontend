@@ -16,7 +16,6 @@ export default function ImageUploadForm() {
   const [isUploading, setIsUploading] = useState(false);
   const [title, setTitle] = useState("");
   const [Token, setToken] = useState("");
-
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
     setToken(authToken);
