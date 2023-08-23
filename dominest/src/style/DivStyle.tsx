@@ -1,6 +1,8 @@
-import { css } from "@emotion/react";
+/** @jsxImportSource @emotion/react */
 
-export const topLevelDiv = css`
+import styled from "@emotion/styled";
+
+export const TopLevelDiv = styled.div`
   background-color: #d7d7d7;
   display: flex;
   justify-content: center;
@@ -12,7 +14,7 @@ export const topLevelDiv = css`
   border-radius: 20px;
 `;
 
-export const twiceLevelDiv = css`
+export const TwiceLevelDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 95%;
@@ -23,7 +25,7 @@ export const twiceLevelDiv = css`
   background-color: white;
 `;
 
-export const ListLi = css`
+export const ListLi = styled.li`
   width: 94%;
   height: 3rem;
   list-style: none;
@@ -34,6 +36,7 @@ export const ListLi = css`
   font-size: 1.3rem;
   border: 1px solid #b2b2b2;
   border-radius: 10px;
+  margin: 1%;
   &:hover,
   &:focus {
     background-color: #d0d0d0;
