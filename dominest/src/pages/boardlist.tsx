@@ -1,12 +1,12 @@
+/** @jsxImportSource @emotion/react */
 "use client";
 import Navbar from "@/components/AdminNavbar";
 import { globalStyles } from "./categoryManage";
 import { css, Global } from "@emotion/react";
-import { ListLi, TopLevelDiv, TwiceLevelDiv } from "@/style/DivStyle";
+import { ListLi, ListUl, TopLevelDiv, TwiceLevelDiv } from "@/style/DivStyle";
 import { useEffect, useState } from "react";
 import { getCategory } from "@/utils/category";
 import router from "next/router";
-/** @jsxImportSource @emotion/react */
 
 interface CategoryGetProps {
   id: number;
@@ -52,9 +52,18 @@ const Boardlist = () => {
       <div className="mainBox">
         <TopLevelDiv>
           <TwiceLevelDiv>
-            <div>카테고리 전체 조회</div>
+            <div
+              css={css`
+                font-size: 1.5rem;
+                font-weight: bold;
+                margin-bottom: 1rem;
+                text-align: center;
+              `}
+            >
+              카테고리 전체 조회
+            </div>
             <hr css={hrStyled} />
-            <ul className="ulBox">
+            <ListUl>
               {category.map((item) => (
                 <ListLi key={item.id}>
                   <div>
@@ -65,7 +74,7 @@ const Boardlist = () => {
                   <span>{item.explanation}</span>
                 </ListLi>
               ))}
-            </ul>
+            </ListUl>
           </TwiceLevelDiv>
         </TopLevelDiv>
       </div>

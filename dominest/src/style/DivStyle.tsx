@@ -17,12 +17,20 @@ export const TopLevelDiv = styled.div`
 export const TwiceLevelDiv = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   width: 95%;
   height: 100%;
   margin: 2% 0.5%;
   padding: 2%;
   border-radius: 20px;
   background-color: white;
+`;
+
+export const ListUl = styled.ul`
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: scroll;
 `;
 
 export const ListLi = styled.li`
@@ -39,7 +47,7 @@ export const ListLi = styled.li`
   margin: 1%;
   &:hover,
   &:focus {
-    background-color: #d0d0d0;
+    background-color: #dedede;
     transform: scale(1.01);
     transition: all 0.3s ease-in-out;
   }
