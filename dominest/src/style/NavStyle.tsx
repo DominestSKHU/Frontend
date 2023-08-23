@@ -31,25 +31,23 @@ export const NavList = styled.ul`
   padding-left: 0px;
 
   li {
-
     text-align: center;
     width: 170px;
     &:hover {
       background-color: #c4c4c4;
-      
+
       p {
         font-weight: bold;
       }
       ul {
-    
         display: block;
       }
     }
     ul {
       box-shadow: 5px 5px 5px gray;
-      border:   1px solid #c4c4c4;
+      border: 1px solid #c4c4c4;
       width: 169px;
-      top:56px;
+      top: 56px;
       position: absolute;
       display: none;
       background-color: white;
@@ -57,9 +55,6 @@ export const NavList = styled.ul`
       padding-top: 5px;
       padding-bottom: 5px;
       text-align: center;
-
-      
-      }
     }
   }
 `;
@@ -68,7 +63,8 @@ export const LoginState = styled.div`
   justify-content: center;
   align-items: center;
   width: 150px;
-  height: 80%;
+  height: 60%;
+  margin-right: 1rem;
   background-color: white;
   border-radius: 15px;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
