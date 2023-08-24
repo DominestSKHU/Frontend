@@ -30,6 +30,10 @@ const Navber = (props) => {
 
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
+    const username = localStorage.getItem("username");
+    const role = localStorage.getItem("role");
+    setName(username);
+    setRole(role);
     setToken(authToken);
     if (!authToken) {
       router.push("/login");
