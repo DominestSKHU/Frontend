@@ -11,25 +11,29 @@ export default function ImgBoard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const router = useRouter();
-  const { id, ...rest } = router.query;
-
-  const fetchPosts = async (page) => {
-    try {
-      const response = await axios.get(
-        `http://domidomi.duckdns.org/categories/${id[0]}/${id[1]}/${id[2]}?page=${page}`
-      );
-      setPosts(response.data.data.posts);
-      setCurrentPage(response.data.data.page.currentPage);
-      setTotalPages(response.data.data.page.totalPages);
-      console.log(response.data.data.page);
-    } catch (error) {
-      console.error("API 호출 중 오류 발생:", error);
-    }
-  };
+  const [idname, setIdname] = useState(router.query);
 
   useEffect(() => {
-    fetchPosts(1);
-  }, [id]);
+    setIdname(router.query.id);
+  }, [router.query]);
+
+  useEffect(() => {
+    if (router.query.id && router.query.id.length >= 3) {
+      axios
+        .get(
+          `http://domidomi.duckdns.org/categories/${idname[0]}/${idname[1]}/${idname[2]}?page=${currentPage}`
+        )
+        .then((response) => {
+          setPosts(response.data.data.posts);
+          setCurrentPage(response.data.data.page.currentPage);
+          setTotalPages(response.data.data.page.totalPages);
+        })
+        .catch((error) => {
+          console.error("게시판 오류 발생:", error);
+          console.log(idname);
+        });
+    }
+  }, [idname, currentPage]);
 
   return (
     <div>
@@ -64,22 +68,28 @@ export default function ImgBoard() {
             )}
           </tbody>
         </Table>
-        <Pagination>
+        <ButtonContainer>
           {currentPage > 1 && (
-            <button onClick={() => fetchPosts(currentPage - 1)}>
+            <button onClick={() => setCurrentPage(currentPage - 1)}>
               이전 페이지
             </button>
           )}
           {currentPage < totalPages && (
-            <button onClick={() => fetchPosts(currentPage + 1)}>
+            <button onClick={() => setCurrentPage(currentPage + 1)}>
               다음 페이지
             </button>
           )}
-        </Pagination>
+        </ButtonContainer>
       </Container>
     </div>
   );
 }
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+`;
 
 const Container = styled.div`
   width: 80%;

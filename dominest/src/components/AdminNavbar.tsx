@@ -25,6 +25,7 @@ const Navber = (props) => {
   const router = useRouter();
   const [Token, setToken] = useState("");
   const [data, setData] = useState<any[]>([]);
+  const [catago, setCatago] = useState<any[]>([]);
 
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
@@ -35,6 +36,7 @@ const Navber = (props) => {
     setRole(role);
     setToken(authToken);
     startList(authToken);
+    categoriesList();
     if (!authToken) {
       router.push("/login");
     }
@@ -68,7 +70,17 @@ const Navber = (props) => {
         console.log(error);
       });
   };
-
+  const categoriesList = () => {
+    axios
+      .get("http://domidomi.duckdns.org/categories", {})
+      .then((response) => {
+        setCatago(response.data?.data?.categories);
+        console.log(response.data?.data?.categories);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const onLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     // 로컬 스토리지에서 토큰 삭제
@@ -120,6 +132,14 @@ const Navber = (props) => {
             <p>근로생 목록</p>
 
             <ul css={NavItem}>
+              {catago.map((categories) => (
+                <li key={categories.id}>
+                  <Link href="" className="Link">
+                    <span>{categories.name}</span>
+                    <CiStar size={20} />
+                  </Link>
+                </li>
+              ))}
               <li>
                 <Link href="/admissionform" className="Link">
                   <span>입관신청서</span>
