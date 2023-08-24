@@ -22,6 +22,7 @@ const NavItem = css`
 const Navber = (props) => {
   const [name, setName] = React.useState("");
   const [role, setRole] = React.useState("");
+
   const router = useRouter();
   const [Token, setToken] = useState("");
   const [data, setData] = useState<any[]>([]);
