@@ -1,12 +1,10 @@
-// import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { CiStar } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import React from "react";
 import { NavStyle, LeftNav, NavList, LoginState } from "@/style/NavStyle";
 import axios from "axios";
 
@@ -65,7 +63,6 @@ const Navber = (props) => {
       })
       .then((response) => {
         setData(response.data?.data?.favorites);
-        console.log(response.data.data);
       })
       .catch((error) => {
         console.log(error);
