@@ -36,19 +36,20 @@ const Navber = (props) => {
     setRole(role);
     setToken(authToken);
     startList(authToken);
-    categoriesList();
+    categoriesList(authToken);
     if (!authToken) {
       router.push("/login");
     }
   }, []);
-  const startSelect = () => {
+  const startSelect = (id) => {
     axios
-      .post("http://domidomi.duckdns.org/categories/1/favorites", {
+      .post(`http://domidomi.duckdns.org/categories/${id}/favorites`, null, {
         headers: {
           Authorization: `Bearer ${Token}`,
         },
       })
       .then((response) => {
+        startList(Token);
         return alert("즐찾추가 우효 www");
       })
       .catch((error) => {
@@ -70,9 +71,14 @@ const Navber = (props) => {
         console.log(error);
       });
   };
-  const categoriesList = () => {
+
+  const categoriesList = (authToken) => {
     axios
-      .get("http://domidomi.duckdns.org/categories", {})
+      .get("http://domidomi.duckdns.org/my-categories", {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      })
       .then((response) => {
         setCatago(response.data?.data?.categories);
         console.log(response.data?.data?.categories);
@@ -104,7 +110,10 @@ const Navber = (props) => {
                 <li key={favorites.id}>
                   <Link href={favorites.categoryLink} className="Link">
                     <span>{favorites.categoryName}</span>
-                    <CiStar size={20} />
+                    <CiStar
+                      size={20}
+                      onClick={() => startSelect(favorites.id)}
+                    />
                   </Link>
                 </li>
               ))}
@@ -134,9 +143,12 @@ const Navber = (props) => {
             <ul css={NavItem}>
               {catago.map((categories) => (
                 <li key={categories.id}>
-                  <Link href="" className="Link">
+                  <Link href={categories.categoryLink} className="Link">
                     <span>{categories.name}</span>
-                    <CiStar size={20} />
+                    <CiStar
+                      size={20}
+                      onClick={() => startSelect(categories.id)}
+                    />
                   </Link>
                 </li>
               ))}
