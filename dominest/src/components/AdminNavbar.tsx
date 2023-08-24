@@ -22,19 +22,21 @@ const NavItem = css`
 `;
 
 const Navber = (props) => {
-  const [name, setName] = React.useState("이용자");
-  const [role, setRole] = React.useState("근로생");
+  const [name, setName] = React.useState("");
+  const [role, setRole] = React.useState("");
   const router = useRouter();
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [Token, setToken] = useState("");
+  const [data, setData] = useState<any[]>([]);
 
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
     const username = localStorage.getItem("username");
     const role = localStorage.getItem("role");
+
     setName(username);
     setRole(role);
     setToken(authToken);
+    startList(authToken);
     if (!authToken) {
       router.push("/login");
     }
@@ -54,16 +56,16 @@ const Navber = (props) => {
       });
   };
 
-  const startList = () => {
+  const startList = (authToken) => {
     axios
       .get("http://domidomi.duckdns.org/favorites", {
         headers: {
-          Authorization: `Bearer ${Token}`,
+          Authorization: `Bearer ${authToken}`,
         },
       })
       .then((response) => {
-        console.log(response);
-        return alert("즐찾 리스트 조회 우효 www");
+        setData(response.data?.data?.favorites);
+        console.log(response.data.data);
       })
       .catch((error) => {
         console.log(error);
@@ -89,21 +91,15 @@ const Navber = (props) => {
           <li>
             <p>즐겨찾기</p>
             <ul css={NavItem}>
-              <li>
-                <Link href="/login" className="Link">
-                  <span>빵빵이</span>
-                  <CiStar size={20} />
-                </Link>
-              </li>
-              <li>
-                <Link href="/login" className="Link">
-                  <span>빵빵이</span>
-                  <CiStar size={20} />
-                </Link>
-              </li>
+              {data.map((favorites) => (
+                <li key={favorites.id}>
+                  <Link href={favorites.categoryLink} className="Link">
+                    <span>{favorites.categoryName}</span>
+                    <CiStar size={20} />
+                  </Link>
+                </li>
+              ))}
             </ul>
-
-            {/* 다른 즐겨찾기 아이템들 추가 */}
           </li>
           <li>
             <p>관리자 목록</p>
@@ -160,20 +156,45 @@ const Navber = (props) => {
       <strong>{props.page}</strong>
       <LoginState>
         <HiOutlineUserCircle className="loginIcon" size={25} />
-        {role === "근로생" ? <span>근로생</span> : <span>관리자</span>}
         <span
           css={css`
             color: green;
+            font-weight: bold;
+            font-size: 18px;
             margin-right: 5px;
+            margin-left: 5px;
           `}
         >
           {name}
         </span>
+        {role === "Admin" ? (
+          <span
+            css={css`
+              font-weight: bold;
+              font-size: 13px;
+              margin-right: 5px;
+              margin-left: 5px;
+            `}
+          >
+            근로생
+          </span>
+        ) : (
+          <span
+            css={css`
+              font-weight: bold;
+              font-size: 13px;
+              margin-right: 5px;
+              margin-left: 5px;
+            `}
+          >
+            관리자
+          </span>
+        )}
+
         <button className="logout" onClick={onLogout}>
           로그아웃
         </button>
       </LoginState>
-      <button onClick={() => startList()}></button>
     </NavStyle>
   );
 };
