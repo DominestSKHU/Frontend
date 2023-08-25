@@ -9,20 +9,15 @@ import {
   ImageInput,
 } from "@/style/ImgUploadStyle";
 import axios from "axios";
+import { useAuth } from "@/app/lib/useAuth";
 
 export default function ImageUploadForm() {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const fileInputRef = useRef(null);
   const [isUploading, setIsUploading] = useState(false);
   const [title, setTitle] = useState("");
-  const [Token, setToken] = useState("");
-  useEffect(() => {
-    const authToken = localStorage.getItem("authToken");
-    setToken(authToken);
-    if (!authToken) {
-      router.push("/login");
-    }
-  }, []);
+
+  const Token = useAuth();
 
   const handleUpload = () => {
     if (selectedFiles.length > 0 && !isUploading) {
@@ -115,7 +110,12 @@ export default function ImageUploadForm() {
                   </div>
                 ) : (
                   <div className="noneimg">
-                    <img src="/cloude.png" alt="클라우드 이미지" />
+                    <Image
+                      src="/cloude.png"
+                      alt="클라우드 이미지"
+                      width={300}
+                      height={300}
+                    />
                     <p>사진을 끌어서 넣거나 클릭해주세요</p>
                   </div>
                 )}

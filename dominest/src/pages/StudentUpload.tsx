@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import StudentData from "@/components/StudentData";
@@ -10,10 +10,10 @@ import StudentEdit from "@/components/StudentEdit";
 import StudentAdd from "@/components/StudentAdd";
 import Navber from "@/components/AdminNavbar";
 import { FileUpload, Button, DormitoryYear } from "@/style/InputStyle";
-
+import { useAuth } from "@/utils/useAuth";
 /** @jsxImportSource @emotion/react */
 
-export default function studentupload() {
+export default function StudentUpload() {
   const router = useRouter();
   const [selectedFile, setSelectedFile] = useState(null);
   const [residenceSemester, setresidenceSemester] = useState("");
@@ -24,15 +24,7 @@ export default function studentupload() {
   const [showStudentManagement, setshowStudentManagement] = useState(false);
   const [showStudnetUpload, setshowStudnetUpload] = useState(false);
   const [degree, setDegree] = useState("");
-  const [Token, setToken] = useState("");
-
-  useEffect(() => {
-    const authToken = localStorage.getItem("authToken");
-    setToken(authToken);
-    if (!authToken) {
-      router.push("/login");
-    }
-  }, []);
+  const Token = useAuth();
 
   useEffect(() => {
     setDegree(year + residenceSemester);

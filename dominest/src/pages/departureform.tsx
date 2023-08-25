@@ -4,23 +4,16 @@ import { FileUpload, DormitoryYear, Button } from "@/style/InputStyle";
 import { ComponentDiv } from "@/style/ComponentStyle";
 import Navber from "@/components/AdminNavbar";
 import { handleUpload } from "@/utils/PdfUtil";
+import { useAuth } from "@/utils/useAuth";
 
-export default function departureform() {
+export default function DepartureForm() {
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedSemester, setSelectedSemester] = useState("");
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [PdfLists, setPdfLists] = useState(false);
   const [degree, setDegree] = useState("");
-  const [Token, setToken] = useState("");
-
   const [PdfListShow, setPdfListShow] = useState(false);
-  useEffect(() => {
-    const authToken = localStorage.getItem("authToken");
-    setToken(authToken);
-    if (!authToken) {
-      router.push("/login");
-    }
-  }, []);
+  const Token = useAuth();
   useEffect(() => {
     setDegree(selectedYear + selectedSemester);
   }, [selectedYear, selectedSemester, degree]);

@@ -30,7 +30,7 @@ export default function ImgBoard() {
 
   return (
     <div>
-      <Navbar />
+      <Navbar page="이미지 게시판" />
       <Container>
         <h3>순찰일지</h3>
         <Table>

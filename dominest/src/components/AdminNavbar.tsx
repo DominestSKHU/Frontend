@@ -19,7 +19,7 @@ const NavItem = css`
   padding-left: 0px;
 `;
 
-const Navber = (props) => {
+const Navber = (props: { page: string }) => {
   const [name, setName] = React.useState("");
   const [role, setRole] = React.useState("");
   const router = useRouter();
@@ -28,9 +28,9 @@ const Navber = (props) => {
   const [catago, setCatago] = useState<any[]>([]);
 
   useEffect(() => {
-    const authToken = localStorage.getItem("authToken");
-    const username = localStorage.getItem("username");
-    const role = localStorage.getItem("role");
+    const authToken = localStorage.getItem("authToken") as string;
+    const username = localStorage.getItem("username") as string;
+    const role = localStorage.getItem("role") as string;
 
     setName(username);
     setRole(role);
@@ -40,8 +40,8 @@ const Navber = (props) => {
     if (!authToken) {
       router.push("/login");
     }
-  }, []);
-  const startSelect = (id) => {
+  }, [router]);
+  const startSelect = (id: string | undefined) => {
     axios
       .post(`http://domidomi.duckdns.org/categories/${id}/favorites`, null, {
         headers: {
@@ -57,7 +57,7 @@ const Navber = (props) => {
       });
   };
 
-  const startList = (authToken) => {
+  const startList = (authToken: string | undefined) => {
     axios
       .get("http://domidomi.duckdns.org/favorites", {
         headers: {
@@ -72,7 +72,7 @@ const Navber = (props) => {
       });
   };
 
-  const categoriesList = (authToken) => {
+  const categoriesList = (authToken: string | undefined) => {
     axios
       .get("http://domidomi.duckdns.org/my-categories", {
         headers: {
@@ -112,7 +112,7 @@ const Navber = (props) => {
                     <span>{favorites.categoryName}</span>
                     <CiStar
                       size={20}
-                      onClick={() => startSelect(favorites.id)}
+                      onClick={() => startSelect(favorites.categoryId)}
                     />
                   </Link>
                 </li>
@@ -174,7 +174,7 @@ const Navber = (props) => {
                 <Link href="/imgboard" className="Link">
                   <span>이미지 게시판</span>
                 </Link>
-                <CiStar size={20} onClick={() => startSelect()} />
+                <CiStar size={20} />
               </li>
             </ul>
 

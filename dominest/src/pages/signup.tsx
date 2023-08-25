@@ -136,7 +136,7 @@ const passwordError = css`
   margin: auto;
   font-size: 0.8em;
 `;
-export default function signup() {
+export default function SingUp() {
   const router = useRouter();
 
   const [email, setEmail] = React.useState<string>("");
@@ -162,16 +162,16 @@ export default function signup() {
 
   const onClickJoin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-      join(email, passwords.password1)
-        .then(() => {
-          alert("회원가입이 완료되었습니다.");
-          router.push("/login");
-        })
-        .catch((err) => {
-          err.code === 400
-            ? alert("이미 존재하는 이메일입니다.")
-            : alert("회원가입에 실패했습니다.");
-        });
+    join(email, passwords.password1)
+      .then(() => {
+        alert("회원가입이 완료되었습니다.");
+        router.push("/login");
+      })
+      .catch((err) => {
+        err.code === 400
+          ? alert("이미 존재하는 이메일입니다.")
+          : alert("회원가입에 실패했습니다.");
+      });
   };
 
   return (
@@ -254,7 +254,7 @@ export default function signup() {
         {passwords.password0 === "" && passwords.password1 === "" && (
           <p css={passwordError}>비밀번호를 입력해주세요</p>
         )}
-        <SubmitButton type="submit" onClick={()=>onClickJoin}>
+        <SubmitButton type="submit" onClick={() => onClickJoin}>
           회원가입
         </SubmitButton>
         <Signin>

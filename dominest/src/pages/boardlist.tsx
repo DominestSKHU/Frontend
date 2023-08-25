@@ -7,6 +7,7 @@ import { ListLi, ListUl, TopLevelDiv, TwiceLevelDiv } from "@/style/DivStyle";
 import { useEffect, useState } from "react";
 import { getCategory } from "@/utils/category";
 import router from "next/router";
+import { useAuth } from "@/utils/useAuth";
 
 interface CategoryGetProps {
   id: number;
@@ -25,30 +26,22 @@ const Listspan = css`
 `;
 const Boardlist = () => {
   const [category, setCategory] = useState<CategoryGetProps[]>([]);
-  const [authToken, setAuthToken] = useState<string>("");
-
-  useEffect(() => {
-    const loginToken = localStorage.getItem("authToken");
-    loginToken && setAuthToken(loginToken);
-    if (!loginToken) {
-      router.push("/login");
-    }
-  }, []);
+  const Token = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await getCategory(authToken);
+      const result = await getCategory(Token);
       setCategory(result.data.data.categories);
     };
 
-    if (authToken && category.length === 0) {
+    if (Token && category.length === 0) {
       fetchData();
     }
-  }, [authToken, category]);
+  }, [Token, category]);
   return (
     <>
       <Global styles={globalStyles} />
-      <Navbar />
+      <Navbar page="게시판 리스트" />
       <div className="mainBox">
         <TopLevelDiv>
           <TwiceLevelDiv>

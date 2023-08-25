@@ -14,9 +14,11 @@ export default function ImgBoard() {
   const [idname, setIdname] = useState(router.query);
 
   useEffect(() => {
-    setIdname(router.query.id);
-  }, [router.query]);
-
+    if (router.query.id !== undefined) {
+      setIdname(router.query.id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query.id]);
   useEffect(() => {
     if (router.query.id && router.query.id.length >= 3) {
       axios

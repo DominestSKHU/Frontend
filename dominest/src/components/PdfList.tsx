@@ -5,27 +5,24 @@ import { ComponentTable, ComponentDiv2 } from "@/style/ComponentStyle";
 import PdfViewer from "./PdfViewer";
 import "../app/globals.css";
 import axios from "axios";
+import { useAuth } from "@/utils/useAuth";
 
 /** @jsxImportSource @emotion/react */
 
-export default function PdfList(props) {
+export default function PdfList(props: unknown) {
   const [data, setData] = useState<any[]>();
   const [selectedFiles, setSelectedFiles] = useState(null);
-  const [Token, setToken] = useState("");
   const [id, setId] = useState("");
 
-  useEffect(() => {
-    const authToken = localStorage.getItem("authToken");
-    setToken(authToken);
-  }, []);
+  const Token = useAuth();
 
   useEffect(() => {
-    fetchData();
+    fetchData(props.degree);
   }, [props]);
 
   useEffect(() => {
     if (selectedFiles !== null) {
-      StudentOnePdf();
+      StudentOnePdf(selectedFiles);
     }
   }, [selectedFiles]);
 
@@ -39,9 +36,9 @@ export default function PdfList(props) {
     }
   };
 
-  const StudentOnePdf = () => {
+  const StudentOnePdf = (file) => {
     const formData = new FormData();
-    formData.append("pdf", selectedFiles);
+    formData.append("pdf", file);
     formData.append("residenceSemester", props.degree);
     formData.append("pdfType", props.chosenFormType);
     axios
@@ -60,10 +57,10 @@ export default function PdfList(props) {
         console.error(formData);
       });
   };
-  const fetchData = () => {
+  const fetchData = (degree) => {
     axios
       .get(
-        `http://domidomi.duckdns.org/residents/pdf?residenceSemester=${props.degree}`
+        `http://domidomi.duckdns.org/residents/pdf?residenceSemester=${degree}`
       )
       .then((response) => {
         setData(response.data?.data?.pdfs);

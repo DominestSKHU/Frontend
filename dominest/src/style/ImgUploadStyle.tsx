@@ -98,10 +98,7 @@ export const ImageInput = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    img {
-
-      height: 80%;
-    }
+  
     p {
       margin-top: 10px;
     }

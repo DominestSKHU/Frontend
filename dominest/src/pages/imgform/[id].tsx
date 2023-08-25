@@ -3,8 +3,9 @@ import React, { useState, useEffect } from "react";
 import Navbar from "@/components/AdminNavbar";
 import styled from "@emotion/styled";
 import axios from "axios";
+import Image from "next/image";
 import "../..//app/globals.css";
-export default function imgPage() {
+export default function ImgPage() {
   const router = useRouter();
   const { id } = router.query;
   const [imageData, setImageData] = useState(null);
@@ -42,10 +43,12 @@ export default function imgPage() {
               <hr />
               <ImageContainer>
                 {imageData.imageUrls.map((imageUrl, index) => (
-                  <img
+                  <Image
                     key={index}
                     src={`http://domidomi.duckdns.org/posts/image-types/images?filename=${imageUrl}`}
                     alt={`Image ${index}`}
+                    width={500}
+                    height={500}
                   />
                 ))}
               </ImageContainer>
