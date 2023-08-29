@@ -10,13 +10,14 @@ import {
   SaveChange,
   explanInput,
   DeleteCategory,
+  catrgorySelect,
 } from "@/style/DragListStyle";
 import { useRouter } from "next/navigation";
 import { BsList } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import { IoIosRemove } from "react-icons/io";
 import { RxDividerVertical } from "react-icons/rx";
-import React, { FC, useEffect, useState } from "react";
+import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import { ReactSortable } from "react-sortablejs";
 import { css, Global } from "@emotion/react";
 import { deleteCategory, getCategory, postCategory } from "@/utils/category";
@@ -49,18 +50,21 @@ interface CategoryPlusBoxProps {
 const categoryManage = () => {
   const router = useRouter();
   const [category, setCategory] = useState<CategoryPlusBoxProps[]>([]);
-  const [categorySave, setCategorySave] = useState([]); // 카테고리 저장용
   const [authToken, setAuthToken] = useState<string>("");
   const [total, setTotal] = useState<number>(0);
-
 
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
     authToken && setAuthToken(authToken);
     if (!authToken) {
       router.push("/login");
-    };
+    }
   }, []);
+
+  useEffect(() => {
+    console.log(category);
+  }
+  , [category]);
 
   useEffect(() => {
     getCategory(authToken)
@@ -76,9 +80,9 @@ const categoryManage = () => {
     const newCategoryId = total + 1; // 임의로 아이디 생성, 필요에 따라 변경 가능
     const newCategory = {
       id: newCategoryId,
-      name: `${newCategoryId}번째 카테고리`,
+      name: "",
       type: "",
-      explanation: "카테고리 설명을 입력해주세요",
+      explanation: "",
     };
 
     setCategory((prevCategory) => [...prevCategory, newCategory]);
@@ -97,7 +101,7 @@ const categoryManage = () => {
 
     deleteCategory(authToken, categoryId)
       .then((response) => {
-        console.log(categoryId)
+        console.log(categoryId);
         console.log("카테고리 삭제 성공:", response.data);
       })
       .catch((error) => {
@@ -105,18 +109,15 @@ const categoryManage = () => {
       });
   };
 
-  const fixCategory = (e: React.InputHTMLAttributes<HTMLInputElement>, category: any) => {
-    const newCategory = category.map((item: any) => {
-      return { id: item.id, categoryName: item.name };
-    });
-    setCategorySave(newCategory);
-  };
-
+ 
 
   const saveChange = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    postCategory(authToken, categorySave);
+    postCategory(authToken, category).then(() => {
+      alert("카테고리 저장 성공:");
+      router.push("/categoryManage");
+    });
   };
 
   return (
@@ -207,7 +208,7 @@ const categoryManage = () => {
                         >
                           <input
                             css={css`
-                              width: 20em;
+                              width: 10em;
                               outline: none;
                               border: none;
                               font-size: 1.2rem;
@@ -218,27 +219,62 @@ const categoryManage = () => {
                               }
                             `}
                             defaultValue={item.name}
+                            placeholder="카테고리 제목"
                             onChange={(e) => {
-                              const updatedCategory = category.map(catItem => {
-                                if (catItem.id === item.id) {
-                                  return { ...catItem, name: e.target.value };
+                              const updatedCategory = category.map(
+                                (catItem) => {
+                                  if (catItem.id === item.id) {
+                                    return {
+                                      ...catItem,
+                                      name: e.target.value,
+                                    };
+                                  }
+                                  return catItem;
                                 }
-                                return catItem;
-                              });
-                              fixCategory(e, updatedCategory);
+                              );
+                              setCategory(updatedCategory);
                             }}
                           />
+                          <select
+                            css={catrgorySelect}
+                            defaultValue={item.type}
+                            onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+                              const updatedCategory = category.map(
+                                (catItem) => {
+                                  if (catItem.id === item.id) {
+                                    return {
+                                      ...catItem,
+                                      type: e.target.value,
+                                    };
+                                  }
+                                  return catItem;
+                                }
+                              );
+                              setCategory(updatedCategory);
+                            }}
+                          >
+                            <option value="TEXT_AND_IMAGE">게시글</option>
+                            <option value="IMAGE">이미지</option>
+                          </select>
 
                           <RxDividerVertical size={40} color="#d4d4d4" />
                           <input
                             css={explanInput}
                             defaultValue={item.explanation}
+                            placeholder="설명을 입력해주세요"
                             onChange={(e) => {
-                              for (let i = 0; i < category.length; i++) {
-                                if (category[i].id === item.id) {
-                                  category[i].explanation = e.target.value;
+                              const updatedCategory = category.map(
+                                (catItem) => {
+                                  if (catItem.id === item.id) {
+                                    return {
+                                      ...catItem,
+                                      explanation: e.target.value,
+                                    };
+                                  }
+                                  return catItem;
                                 }
-                              }
+                              );
+                              setCategory(updatedCategory);
                             }}
                           ></input>
                         </div>

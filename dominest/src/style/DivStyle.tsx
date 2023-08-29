@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const TopLevelDiv = styled.div`
@@ -52,3 +53,26 @@ export const ListLi = styled.li`
     transition: all 0.3s ease-in-out;
   }
 `;
+
+export const ScheduleDiv = styled.div`
+  width: 50vw;
+  height: 40vh;
+  padding: 3%;
+  margin: 2% 4%;
+  border-radius: 15px;
+  border: 2px solid black;
+`;
+
+export const TodoDiv = styled(ScheduleDiv)`
+  width: 30vw;
+`;
+
+export const FixedDiv = styled(ScheduleDiv)``;
+
+export const CalenderDiv = styled(ScheduleDiv)`
+  width: 30vw;
+`;
+
+export const homeMainDiv = css`
+  
+`
