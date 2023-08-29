@@ -32,7 +32,12 @@ export default function Login() {
         console.log("res", res.data.data.accessToken);
 
         const token = res.data.data.accessToken;
+        const username = res.data.data.username;
+        const role = res.data.data.role;
+
         localStorage.setItem("authToken", token);
+        localStorage.setItem("username", username);
+        localStorage.setItem("role", role);
         alert("로그인이 완료되었습니다.");
         router.push("/");
       })
