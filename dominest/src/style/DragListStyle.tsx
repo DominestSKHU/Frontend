@@ -33,12 +33,12 @@ export const CategoryBox = styled.div`
 `;
 
 export const MainBox = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    height: 92vh;
-    `;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 92vh;
+`;
 
 export const Category = styled.div`
   background-color: #f3f3f3;
@@ -81,6 +81,14 @@ export const CategoryMoveBox = styled.div`
     background-color: white;
   }
 `;
+export const catrgorySelect = css`
+  border: none;
+  border-bottom: 1px solid;
+  padding: 3px;
+  width: 5rem;
+  text-align: center;
+  outline: none;
+`;
 export const explanInput = css`
   width: 20em;
   outline: none;
@@ -102,7 +110,8 @@ export const DeleteCategory = styled.button`
   border-radius: 50%;
   background: #ffffff;
   margin-right: 2px;
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     background-color: #f5f5f5;
   }
 `;

@@ -6,3 +6,8 @@ export const loginUtil = (email: string, password: string)=>
       email,
       password,
     })
+
+export const tempPassword = (email: string) =>
+  axios.post("http://domidomi.duckdns.org/email/change/password", {
+    email,
+  });

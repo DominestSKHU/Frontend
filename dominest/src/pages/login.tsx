@@ -16,8 +16,6 @@ export default function Login() {
   const router = useRouter();
 
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("e.target.value", e.target.value);
-
     setEmail(e.target.value);
   };
   const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,12 +23,9 @@ export default function Login() {
   };
   const onLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("email", email, password);
 
     loginUtil(email, password)
       .then((res) => {
-        console.log("res", res.data.data.accessToken);
-
         const token = res.data.data.accessToken;
         localStorage.setItem("authToken", token);
         alert("로그인이 완료되었습니다.");

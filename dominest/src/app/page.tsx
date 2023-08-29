@@ -23,7 +23,7 @@ function Home({}: Props) {
   return (
     <>
 
-
+      
        <Navbar />
 
 
