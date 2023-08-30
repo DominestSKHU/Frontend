@@ -5,16 +5,23 @@ import React, { useEffect } from "react";
 /** @jsxImportSource @emotion/react */
 import { css, Global } from "@emotion/react";
 import { globalStyles } from "./categoryManage";
-import { CalenderDiv, FixedDiv, ScheduleDiv, TodoDiv } from "@/style/DivStyle";
+import {
+  CalenderDiv,
+  FixedDiv,
+  homeMainDiv,
+  ScheduleDiv,
+  TodoDiv,
+} from "@/style/DivStyle";
+import TodoList from "@/components/TodoList";
 
-const Home = () => {
+const Home: React.FC = () => {
   return (
     <>
       <Global styles={globalStyles} />
       <Navbar />
-      <div>
+      <div css={homeMainDiv}>
         <ScheduleDiv className="schedule"></ScheduleDiv>
-        <TodoDiv className="todo"></TodoDiv>
+        <TodoList />
         <FixedDiv className="fixed"></FixedDiv>
         <CalenderDiv className="calender"></CalenderDiv>
       </div>

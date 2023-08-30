@@ -55,16 +55,21 @@ export const ListLi = styled.li`
 `;
 
 export const ScheduleDiv = styled.div`
-  width: 50vw;
+  width: 45vw;
   height: 40vh;
-  padding: 3%;
-  margin: 2% 4%;
+  padding: 15px;
+  margin: 20px 15px;
   border-radius: 15px;
-  border: 2px solid black;
+  border: 2px solid #ddd;
+  box-shadow: 0px 1px 5px gray;
 `;
 
 export const TodoDiv = styled(ScheduleDiv)`
   width: 30vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const FixedDiv = styled(ScheduleDiv)``;
@@ -74,5 +79,22 @@ export const CalenderDiv = styled(ScheduleDiv)`
 `;
 
 export const homeMainDiv = css`
-  
-`
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  align-items: center;
+  justify-items: center;
+`;
+
+export const datePickerStyle = css`
+  border-radius: 15px;
+  background-color: #e0e0e0;
+  padding: 6px;
+  border: none;
+  text-align: center;
+  font-size: larger;
+  outline: none;
+  box-shadow: 0px 1px 5px gray;
+  &:hover,&:focus {
+    box-shadow: 0px 0px 1px gray;
+  }
+`;
