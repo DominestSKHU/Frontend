@@ -3,6 +3,66 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
+export const TodoUl = css`
+  list-style: none;
+  padding: 0;
+  width: 20rem;
+  height: 17rem;
+  overflow: scroll;
+`;
+export const TodoInput = css`
+  margin: 1rem 0 0 0;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  width: 20rem;
+  text-align: center;
+  font-size: large;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  &:hover,
+  &:focus {
+    box-shadow: 0px 0px 1px gray;
+  }
+`;
+export const TodoLi = css`
+  align-items: center;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+`;
+export const TodoListBtnFalse = css`
+  width: 18rem;
+  font-size: larger;
+  background-color: white;
+  border: none;
+  outline: none;
+  text-align: left;
+`;
+export const TodoListBtnTrue = css`
+  ${TodoListBtnFalse}
+  text-decoration: line-through;
+  color: #b2b2b2;
+`;
+export const TodoInputform = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & > .todoAdd {
+    width: 3rem;
+    font-size: large;
+    margin: 1rem 0 0 0;
+    padding: 0.5rem;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    &:hover,
+    &:focus {
+      box-shadow: 0px 0px 1px gray;
+    }
+  }
+`;
 export const TopLevelDiv = styled.div`
   background-color: #d7d7d7;
   display: flex;
@@ -68,7 +128,6 @@ export const TodoDiv = styled(ScheduleDiv)`
   width: 30vw;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
 `;
 
@@ -94,7 +153,8 @@ export const datePickerStyle = css`
   font-size: larger;
   outline: none;
   box-shadow: 0px 1px 5px gray;
-  &:hover,&:focus {
+  &:hover,
+  &:focus {
     box-shadow: 0px 0px 1px gray;
   }
 `;
