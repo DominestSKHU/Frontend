@@ -7,7 +7,7 @@ import styled from "@emotion/styled";
 export const TodoUl = css`
   list-style: none;
   padding: 0;
-  width: 20rem;
+  width: 90%;
   height: 17rem;
   overflow: scroll;
 `;
@@ -16,7 +16,7 @@ export const TodoInput = css`
   padding: 0.5rem;
   display: flex;
   align-items: center;
-  width: 20rem;
+  width: 100%;
   text-align: center;
   font-size: large;
   outline: none;
@@ -35,12 +35,14 @@ export const TodoLi = css`
   margin: 0.5rem 0;
 `;
 export const TodoListBtnFalse = css`
-  width: 18rem;
+  width: 100%;
+
+  height: 2.2rem;
   font-size: larger;
   background-color: white;
   border: none;
   outline: none;
-  text-align: left;
+  text-align: center;
 `;
 export const TodoListBtnTrue = css`
   ${TodoListBtnFalse}
@@ -51,8 +53,9 @@ export const TodoInputform = css`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 60%;
   & > .todoAdd {
-    width: 3rem;
+    width: 30%;
     font-size: large;
     margin: 1rem 0 0 0;
     padding: 0.5rem;
@@ -134,33 +137,36 @@ export const RecentPostsLi = styled(TodoListLi)`
   margin: 1% 0;
 `;
 
-
 export const ScheduleDiv = styled.div`
-  width: 45vw;
-  height: 40vh;
+  width: 50vw;
+  height: 50vh;
   padding: 15px;
-  margin: 20px 15px;
+  margin: 20px 10px 0 15px;
   border-radius: 15px;
   border: 2px solid #ddd;
   box-shadow: 0px 1px 5px gray;
+  overflow: scroll;
 `;
 
 export const TodoDiv = styled(ScheduleDiv)`
-  width: 30vw;
+  width: 42vw;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-export const FixedDiv = styled(ScheduleDiv)``;
+export const FixedDiv = styled(ScheduleDiv)`
+  margin: 20px 10px 30px 15px;
+`;
 
 export const CalenderDiv = styled(ScheduleDiv)`
-  width: 30vw;
+  width: 42vw;
+  margin: 20px 10px 30px 15px;
 `;
 
 export const homeMainDiv = css`
   display: grid;
-  grid-template-columns: 1.5fr 1fr;
+  grid-template-columns: 1.8fr 1.5fr;
   align-items: center;
   justify-items: center;
 `;

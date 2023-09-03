@@ -104,7 +104,7 @@ const TodoList: () => EmotionJSX.Element = () => {
               `}
               onClick={deleteTodoList(item)}
             >
-              <BsTrash3 size={17} />
+              <BsTrash3 size={30} />
             </button>
           </li>
         ))}

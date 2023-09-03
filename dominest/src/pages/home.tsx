@@ -14,7 +14,7 @@ import {
 } from "@/style/DivStyle";
 import TodoList from "@/components/TodoList";
 import RecentPosts from "@/components/RecentPosts";
-
+import Schedule from "@/components/Schedule";
 
 const Home: React.FC = () => {
   return (
@@ -22,7 +22,7 @@ const Home: React.FC = () => {
       <Global styles={globalStyles} />
       <Navbar />
       <div css={homeMainDiv}>
-        <ScheduleDiv className="schedule"></ScheduleDiv>
+        <Schedule />
         <TodoList />
         <RecentPosts />
         <CalenderDiv className="calender"></CalenderDiv>
