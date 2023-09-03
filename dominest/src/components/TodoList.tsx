@@ -1,3 +1,5 @@
+"use client";
+/** @jsxImportSource @emotion/react */
 import { EmotionJSX } from "@emotion/react/types/jsx-namespace";
 import {
   TodoDiv,
@@ -12,8 +14,8 @@ import {
 import React, { useEffect, useState } from "react";
 import { BsTrash3 } from "react-icons/bs";
 import DatePicker from "react-datepicker";
-
 import "react-datepicker/dist/react-datepicker.css";
+
 import { css } from "@emotion/react";
 
 interface TodoListProps {
@@ -33,7 +35,7 @@ const TodoList: () => EmotionJSX.Element = () => {
   });
 
   const todolength = todolist.length;
-    //이부분 수정해야함 백이 보내주는거 보고
+  //이부분 수정해야함 백이 보내주는거 보고
 
   const onChangeTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTodo({

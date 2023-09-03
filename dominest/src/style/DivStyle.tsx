@@ -1,3 +1,4 @@
+"use client";
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
@@ -87,14 +88,14 @@ export const TwiceLevelDiv = styled.div`
   background-color: white;
 `;
 
-export const ListUl = styled.ul`
+export const TodoListUl = styled.ul`
   height: 100%;
   margin: 0;
   padding: 0;
   overflow: scroll;
 `;
 
-export const ListLi = styled.li`
+export const TodoListLi = styled.li`
   width: 94%;
   height: 3rem;
   list-style: none;
@@ -113,6 +114,26 @@ export const ListLi = styled.li`
     transition: all 0.3s ease-in-out;
   }
 `;
+export const RecentBoxTitle = styled.div`
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  margin: 0.5rem;
+  text-align: center;
+`;
+export const RecentPostsUl = styled(TodoListUl)`
+  height: 80%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+export const RecentPostsLi = styled(TodoListLi)`
+  width: 94%;
+  padding: 0 1rem;
+  margin: 1% 0;
+`;
+
 
 export const ScheduleDiv = styled.div`
   width: 45vw;
