@@ -1,26 +1,25 @@
-import { useRouter } from "next/router";
-import React, { useState, useEffect } from "react";
-import Navbar from "@/components/AdminNavbar";
-import styled from "@emotion/styled";
-import { Imageborder } from "@/utils/border/Imagborder";
-import Image from "next/image";
+import React, { useState, useRef, useEffect } from "react";
 import "../../app/globals.css";
-import { Button, Containerright } from "@/style/InputStyle";
+import { useRouter } from "next/router";
+
+import Navbar from "@/components/AdminNavbar";
+import Image from "next/image";
+import {
+  Inputt,
+  Container,
+  TitleInput,
+  ImageInput,
+} from "@/style/ImgUploadStyle";
 import axios from "axios";
 import { useAuth } from "@/utils/useAuth/useAuth";
-interface ImagePost {
-  id: number;
-  title: string;
-  writer: string;
-  createTime: string;
-  updateTime: string;
-  imageUrls: string[];
-}
 
-export default function ImgPage() {
+export default function ImageUploadForm() {
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [title, setTitle] = useState("");
   const router = useRouter();
-  const [imageData, setImageData] = useState<ImagePost>();
-  const [idname, setIdname] = useState<any>(router.query.id);
+  const [idname, setIdname] = useState(router.query.id);
 
   const Token = useAuth();
   useEffect(() => {
@@ -29,26 +28,18 @@ export default function ImgPage() {
     }
   }, [router.query.id]);
 
-  useEffect(() => {
-    const fetchImageData = async () => {
-      try {
-        if (idname) {
-          const response = await Imageborder(idname);
-          setImageData(response.data.data.postDetail);
-        }
-      } catch (error) {
-        console.error("이미지 데이터를 불러오는 동안 오류 발생:", error);
+  const handleUpload = () => {
+    if (selectedFiles.length > 0 && !isUploading) {
+      setIsUploading(true);
+      const formData = new FormData();
+      formData.append("title", title);
+      for (const file of selectedFiles) {
+        formData.append("postImages", file);
       }
-    };
-
-    fetchImageData();
-  }, [idname]);
-
-  const imgDelete = () => {
-    if (idname) {
       axios
-        .delete(
-          `${process.env.NEXT_PUBLIC_API_URL}/posts/image-types/${idname}`,
+        .post(
+          `${process.env.NEXT_PUBLIC_API_URL}/categories/${idname}/posts/image-types`,
+          formData,
           {
             headers: {
               Authorization: `Bearer ${Token}`,
@@ -56,77 +47,106 @@ export default function ImgPage() {
           }
         )
         .then((response) => {
+          setIsUploading(false);
+          setSelectedFiles([]);
+          window.location.href = `/categories/${idname}/posts/image-types`;
           console.log(response.data.data);
-          alert("성공적으로 삭제되었습니다.");
-          window.location.href = "/imgboard/categories";
+          return alert("성공적으로 업로드 되었습니다.");
         })
         .catch((error) => {
-          console.error("이미지 삭제 오류 발생:", error);
+          console.log(error);
+          setIsUploading(false);
         });
     }
   };
+  const handleTitleChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setTitle(event.target.value);
+  };
 
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList = event.target.files;
+    if (!fileList) {
+      return;
+    }
+
+    const files = Array.from(fileList);
+    setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
+  };
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    const files = Array.from(event.dataTransfer.files);
+    setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
+  };
+
+  const handleUploadTextClick = () => {
+    fileInputRef.current?.click();
+  };
   return (
     <div>
-      <Navbar page="게시물" />
+      <Navbar page="이미지 업로드 Form" />
       <Container>
-        <div>
-          {imageData ? (
-            <div>
-              <h1>{imageData.title}</h1>
-              <hr />
-              <TextContent>
-                <p>작성자 {imageData.writer}</p>
-                <p>작성 시간 {imageData.createTime}</p>
-                <p>수정 시간 {imageData.updateTime}</p>
-              </TextContent>
-              <hr />
-              <ImageContainer>
-                {imageData.imageUrls.map((imageUrl, index) => (
-                  <Image
-                    key={index}
-                    src={`${process.env.NEXT_PUBLIC_API_URL}/posts/image-types/images?filename=${imageUrl}`}
-                    alt={`Image ${index}`}
-                    width={450}
-                    height={450}
-                  />
-                ))}
-              </ImageContainer>
+        <section id="ex9">
+          <h1>사진</h1>
+          <TitleInput>
+            <label>제목</label>{" "}
+            <input type="text" value={title} onChange={handleTitleChange} />
+          </TitleInput>
+          <ImageInput>
+            <div
+              className="upload-box"
+              onDrop={handleDrop}
+              onClick={handleUploadTextClick}
+              onDragOver={(e) => e.preventDefault()}
+            >
+              <Inputt>
+                <input
+                  ref={fileInputRef}
+                  className="btn-file d-none"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  multiple
+                />
+                {selectedFiles.length > 0 ? (
+                  <div>
+                    <div className="viewer">
+                      {selectedFiles.map((file, index) => (
+                        <div key={index} className="file-preview">
+                          <Image
+                            src={URL.createObjectURL(file)}
+                            alt={`미리보기 ${index + 1}`}
+                            width={100}
+                            height={100}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="noneimg">
+                    <Image
+                      src="/cloude.png"
+                      alt="클라우드 이미지"
+                      width={300}
+                      height={300}
+                    />
+                    <p>사진을 끌어서 넣거나 클릭해주세요</p>
+                  </div>
+                )}
+              </Inputt>
             </div>
-          ) : (
-            <p>이미지 데이터를 불러오는 중...</p>
-          )}
-        </div>
-        <Containerright>
-          <Button>수정</Button>
-          <Button onClick={imgDelete}>삭제</Button>
-        </Containerright>
+          </ImageInput>
+          <button
+            className="btn btn-primary"
+            onClick={handleUpload}
+            disabled={isUploading} // 업로드 중일 때 버튼을 비활성화
+          >
+            {isUploading ? "업로드 중..." : "등록"}
+          </button>
+        </section>
       </Container>
     </div>
   );
 }
-const Container = styled.div`
-  width: 80%;
-  margin: 0 auto;
-  margin-top: 50px;
-
-  text-align: center;
-
-  p {
-    font-size: 18px;
-    margin: 10px 0;
-  }
-`;
-const ImageContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-`;
-const TextContent = styled.div`
-  display: flex;
-  justify-content: right;
-  p {
-    margin-left: 20px;
-    font-size: 15px;
-  }
-`;

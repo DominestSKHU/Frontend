@@ -26,7 +26,7 @@ export default function PdfList(props: Props) {
     if (selectedFiles !== null) {
       StudentOnePdf(selectedFiles);
     }
-  }, [selectedFiles]);
+  }, [selectedFiles, props]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];

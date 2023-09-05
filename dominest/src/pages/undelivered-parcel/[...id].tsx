@@ -17,7 +17,7 @@ interface List {
   recipientPhoneNum: string;
 }
 
-export default function parcel() {
+export default function Parcel() {
   const router = useRouter();
   const [idname, setIdname] = useState<any>(router.query.id);
   const [name, setName] = useState<string>("");
@@ -69,7 +69,7 @@ export default function parcel() {
           console.error("이미지 정보를 가져오는 동안 오류 발생:", error);
         });
     }
-  }, [idname]);
+  }, [idname, Token]);
 
   // axios 업로드
   const parcelUpload = () => {

@@ -66,9 +66,6 @@ export default function ImgPage() {
     }
   };
 
-
-  
-
   return (
     <div>
       <Navbar page="게시물" />
