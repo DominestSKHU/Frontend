@@ -1,11 +1,12 @@
 import { css } from "@emotion/react";
-import { useEffect, useState } from "react";
-import { fetchData } from "@/utils/uploadutil";
 
-import "../app/globals.css";
+import { useEffect, useState } from "react";
+import { fetchData, StudentDelete } from "@/utils/student/uploadutil";
+import { ComponentDiv2, StudentDataTable } from "@/style/ComponentStyle";
+import "../../app/globals.css";
 /** @jsxImportSource @emotion/react */
 
-export default function StudentData(props) {
+export default function StudentData(props: { degree: string; Token: string }) {
   const [data, setData] = useState<any[]>();
 
   useEffect(() => {
@@ -16,7 +17,7 @@ export default function StudentData(props) {
     if (data && Array.isArray(data) && data.length > 0) {
       return (
         <div>
-          <table css={tableStyle}>
+          <StudentDataTable>
             <thead>
               <tr>
                 <th>번호</th>
@@ -41,6 +42,7 @@ export default function StudentData(props) {
                 <th>사회명</th>
                 <th>ZIP</th>
                 <th>주소</th>
+                <th>삭제</th>
               </tr>
             </thead>
             <tbody>
@@ -68,10 +70,17 @@ export default function StudentData(props) {
                   <td>{resident.socialName}</td>
                   <td>{resident.zipCode}</td>
                   <td>{resident.address}</td>
+                  <td>
+                    <button
+                      onClick={() => StudentDelete(resident.id, props.Token)}
+                    >
+                      삭제
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
-          </table>
+          </StudentDataTable>
         </div>
       );
     } else {
@@ -79,30 +88,7 @@ export default function StudentData(props) {
     }
   };
 
-  return (
-    <div
-      css={css`
-        margin: 20px;
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        height: 600px;
-        max-height: 600px;
-        align-items: center;
-        overflow: auto;
-        border: 1px solid black;
-      `}
-    >
-      <div
-        css={css`
-          width: 100%;
-          height: 100%;
-        `}
-      >
-        {renderTable()}
-      </div>
-    </div>
-  );
+  return <ComponentDiv2>{renderTable()}</ComponentDiv2>;
 }
 const tableStyle = css`
   border-collapse: collapse;

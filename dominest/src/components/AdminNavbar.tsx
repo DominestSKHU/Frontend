@@ -1,169 +1,164 @@
-import React from "react";
-import styled from "@emotion/styled";
-import Link from "next/link";
+import React, { useEffect } from "react";
+import { useNavbar, onLogout } from "@/utils/useAuth/useAuth";
 import { css } from "@emotion/react";
 import { HiOutlineUserCircle } from "react-icons/hi";
+import { CiStar } from "react-icons/ci";
+import Link from "next/link";
+import {
+  NavStyle,
+  LeftNav,
+  NavList,
+  LoginState,
+  NavItem,
+} from "@/style/NavStyle";
+import { startList, startSelect } from "@/utils/navbar/favorites";
+import { categoriesList } from "@/utils/navbar/categoriesList";
 /** @jsxImportSource @emotion/react */
 
-const ListStyle = styled.li`
-  margin-left: 10%;
-  width: 7rem;
-  & > ul {
-    display: inline-block;
-    list-style: none;
-    width: max-content;
-    position: absolute;
-    top: 32px;
-    & > p {
-      margin: 5px;
-    }
-    &:hover {
-      & > li {
-        display: block;
-      }
-    }
-    & > li {
-      background-color: rgb(202, 202, 202);
-      margin-top: 5px;
-      padding: 5px 10px;
-      width: initial;
-      border-radius: 5px;
-      display: none;
-      &:hover {
-        background-color: rgb(189, 189, 189);
-        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.147);
-      }
-      & > a {
-        text-decoration: none;
-        color: black;
-      }
-    }
-  }
-`;
-const UserStyle = styled.p`
-  margin-right: 5px;
-  font-weight: bold;
-  width: fit-content;
-`;
-const User = styled.div`
-  display: flex;
-  align-items: center;
-  width: fit-content;
-  padding: 0px 10px;
-`;
-const LogoutStyle = styled.div`
-  margin-right: 10%;
-  background-color: #dcdcdc;
-  border-radius: 20px;
-  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.147);
-  width: fit-content;
-`;
-export default function Navber() {
-  const [name, setName] = React.useState("이용ddd자");
-  const [role, setRole] = React.useState("근로생");
+const Navber = (props: { page: string }) => {
+  const { Name, Role, Token } = useNavbar();
+  const [FavoritesList, setFavoritesList] = React.useState<any[]>([]);
+  const [Catago, setCatago] = React.useState<any[]>([]);
+
+  //즐겨찾기 목록
+  useEffect(() => {
+    const favoritesData = async () => {
+      const favorites = await startList(Token);
+
+      setFavoritesList(favorites);
+    };
+
+    const catagories = async () => {
+      const catagories = await categoriesList(Token);
+      setCatago(catagories);
+    };
+
+    catagories();
+    favoritesData();
+  }, [Token]);
+
+  //카테고리 전체 조회
+  useEffect(() => {
+    const fetchData = async () => {
+      const favorites = await startList(Token);
+      setFavoritesList(favorites);
+    };
+
+    fetchData();
+  }, [Token]);
   return (
-    <div>
-      <nav
-        css={css`
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          width: 100vw;
-          height: 10vh;
-          background-color: rgb(173, 173, 173);
-        `}
-      >
-        <div
+    <NavStyle>
+      <Link className="Link" href="/">
+        <h1>Dominest</h1>
+      </Link>
+
+      <LeftNav>
+        <NavList>
+          <li>
+            <p>즐겨찾기</p>
+            <NavItem>
+              {FavoritesList.map((favorites) => (
+                <li key={favorites.id}>
+                  <Link href={favorites.categoryLink} className="Link">
+                    <span>{favorites.categoryName}</span>
+                    <CiStar
+                      size={20}
+                      onClick={() => startSelect(Token, favorites.categoryId)}
+                    />
+                  </Link>
+                </li>
+              ))}
+            </NavItem>
+          </li>
+          <li>
+            <p>관리자 목록</p>
+
+            <NavItem>
+              <li>
+                <Link href="/infodata/studentupload" className="Link">
+                  <span>학생정보 업로드</span>
+                  <CiStar size={20} />
+                </Link>
+              </li>
+              <li>
+                <Link href="/admissionform" className="Link">
+                  <span>입관신청서</span>
+                  <CiStar size={20} />
+                </Link>
+              </li>
+              <li>
+                <Link href="/departureform" className="Link">
+                  <span>퇴관신청서</span>
+                  <CiStar size={20} />
+                </Link>
+              </li>
+            </NavItem>
+          </li>
+          <li>
+            <p>근로생 목록</p>
+
+            <NavItem>
+              {Catago.map((categories) => (
+                <li key={categories.id}>
+                  <Link href={categories.categoryLink} className="Link">
+                    <span>{categories.name}</span>
+                  </Link>
+                  <CiStar
+                    size={20}
+                    onClick={() => startSelect(Token, categories.id)}
+                  />
+                </li>
+              ))}
+            </NavItem>
+
+            {/* 다른 근로생 목록 아이템들 추가 */}
+          </li>
+        </NavList>
+      </LeftNav>
+      <strong>{props.page}</strong>
+      <LoginState>
+        <HiOutlineUserCircle className="loginIcon" size={25} />
+        <span
           css={css`
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: fit-content;
-            padding-left: 10%;
+            color: green;
+            font-weight: bold;
+            font-size: 18px;
+            margin-right: 5px;
+            margin-left: 5px;
           `}
         >
-          <div
-            className="logo"
+          {Name}
+        </span>
+        {Role === "Admin" ? (
+          <span
             css={css`
-              font-size: 1.2em;
               font-weight: bold;
-              margin-right: 10%;
+              font-size: 13px;
+              margin-right: 5px;
+              margin-left: 5px;
             `}
           >
-            Dominest
-          </div>
-          <ul
+            근로생
+          </span>
+        ) : (
+          <span
             css={css`
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              background-color: var(--background-color);
-              padding: 8px 12px;
-              list-style: none;
+              font-weight: bold;
+              font-size: 13px;
+              margin-right: 5px;
+              margin-left: 5px;
             `}
           >
-            <ListStyle>
-              <ul>
-                <p>즐겨찾기</p>
-                <li>
-                  <Link href="/login">땡땡이</Link>
-                </li>
-              </ul>
-            </ListStyle>
-            <ListStyle>
-              <ul>
-                <p>관리자 업무</p>
-                <li>
-                  <Link href="/login">권한 부여</Link>
-                </li>
-                <li>
-                  <Link href="/login">땡땡이</Link>
-                </li>
-                <li>
-                  <Link href="/login">빵빵이</Link>
-                </li>
-              </ul>
-            </ListStyle>
-            <ListStyle>
-              <ul>
-                <p>근로생 업무</p>
-                <li>
-                  <Link href="/login">땡땡이</Link>
-                </li>
-                <li>
-                  <Link href="/login">빵빵이</Link>
-                </li>
-                <li>
-                  <Link href="/login">옥지얌</Link>
-                </li>
-              </ul>
-            </ListStyle>
-          </ul>
-        </div>
-        <LogoutStyle>
-          <User className="login">
-            <HiOutlineUserCircle
-            className="loginIcon"
-              size={25}
-              css={css`
-                margin-right: 5px;
-              `}
-            />
-            {role === "근로생" ? (
-              <UserStyle>근로생</UserStyle>
-            ) : (
-              <UserStyle>관리자</UserStyle>
-            )}
-            <UserStyle
-              css={css`
-                color: green;
-              `}
-            >
-              {name}
-            </UserStyle>
-          </User>
-        </LogoutStyle>
-      </nav>
-    </div>
+            관리자
+          </span>
+        )}
+
+        <button className="logout" onClick={onLogout}>
+          로그아웃
+        </button>
+      </LoginState>
+    </NavStyle>
   );
-}
+};
+
+export default Navber;
