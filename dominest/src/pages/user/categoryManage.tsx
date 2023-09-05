@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { BsList } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { useAuth } from "@/utils/useAuth/useAuth";
+import { useEffect } from "react";
 /** @jsxImportSource @emotion/react */
 const globalStyles = css`
   html,
@@ -103,14 +103,20 @@ const CategoryPlusBox = () => {
   );
 };
 
-const CategoryManage = () => {
+const categoryManage = () => {
   const router = useRouter();
 
-  const Token = useAuth();
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+
+    if (!authToken) {
+      router.push("/login");
+    }
+  }, []);
   return (
     <>
       <Global styles={globalStyles} />
-      <Navbar page="카테고리 관리" />
+      <Navbar />
       <div className="mainBox">
         <form css={formStyle}>
           <h2
@@ -182,4 +188,4 @@ const CategoryManage = () => {
     </>
   );
 };
-export default CategoryManage;
+export default categoryManage;
