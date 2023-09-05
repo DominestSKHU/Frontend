@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import StudentData from "@/components/student/StudentData";
-import { ComponentDiv } from "@/style/ComponentStyle";
+import { ComponentDiv } from "@/style/componentStyle";
 import "../../app/globals.css";
 import { handleUpload, delet } from "@/utils/student/uploadutil";
 import StudentEdit from "@/components/student/StudentEdit";

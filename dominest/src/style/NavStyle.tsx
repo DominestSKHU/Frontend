@@ -61,7 +61,6 @@ export const NavList = styled.ul`
       
       }
     }
-  }
 `;
 export const LoginState = styled.div`
   display: flex;
