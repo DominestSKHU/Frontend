@@ -1,21 +1,30 @@
 "use client";
+/** @jsxImportSource @emotion/react */
 import Navbar from "@/components/AdminNavbar";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-/** @jsxImportSource @emotion/react */
 import { css, Global } from "@emotion/react";
 import { globalStyles } from "./categoryManage";
-import { CalenderDiv, FixedDiv, ScheduleDiv, TodoDiv } from "@/style/DivStyle";
+import {
+  CalenderDiv,
+  FixedDiv,
+  homeMainDiv,
+  ScheduleDiv,
+  TodoDiv,
+} from "@/style/DivStyle";
+import TodoList from "@/components/TodoList";
+import RecentPosts from "@/components/RecentPosts";
+import Schedule from "@/components/Schedule";
 
-const Home = () => {
+const Home: React.FC = () => {
   return (
     <>
       <Global styles={globalStyles} />
       <Navbar />
-      <div>
-        <ScheduleDiv className="schedule"></ScheduleDiv>
-        <TodoDiv className="todo"></TodoDiv>
-        <FixedDiv className="fixed"></FixedDiv>
+      <div css={homeMainDiv}>
+        <Schedule />
+        <TodoList />
+        <RecentPosts />
         <CalenderDiv className="calender"></CalenderDiv>
       </div>
     </>

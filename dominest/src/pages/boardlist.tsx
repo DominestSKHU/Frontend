@@ -3,7 +3,7 @@
 import Navbar from "@/components/AdminNavbar";
 import { globalStyles } from "./categoryManage";
 import { css, Global } from "@emotion/react";
-import { ListLi, ListUl, TopLevelDiv, TwiceLevelDiv } from "@/style/DivStyle";
+import { TodoListLi, TodoListUl, TopLevelDiv, TwiceLevelDiv } from "@/style/DivStyle";
 import { useEffect, useState } from "react";
 import { getCategory } from "@/utils/category";
 import router from "next/router";
@@ -63,18 +63,18 @@ const Boardlist = () => {
               카테고리 전체 조회
             </div>
             <hr css={hrStyled} />
-            <ListUl>
+            <TodoListUl>
               {category.map((item) => (
-                <ListLi key={item.id}>
+                <TodoListLi key={item.id}>
                   <div>
                     <span css={Listspan}>{item.id}</span>
                     <span>{item.name}</span>
                   </div>
 
                   <span>{item.explanation}</span>
-                </ListLi>
+                </TodoListLi>
               ))}
-            </ListUl>
+            </TodoListUl>
           </TwiceLevelDiv>
         </TopLevelDiv>
       </div>
