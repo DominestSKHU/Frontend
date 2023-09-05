@@ -50,3 +50,43 @@ pnpm dev
    ┣ 📜 losePassword.tsx    --> 패스워드 찾기
    ┗ 📜 signup.tsx          --> 회원가입
 <pre>
+
+
+## 컴포넌트 구조
+<pre>
+ 📦components            
+ ┣ 📂pdf
+ ┃ ┣ 📜PdfList.tsx         -->  pdf 목록 컴포넌트
+ ┃ ┗ 📜PdfViewer.tsx       -->  pdf 뷰어 컴포넌
+ ┣ 📂student
+ ┃ ┣ 📜StudentAdd.tsx      -->  학생정보 추가
+ ┃ ┣ 📜StudentData.tsx     -->  학생 데이터 목록보기
+ ┃ ┗ 📜StudentEdit.tsx     -->  학생정보 수정
+ ┗ 📜AdminNavbar.tsx       -->  login과 회원가입 제외 모든페이지에서 보여지는 navbar
+</pre>
+
+
+## 유틸 구조
+<pre>
+ 📦utils
+ ┣ 📂border               --> 게시판 관련
+ ┃ ┣ 📜borderlist.tsx
+ ┃ ┣ 📜Imagborder.tsx
+ ┃ ┗ 📜imgupload.tsx
+ ┣ 📂navbar               --> navbar 관련
+ ┃ ┣ 📜categoriesList.tsx
+ ┃ ┗ 📜favorites.tsx
+ ┣ 📂pdf                  --> pdf 관련
+ ┃ ┗ 📜PdfUtil.tsx
+ ┣ 📂room                 --> 민원신청서 관련
+ ┃ ┗ 📜roomnumber.tsx
+ ┣ 📂student              --> 학생데이터 관련
+ ┃ ┣ 📜EditUtil.tsx
+ ┃ ┗ 📜uploadutil.tsx
+ ┗ 📂useAuth              --> 로그인 및 토큰 관련
+ ┃ ┣ 📜loginUtil.tsx
+ ┃ ┣ 📜signFcUtil.tsx
+ ┃ ┗ 📜useAuth.tsx
+</pre>
+
+
