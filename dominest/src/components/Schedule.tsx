@@ -1,16 +1,16 @@
-"use client";
-import { ScheduleDiv, TodoUl } from "@/style/DivStyle";
+;
+/** @jsxImportSource @emotion/react */
+import { ScheduleDiv } from "@/style/DivStyle";
 import {
   ScheduleBottom,
   ScheduleCommitBtn,
-  ScheduleInput,
   ScheduleTable,
   StudentInfo,
   StudentTable,
 } from "@/style/ScheduleTableStyle";
-import { css } from "@emotion/react";
-import React, { use, useEffect } from "react";
+import React, { useEffect } from "react";
 import AddSchedule from "./AddSchedule";
+
 
 interface StudentProps {
   id: number;

@@ -1,3 +1,4 @@
+; 
 import Link from "next/link";
 import {
   Form,
@@ -8,7 +9,6 @@ import {
   Input,
   SubmitButton,
   passwordError,
-  pulseAnimation,
 } from "@/style/SignInputStyle";
 import React from "react";
 import { css } from "@emotion/react";

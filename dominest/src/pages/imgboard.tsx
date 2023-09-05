@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "@/components/AdminNavbar";
+import Navbar from "@/components/Navbar";
 import "../app/globals.css";
 import styled from "@emotion/styled";
 import axios from "axios";

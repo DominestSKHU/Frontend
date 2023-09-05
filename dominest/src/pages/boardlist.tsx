@@ -1,6 +1,6 @@
+;
 /** @jsxImportSource @emotion/react */
-"use client";
-import Navbar from "@/components/AdminNavbar";
+import Navbar from "@/components/Navbar";
 import { globalStyles } from "./categoryManage";
 import { css, Global } from "@emotion/react";
 import { TodoListLi, TodoListUl, TopLevelDiv, TwiceLevelDiv } from "@/style/DivStyle";

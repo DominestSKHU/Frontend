@@ -1,6 +1,6 @@
+;
 import React, { useState, useEffect } from "react";
 import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { CiStar } from "react-icons/ci";
 import { useRouter } from "next/navigation";
@@ -19,7 +19,7 @@ const NavItem = css`
   padding-left: 0px;
 `;
 
-const Navber = (props) => {
+const Navbar: React.FC = (props) => {
   const [name, setName] = React.useState("");
   const [role, setRole] = React.useState("");
 
@@ -42,7 +42,7 @@ const Navber = (props) => {
       router.push("/login");
     }
   }, []);
-  const startSelect = (id) => {
+  const startSelect = (id:number) => {
     axios
       .post(`http://domidomi.duckdns.org/categories/${id}/favorites`, null, {
         headers: {
@@ -58,7 +58,7 @@ const Navber = (props) => {
       });
   };
 
-  const startList = (authToken) => {
+  const startList = (authToken: string | null) => {
     axios
       .get("http://domidomi.duckdns.org/favorites", {
         headers: {
@@ -73,7 +73,7 @@ const Navber = (props) => {
       });
   };
 
-  const categoriesList = (authToken) => {
+  const categoriesList = (authToken: string | null) => {
     axios
       .get("http://domidomi.duckdns.org/my-categories", {
         headers: {
@@ -229,4 +229,4 @@ const Navber = (props) => {
   );
 };
 
-export default Navber;
+export default Navbar;

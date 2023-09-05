@@ -1,5 +1,5 @@
-"use client";
-import Navbar from "@/components/AdminNavbar";
+;
+import Navbar from "@/components/Navbar";
 import {
   formStyle,
   CategoryBox,

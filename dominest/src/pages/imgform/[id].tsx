@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
-import Navbar from "@/components/AdminNavbar";
+import Navbar from "@/components/Navbar";
 import styled from "@emotion/styled";
 import axios from "axios";
 import "../..//app/globals.css";

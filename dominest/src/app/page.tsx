@@ -1,35 +1,29 @@
+// ;
 
-
-'use client'
-
-
-import Navbar from "@/components/AdminNavbar";
-import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+// import Navbar from "@/components/Navbar";
+// import { useRouter } from "next/navigation";
+// import { useEffect, useState } from "react";
 
 type Props = {};
 
 function Home({}: Props) {
-  const router = useRouter();
+  console.log("token");
 
-  useEffect(() => {
-    const authToken = localStorage.getItem("authToken");
+  // const router = useRouter();
+  // const [token, setToken] = useState(true);
 
-    if (!authToken) {
-      router.push("/login");
-    }
-  }, []);
+  // useEffect(() => {
+  //   const authToken = localStorage.getItem("authToken");
 
-  return (
-    <>
+  //   if (!authToken) {
+  //     router.push("/login");
+  //   } else {
+  //     setToken(true);
+  //   }
+  // }, []);
 
-      
-       <Navbar />
-
-
-    </>
-  );
+  return null;
+  // return <>{token && <Navbar />}</>;
 }
 
 export default Home;
-

@@ -1,6 +1,6 @@
-"use client";
+;
 /** @jsxImportSource @emotion/react */
-import Navbar from "@/components/AdminNavbar";
+import Navbar from "@/components/Navbar";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { css, Global } from "@emotion/react";

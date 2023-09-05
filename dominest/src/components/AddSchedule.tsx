@@ -1,3 +1,5 @@
+;
+/** @jsxImportSource @emotion/react */
 import {
   AddScheduleMain,
   AddScheduleTitle,
@@ -5,7 +7,7 @@ import {
   AddSelectDiv,
   ScheduleAddBtn,
 } from "@/style/ScheduleTableStyle";
-import { student, time } from "./Schedule";
+import { student } from "./Schedule";
 import { css } from "@emotion/react";
 import React, { use, useEffect } from "react";
 
@@ -31,8 +33,7 @@ const AddSchedule = () => {
       alert("시간을 다시 설정해주세요.");
       setWorktime(0);
     }
-  }),
-    [worktime];
+  }, [worktime]);
 
   const addTime = () => {
     const time = endTime - startTime;

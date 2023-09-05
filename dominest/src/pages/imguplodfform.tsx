@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import "../app/globals.css";
-import Navbar from "@/components/AdminNavbar";
+import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import {
   Inputt,

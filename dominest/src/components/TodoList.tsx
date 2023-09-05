@@ -1,4 +1,4 @@
-"use client";
+;
 /** @jsxImportSource @emotion/react */
 import { EmotionJSX } from "@emotion/react/types/jsx-namespace";
 import {

@@ -1,3 +1,5 @@
+;
+/** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
 import Link from "next/link";
 import React from "react";
@@ -8,7 +10,6 @@ import { loginUtil } from "@/utils/loginUtil";
 import "../app/globals.css";
 import axios from "axios";
 import { useRouter } from "next/router";
-/** @jsxImportSource @emotion/react */
 
 export default function Login() {
   const [email, setEmail] = React.useState("");
@@ -34,7 +35,7 @@ export default function Login() {
         localStorage.setItem("username", username);
         localStorage.setItem("role", role);
         alert("로그인이 완료되었습니다.");
-        router.push("/");
+        router.push("/home");
       })
       .catch((err) => {
         if (err.response && err.response.data) {

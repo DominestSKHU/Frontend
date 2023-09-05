@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import Link from "next/link";
 import { tempPassword } from "@/utils/loginUtil";
 import { useRouter } from "next/router";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 /** @jsxImportSource @emotion/react */
 
 const body = css`

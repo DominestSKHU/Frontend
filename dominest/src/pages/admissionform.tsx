@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PdfList from "@/components/PdfList";
 import { FileUpload, DormitoryYear, Button } from "@/style/InputStyle";
 import { ComponentDiv } from "@/style/ComponentStyle";
-import Navber from "@/components/AdminNavbar";
+import Navber from "@/components/Navbar";
 import { handleUpload } from "@/utils/PdfUtil";
 
 export default function admissionform() {

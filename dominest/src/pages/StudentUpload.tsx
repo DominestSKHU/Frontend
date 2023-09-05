@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -8,7 +8,7 @@ import "../app/globals.css";
 import { handleUpload, delet } from "@/utils/uploadutil";
 import StudentEdit from "@/components/StudentEdit";
 import StudentAdd from "@/components/StudentAdd";
-import Navber from "@/components/AdminNavbar";
+import Navber from "@/components/Navbar";
 import { FileUpload, Button, DormitoryYear } from "@/style/InputStyle";
 
 /** @jsxImportSource @emotion/react */

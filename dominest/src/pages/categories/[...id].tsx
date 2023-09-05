@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import "../../app/globals.css";
-import Navbar from "@/components/AdminNavbar";
+import Navbar from "@/components/Navbar";
 import styled from "@emotion/styled";
 import axios from "axios";
 import Link from "next/link";
