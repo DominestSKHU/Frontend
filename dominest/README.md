@@ -49,7 +49,7 @@ pnpm dev
    ┣ 📜 login.tsx           --> 로그인
    ┣ 📜 losePassword.tsx    --> 패스워드 찾기
    ┗ 📜 signup.tsx          --> 회원가입
-<pre>
+</pre>
 
 
 ## 컴포넌트 구조
