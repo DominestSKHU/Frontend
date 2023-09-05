@@ -1,8 +1,13 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## 시작가이드
 
-First, run the development server:
+처음 시작시 아래 cmd에 아래 명령어를 치시오
+```bash
+npm install
+```
+
+개발 서버 작동시킬때 아래 명령어를 치시오
 
 ```bash
 npm run dev
@@ -12,23 +17,36 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+열기는 [http://localhost:3000](http://localhost:3000) 주소로 열립니다.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+시작페이지는  `app/page.tsx`. 가해당됩니다.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+이 프로젝트는  [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) 맞춤 Google 글꼴인 Inter를 자동으로 로드합니다.
+<hr/>
 
-## Learn More
+ 
+## 페이지 구조
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<pre>
+📦 pages                    --> 페이지
+ ┣ 📂 categories            --> 게시글 목록 조회
+ ┃ ┗ 📜 [...id].tsx
+ ┣ 📂 data              
+ ┃ ┗ 📜 complaints.tsx      --> 민원대장
+ ┣ 📂 image-types         
+ ┃ ┗ 📜 [id].tsx            --> imge-type 게시글 작성
+ ┣ 📂 imgform           
+ ┃ ┗ 📜 [...id].tsx         --> imge-type 게시글 보기
+ ┣ 📂 infodata
+ ┃ ┗ 📜 studentupload.tsx   --> 사생 데이터 조회/ 수정/ 삭제
+ ┣ 📂 pdf
+ ┃ ┣ 📜 admissionform.tsx   --> 입관신청서 업로드 페이지
+ ┃ ┗ 📜 departureform.tsx   --> 퇴관신청서 업로드 페이지
+ ┣ 📂 undelivered-parcel
+ ┃ ┗ 📜 [...id].tsx         --> 장기 미수령 택배대장
+ ┗ 📂 user
+   ┣ 📜 categoryManage.tsx  --> 카테고리 메니저
+   ┣ 📜 login.tsx           --> 로그인
+   ┣ 📜 losePassword.tsx    --> 패스워드 찾기
+   ┗ 📜 signup.tsx          --> 회원가입
+<pre>
