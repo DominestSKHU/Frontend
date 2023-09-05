@@ -34,7 +34,7 @@ export const StudentTable = styled.div`
   height: 8rem;
 `;
 export const StudentInfo = styled.div`
-  width: 50%;
+  width: 80%;
   margin: 0.5rem 0;
   & > span {
     margin-right: 1rem;
@@ -49,10 +49,50 @@ export const ScheduleBottom = styled.div`
 export const ScheduleCommitBtn = styled.button`
   width: 7rem;
   height: 2rem;
-  margin: 1.5rem 0;
+  margin: 1.5rem 0 0 1rem;
   border-radius: 15px;
   border: 0.5px solid black;
   &:hover {
     background-color: #c4c4c4;
   }
+`;
+export const ScheduleAddBtn = styled(ScheduleCommitBtn)`
+  height: 5vh;
+  margin: 2% 0 0 0;
+`;
+export const AddScheduleMain = styled.div`
+  background-color: whitesmoke;
+  width: 30vw;
+  height: 25vh;
+  padding: 2%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 26%;
+  left: 12%;
+  flex-direction: column;
+  border-radius: 15px;
+  border: 1px solid black;
+  box-shadow: 0px 0px 10px gray;
+`;
+
+export const AddSelectDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+export const AddSelect = styled.select`
+  padding: 2%;
+  width: 30%;
+  font-size: 1.1rem;
+  margin: 2% 0;
+  border-radius: 15px;
+  outline: none;
+  text-align: center;
+`;
+export const AddScheduleTitle = styled.div`
+  font-size: 1.3rem;
+  text-align: center;
 `;
