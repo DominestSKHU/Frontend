@@ -12,7 +12,7 @@ function Home({}: Props) {
     const authToken = localStorage.getItem("authToken");
 
     if (!authToken) {
-      router.push("/login");
+      router.push("/user/login");
     }
   }, [router]);
 

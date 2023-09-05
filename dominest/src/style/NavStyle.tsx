@@ -94,3 +94,11 @@ export const LoginState = styled.div`
     }
   }
 `;
+export const NavItem = styled.ul`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding-left: 0px;
+`;
