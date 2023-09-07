@@ -1,45 +1,100 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import "../../app/globals.css";
+<<<<<<< HEAD
 import Navbar from "@/components/Navbar";
 import styled from "@emotion/styled";
 import axios from "axios";
+=======
+import Navbar from "@/components/AdminNavbar";
+import { Container, Table, ButtonContainer } from "@/style/border";
+>>>>>>> domi_3
 import Link from "next/link";
-
+import { borderList } from "@/utils/border/borderlist";
+import { Button, Containerright } from "@/style/InputStyle";
+import axios from "axios";
+import { useAuth } from "@/utils/useAuth/useAuth";
+interface Post {
+  id: number;
+  title: string;
+  writer: string;
+  createTime: string;
+  type: string;
+  lastModifiedBy: string;
+  lastModifiedTime: string;
+}
 export default function ImgBoard() {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const router = useRouter();
-  const [idname, setIdname] = useState(router.query);
+  const [idname, setIdname] = useState(router.query.id);
+  const [categoryName, setCategoryName] = useState("");
+  const [type, setTyep] = useState("hello");
+  const [urlLink, setUrlLink] = useState("");
+  const [write, setWrite] = useState("");
+  const Token = useAuth();
 
   useEffect(() => {
-    setIdname(router.query.id);
-  }, [router.query]);
+    if (router.query.id !== undefined) {
+      setIdname(router.query.id);
+      setUrlLink(`/${router.query.id[2]}/${router.query.id[0]}`);
+
+      if (router.query.id[2] === "image-types") {
+        setWrite("imgform");
+      } else {
+        setWrite("undelivered-parcel");
+      }
+    }
+  }, [router.query.id]);
 
   useEffect(() => {
-    if (router.query.id && router.query.id.length >= 3) {
-      axios
-        .get(
-          `http://domidomi.duckdns.org/categories/${idname[0]}/${idname[1]}/${idname[2]}?page=${currentPage}`
-        )
-        .then((response) => {
-          setPosts(response.data.data.posts);
-          setCurrentPage(response.data.data.page.currentPage);
-          setTotalPages(response.data.data.page.totalPages);
-        })
-        .catch((error) => {
-          console.error("게시판 오류 발생:", error);
-          console.log(idname);
-        });
+    const fetchData = async () => {
+      try {
+        const response = await borderList(idname, currentPage);
+        setPosts(response.data.data.posts);
+        console.log(response.data.data.posts);
+        setCurrentPage(response.data.data.page.currentPage);
+        setTotalPages(response.data.data.page.totalPages);
+        setCategoryName(response.data.data.category.categoryName);
+        setTyep(response.data.data.category.type);
+      } catch (error) {
+        console.error("에러 발생", error);
+      }
+    };
+
+    if (typeof idname === "object" && idname.length > 2) {
+      fetchData();
     }
   }, [idname, currentPage]);
 
+  const onUpload = () => {
+    if (typeof idname === "object" && idname.length > 2) {
+      const formData = new FormData();
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_API_URL}/categories/${idname[0]}/posts/undelivered-parcel`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${Token}`,
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response.data.data);
+          return alert("게시글이 생성되었습니다.");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
   return (
     <div>
-      <Navbar />
+      <Navbar page={currentPage + " 페이지"} />
       <Container>
-        <h3>순찰일지</h3>
+        <h3>{categoryName}</h3>
         <Table>
           <thead>
             <tr>
@@ -55,99 +110,50 @@ export default function ImgBoard() {
                 <tr key={post.id}>
                   <td className="id">{post.id}</td>
                   <td className="titlecontent">
-                    <Link href={`/imgform/${post.id}`}>{post.title}</Link>
+                    {typeof idname === "object" && idname.length > 2 && (
+                      <Link href={`/${write}/${idname[0]}/${post.id}`}>
+                        {post.title}
+                      </Link>
+                    )}
                   </td>
-                  <td>{post.writer}</td>
-                  <td>{post.createTime}</td>
+                  <td>{post.writer ? post.writer : post.lastModifiedBy}</td>
+                  <td>
+                    {post.createTime ? post.createTime : post.lastModifiedTime}
+                  </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="4">데이터가 없습니다.</td>
+                <td colSpan={4}>데이터가 없습니다.</td>
               </tr>
             )}
           </tbody>
         </Table>
+
+        <Containerright>
+          {type === "IMAGE" && (
+            <Link href={urlLink}>
+              <Button>글 작성</Button>
+            </Link>
+          )}
+          {type === "UNDELIVERED_PARCEL_REGISTER" && (
+            <Button onClick={onUpload}>글 작성</Button>
+          )}
+        </Containerright>
+
         <ButtonContainer>
           {currentPage > 1 && (
-            <button onClick={() => setCurrentPage(currentPage - 1)}>
+            <Button onClick={() => setCurrentPage(currentPage - 1)}>
               이전 페이지
-            </button>
+            </Button>
           )}
           {currentPage < totalPages && (
-            <button onClick={() => setCurrentPage(currentPage + 1)}>
+            <Button onClick={() => setCurrentPage(currentPage + 1)}>
               다음 페이지
-            </button>
+            </Button>
           )}
         </ButtonContainer>
       </Container>
     </div>
   );
 }
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-`;
-
-const Container = styled.div`
-  width: 80%;
-  margin: 0 auto;
-  margin-top: 50px;
-  background-color: #f5f5f5;
-  border: 1px solid #e5e5e5;
-  h3 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-`;
-
-const Table = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  background-color: white;
-  .id {
-    width: 10%;
-  }
-  .title {
-    width: 60%;
-  }
-  .titlecontent {
-    text-align: left;
-    width: 60%;
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-  }
-  tr {
-    &:hover {
-      background-color: #999999;
-    }
-    td {
-      border: none;
-      border-bottom: 1px solid #e5e5e5;
-      padding: 8px;
-      text-align: center;
-    }
-  }
-  th {
-    border-bottom: 1px solid black;
-    background-color: white;
-    padding: 8px;
-    text-align: center;
-  }
-`;
-
-const Pagination = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-
-  button {
-    margin: 0 10px;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-`;
