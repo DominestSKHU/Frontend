@@ -35,7 +35,7 @@ export default function Login() {
         localStorage.setItem("username", username);
         localStorage.setItem("role", role);
         alert("로그인이 완료되었습니다.");
-        router.push("/");
+        router.push("/home");
       })
       .catch((err) => {
         if (err.response && err.response.data) {
