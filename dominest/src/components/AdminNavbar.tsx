@@ -48,7 +48,7 @@ const Navber = (props: { page: string }) => {
   }, [Token]);
   return (
     <NavStyle>
-      <Link className="Link" href="/">
+      <Link className="Link" href="/home">
         <h1>Dominest</h1>
       </Link>
 
