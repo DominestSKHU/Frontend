@@ -1,27 +1,14 @@
-<<<<<<< HEAD:dominest/src/pages/StudentUpload.tsx
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-=======
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
->>>>>>> domi_3:dominest/src/pages/infodata/studentupload.tsx
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import StudentData from "@/components/student/StudentData";
 import { ComponentDiv } from "@/style/ComponentStyle";
-<<<<<<< HEAD:dominest/src/pages/StudentUpload.tsx
-import "../app/globals.css";
-import { handleUpload, delet } from "@/utils/uploadutil";
-import StudentEdit from "@/components/StudentEdit";
-import StudentAdd from "@/components/StudentAdd";
-import Navber from "@/components/Navbar";
-=======
 import "../../app/globals.css";
 import { handleUpload, delet } from "@/utils/student/uploadutil";
 import StudentEdit from "@/components/student/StudentEdit";
 import StudentAdd from "@/components/student/StudentAdd";
 import Navber from "@/components/AdminNavbar";
->>>>>>> domi_3:dominest/src/pages/infodata/studentupload.tsx
 import { FileUpload, Button, DormitoryYear } from "@/style/InputStyle";
 import { useAuth } from "@/utils//useAuth/useAuth";
 /** @jsxImportSource @emotion/react */

@@ -1,10 +1,5 @@
-<<<<<<< HEAD:dominest/src/components/Navbar.tsx
-;
-import React, { useState, useEffect } from "react";
-=======
 import React, { useEffect } from "react";
 import { useNavbar, onLogout } from "@/utils/useAuth/useAuth";
->>>>>>> domi_3:dominest/src/components/AdminNavbar.tsx
 import { css } from "@emotion/react";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { CiStar } from "react-icons/ci";
@@ -20,100 +15,16 @@ import { startList, startSelect } from "@/utils/navbar/favorites";
 import { categoriesList } from "@/utils/navbar/categoriesList";
 /** @jsxImportSource @emotion/react */
 
-<<<<<<< HEAD:dominest/src/components/Navbar.tsx
-const NavItem = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  list-style: none;
-  padding-left: 0px;
-`;
-
-const Navbar: React.FC = (props) => {
-  const [name, setName] = React.useState("");
-  const [role, setRole] = React.useState("");
-
-  const router = useRouter();
-  const [Token, setToken] = useState("");
-  const [data, setData] = useState<any[]>([]);
-  const [catago, setCatago] = useState<any[]>([]);
-=======
-const Navber = (props: { page: string }) => {
+const Navbar = (props: { page: string }) => {
   const { Name, Role, Token } = useNavbar();
   const [FavoritesList, setFavoritesList] = React.useState<any[]>([]);
   const [Catago, setCatago] = React.useState<any[]>([]);
->>>>>>> domi_3:dominest/src/components/AdminNavbar.tsx
 
   //즐겨찾기 목록
   useEffect(() => {
     const favoritesData = async () => {
       const favorites = await startList(Token);
 
-<<<<<<< HEAD:dominest/src/components/Navbar.tsx
-    setName(username);
-    setRole(role);
-    setToken(authToken);
-    startList(authToken);
-    categoriesList(authToken);
-    if (!authToken) {
-      router.push("/login");
-    }
-  }, []);
-  const startSelect = (id:number) => {
-    axios
-      .post(`http://domidomi.duckdns.org/categories/${id}/favorites`, null, {
-        headers: {
-          Authorization: `Bearer ${Token}`,
-        },
-      })
-      .then((response) => {
-        startList(Token);
-        return alert("즐찾추가 우효 www");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const startList = (authToken: string | null) => {
-    axios
-      .get("http://domidomi.duckdns.org/favorites", {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      })
-      .then((response) => {
-        setData(response.data?.data?.favorites);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const categoriesList = (authToken: string | null) => {
-    axios
-      .get("http://domidomi.duckdns.org/my-categories", {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      })
-      .then((response) => {
-        setCatago(response.data?.data?.categories);
-        console.log(response.data?.data?.categories);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-  const onLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    // 로컬 스토리지에서 토큰 삭제
-    localStorage.removeItem("authToken");
-    // 로그아웃 후 로그인 페이지로 이동
-    router.push("/login");
-  };
-=======
       setFavoritesList(favorites);
     };
 
@@ -132,7 +43,6 @@ const Navber = (props: { page: string }) => {
       const favorites = await startList(Token);
       setFavoritesList(favorites);
     };
->>>>>>> domi_3:dominest/src/components/AdminNavbar.tsx
 
     fetchData();
   }, [Token]);

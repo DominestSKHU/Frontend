@@ -1,9 +1,3 @@
-<<<<<<< HEAD:dominest/src/pages/imgboard.tsx
-import React, { useState, useEffect } from "react";
-import Navbar from "@/components/Navbar";
-import "../app/globals.css";
-=======
->>>>>>> domi_3:dominest/src/style/border.tsx
 import styled from "@emotion/styled";
 
 export const ButtonContainer = styled.div`

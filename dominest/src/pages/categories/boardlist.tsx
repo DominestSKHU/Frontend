@@ -1,10 +1,5 @@
-;
 /** @jsxImportSource @emotion/react */
-<<<<<<< HEAD:dominest/src/pages/boardlist.tsx
-import Navbar from "@/components/Navbar";
-=======
 import Navbar from "@/components/AdminNavbar";
->>>>>>> domi_3:dominest/src/pages/categories/boardlist.tsx
 import { globalStyles } from "./categoryManage";
 import { css, Global } from "@emotion/react";
 import { TodoListLi, TodoListUl, TopLevelDiv, TwiceLevelDiv } from "@/style/DivStyle";

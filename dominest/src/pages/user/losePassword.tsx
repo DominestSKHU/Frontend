@@ -1,10 +1,6 @@
 import { css } from "@emotion/react";
 import Link from "next/link";
-<<<<<<< HEAD:dominest/src/pages/losePassword.tsx
-import { tempPassword } from "@/utils/loginUtil";
-=======
 import { tempPassword } from "@/utils/useAuth/loginUtil";
->>>>>>> domi_3:dominest/src/pages/user/losePassword.tsx
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 /** @jsxImportSource @emotion/react */

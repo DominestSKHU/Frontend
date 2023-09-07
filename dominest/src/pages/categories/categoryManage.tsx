@@ -1,9 +1,4 @@
-<<<<<<< HEAD:dominest/src/pages/categoryManage.tsx
-;
-import Navbar from "@/components/Navbar";
-=======
 import Navbar from "@/components/AdminNavbar";
->>>>>>> domi_3:dominest/src/pages/categories/categoryManage.tsx
 import {
   formStyle,
   CategoryBox,
@@ -21,11 +16,7 @@ import { BsList } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import { IoIosRemove } from "react-icons/io";
 import { RxDividerVertical } from "react-icons/rx";
-<<<<<<< HEAD:dominest/src/pages/categoryManage.tsx
-import React, { ChangeEvent, FC, useEffect, useState } from "react";
-=======
 import React, { ChangeEvent, useEffect, useState } from "react";
->>>>>>> domi_3:dominest/src/pages/categories/categoryManage.tsx
 import { ReactSortable } from "react-sortablejs";
 import { css, Global } from "@emotion/react";
 import { deleteCategory, getCategory, postCategory } from "@/utils/cateogry/categoryUtil";

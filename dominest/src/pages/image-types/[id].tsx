@@ -1,7 +1,7 @@
 <<<<<<< HEAD:dominest/src/pages/imguplodfform.tsx
 import { useState, useRef, useEffect } from "react";
 import "../app/globals.css";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/AdminNavbar";
 =======
 import React, { useState, useRef, useEffect } from "react";
 import "../../app/globals.css";

@@ -9,11 +9,7 @@ import {
   Input,
   SubmitButton,
   passwordError,
-<<<<<<< HEAD:dominest/src/pages/signup.tsx
-} from "@/style/SignInputStyle";
-=======
 } from "@/style/signInputStyle";
->>>>>>> domi_3:dominest/src/pages/user/signup.tsx
 import React from "react";
 import { css } from "@emotion/react";
 import { sendEmail, checkEmailCode, join } from "@/utils/useAuth/signFcUtil";

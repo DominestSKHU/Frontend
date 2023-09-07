@@ -2,14 +2,9 @@ import React, { useState, useEffect } from "react";
 import PdfList from "@/components/pdf/PdfList";
 import { FileUpload, DormitoryYear, Button } from "@/style/InputStyle";
 import { ComponentDiv } from "@/style/ComponentStyle";
-<<<<<<< HEAD:dominest/src/pages/departureform.tsx
-import Navber from "@/components/Navbar";
-import { handleUpload } from "@/utils/PdfUtil";
-=======
 import Navber from "@/components/AdminNavbar";
 import { handleUpload } from "@/utils/pdf/PdfUtil";
 import { useAuth } from "@/utils/useAuth/useAuth";
->>>>>>> domi_3:dominest/src/pages/pdf/departureform.tsx
 
 export default function DepartureForm() {
   const [selectedYear, setSelectedYear] = useState("");
