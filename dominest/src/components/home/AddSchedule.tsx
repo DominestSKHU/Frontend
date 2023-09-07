@@ -1,3 +1,4 @@
+;
 /** @jsxImportSource @emotion/react */
 import {
   AddScheduleMain,
@@ -6,7 +7,7 @@ import {
   AddSelectDiv,
   ScheduleAddBtn,
 } from "@/style/ScheduleTableStyle";
-import { student } from "./Schedule";
+import { student } from "../home/Schedule";
 import { css } from "@emotion/react";
 import React, { use, useEffect } from "react";
 
@@ -59,14 +60,14 @@ const AddSchedule = () => {
       <AddSelectDiv>
         <AddSelect>
           {student.map((student) => (
-            <option key={student.id} value={student.name}>{student.name}</option>
+            <option value={student.name}>{student.name}</option>
           ))}
         </AddSelect>
       </AddSelectDiv>
       <AddSelectDiv>
         <AddSelect name="startTime" onChange={handleTime}>
           {startHour.map((item) => (
-            <option key={item} value={item}>{item}</option>
+            <option value={item}>{item}</option>
           ))}
         </AddSelect>
         <span
@@ -78,7 +79,7 @@ const AddSchedule = () => {
         </span>
         <AddSelect name="endTime" onChange={handleTime}>
           {endhour.map((item) => (
-            <option key={item} value={item}>{item}</option>
+            <option value={item}>{item}</option>
           ))}
         </AddSelect>
       </AddSelectDiv>

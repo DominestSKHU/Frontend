@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 
 import { useEffect, useState } from "react";
 import { fetchData, StudentDelete } from "@/utils/student/uploadutil";
-import { ComponentDiv2, StudentDataTable } from "@/style/componentStyle";
+import { ComponentDiv2, StudentDataTable } from "@/style/ComponentStyle";
 import "../../app/globals.css";
 /** @jsxImportSource @emotion/react */
 
