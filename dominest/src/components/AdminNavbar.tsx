@@ -15,7 +15,7 @@ import { startList, startSelect } from "@/utils/navbar/favorites";
 import { categoriesList } from "@/utils/navbar/categoriesList";
 /** @jsxImportSource @emotion/react */
 
-const Navber = (props: { page: string }) => {
+const Navbar = (props: { page: string }) => {
   const { Name, Role, Token } = useNavbar();
   const [FavoritesList, setFavoritesList] = React.useState<any[]>([]);
   const [Catago, setCatago] = React.useState<any[]>([]);
@@ -161,4 +161,4 @@ const Navber = (props: { page: string }) => {
   );
 };
 
-export default Navber;
+export default Navbar;
