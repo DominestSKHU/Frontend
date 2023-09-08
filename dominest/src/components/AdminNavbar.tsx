@@ -1,104 +1,54 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useNavbar, onLogout } from "@/utils/useAuth/useAuth";
 import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { CiStar } from "react-icons/ci";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { NavStyle, LeftNav, NavList, LoginState } from "@/style/NavStyle";
-import axios from "axios";
-
+import {
+  NavStyle,
+  LeftNav,
+  NavList,
+  LoginState,
+  NavItem,
+} from "@/style/NavStyle";
+import { startList, startSelect } from "@/utils/navbar/favorites";
+import { categoriesList } from "@/utils/navbar/categoriesList";
 /** @jsxImportSource @emotion/react */
 
-const NavItem = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  list-style: none;
-  padding-left: 0px;
-`;
+const Navbar = (props: { page: string }) => {
+  const { Name, Role, Token } = useNavbar();
+  const [FavoritesList, setFavoritesList] = React.useState<any[]>([]);
+  const [Catago, setCatago] = React.useState<any[]>([]);
 
-const Navber = (props) => {
-  const [name, setName] = React.useState("");
-  const [role, setRole] = React.useState("");
-
-  const router = useRouter();
-  const [Token, setToken] = useState("");
-  const [data, setData] = useState<any[]>([]);
-  const [catago, setCatago] = useState<any[]>([]);
-
+  //즐겨찾기 목록
   useEffect(() => {
-    const authToken = localStorage.getItem("authToken");
-    const username = localStorage.getItem("username");
-    const role = localStorage.getItem("role");
+    const favoritesData = async () => {
+      const favorites = await startList(Token);
 
-    setName(username);
-    setRole(role);
-    setToken(authToken);
-    startList(authToken);
-    categoriesList(authToken);
-    if (!authToken) {
-      router.push("/login");
-    }
-  }, []);
-  const startSelect = (id) => {
-    axios
-      .post(`http://domidomi.duckdns.org/categories/${id}/favorites`, null, {
-        headers: {
-          Authorization: `Bearer ${Token}`,
-        },
-      })
-      .then((response) => {
-        startList(Token);
-        return alert("즐찾추가 우효 www");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+      setFavoritesList(favorites);
+    };
 
-  const startList = (authToken) => {
-    axios
-      .get("http://domidomi.duckdns.org/favorites", {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      })
-      .then((response) => {
-        setData(response.data?.data?.favorites);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+    const catagories = async () => {
+      const catagories = await categoriesList(Token);
+      setCatago(catagories);
+    };
 
-  const categoriesList = (authToken) => {
-    axios
-      .get("http://domidomi.duckdns.org/my-categories", {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      })
-      .then((response) => {
-        setCatago(response.data?.data?.categories);
-        console.log(response.data?.data?.categories);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-  const onLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    // 로컬 스토리지에서 토큰 삭제
-    localStorage.removeItem("authToken");
-    // 로그아웃 후 로그인 페이지로 이동
-    router.push("/login");
-  };
+    catagories();
+    favoritesData();
+  }, [Token]);
 
+  //카테고리 전체 조회
+  useEffect(() => {
+    const fetchData = async () => {
+      const favorites = await startList(Token);
+      setFavoritesList(favorites);
+    };
+
+    fetchData();
+  }, [Token]);
   return (
     <NavStyle>
-      <Link className="Link" href="/">
+      <Link className="Link" href="/user/home">
         <h1>Dominest</h1>
       </Link>
 
@@ -106,53 +56,30 @@ const Navber = (props) => {
         <NavList>
           <li>
             <p>즐겨찾기</p>
-            <ul css={NavItem}>
-              {data.map((favorites) => (
+            <NavItem>
+              {FavoritesList.map((favorites) => (
                 <li key={favorites.id}>
                   <Link href={favorites.categoryLink} className="Link">
                     <span>{favorites.categoryName}</span>
                     <CiStar
                       size={20}
-                      onClick={() => startSelect(favorites.id)}
+                      onClick={() => startSelect(Token, favorites.categoryId)}
                     />
                   </Link>
                 </li>
               ))}
-            </ul>
+            </NavItem>
           </li>
           <li>
             <p>관리자 목록</p>
 
-            <ul css={NavItem}>
+            <NavItem>
               <li>
-                <Link href="/studentupload" className="Link">
+                <Link href="/infodata/studentupload" className="Link">
                   <span>학생정보 업로드</span>
                   <CiStar size={20} />
                 </Link>
               </li>
-              <li>
-                <Link href="/student" className="Link">
-                  <span>학생정보 업로드</span>
-                  <CiStar size={20} />
-                </Link>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <p>근로생 목록</p>
-
-            <ul css={NavItem}>
-              {catago.map((categories) => (
-                <li key={categories.id}>
-                  <Link href={categories.categoryLink} className="Link">
-                    <span>{categories.name}</span>
-                    <CiStar
-                      size={20}
-                      onClick={() => startSelect(categories.id)}
-                    />
-                  </Link>
-                </li>
-              ))}
               <li>
                 <Link href="/admissionform" className="Link">
                   <span>입관신청서</span>
@@ -165,19 +92,24 @@ const Navber = (props) => {
                   <CiStar size={20} />
                 </Link>
               </li>
-              <li>
-                <Link href="/imguplodfform" className="Link">
-                  <span>이미지 업로드</span>
-                  <CiStar size={20} />
-                </Link>
-              </li>
-              <li>
-                <Link href="/imgboard" className="Link">
-                  <span>이미지 게시판</span>
-                </Link>
-                <CiStar size={20} onClick={() => startSelect()} />
-              </li>
-            </ul>
+            </NavItem>
+          </li>
+          <li>
+            <p>근로생 목록</p>
+
+            <NavItem>
+              {Catago.map((categories) => (
+                <li key={categories.id}>
+                  <Link href={categories.categoryLink} className="Link">
+                    <span>{categories.name}</span>
+                  </Link>
+                  <CiStar
+                    size={20}
+                    onClick={() => startSelect(Token, categories.id)}
+                  />
+                </li>
+              ))}
+            </NavItem>
 
             {/* 다른 근로생 목록 아이템들 추가 */}
           </li>
@@ -195,9 +127,9 @@ const Navber = (props) => {
             margin-left: 5px;
           `}
         >
-          {name}
+          {Name}
         </span>
-        {role === "Admin" ? (
+        {Role === "Admin" ? (
           <span
             css={css`
               font-weight: bold;
@@ -229,4 +161,4 @@ const Navber = (props) => {
   );
 };
 
-export default Navber;
+export default Navbar;

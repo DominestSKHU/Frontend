@@ -90,21 +90,18 @@ export const ImageInput = styled.div`
     &:hover {
       background: rgb(77, 77, 77);
       color: #fff;
-  }
-  .noneimg {
-    width: 100%;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    img {
-
-      height: 80%;
     }
-    p {
-      margin-top: 10px;
+    .noneimg {
+      width: 100%;
+      height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      p {
+        margin-top: 10px;
+      }
     }
   }
-
 `;

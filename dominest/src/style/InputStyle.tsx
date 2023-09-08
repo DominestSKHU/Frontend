@@ -86,3 +86,10 @@ export const Button = styled.button`
     cursor: not-allowed;
   }
 `;
+
+export const Containerright = styled.div`
+  display: flex;
+  justify-content: right;
+  margin-top: 20px;
+  width: 100%;
+`;
