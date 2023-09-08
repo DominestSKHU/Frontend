@@ -1,4 +1,3 @@
-;
 /** @jsxImportSource @emotion/react */
 import {
   AddScheduleMain,
@@ -6,10 +5,11 @@ import {
   AddSelect,
   AddSelectDiv,
   ScheduleAddBtn,
-} from "@/style/ScheduleTableStyle";
+} from "@/style/homeStyle/scheduleStyle";
 import { student } from "../home/Schedule";
 import { css } from "@emotion/react";
 import React, { use, useEffect } from "react";
+import { backBtnDiv, scheduleModalCancelBtn } from "@/style/homeStyle/ScheduleTableStyle";
 
 const hour = [
   "09:00",
@@ -24,7 +24,7 @@ const hour = [
 ];
 const startHour = hour.filter((item) => item !== "17:00");
 const endhour = hour.filter((item) => item !== "09:00");
-const AddSchedule = () => {
+const AddSchedule = ({ scheduleModal, onClose }: any) => {
   const [worktime, setWorktime] = React.useState<number>(0);
   const [startTime, setStartTime] = React.useState<number>(0);
   const [endTime, setEndTime] = React.useState<number>(0);
@@ -54,9 +54,16 @@ const AddSchedule = () => {
     }
   };
 
+  const cancelSchedule = () => {
+    onClose(false); 
+  };
+
   return (
     <AddScheduleMain>
-      <AddScheduleTitle>스케쥴 추가</AddScheduleTitle>
+      <div css={backBtnDiv}>
+        <button onClick={cancelSchedule} css={scheduleModalCancelBtn}>X</button>
+      </div>
+      <AddScheduleTitle>스케줄 추가</AddScheduleTitle>
       <AddSelectDiv>
         <AddSelect>
           {student.map((student) => (

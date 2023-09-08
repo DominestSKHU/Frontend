@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
@@ -13,12 +12,12 @@ export const ScheduleTable = styled.table`
   }
   & td {
     border: 1px solid black;
-    padding: 0;
+    padding: 1%;
     margin: 0;
     text-align: center;
     width: 2.5rem;
-    height: 2rem;
-  }
+    height: fit-content;
+}
 `;
 export const ScheduleInput = css`
   width: 96%;
@@ -58,17 +57,25 @@ export const ScheduleCommitBtn = styled.button`
 export const ScheduleAddBtn = styled(ScheduleCommitBtn)`
   height: 5vh;
   margin: 2% 0 0 0;
+  background-color: #c4c4c4;
+  color: black;
+  font-size: large;
+  &:hover {
+    background-color: #787878;
+    color: white;
+    transition: 0.5s;
+  }
 `;
 export const AddScheduleMain = styled.div`
   background-color: whitesmoke;
-  width: 30vw;
-  height: 25vh;
-  padding: 2%;
+  width: 24vw;
+  height: 22vh;
+  padding: 1% 2% 2% 2%;
   display: flex;
   align-items: center;
   position: absolute;
-  top: 26%;
-  left: 12%;
+  top: 22%;
+  left: 15%;
   flex-direction: column;
   border-radius: 15px;
   border: 1px solid black;
@@ -94,4 +101,5 @@ export const AddSelect = styled.select`
 export const AddScheduleTitle = styled.div`
   font-size: 1.3rem;
   text-align: center;
+  margin-bottom: 0.5rem;
 `;

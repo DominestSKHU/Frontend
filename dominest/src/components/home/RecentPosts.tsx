@@ -3,7 +3,7 @@ import {
   RecentBoxTitle,
   RecentPostsLi,
   RecentPostsUl,
-} from "@/style/DivStyle";
+} from "@/style/homeStyle/DivStyle";
 import { css } from "@emotion/react";
 import { useState } from "react";
 

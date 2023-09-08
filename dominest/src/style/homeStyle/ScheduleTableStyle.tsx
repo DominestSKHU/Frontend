@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
@@ -55,14 +56,31 @@ export const ScheduleCommitBtn = styled.button`
   }
 `;
 export const ScheduleAddBtn = styled(ScheduleCommitBtn)`
-  height: 5vh;
+  height: 4vh;
   margin: 2% 0 0 0;
+  border: 0.75px solid black;
+  box-shadow: 0px 0px 1px gray;
+  background-color: #f7f7f7;
+`;
+export const scheduleModalCancelBtn = css`
+  width: 2rem;
+  padding: 2px;
+  &:hover {
+    background-color: #787878;
+    color: white;
+    transition: 0.5s;
+  }
+`;
+export const backBtnDiv = css`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
 `;
 export const AddScheduleMain = styled.div`
   background-color: whitesmoke;
   width: 30vw;
   height: 25vh;
-  padding: 2%;
+  padding: 1%;
   display: flex;
   align-items: center;
   position: absolute;
@@ -91,6 +109,6 @@ export const AddSelect = styled.select`
   text-align: center;
 `;
 export const AddScheduleTitle = styled.div`
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   text-align: center;
 `;

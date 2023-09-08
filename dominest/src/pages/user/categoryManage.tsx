@@ -56,7 +56,7 @@ const categoryManage = () => {
     const authToken = localStorage.getItem("authToken");
     authToken && setAuthToken(authToken);
     if (!authToken) {
-      router.push("/login");
+      router.push("/user/login");
     }
   }, []);
 

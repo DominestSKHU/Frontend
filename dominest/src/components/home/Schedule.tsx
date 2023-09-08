@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import { ScheduleDiv } from "@/style/DivStyle";
+import { ScheduleDiv } from "@/style/homeStyle/DivStyle";
 import {
   ScheduleBottom,
   ScheduleCommitBtn,
   ScheduleTable,
   StudentInfo,
   StudentTable,
-} from "@/style/ScheduleTableStyle";
+} from "@/style/homeStyle/scheduleStyle";
 import React, { useEffect } from "react";
 import AddSchedule from "./AddSchedule";
 
@@ -41,6 +41,9 @@ const Schedule = () => {
   useEffect(() => {
     console.log(scheduleModal);
   });
+  const handleClose = (newState: boolean) => {
+    setScheduleModal(newState); // X 버튼 클릭 시 상태 변경
+  };
 
   return (
     <ScheduleDiv>
@@ -54,6 +57,8 @@ const Schedule = () => {
             <th>목</th>
             <th>금</th>
           </tr>
+        </thead>
+        <tbody>
           {time.map((item) => (
             <tr key={item}>
               <td>{item}</td>
@@ -64,7 +69,7 @@ const Schedule = () => {
               <td></td>
             </tr>
           ))}
-        </thead>
+        </tbody>
       </ScheduleTable>
       <ScheduleBottom>
         <StudentTable>
@@ -79,7 +84,7 @@ const Schedule = () => {
         <ScheduleCommitBtn onClick={addSchedule}>추가</ScheduleCommitBtn>
         <ScheduleCommitBtn>저장</ScheduleCommitBtn>
       </ScheduleBottom>
-      {scheduleModal && <AddSchedule />}
+      {scheduleModal && <AddSchedule onClose={handleClose} />}
     </ScheduleDiv>
   );
 };

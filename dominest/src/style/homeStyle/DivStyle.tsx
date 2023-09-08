@@ -1,4 +1,3 @@
-;
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
@@ -153,6 +152,7 @@ export const TodoDiv = styled(ScheduleDiv)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 20px 20px 30px 15px;
 `;
 
 export const FixedDiv = styled(ScheduleDiv)`
@@ -161,7 +161,7 @@ export const FixedDiv = styled(ScheduleDiv)`
 
 export const CalenderDiv = styled(ScheduleDiv)`
   width: 42vw;
-  margin: 20px 10px 30px 15px;
+  margin-right: 20px;
 `;
 
 export const homeMainDiv = css`
@@ -183,5 +183,63 @@ export const datePickerStyle = css`
   &:hover,
   &:focus {
     box-shadow: 0px 0px 1px gray;
+  }
+`;
+export const CalendarStyle = styled.div`
+  width: 100%;
+  height: 100%;
+  & .react-calendar {
+    width: 100%;
+    height: fit-content;
+    border: 1px solid #a0a096;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.125em;
+    margin: 0;
+  }
+  & .react-calendar__navigation {
+    display: flex;
+    height: 50px;
+    margin-bottom: 1em;
+    border-bottom: 1px solid #a0a096;
+  }
+
+  & .react-calendar__month-view__weekdays {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1em;
+    padding: 5px;
+    abbr[title] {
+      text-decoration: none;
+    }
+  }
+  & .react-calendar__tile {
+    max-width: 100%;
+    height: 3.1rem;
+    padding: 10px 6.6667px;
+    background: none;
+    text-align: center;
+    line-height: 16px;
+    vertical-align: middle;
+    border-radius: 0;
+    outline: none;
+    &:enabled:hover,
+    &:enabled:focus {
+      background-color: #e6e6e6;
+      box-shadow: 0px 0px 1px gray;
+      color: black;
+      transition: 0.5s;
+      border-radius: 15px;
+    }
+  }
+  & .react-calendar__tile--now {
+    background: #727272;
+    color: white;
+    border-radius: 15px;
+    &:enabled:hover,
+    &:enabled:focus {
+      box-shadow: 0px 0px 1px gray;
+      transition: 0.5s;
+    }
   }
 `;

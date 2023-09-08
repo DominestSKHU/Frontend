@@ -2,7 +2,7 @@
 import Navbar from "@/components/AdminNavbar";
 import { globalStyles } from "./categoryManage";
 import { css, Global } from "@emotion/react";
-import { TodoListLi, TodoListUl, TopLevelDiv, TwiceLevelDiv } from "@/style/DivStyle";
+import { TodoListLi, TodoListUl, TopLevelDiv, TwiceLevelDiv } from "@/style/homeStyle/DivStyle";
 import { useEffect, useState } from "react";
 import { getCategory } from "@/utils/cateogry/categoryUtil";
 import router from "next/router";
