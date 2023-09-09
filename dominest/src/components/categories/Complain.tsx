@@ -6,7 +6,7 @@ import { complainborderList } from "@/utils/border/borderlist";
 import { Button, Containerright } from "@/style/InputStyle";
 import "../../app/globals.css";
 import { Container, Table, ButtonContainer } from "@/style/border";
-
+import Link from "next/link";
 interface Post {
   id: number;
   title: string;
@@ -135,7 +135,9 @@ export default function Complaints(props: any) {
 
         {/* 글작성 버튼 */}
         <Containerright>
-          <Button>글 생성</Button>
+          <Link href="../complain/complainupload">
+            <Button>글 작성</Button>
+          </Link>
         </Containerright>
 
         {/* 페이지 넘기기 */}
