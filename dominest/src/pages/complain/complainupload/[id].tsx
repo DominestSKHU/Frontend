@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Navbar from "@/components/AdminNavbar";
 import { Container, Table, ButtonContainer } from "@/style/border";
 import {
@@ -7,9 +8,27 @@ import {
   RighttInput,
   TowInput,
 } from "@/style/complainupload";
-import "../../app/globals.css";
+import "../../../app/globals.css";
 import RoomSelector from "@/utils/room/roomnumber";
+import ComplainSelect from "@/components/complain/ComplainSelect";
 export default function ComplainUpload() {
+  const router = useRouter();
+  const [selectedRoom, setSelectedRoom] = useState(1);
+
+  const [idname, setIdname] = useState(router.query.id);
+
+  useEffect(() => {
+    if (router.query.id !== undefined) {
+      setIdname(router.query.id);
+      console.log(router.query.id);
+    }
+  }, [router.query.id]);
+
+  const handleRoomChange = (roomNumber: number) => {
+    setSelectedRoom(roomNumber);
+    console.log(roomNumber);
+  };
+
   return (
     <div>
       <Navbar page="민원 작성" />
@@ -20,7 +39,7 @@ export default function ComplainUpload() {
             <LeftInput>
               <label>
                 방번호
-                <RoomSelector />
+                <RoomSelector onRoomChange={handleRoomChange} />
               </label>
 
               <label>
@@ -53,10 +72,12 @@ export default function ComplainUpload() {
             </div>
           </TowInput>
         </div>
-
         <ButtonContainer>
           <button>작성</button>
         </ButtonContainer>
+        <br />
+        <hr />
+        <ComplainSelect idname={idname} />
       </Container>
     </div>
   );

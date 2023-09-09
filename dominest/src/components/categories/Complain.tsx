@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../app/globals.css";
 import { ComponenComplaints } from "@/style/ComponentStyle";
-import RoomSelector from "@/utils/room/roomnumber"; // 수정된 import 경로
+import RoomSelector from "@/utils/room/roomnumber";
 import { complainborderList } from "@/utils/border/borderlist";
 import { Button, Containerright } from "@/style/InputStyle";
 import "../../app/globals.css";
@@ -28,6 +28,7 @@ export default function Complaints(props: any) {
   const [totalPages, setTotalPages] = useState(1);
   const [categoryName, setCategoryName] = useState("");
   const [status, setStatus] = useState("민원 조회");
+  const urlLink = `/complain/complainupload/${props.idname[0]}`;
   const [serch, setSerch] = useState("");
   const [statusresult, setStatusresult] = useState("처리중");
   useEffect(() => {
@@ -135,7 +136,7 @@ export default function Complaints(props: any) {
 
         {/* 글작성 버튼 */}
         <Containerright>
-          <Link href="../complain/complainupload">
+          <Link href={urlLink}>
             <Button>글 작성</Button>
           </Link>
         </Containerright>

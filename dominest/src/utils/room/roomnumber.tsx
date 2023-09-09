@@ -8,14 +8,17 @@ const formatRoomNumber = (roomNumber: number) => {
 
 const generateRoomPattern = () => {
   const floorCount = 10;
-  const roomsPerFloor = [26, 26, ...Array(7).fill(17)]; // 각 층별 호실 수 배열
+  const roomsPerFloor = [26, 26, ...Array(7).fill(17)];
 
-  const roomPattern: JSX.Element[] = [];
+  const roomPattern = [];
   for (let floor = 2; floor <= floorCount; floor++) {
     const roomCount = roomsPerFloor[floor - 2];
     for (let roomNumber = 1; roomNumber <= roomCount; roomNumber++) {
       roomPattern.push(
-        <option key={`${floor}-${roomNumber}`} value={`${floor}${roomNumber}`}>
+        <option
+          key={`${floor}-${roomNumber}`}
+          value={`${formatRoomNumber(floor)}${formatRoomNumber(roomNumber)}`}
+        >
           {`${formatRoomNumber(floor)}${formatRoomNumber(roomNumber)}`}
         </option>
       );
@@ -25,10 +28,14 @@ const generateRoomPattern = () => {
   return roomPattern;
 };
 
-//select 출력력
-export default function RoomSelector() {
+export default function RoomSelector({ onRoomChange }: { onRoomChange: any }) {
+  const handleRoomChange = (event: { target: { value: any } }) => {
+    const selectedRoom = event.target.value;
+    onRoomChange(selectedRoom);
+  };
+
   return (
-    <select id="roomSelect">
+    <select id="roomSelect" onChange={handleRoomChange}>
       <option value="">전체 호실</option>
       {generateRoomPattern()}
     </select>
