@@ -9,7 +9,6 @@ export const FirstInput = styled.div`
   label {
     display: block;
     margin-bottom: 10px;
-    font-size: 1.2rem;
     font-weight: 600;
   }
   input {
@@ -30,7 +29,7 @@ export const FirstInput = styled.div`
 
 export const LeftInput = styled.div`
   display: flex;
-  width: 50%;
+  width: 60%;
   margin-left: 10%;
   label {
     display: flex;
@@ -55,8 +54,6 @@ export const TowInput = styled.div`
     margin-bottom: 20px;
   }
   label {
-    font-size: 1.2rem;
-    font-weight: 600;
     display: flex;
     align-items: center;
     margin-left: 10%;

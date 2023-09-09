@@ -32,7 +32,7 @@ export default function ComplainSelect(props: any) {
         const response = await complainSelectList(
           props.idname,
           currentPage,
-          roomNo
+          props.selectedRoom
         );
         console.log(response.data.data);
         setPosts(response.data.data.complaints);

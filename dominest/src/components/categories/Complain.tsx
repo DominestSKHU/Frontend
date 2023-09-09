@@ -87,7 +87,9 @@ export default function Complaints(props: any) {
             )}
 
             <button>조회</button>
-            <button>추가</button>
+            <Link href={urlLink}>
+              <button>추가</button>
+            </Link>
           </div>
         </div>
       </ComponenComplaints>
@@ -133,13 +135,6 @@ export default function Complaints(props: any) {
             )}
           </tbody>
         </Table>
-
-        {/* 글작성 버튼 */}
-        <Containerright>
-          <Link href={urlLink}>
-            <Button>글 작성</Button>
-          </Link>
-        </Containerright>
 
         {/* 페이지 넘기기 */}
         <ButtonContainer>

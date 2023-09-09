@@ -50,7 +50,6 @@ export default function ImageUploadForm() {
           setIsUploading(false);
           setSelectedFiles([]);
           window.location.href = `/categories/${idname}/posts/image-types`;
-          console.log(response.data.data);
           return alert("성공적으로 업로드 되었습니다.");
         })
         .catch((error) => {
