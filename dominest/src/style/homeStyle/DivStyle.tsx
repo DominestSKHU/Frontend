@@ -7,7 +7,8 @@ export const TodoUl = css`
   list-style: none;
   padding: 0;
   width: 90%;
-  height: 17rem;
+  height: fit-content;
+  max-height: 17rem;
   overflow: scroll;
 `;
 export const TodoInput = css`
@@ -15,6 +16,7 @@ export const TodoInput = css`
   padding: 0.5rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 100%;
   text-align: center;
   font-size: large;
@@ -162,6 +164,7 @@ export const FixedDiv = styled(ScheduleDiv)`
 export const CalenderDiv = styled(ScheduleDiv)`
   width: 42vw;
   margin-right: 20px;
+  overflow: scroll;
 `;
 
 export const homeMainDiv = css`
