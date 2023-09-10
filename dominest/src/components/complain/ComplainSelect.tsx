@@ -13,7 +13,7 @@ interface Post {
   complaintCause: string;
   complaintResolution: string;
   processState: string;
-  createdBy: string;
+  name: string;
   date: string;
 }
 
@@ -31,10 +31,9 @@ export default function ComplainSelect(props: any) {
       try {
         const response = await complainSelectList(
           props.idname,
-          currentPage,
           props.selectedRoom
         );
-        console.log(response.data.data);
+        console.log(response);
         setPosts(response.data.data.complaints);
         setCurrentPage(response.data.data.page.currentPage);
         setTotalPages(response.data.data.page.totalPages);
@@ -45,7 +44,7 @@ export default function ComplainSelect(props: any) {
     };
 
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, props.selectedRoom]);
 
   return (
     <div>
@@ -78,7 +77,7 @@ export default function ComplainSelect(props: any) {
                 >
                   {post.processState}
                 </td>
-                <td>{post.createdBy}</td>
+                <td>{post.name}</td>
                 <td>{post.date}</td>
               </tr>
             ))

@@ -43,11 +43,14 @@ export const complainborderList = async (
 //컴플레인 검색조회
 export const complainSelectList = async (
   idname: number,
-  currentPage: number,
+
   roomNumber: Number
 ) => {
   try {
     const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/categories/${idname}/posts/complaint?roomNoSch=${roomNumber}`
+    );
+    console.log(
       `${process.env.NEXT_PUBLIC_API_URL}/categories/${idname}/posts/complaint?roomNoSch=${roomNumber}`
     );
 
