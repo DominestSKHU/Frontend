@@ -7,6 +7,7 @@ import Link from "next/link";
 import ComplainList from "@/components/complain/ComplainList";
 import ComplainSelect from "../complain/ComplainSelect";
 import { Container } from "@/style/border";
+import ComplainText from "@/components/complain/ComplainText";
 interface Post {
   id: number;
   title: string;
@@ -26,10 +27,11 @@ export default function Complaints(props: any) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRoom, setSelectedRoom] = useState(0);
-  const [status, setStatus] = useState("민원 조회");
+  const [status, setStatus] = useState("전체 조회");
   const urlLink = `/complain/complainupload/${props.idname[0]}`;
   const [serch, setSerch] = useState("");
   const [statusresult, setStatusresult] = useState("처리중");
+  const [serchresult, setSerchresult] = useState("");
 
   const onChangeStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setStatus(e.target.value);
@@ -43,6 +45,15 @@ export default function Complaints(props: any) {
   const handleRoomChange = (roomNumber: number) => {
     setSelectedRoom(roomNumber);
   };
+
+  const complainsearch = () => {
+    if (serch === "") {
+      return alert("조회할 내용을 작성해주세요");
+    }
+
+    setSerchresult(serch);
+  };
+
   return (
     <div>
       <ComponenComplaints>
@@ -73,8 +84,9 @@ export default function Complaints(props: any) {
                 <option value="처리완료">처리완료</option>
               </select>
             )}
-
-            <button>조회</button>
+            {status === "민원 조회" && (
+              <button onClick={complainsearch}>조회</button>
+            )}
             <Link href={urlLink}>
               <button>추가</button>
             </Link>
@@ -83,7 +95,9 @@ export default function Complaints(props: any) {
       </ComponenComplaints>
 
       {status === "전체 조회" && <ComplainList idname={props.idname[0]} />}
-      {status === "민원 조회" && <ComplainList idname={props.idname[0]} />}
+      {status === "민원 조회" && serch !== "" && (
+        <ComplainText idname={props.idname[0]} serchresult={serchresult} />
+      )}
       {selectedRoom !== 0 && status === "호실 조회" && (
         <Container>
           <ComplainSelect

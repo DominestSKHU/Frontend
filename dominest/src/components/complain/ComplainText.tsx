@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { complainborderList } from "@/utils/border/borderlist";
-import { Container, Table, ButtonContainer } from "@/style/border";
+import React, { useState, useEffect } from "react";
+import { Table, Container, ButtonContainer } from "@/style/border";
+import { complainTextList } from "@/utils/border/borderlist";
 import { Button } from "@/style/InputStyle";
 
 interface Post {
@@ -18,7 +18,7 @@ interface Post {
   date: string;
 }
 
-export default function ComplainList(props: any) {
+export default function ComplainText(props: any) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -27,9 +27,11 @@ export default function ComplainList(props: any) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log(currentPage);
-        const response = await complainborderList(props.idname, currentPage);
-        console.log(response.data.data);
+        const response = await complainTextList(
+          props.idname,
+          props.serchresult,
+          currentPage
+        );
         setPosts(response.data.data.complaints);
         setCurrentPage(response.data.data.page.currentPage);
         setTotalPages(response.data.data.page.totalPages);
@@ -40,12 +42,11 @@ export default function ComplainList(props: any) {
     };
 
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, props.serchresult]);
 
   return (
     <div>
       <Container>
-        <h3>{categoryName}</h3>
         <Table>
           <thead>
             <tr>
@@ -54,7 +55,7 @@ export default function ComplainList(props: any) {
               <th>민원 내역</th>
               <th>민원 답변</th>
               <th>민원 결과</th>
-              <th>민원인</th>
+              <th>작성자</th>
               <th>작성일</th>
             </tr>
           </thead>
@@ -86,21 +87,21 @@ export default function ComplainList(props: any) {
             )}
           </tbody>
         </Table>
-
-        {/* 페이지 넘기기 */}
-        <ButtonContainer>
-          {currentPage > 1 && (
-            <Button onClick={() => setCurrentPage(currentPage - 1)}>
-              이전 페이지
-            </Button>
-          )}
-          {currentPage < totalPages && (
-            <Button onClick={() => setCurrentPage(currentPage + 1)}>
-              다음 페이지
-            </Button>
-          )}
-        </ButtonContainer>
       </Container>
+
+      {/* 페이지 넘기기 */}
+      <ButtonContainer>
+        {currentPage > 1 && (
+          <Button onClick={() => setCurrentPage(currentPage - 1)}>
+            이전 페이지
+          </Button>
+        )}
+        {currentPage < totalPages && (
+          <Button onClick={() => setCurrentPage(currentPage + 1)}>
+            다음 페이지
+          </Button>
+        )}
+      </ButtonContainer>
     </div>
   );
 }

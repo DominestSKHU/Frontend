@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Table } from "@/style/border";
 import { complainSelectList } from "@/utils/border/borderlist";
+import { Button } from "@/style/InputStyle";
+import { Table, ButtonContainer } from "@/style/border";
 
 interface Post {
   id: number;
@@ -31,9 +32,9 @@ export default function ComplainSelect(props: any) {
       try {
         const response = await complainSelectList(
           props.idname,
-          props.selectedRoom
+          props.selectedRoom,
+          totalPages
         );
-        console.log(response);
         setPosts(response.data.data.complaints);
         setCurrentPage(response.data.data.page.currentPage);
         setTotalPages(response.data.data.page.totalPages);
@@ -88,6 +89,19 @@ export default function ComplainSelect(props: any) {
           )}
         </tbody>
       </Table>
+      {/* 페이지 넘기기 */}
+      <ButtonContainer>
+        {currentPage > 1 && (
+          <Button onClick={() => setCurrentPage(currentPage - 1)}>
+            이전 페이지
+          </Button>
+        )}
+        {currentPage < totalPages && (
+          <Button onClick={() => setCurrentPage(currentPage + 1)}>
+            다음 페이지
+          </Button>
+        )}
+      </ButtonContainer>
     </div>
   );
 }
