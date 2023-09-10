@@ -66,7 +66,7 @@ export default function ComplainUpload() {
           complaintCause: complain,
           complaintResolution: result,
           processState: selectresult,
-          createdBy: name,
+          name: name,
           date: date,
         },
         {

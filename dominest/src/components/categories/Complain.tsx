@@ -103,7 +103,7 @@ export default function Complaints(props: any) {
               <th>민원 내역</th>
               <th>민원 답변</th>
               <th>민원 결과</th>
-              <th>작성자</th>
+              <th>민원인</th>
               <th>작성일</th>
             </tr>
           </thead>
@@ -124,7 +124,7 @@ export default function Complaints(props: any) {
                   >
                     {post.processState}
                   </td>
-                  <td>{post.createdBy}</td>
+                  <td>{post.name}</td>
                   <td>{post.date}</td>
                 </tr>
               ))
