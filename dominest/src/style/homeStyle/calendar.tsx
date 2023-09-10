@@ -23,5 +23,12 @@ export const AnnounceForm = css`
   margin: 0 0 1rem 1rem;
   width: 80%;
   & .todoAdd {
-    width: 10%; }
+    width: 10%;
+  }
+`;
+
+export const CalendarStyle_UL = css`
+  list-style: none;
+  margin: 0;
+  padding: 0;
 `;
