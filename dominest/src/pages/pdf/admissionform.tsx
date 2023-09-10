@@ -3,16 +3,9 @@ import PdfList from "@/components/pdf/PdfList";
 import { FileUpload, DormitoryYear, Button } from "@/style/InputStyle";
 import { ComponentDiv } from "@/style/ComponentStyle";
 import Navber from "@/components/AdminNavbar";
-<<<<<<< HEAD:dominest/src/pages/pdf/admissionform.tsx
 import { handleUpload } from "@/utils/pdf/PdfUtil";
 import { useAuth } from "@/utils/useAuth/useAuth";
 export default function AdmissionForm() {
-=======
-import { handleUpload } from "@/utils/PdfUtil";
-import router from "next/router";
-
-export default function admissionform() {
->>>>>>> master:dominest/src/pages/admissionform.tsx
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedSemester, setSelectedSemester] = useState("");
   const [selectedFiles, setSelectedFiles] = useState([]);
