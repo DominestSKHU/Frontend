@@ -24,12 +24,7 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
     "react-router-dom": "^6.15.0",
-<<<<<<< HEAD
-    "react-sortablejs": "^6.1.4",
-    "vercel": "^32.2.0"
-=======
     "react-sortablejs": "^6.1.4"
->>>>>>> 7845649682dd27f00b6b224f6fe6efe3cd913ca9
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",

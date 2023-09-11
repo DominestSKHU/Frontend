@@ -1,4 +1,3 @@
-; 
 import Link from "next/link";
 import {
   Form,
@@ -36,16 +35,12 @@ export default function signup() {
   const handleCode = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCode(e.target.value);
   };
-<<<<<<< HEAD
-  const [buttonDisabled, setbuttonDisabled] = React.useState<boolean>(false);
-=======
   const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
   const handlePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPhone(Number(e.target.value));
   };
->>>>>>> 7845649682dd27f00b6b224f6fe6efe3cd913ca9
   const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setPasswords((prevState) => ({ ...prevState, [name]: value }));
@@ -65,6 +60,10 @@ export default function signup() {
         console.log(err);
       });
   };
+
+  function setbuttonDisabled(arg0: boolean) {
+    throw new Error("Function not implemented.");
+  }
 
   return (
     <div
@@ -132,7 +131,12 @@ export default function signup() {
           <span>이름</span>
         </Label>
         <Label>
-          <Input required type="phone" defaultValue="01000000000"onChange={handlePhone} />
+          <Input
+            required
+            type="phone"
+            defaultValue="01000000000"
+            onChange={handlePhone}
+          />
           <span>연락처</span>
         </Label>
         <Label>
