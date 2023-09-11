@@ -16,9 +16,16 @@ interface Post {
   processState: string;
   name: string;
   date: string;
+  issuedDate: string;
+  dateOfBirth: string;
+  reIssueCnt: number;
+  auditLog: {
+    lastModifiedBy: string;
+    lastModifiedTime: string;
+  };
 }
 
-export default function CardkeyList(props: any) {
+export default function CardkeyList(props: { idname: any[] }) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
