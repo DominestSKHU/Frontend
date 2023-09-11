@@ -21,7 +21,8 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
     "react-router-dom": "^6.15.0",
-    "react-sortablejs": "^6.1.4"
+    "react-sortablejs": "^6.1.4",
+    "vercel": "^32.2.0"
   },
   "devDependencies": {
     "@types/node": "20.4.1",
