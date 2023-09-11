@@ -21,7 +21,6 @@ export const Form = styled.form`
   overflow: hidden;
   &:before {
     position: absolute;
-    content: "";
     width: 300px;
     height: 300px;
     background-color: rgb(213, 213, 213);

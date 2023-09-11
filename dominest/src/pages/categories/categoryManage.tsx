@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 "use client";
+=======
+>>>>>>> 7845649682dd27f00b6b224f6fe6efe3cd913ca9
 import Navbar from "@/components/AdminNavbar";
 import {
   formStyle,
@@ -17,6 +20,7 @@ import { BsList } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import { IoIosRemove } from "react-icons/io";
 import { RxDividerVertical } from "react-icons/rx";
+<<<<<<< HEAD
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import { ReactSortable } from "react-sortablejs";
 import { css, Global } from "@emotion/react";
@@ -25,6 +29,12 @@ import {
   getCategory,
   postCategory,
 } from "@/utils/category/category";
+=======
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { ReactSortable } from "react-sortablejs";
+import { css, Global } from "@emotion/react";
+import { deleteCategory, getCategory, postCategory } from "@/utils/cateogry/categoryUtil";
+>>>>>>> 7845649682dd27f00b6b224f6fe6efe3cd913ca9
 /** @jsxImportSource @emotion/react */
 
 export const globalStyles = css`
@@ -51,7 +61,11 @@ interface CategoryPlusBoxProps {
   explanation: string;
 }
 
+<<<<<<< HEAD
 const CategoryManage = () => {
+=======
+const categoryManage = () => {
+>>>>>>> 7845649682dd27f00b6b224f6fe6efe3cd913ca9
   const router = useRouter();
   const [category, setCategory] = useState<CategoryPlusBoxProps[]>([]);
   const [authToken, setAuthToken] = useState<string>("");
@@ -67,7 +81,12 @@ const CategoryManage = () => {
 
   useEffect(() => {
     console.log(category);
+<<<<<<< HEAD
   }, [category]);
+=======
+  }
+  , [category]);
+>>>>>>> 7845649682dd27f00b6b224f6fe6efe3cd913ca9
 
   useEffect(() => {
     getCategory(authToken)
@@ -112,19 +131,32 @@ const CategoryManage = () => {
       });
   };
 
+<<<<<<< HEAD
+=======
+ 
+
+>>>>>>> 7845649682dd27f00b6b224f6fe6efe3cd913ca9
   const saveChange = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     postCategory(authToken, category).then(() => {
       alert("카테고리 저장 성공:");
+<<<<<<< HEAD
       router.push("/categories/categoryManage");
+=======
+      router.push("/categoryManage");
+>>>>>>> 7845649682dd27f00b6b224f6fe6efe3cd913ca9
     });
   };
 
   return (
     <>
       <Global styles={globalStyles} />
+<<<<<<< HEAD
       <Navbar page="카테고리 관리" />
+=======
+      <Navbar page={""} />
+>>>>>>> 7845649682dd27f00b6b224f6fe6efe3cd913ca9
       <div className="mainBox">
         <form css={formStyle}>
           <h2
@@ -325,4 +357,8 @@ const CategoryManage = () => {
     </>
   );
 };
+<<<<<<< HEAD
 export default CategoryManage;
+=======
+export default categoryManage;
+>>>>>>> 7845649682dd27f00b6b224f6fe6efe3cd913ca9

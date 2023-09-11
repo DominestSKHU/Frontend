@@ -27,10 +27,17 @@ export const checkEmailCode = (email: string, code: string) => {
 };
 // 이메일 인증번호 확인 api
 
-export const join = (email: string, password: string) =>
+export const join = (
+  email: string,
+  password: string,
+  name: string,
+  phone: number
+) =>
   axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/join`, {
     email,
     password,
+    name,
+    phone,
   });
 
 // 회원가입 api
