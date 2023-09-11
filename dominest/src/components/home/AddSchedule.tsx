@@ -36,12 +36,13 @@ const days = [
 const startHour = hour.filter((item) => item.time !== "17:00");
 const endhour = hour.filter((item) => item.time !== "09:00");
 
+type DateType = "mon"|"tue"|"wed"|"thu"|"fri"
 const AddSchedule = ({ onClose, setWorkTimeProps }: any) => {
   const [worktime, setWorktime] = React.useState<number>(0);
   const [startTime, setStartTime] = React.useState<number>(9);
   const [endTime, setEndTime] = React.useState<number>(17);
-  const [dateChose, setDateChose] = React.useState<string>("mon");
-  const [studentName, setStudentName] = React.useState<string>("");
+  const [dateChose, setDateChose] = React.useState<DateType>("mon");
+  const [studentName, setStudentName] = React.useState("");
   useEffect(() => {
     if (worktime < 0) {
       alert("시간을 다시 설정해주세요.");
@@ -71,7 +72,7 @@ const AddSchedule = ({ onClose, setWorkTimeProps }: any) => {
   };
   const handleDate = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
-    setDateChose(value);
+    setDateChose(value as DateType);
     setWorkTimeProps((prev: any) => ({ ...prev, data: value }));
   };
 
@@ -91,8 +92,8 @@ const AddSchedule = ({ onClose, setWorkTimeProps }: any) => {
         itemStrat_TimeToNumber >= startTime &&
         itemEnd_TimeToNumber <= endTime
       ) {
-        console.log("item"+item[dateChose as keyof typeof item])
-        item[dateChose as keyof typeof item].push(studentName);
+        console.log("item"+item[dateChose as keyof typeof item]);
+        (item[dateChose] as string[]).push(studentName);
       }
     });
     onClose(false);

@@ -125,7 +125,7 @@ export default function losePassword() {
       .then((res) => {
         console.log(res);
         alert("새로운 비밀번호가 전송되었습니다.");
-        router.push("/login");
+        router.push("/user/login");
       })
       .catch((err) => {
         if (err.response && err.response.data) {
@@ -169,7 +169,7 @@ export default function losePassword() {
           <br />
           <Link
             css={[link, signupLinkText]}
-            href="/signup"
+            href="/user/signup"
             className="signup-link link"
           >
             회원가입 하러 가기
