@@ -29,6 +29,57 @@ export const ComponentDiv3 = styled.div`
   }
 `;
 
+export const CardKeyDiv = styled.div`
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    text-align: center;
+  }
+  label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  input {
+    width: 400px;
+    height: 30px;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+    padding-left: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  button {
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 10px;
+
+    width: 100px;
+    height: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+    &:hover {
+      background: rgb(77, 77, 77);
+      color: #fff;
+    }
+  }
+  select {
+    width: 100px;
+    height: 30px;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+  }
+`;
+
 export const ComponenComplaints = styled.div`
   margin-left: auto;
   margin-right: auto;
