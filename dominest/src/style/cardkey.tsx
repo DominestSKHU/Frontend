@@ -12,12 +12,11 @@ export const CardKeyInput = styled.div`
     align-items: center;
     label {
       text-align: right;
-      margin-right: 10px;
+      margin-right: 5px;
       width: 100px;
     }
     input {
-      width: 100 px;
-      height: 30px;
+      width: 30 px;
       border: 1px solid #d9d9d9;
       border-radius: 5px;
       padding-left: 10px;

@@ -11,14 +11,11 @@ interface Post {
   type: string;
   lastModifiedBy: string;
   lastModifiedTime: string;
-  complaintCause: string;
-  complaintResolution: string;
-  processState: string;
   name: string;
-  date: string;
   issuedDate: string;
   dateOfBirth: string;
   reIssueCnt: number;
+  etc: string;
   auditLog: {
     lastModifiedBy: string;
     lastModifiedTime: string;
@@ -76,7 +73,7 @@ export default function CardkeyList(props: { idname: any[] }) {
                   <td>{post.dateOfBirth}</td>
                   <td>{post.reIssueCnt}</td>
                   <td>{post.auditLog.lastModifiedBy}</td>
-                  <td>{post.date}</td>
+                  <td>{post.etc}</td>
                 </tr>
               ))
             ) : (

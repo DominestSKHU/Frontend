@@ -87,6 +87,8 @@ export default function CardInput(props: { idname: any; Token: any }) {
             <label>호실</label>
             <input type="text" placeholder="호실" onChange={onChangeRoomNo} />
           </div>
+        </CardKeyInput>
+        <CardKeyInput>
           <div>
             <label>재발급 횟수</label>
             <input
@@ -104,7 +106,6 @@ export default function CardInput(props: { idname: any; Token: any }) {
             />
           </div>
         </CardKeyInput>
-
         <CardKeyTextbox>
           <div>
             <label>세부 내용</label>
