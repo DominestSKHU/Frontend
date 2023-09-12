@@ -97,3 +97,26 @@ export const CardkeyLists = async (idname: any[], currentPage: number) => {
     throw error;
   }
 };
+
+//카드키 조회 리스트
+
+export const CardkeySerch = async (
+  idname: any[],
+  currentPage: number,
+  name: string
+) => {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/categories/${idname[0]}/posts/card-key?page=${currentPage}&name=${name}`
+    );
+    console.log(response.data.data.cardKeys);
+
+    return response;
+  } catch (error) {
+    console.error("게시판 오류 발생:", error);
+    console.log(
+      `${process.env.NEXT_PUBLIC_API_URL}/categories/${idname[0]}/${idname[1]}/${idname[2]}?page=${currentPage}&name=${name}`
+    );
+    throw error;
+  }
+};
