@@ -47,7 +47,7 @@ export default function CardSerch(props: { idname: any[]; name: string }) {
     };
 
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, props.name]);
 
   return (
     <div>

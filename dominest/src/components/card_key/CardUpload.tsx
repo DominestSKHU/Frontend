@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { ButtonStyle, CardKeyTextbox, CardKeyInput } from "@/style/cardkey";
 import axios from "axios";
+import CardSerch from "./CardSerch";
+
 export default function CardInput(props: { idname: any; Token: any }) {
   const [name, setName] = useState<string>("");
   const [issuedDate, setIssuedDate] = useState<string>("");
@@ -58,7 +60,7 @@ export default function CardInput(props: { idname: any; Token: any }) {
         .then((response) => {
           console.log(response.data.data);
           alert("성공적으로 업로드 되었습니다.");
-          window.location.reload();
+          window.location.href = `history.back();`;
         })
 
         .catch((error) => {
@@ -116,6 +118,8 @@ export default function CardInput(props: { idname: any; Token: any }) {
       <ButtonStyle>
         <button onClick={cardupload}>업로드</button>
       </ButtonStyle>
+
+      {name !== "" && <CardSerch idname={props.idname} name={name} />}
     </div>
   );
 }
