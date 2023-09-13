@@ -61,6 +61,23 @@ export default function Parcel() {
     }
   }, [idname, Token]);
 
+  //axios 삭제
+  const deleteParcel = (id: number) => {
+    axios
+      .delete(`${process.env.NEXT_PUBLIC_API_URL}/undeliv-parcels/${id}`, {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      })
+      .then((response) => {
+        alert("성공적으로 삭제 되었습니다.");
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div>
       <Navbar page={"장기 미수령 택배 대장"} />
@@ -89,20 +106,18 @@ export default function Parcel() {
                     <td className="manytext">{datalist.instruction}</td>
                     <td>
                       <button onClick={() => OnDisplay(index)}>수정</button>
-                      <button>삭제</button>
+                      <button onClick={() => deleteParcel(datalist.id)}>
+                        삭제
+                      </button>
                     </td>
                   </tr>
                   {editIndex === index && (
                     <tr>
                       <td colSpan={6}>
                         <InputEdit
+                          datalist={datalist}
                           Token={Token}
                           idname={idname}
-                          name={datalist.recipientName}
-                          phone={datalist.recipientPhoneNum}
-                          status={datalist.processState}
-                          content={datalist.instruction}
-                          id={datalist.id}
                         />
                       </td>
                     </tr>

@@ -68,9 +68,6 @@ export const complainTextList = async (
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/categories/${idname}/posts/complaint?complSchText=${text}&page=${page}`
     );
-    console.log(
-      `${process.env.NEXT_PUBLIC_API_URL}/categories/${idname}/posts/complaint??complSchText=${text}&page=${page}`
-    );
 
     return response;
   } catch (error) {

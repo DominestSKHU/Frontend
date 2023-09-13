@@ -29,7 +29,7 @@ export default function ComplainText(props: any) {
       try {
         const response = await complainTextList(
           props.idname,
-          props.serchresult,
+          props.serch,
           currentPage
         );
         setPosts(response.data.data.complaints);
@@ -42,7 +42,7 @@ export default function ComplainText(props: any) {
     };
 
     fetchData();
-  }, [currentPage, props.serchresult]);
+  }, [currentPage, props.serch]);
 
   return (
     <div>
