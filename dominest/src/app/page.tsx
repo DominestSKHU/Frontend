@@ -1,3 +1,4 @@
+"use client"
 import Navbar from "@/components/AdminNavbar";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
