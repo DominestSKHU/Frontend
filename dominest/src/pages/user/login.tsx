@@ -6,8 +6,7 @@ import { BiUser } from "react-icons/bi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { css } from "@emotion/react";
 import { loginUtil } from "@/utils/useAuth/loginUtil";
-import "../app/globals.css";
-import axios from "axios";
+import "../../app/globals.css";
 import { useRouter } from "next/router";
 
 export default function Login() {
@@ -34,7 +33,7 @@ export default function Login() {
         localStorage.setItem("username", username);
         localStorage.setItem("role", role);
         alert("로그인이 완료되었습니다.");
-        router.push("/user/home`");
+        router.push("/user/home");
       })
       .catch((err) => {
         if (err.response && err.response.data) {

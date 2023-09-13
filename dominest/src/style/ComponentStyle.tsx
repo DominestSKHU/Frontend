@@ -15,6 +15,18 @@ export const ComponentDiv2 = styled.div`
   align-items: center;
   overflow: auto;
   border: 1px solid black;
+  h1 {
+    text-align: center;
+  }
+`;
+export const ComponentDiv3 = styled.div`
+  margin: 20px;
+  width: 100%;
+  align-items: center;
+  overflow: auto;
+  h1 {
+    text-align: center;
+  }
 `;
 
 export const ComponenComplaints = styled.div`
