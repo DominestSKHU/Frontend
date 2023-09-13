@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { CardkeyLists, CardkeySerch } from "@/utils/border/borderlist";
 import { Container, Table, ButtonContainer } from "@/style/border";
 import { Button } from "@/style/InputStyle";
-
+import CardEdit from "./CardEdit";
+import { useAuth } from "@/utils/useAuth/useAuth";
+import axios from "axios";
 interface Post {
   id: number;
   title: string;
@@ -27,7 +29,8 @@ export default function CardSerch(props: { idname: any[]; name: string }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [categoryName, setCategoryName] = useState("");
-
+  const [editId, setEditId] = useState<number | null>(null);
+  const Token = useAuth();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -49,6 +52,27 @@ export default function CardSerch(props: { idname: any[]; name: string }) {
     fetchData();
   }, [currentPage, props.name]);
 
+  const delite = (id: number) => {
+    axios
+      .delete(`${process.env.NEXT_PUBLIC_API_URL}/card-keys/${id}`, {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data.data);
+        alert("성공적으로 삭제 되었습니다.");
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const Edit = (id: number) => {
+    setEditId(id);
+  };
+
   return (
     <div>
       <Container>
@@ -64,25 +88,48 @@ export default function CardSerch(props: { idname: any[]; name: string }) {
               <th>재발급 횟수</th>
               <th>작성자</th>
               <th>기타사항</th>
+              <th>수정/삭제</th>
             </tr>
           </thead>
           <tbody>
             {posts.length !== undefined && posts.length > 0 ? (
               posts.map((post) => (
-                <tr key={post.id}>
-                  <td>{post.id}</td>
-                  <td>{post.issuedDate}</td>
-                  <td>{post.roomNo}</td>
-                  <td>{post.name}</td>
-                  <td>{post.dateOfBirth}</td>
-                  <td>{post.reIssueCnt}</td>
-                  <td>{post.auditLog.lastModifiedBy}</td>
-                  <td>{post.etc}</td>
-                </tr>
+                <React.Fragment key={post.id}>
+                  <tr>
+                    <td>{post.id}</td>
+                    <td>{post.issuedDate}</td>
+                    <td>{post.roomNo}</td>
+                    <td>{post.name}</td>
+                    <td>{post.dateOfBirth}</td>
+                    <td>{post.reIssueCnt}</td>
+                    <td>{post.auditLog.lastModifiedBy}</td>
+                    <td>{post.etc}</td>
+
+                    <td>
+                      <button onClick={() => Edit(post.id)}>수정</button>
+                      <button onClick={() => delite(post.id)}>삭제</button>
+                    </td>
+                  </tr>
+                  {editId === post.id ? (
+                    <>
+                      <tr>
+                        <td colSpan={9} key={post.id}>
+                          <CardEdit
+                            idname={props.idname}
+                            Token={Token}
+                            post={post}
+                          />
+                        </td>
+                      </tr>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </React.Fragment>
               ))
             ) : (
               <tr>
-                <td colSpan={8}>데이터가 없습니다.</td>
+                <td colSpan={9}>데이터가 없습니다.</td>
               </tr>
             )}
           </tbody>

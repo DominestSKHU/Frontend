@@ -68,16 +68,6 @@ export default function CardkeyList(props: { idname: any[] }) {
   const Edit = (id: number) => {
     setEditId(id);
   };
-  const CancelEdit = () => {
-    // 수정 취소 버튼을 누를 때 수정 모드를 종료
-    setEditId(null);
-  };
-
-  const SaveEdit = (id: number) => {
-    // 저장 버튼을 누를 때 수정한 내용을 서버에 저장하고 수정 모드를 종료
-    // 이 부분에서 수정한 내용을 서버에 저장하는 로직을 추가해야 합니다.
-    setEditId(null);
-  };
 
   return (
     <div>
@@ -116,7 +106,6 @@ export default function CardkeyList(props: { idname: any[] }) {
                     </td>
                   </tr>
                   {editId === post.id ? (
-                    // 수정 모드일 때
                     <>
                       <tr>
                         <td colSpan={9} key={post.id}>
@@ -129,14 +118,13 @@ export default function CardkeyList(props: { idname: any[] }) {
                       </tr>
                     </>
                   ) : (
-                    // 일반 모드일 때
                     <></>
                   )}
                 </React.Fragment>
               ))
             ) : (
               <tr>
-                <td colSpan={8}>데이터가 없습니다.</td>
+                <td colSpan={9}>데이터가 없습니다.</td>
               </tr>
             )}
           </tbody>

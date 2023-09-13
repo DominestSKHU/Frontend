@@ -6,6 +6,12 @@ export const CardKeyInput = styled.div`
   width: 100%;
   height: 100%;
   margin-top: 20px;
+  input {
+    width: 100px;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+    padding-left: 10px;
+  }
   div {
     display: flex;
     flex-direction: row;
@@ -15,24 +21,12 @@ export const CardKeyInput = styled.div`
       margin-right: 5px;
       width: 100px;
     }
-    input {
-      width: 30 px;
-      border: 1px solid #d9d9d9;
-      border-radius: 5px;
-      padding-left: 10px;
-    }
+
     select {
       width: 100px;
       height: 30px;
       border: 1px solid #d9d9d9;
       border-radius: 5px;
-    }
-    textarea {
-      width: 200px;
-      height: 100px;
-      border: 1px solid #d9d9d9;
-      border-radius: 5px;
-      padding-left: 10px;
     }
   }
 `;
@@ -54,7 +48,7 @@ export const CardKeyTextbox = styled.div`
     }
 
     textarea {
-      width: 800px;
+      width: 600px;
       height: 100px;
       border: 1px solid #d9d9d9;
       border-radius: 5px;
