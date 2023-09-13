@@ -4,6 +4,7 @@ import { Container, Table, ButtonContainer } from "@/style/border";
 import { Button } from "@/style/InputStyle";
 import CardEdit from "./CardEdit";
 import { useAuth } from "@/utils/useAuth/useAuth";
+import axios from "axios";
 interface Post {
   id: number;
   title: string;
@@ -28,8 +29,7 @@ export default function CardkeyList(props: { idname: any[] }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [categoryName, setCategoryName] = useState("");
-  const [editId, setEditId] = useState<number | null>(null); // 추가된 상태
-
+  const [editId, setEditId] = useState<number | null>(null);
   const Token = useAuth();
   useEffect(() => {
     const fetchData = async () => {
@@ -46,6 +46,24 @@ export default function CardkeyList(props: { idname: any[] }) {
 
     fetchData();
   }, [currentPage]);
+
+  //axios 삭제
+  const delite = (id: number) => {
+    axios
+      .delete(`${process.env.NEXT_PUBLIC_API_URL}/card-keys/${id}`, {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data.data);
+        alert("성공적으로 삭제 되었습니다.");
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const Edit = (id: number) => {
     setEditId(id);
@@ -94,7 +112,7 @@ export default function CardkeyList(props: { idname: any[] }) {
                     <td>{post.etc}</td>
                     <td>
                       <button onClick={() => Edit(post.id)}>수정</button>
-                      <button>삭제</button>
+                      <button onClick={() => delite(post.id)}>삭제</button>
                     </td>
                   </tr>
                   {editId === post.id ? (

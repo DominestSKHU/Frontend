@@ -91,7 +91,7 @@ export default function CardEdit(props: {
       return alert("모든 항목을 입력해주세요.");
     } else {
       axios
-        .post(
+        .patch(
           `${process.env.NEXT_PUBLIC_API_URL}/card-keys/${props.post.id}`,
           {
             name: name,
