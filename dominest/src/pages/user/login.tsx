@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BiUser } from "react-icons/bi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { css } from "@emotion/react";
@@ -13,6 +13,13 @@ export default function Login() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    if (authToken) {
+      router.push("/user/home");
+    }
+  }, [router]);
 
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -82,8 +89,8 @@ export default function Login() {
           <button type="submit" onSubmit={() => onLogin}>
             Submit
           </button>
-          <Link href="/signup">회원가입 하러 가기</Link>
-          <Link href="/losePassword">비밀번호를 잃어버리셨나요?</Link>
+          <Link href="/user/signup">회원가입 하러 가기</Link>
+          <Link href="/user/losePassword">비밀번호를 잃어버리셨나요?</Link>
         </Form>
       </div>
     </div>
