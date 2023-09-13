@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { CardkeyLists } from "@/utils/border/borderlist";
 import { Container, Table, ButtonContainer } from "@/style/border";
 import { Button } from "@/style/InputStyle";
-
+import CardEdit from "./CardEdit";
+import { useAuth } from "@/utils/useAuth/useAuth";
 interface Post {
   id: number;
   title: string;
@@ -27,12 +28,13 @@ export default function CardkeyList(props: { idname: any[] }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [categoryName, setCategoryName] = useState("");
+  const [editId, setEditId] = useState<number | null>(null); // 추가된 상태
 
+  const Token = useAuth();
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await CardkeyLists(props.idname, currentPage);
-        console.log(response.data.data.cardKeys);
         setPosts(response.data.data.cardKeys);
         setCurrentPage(response.data.data.page.currentPage);
         setTotalPages(response.data.data.page.totalPages);
@@ -44,6 +46,20 @@ export default function CardkeyList(props: { idname: any[] }) {
 
     fetchData();
   }, [currentPage]);
+
+  const Edit = (id: number) => {
+    setEditId(id);
+  };
+  const CancelEdit = () => {
+    // 수정 취소 버튼을 누를 때 수정 모드를 종료
+    setEditId(null);
+  };
+
+  const SaveEdit = (id: number) => {
+    // 저장 버튼을 누를 때 수정한 내용을 서버에 저장하고 수정 모드를 종료
+    // 이 부분에서 수정한 내용을 서버에 저장하는 로직을 추가해야 합니다.
+    setEditId(null);
+  };
 
   return (
     <div>
@@ -60,21 +76,45 @@ export default function CardkeyList(props: { idname: any[] }) {
               <th>재발급 횟수</th>
               <th>작성자</th>
               <th>기타사항</th>
+              <th>수정/삭제</th>
             </tr>
           </thead>
           <tbody>
             {posts.length !== undefined && posts.length > 0 ? (
-              posts.map((post) => (
-                <tr key={post.id}>
-                  <td>{post.id}</td>
-                  <td>{post.issuedDate}</td>
-                  <td>{post.roomNo}</td>
-                  <td>{post.name}</td>
-                  <td>{post.dateOfBirth}</td>
-                  <td>{post.reIssueCnt}</td>
-                  <td>{post.auditLog.lastModifiedBy}</td>
-                  <td>{post.etc}</td>
-                </tr>
+              posts.map((post, index: number) => (
+                <React.Fragment key={post.id}>
+                  <tr>
+                    <td>{post.id}</td>
+                    <td>{post.issuedDate}</td>
+                    <td>{post.roomNo}</td>
+                    <td>{post.name}</td>
+                    <td>{post.dateOfBirth}</td>
+                    <td>{post.reIssueCnt}</td>
+                    <td>{post.auditLog.lastModifiedBy}</td>
+                    <td>{post.etc}</td>
+                    <td>
+                      <button onClick={() => Edit(post.id)}>수정</button>
+                      <button>삭제</button>
+                    </td>
+                  </tr>
+                  {editId === post.id ? (
+                    // 수정 모드일 때
+                    <>
+                      <tr>
+                        <td colSpan={9} key={post.id}>
+                          <CardEdit
+                            idname={props.idname}
+                            Token={Token}
+                            post={post}
+                          />
+                        </td>
+                      </tr>
+                    </>
+                  ) : (
+                    // 일반 모드일 때
+                    <></>
+                  )}
+                </React.Fragment>
               ))
             ) : (
               <tr>

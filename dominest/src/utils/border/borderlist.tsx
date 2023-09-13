@@ -86,7 +86,6 @@ export const CardkeyLists = async (idname: any[], currentPage: number) => {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/categories/${idname[0]}/posts/card-key?page=${currentPage}`
     );
-    console.log(response.data.data.cardKeys);
 
     return response;
   } catch (error) {
