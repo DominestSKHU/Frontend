@@ -44,7 +44,9 @@ export default function ImgBoard() {
 
       {typeof idname === "object" &&
         idname.length > 2 &&
-        idname[2] === "cleaning" && <Cleaning idname={idname} Token={Token} />}
+        idname[2] === "sanitation-check" && (
+          <Cleaning idname={idname} Token={Token} />
+        )}
     </div>
   );
 }

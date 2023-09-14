@@ -1,14 +1,10 @@
 import React from "react";
 import { Container } from "@/style/border";
-import Cleanlist from "@/components/clean/Cleanlist";
-export default function Cleaning() {
+import CleanlList from "@/components/clean/Cleanlist";
+export default function Cleaning(props: { idname: any[]; Token: string }) {
   return (
     <div>
-      <Container>
-        <h1>방역 및 호실점검</h1>
-      </Container>
-
-      <Cleanlist />
+      <CleanlList idname={props.idname} />
     </div>
   );
 }
