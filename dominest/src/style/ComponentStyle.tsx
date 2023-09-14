@@ -11,6 +11,19 @@ export const ComponentDiv = styled.div`
   border-radius: 10px;
 `;
 
+export const CardKeyUploadStyle = styled.div`
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    text-align: center;
+  }
+`;
+
 export const ComponentDiv2 = styled.div`
   width: 95%;
   height: 100%;

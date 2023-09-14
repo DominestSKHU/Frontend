@@ -60,7 +60,7 @@ export const ButtonStyle = styled.div`
   display: flex;
   justify-content: right;
   margin-top: 20px;
-  margin-right: 112px;
+  margin-right: 20%;
   button {
     width: 100px;
     height: 30px;
