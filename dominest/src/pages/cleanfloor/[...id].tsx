@@ -73,7 +73,6 @@ export default function CleanFloorSelect() {
               <th>호실</th>
               <th>거주자</th>
               <th>전화번호</th>
-              <th>층</th>
               <th>실내</th>
               <th>쓰레기 방치</th>
               <th>화장실</th>
@@ -91,7 +90,7 @@ export default function CleanFloorSelect() {
                   <td>{room.assignedRoom}</td>
                   <td>{room.resident ? room.resident.name : "빈방"}</td>
                   <td>{room.resident ? room.resident.phon : "빈방"}</td>
-                  <td>{room.floor}</td>
+
                   <td>
                     <input type="checkbox" checked={room.indoor} disabled />
                   </td>
@@ -130,7 +129,9 @@ export default function CleanFloorSelect() {
                       ? room.auditLog.lastModifiedBy
                       : room.auditLog.createdBy}
                   </td>
-                  <td>비고 데이터</td>
+                  <td>
+                    <input value={room.etc ? room.etc : ""} />
+                  </td>
                 </tr>
               ))
             ) : (
