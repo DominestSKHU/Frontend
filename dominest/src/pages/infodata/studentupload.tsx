@@ -3,7 +3,12 @@ import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import StudentData from "@/components/student/StudentData";
-import { ComponentDiv, StudentComponent } from "@/style/ComponentStyle";
+import {
+  ComponentDiv,
+  StudentComponent,
+  StudentAddStyle,
+  StudentEditStyle,
+} from "@/style/ComponentStyle";
 import "../../app/globals.css";
 import { ButtonDiv } from "@/style/ComponentStyle";
 import { handleUpload, delet } from "@/utils/student/uploadutil";
@@ -201,12 +206,16 @@ export default function StudentUpload() {
       )}
       {showStudentEdit && (
         <>
-          <StudentEdit degree={degree} Token={Token} />
+          <StudentEditStyle>
+            <StudentEdit degree={degree} Token={Token} />
+          </StudentEditStyle>
         </>
       )}
       {showStudentAdd && (
         <>
-          <StudentAdd degree={degree} Token={Token} />
+          <StudentAddStyle>
+            <StudentAdd degree={degree} Token={Token} />
+          </StudentAddStyle>
         </>
       )}
       {showStudentDate && (

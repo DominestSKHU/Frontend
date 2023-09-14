@@ -79,13 +79,14 @@ export const fetchData = (degree: string, setData: any) => {
 //삭제
 export const StudentDelete = (id: number, authToken: string) => {
   axios
-    .delete(`http://domidomi.duckdns.org/residents/${id}`, {
+    .delete(`${process.env.NEXT_PUBLIC_API_URL}/residents/${id}`, {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
     })
     .then((response) => {
       return alert("삭제를 성공했습니다.");
+      window.location.reload();
     })
     .catch((error) => {
       console.error("데이터 조회 중 오류 발생:", error);

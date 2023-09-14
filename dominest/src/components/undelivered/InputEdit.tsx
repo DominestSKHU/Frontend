@@ -34,27 +34,6 @@ export default function Input(props: {
     setStatus(e.target.value);
   };
 
-  //axios 삭제
-  const deleteParcel = () => {
-    axios
-      .delete(
-        `${process.env.NEXT_PUBLIC_API_URL}/undeliv-parcels/${props.datalist.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${props.Token}`,
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response.data.data);
-        alert("성공적으로 삭제 되었습니다.");
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   // axios 업로드
   const parcelUpload = () => {
     if (

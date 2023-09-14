@@ -78,6 +78,26 @@ export default function Parcel() {
       });
   };
 
+  //게시글 삭제
+  const deletePost = () => {
+    axios
+      .delete(
+        `${process.env.NEXT_PUBLIC_API_URL}/posts/undelivered-parcel/${idname[1]}`,
+        {
+          headers: {
+            Authorization: `Bearer ${Token}`,
+          },
+        }
+      )
+      .then((response) => {
+        alert("성공적으로 삭제 되었습니다.");
+        router.push("/undelivered-parcel");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div>
       <Navbar page={"장기 미수령 택배 대장"} />
@@ -132,6 +152,7 @@ export default function Parcel() {
           </tbody>
         </Table>
       </ComponentDiv>
+      <button onClick={() => deletePost}>삭제</button>
     </div>
   );
 }

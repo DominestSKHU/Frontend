@@ -3,18 +3,21 @@ import styled from "@emotion/styled";
 export const ComponentDiv = styled.div`
   margin-left: auto;
   margin-right: auto;
+  margin-top: 20px;
   width: 80%;
   height: 500px;
   margin-bottom: 20px;
+  border: 1px solid black;
+  border-radius: 10px;
 `;
 
 export const ComponentDiv2 = styled.div`
-  margin: 20px;
-  width: 100%;
+  width: 95%;
   height: 100%;
-  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
   overflow: auto;
-  border: 1px solid red;
+
   h1 {
     text-align: center;
   }
@@ -218,4 +221,112 @@ export const ButtonDiv = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-bottom: 20px;
+`;
+
+export const StudentAddStyle = styled.div`
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  height: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  input {
+    width: 100px;
+    height: 30px;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+    padding-left: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  button {
+    white-space: nowrap;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 10px;
+    width: auto;
+    height: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+    &:hover {
+      background: rgb(77, 77, 77);
+      color: #fff;
+    }
+  }
+`;
+
+export const StudentEditStyle = styled.div`
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  height: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  input {
+    width: 100px;
+    height: 30px;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+    padding-left: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  button {
+    white-space: nowrap;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 10px;
+    width: auto;
+    height: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+    &:hover {
+      background: rgb(77, 77, 77);
+      color: #fff;
+    }
+  }
+`;
+
+export const StudentEditStyle2 = styled.div`
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  height: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    td,
+    th {
+      border: 1px solid #dddddd;
+      white-space: nowrap;
+      text-align: center;
+      padding: 8px;
+    }
+    button {
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 10px;
+      width: 100px;
+      height: 100%;
+      margin-left: 10px;
+      margin-right: 10px;
+      &:hover {
+        background: rgb(77, 77, 77);
+        color: #fff;
+      }
+    }
+  }
 `;

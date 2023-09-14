@@ -48,7 +48,7 @@ export default function Cleanlist() {
         </thead>
         <tbody>
           {postss.length > 0 ? (
-            posts.map((post) => (
+            postss.map((post) => (
               <tr key={post.id}>
                 <td className="id">{post.id}</td>
                 <td className="titlecontent">

@@ -81,13 +81,13 @@ const Navbar = (props: { page: string }) => {
                 <CiStar size={20} />
               </li>
               <li>
-                <Link href="/admissionform" className="Link">
+                <Link href="/pdf/admissionform" className="Link">
                   <span>입관신청서</span>
                 </Link>
                 <CiStar size={20} />
               </li>
               <li>
-                <Link href="/departureform" className="Link">
+                <Link href="/pdf/departureform" className="Link">
                   <span>퇴관신청서</span>
                 </Link>
                 <CiStar size={20} />
