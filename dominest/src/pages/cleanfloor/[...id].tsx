@@ -37,6 +37,7 @@ export default function CleanFloorSelect() {
   const [idname, setIdname] = useState<number[]>([]);
   const [rooms, setRooms] = useState<RoomData[]>([]);
   const [categoryName, setCategoryName] = useState("");
+
   const Token = useAuth();
 
   useEffect(() => {
@@ -62,6 +63,30 @@ export default function CleanFloorSelect() {
     fetchData();
   }, [idname]);
 
+  const handleCheckboxChange = async (roomId: any, field: any, value: any) => {
+    try {
+      await axios.patch(
+        `${process.env.NEXT_PUBLIC_API_URL}/checked-rooms/${roomId}`,
+        {
+          [field]: value,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        }
+      );
+      const updatedRooms = rooms.map((room) => {
+        if (room.id === roomId) {
+          return { ...room, [field]: value };
+        }
+        return room;
+      });
+      setRooms(updatedRooms);
+    } catch (error) {
+      console.error("에러 발생", error);
+    }
+  };
   return (
     <div>
       <Navbar page={"호실방역"} />
@@ -92,30 +117,81 @@ export default function CleanFloorSelect() {
                   <td>{room.resident ? room.resident.phon : "빈방"}</td>
 
                   <td>
-                    <input type="checkbox" checked={room.indoor} disabled />
+                    <input
+                      type="checkbox"
+                      checked={room.indoor}
+                      onChange={(e) =>
+                        handleCheckboxChange(
+                          room.id,
+                          "indoor",
+                          e.target.checked
+                        )
+                      }
+                    />
                   </td>
                   <td>
                     <input
                       type="checkbox"
                       checked={room.leavedTrash}
-                      disabled
+                      onChange={(e) =>
+                        handleCheckboxChange(
+                          room.id,
+                          "leavedTrash",
+                          e.target.checked
+                        )
+                      }
                     />
                   </td>
                   <td>
-                    <input type="checkbox" checked={room.toilet} disabled />
+                    <input
+                      type="checkbox"
+                      checked={room.toilet}
+                      onChange={(e) =>
+                        handleCheckboxChange(
+                          room.id,
+                          "toilet",
+                          e.target.checked
+                        )
+                      }
+                    />
                   </td>
                   <td>
-                    <input type="checkbox" checked={room.shower} disabled />
+                    <input
+                      type="checkbox"
+                      checked={room.shower}
+                      onChange={(e) =>
+                        handleCheckboxChange(
+                          room.id,
+                          "shower",
+                          e.target.checked
+                        )
+                      }
+                    />
                   </td>
                   <td>
                     <input
                       type="checkbox"
                       checked={room.prohibitedItem}
-                      disabled
+                      onChange={(e) =>
+                        handleCheckboxChange(
+                          room.id,
+                          "prohibitedItem",
+                          e.target.checked
+                        )
+                      }
                     />
                   </td>
                   <td>
-                    <select value={room.passed}>
+                    <select
+                      value={room.passed}
+                      onChange={(e) =>
+                        handleCheckboxChange(
+                          room.id,
+                          "passState",
+                          e.target.value
+                        )
+                      }
+                    >
                       <option value="미통과">미통과</option>
                       <option value="1차 통과">1차 통과</option>
                       <option value="2차 통과">2차 통과</option>
