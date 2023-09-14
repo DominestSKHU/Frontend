@@ -35,7 +35,7 @@ interface Post {
 
 export default function CleanFloorList() {
   const router = useRouter();
-  const [idname, setIdname] = useState(router.query.id);
+  const [idname, setIdname] = useState<number | string>(-1);
   const [posts, setPosts] = useState<Post[]>([]);
   const [categoryName, setCategoryName] = useState("");
   const [editId, setEditId] = useState<number | null>(null);
@@ -43,7 +43,10 @@ export default function CleanFloorList() {
 
   useEffect(() => {
     if (router.query.id !== undefined) {
-      setIdname(router.query.id);
+      const parsedId = parseInt(router.query.id as string, 10);
+      if (!isNaN(parsedId)) {
+        setIdname(parsedId);
+      }
     }
   }, [router.query.id]);
 
@@ -59,7 +62,7 @@ export default function CleanFloorList() {
       }
     };
     console.log(idname);
-    if (idname !== undefined && idname !== null && idname !== "") {
+    if (idname !== undefined && idname !== null && idname !== -1) {
       fetchData();
     }
   }, [idname]);

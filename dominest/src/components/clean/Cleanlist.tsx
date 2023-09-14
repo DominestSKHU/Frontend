@@ -50,28 +50,6 @@ export default function Cleanlist(props: { idname: any[] }) {
     fetchData();
   }, [currentPage]);
 
-  //axios 삭제
-  const delite = (id: number) => {
-    axios
-      .delete(`${process.env.NEXT_PUBLIC_API_URL}/card-keys/${id}`, {
-        headers: {
-          Authorization: `Bearer ${Token}`,
-        },
-      })
-      .then((response) => {
-        console.log(response.data.data);
-        alert("성공적으로 삭제 되었습니다.");
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const Edit = (id: number) => {
-    setEditId(id);
-  };
-
   return (
     <div>
       <Container>
@@ -83,7 +61,6 @@ export default function Cleanlist(props: { idname: any[] }) {
               <th>제목</th>
               <th>작성자</th>
               <th>작성일</th>
-              <th>삭제</th>
             </tr>
           </thead>
           <tbody>
@@ -98,9 +75,6 @@ export default function Cleanlist(props: { idname: any[] }) {
 
                     <td>{post.auditLog.lastModifiedBy}</td>
                     <td>{post.auditLog.createTime}</td>
-                    <td>
-                      <button onClick={() => delite(post.id)}>삭제</button>
-                    </td>
                   </tr>
                 </React.Fragment>
               ))
@@ -111,7 +85,7 @@ export default function Cleanlist(props: { idname: any[] }) {
             )}
           </tbody>
         </Table>
-        <button onClick={() => ClieanUploadBoard(props.idname)}>생성</button>
+        <Button onClick={() => ClieanUploadBoard(props.idname)}>생성</Button>
         {/* 페이지 넘기기 */}
         <ButtonContainer>
           {currentPage > 1 && (

@@ -42,7 +42,10 @@ export default function CleanFloorSelect() {
 
   useEffect(() => {
     if (router.query.id !== undefined) {
-      setIdname(router.query.id);
+      const idArray = Array.isArray(router.query.id)
+        ? router.query.id.map(Number)
+        : [Number(router.query.id)];
+      setIdname(idArray);
     }
   }, [router.query.id]);
 
@@ -51,7 +54,6 @@ export default function CleanFloorSelect() {
       try {
         if (idname !== null) {
           const response = await ClieanFloorList(idname);
-          console.log(response.data.data.checkedRooms);
           setRooms(response.data.data.checkedRooms);
           setCategoryName(response.data.data.category.categoryName);
         }
@@ -59,10 +61,12 @@ export default function CleanFloorSelect() {
         console.error("에러 발생", error);
       }
     };
+    if (idname !== null && idname[0] !== undefined) {
+      fetchData();
+    }
+  }, [idname, rooms]);
 
-    fetchData();
-  }, [idname]);
-
+  //체크박스 업로드
   const handleCheckboxChange = async (roomId: any, field: any, value: any) => {
     try {
       await axios.patch(
@@ -87,11 +91,91 @@ export default function CleanFloorSelect() {
       console.error("에러 발생", error);
     }
   };
+
+  // select 업로드
+  const handleSelectChange = async (
+    roomId: number,
+    field: string,
+    selectedValue: string
+  ) => {
+    try {
+      await axios.patch(
+        `${process.env.NEXT_PUBLIC_API_URL}/checked-rooms/${roomId}`,
+        {
+          [field]: selectedValue,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        }
+      );
+
+      const updatedRooms = rooms.map((room) => {
+        if (room.id === roomId) {
+          return { ...room, ["passed"]: selectedValue };
+        }
+        return room;
+      });
+      setRooms(updatedRooms);
+    } catch (error) {
+      console.error("에러 발생", error);
+    }
+  };
+
+  // input 타입
+  const handleInputChange = async (
+    roomId: number,
+    field: string,
+    value: string
+  ) => {
+    try {
+      await axios.patch(
+        `${process.env.NEXT_PUBLIC_API_URL}/checked-rooms/${roomId}`,
+        {
+          [field]: value,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        }
+      );
+
+      const updatedRooms = rooms.map((room) => {
+        if (room.id === roomId) {
+          return { ...room, [field]: value };
+        }
+        return room;
+      });
+      setRooms(updatedRooms);
+    } catch (error) {
+      console.error("에러 발생", error);
+    }
+  };
+
+  //전체체크
+  const handleCheckboxChangeAll = async (roomId: any, value: any) => {
+    try {
+      await axios.patch(
+        `${process.env.NEXT_PUBLIC_API_URL}/checked-rooms/${roomId}/pass-all`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.error("에러 발생", error);
+    }
+  };
+
   return (
     <div>
       <Navbar page={"호실방역"} />
       <Container>
-        <h3>{categoryName}</h3>
+        <h3>{idname[1]}</h3>
         <Table>
           <thead>
             <tr>
@@ -106,6 +190,7 @@ export default function CleanFloorSelect() {
               <th>통과내역</th>
               <th>점검자</th>
               <th>비고</th>
+              <th>전체체크</th>
             </tr>
           </thead>
           <tbody>
@@ -185,11 +270,7 @@ export default function CleanFloorSelect() {
                     <select
                       value={room.passed}
                       onChange={(e) =>
-                        handleCheckboxChange(
-                          room.id,
-                          "passState",
-                          e.target.value
-                        )
+                        handleSelectChange(room.id, "passState", e.target.value)
                       }
                     >
                       <option value="미통과">미통과</option>
@@ -206,7 +287,28 @@ export default function CleanFloorSelect() {
                       : room.auditLog.createdBy}
                   </td>
                   <td>
-                    <input value={room.etc ? room.etc : ""} />
+                    <input
+                      type="text"
+                      value={room.etc ? room.etc : ""}
+                      onChange={(e) =>
+                        handleInputChange(room.id, "etc", e.target.value)
+                      }
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="checkbox"
+                      checked={
+                        room.indoor &&
+                        room.leavedTrash &&
+                        room.toilet &&
+                        room.shower &&
+                        room.prohibitedItem
+                      }
+                      onChange={(e) =>
+                        handleCheckboxChangeAll(room.id, e.target.checked)
+                      }
+                    />
                   </td>
                 </tr>
               ))

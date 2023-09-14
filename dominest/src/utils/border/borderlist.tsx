@@ -158,7 +158,7 @@ export const ClieanUploadBoard = async (idname: any[]) => {
 
 //호실방역 층 리스트
 
-export const ClieanFloorListBoard = async (idname: number) => {
+export const ClieanFloorListBoard = async (idname: any) => {
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/posts/sanitation-check/${idname}/floors`,
