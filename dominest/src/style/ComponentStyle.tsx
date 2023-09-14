@@ -14,7 +14,7 @@ export const ComponentDiv2 = styled.div`
   height: 100%;
   align-items: center;
   overflow: auto;
-  border: 1px solid black;
+  border: 1px solid red;
   h1 {
     text-align: center;
   }
@@ -27,6 +27,21 @@ export const ComponentDiv3 = styled.div`
   h1 {
     text-align: center;
   }
+`;
+
+export const StudentComponent = styled.div`
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  height: 100%;
+  min-height: 500px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  border-radius: 10px;
 `;
 
 export const CardKeyDiv = styled.div`
@@ -171,7 +186,8 @@ export const ComponentTable = styled.table`
 
 export const StudentDataTable = styled.table`
   border-collapse: collapse;
-  width: 100%;
+  border: 1px solid red;
+  overflow: scroll;
   top: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -196,4 +212,11 @@ export const StudentDataTable = styled.table`
       color: #fff;
     }
   }
+`;
+
+export const ButtonDiv = styled.div`
+  margin-right: 10%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
 `;

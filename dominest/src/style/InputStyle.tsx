@@ -9,11 +9,11 @@ import styled from "@emotion/styled";
     */
 
 export const FileUpload = styled.div`
-  margin: 30px;
+  margin: 20px;
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 50px;
+  height: 40px;
   input {
     padding-left: 10px;
     width: 40%;
@@ -21,10 +21,10 @@ export const FileUpload = styled.div`
     border: 1px solid rgb(77, 77, 77);
     border-radius: 0px 10px 10px 0px;
     text-align: left;
-    line-height: 50px;
+    line-height: 40px;
   }
   label {
-    line-height: 50px;
+    line-height: 40px;
     padding: auto;
     text-align: center;
     width: 10%;

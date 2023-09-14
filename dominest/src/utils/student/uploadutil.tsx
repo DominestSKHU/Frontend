@@ -12,18 +12,22 @@ export const handleUpload = (
     formData.append("residenceSemester", degree);
 
     axios
-      .post("http://domidomi.duckdns.org/residents/upload-excel", formData, {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      })
+      .post(
+        `${process.env.NEXT_PUBLIC_API_URL}/residents/upload-excel`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      )
       .then((response) => {
         setShowStudentDate(true);
-        return alert("성공적으로 업로드 되었습니다.");
+        alert("성공적으로 업로드 되었습니다.");
+        return window.location.reload();
       })
       .catch((error) => {
-        console.log(error);
-
+        console.log("엑셀 업로드", error);
         if (
           error.response.data.errorMessage ===
           "읽어들인 컬럼 개수가 21개가 아닙니다."

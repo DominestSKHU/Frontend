@@ -11,7 +11,7 @@ export default function StudentData(props: { degree: string; Token: string }) {
 
   useEffect(() => {
     fetchData(props.degree, setData);
-  }, [props]);
+  }, [props.degree]);
 
   const renderTable = () => {
     if (data && Array.isArray(data) && data.length > 0) {
@@ -88,7 +88,7 @@ export default function StudentData(props: { degree: string; Token: string }) {
     }
   };
 
-  return <ComponentDiv2>{renderTable()}</ComponentDiv2>;
+  return <div>{renderTable()}</div>;
 }
 const tableStyle = css`
   border-collapse: collapse;
@@ -96,7 +96,6 @@ const tableStyle = css`
 
   th,
   td {
-    border: 1px solid black;
     padding: 5px;
     input {
       border-round: 0px;

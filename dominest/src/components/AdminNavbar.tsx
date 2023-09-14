@@ -40,7 +40,7 @@ const Navbar = (props: { page: string }) => {
   //카테고리 전체 조회
   useEffect(() => {
     const fetchData = async () => {
-      const favorites = await startList(Token);
+      const favorites = await startList();
       setFavoritesList(favorites);
     };
 
