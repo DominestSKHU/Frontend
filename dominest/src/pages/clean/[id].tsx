@@ -107,7 +107,9 @@ export default function CleanFloorList() {
                   <tr>
                     <td>{post.id}</td>
                     <td className="titlecontent">
-                      <Link href={`/clean/${post.id}`}>{post.floor}</Link>
+                      <Link href={`/cleanfloor/${idname}/${post.id}`}>
+                        {post.floor}
+                      </Link>
                     </td>
 
                     <td>{post.auditLog.lastModifiedBy}</td>

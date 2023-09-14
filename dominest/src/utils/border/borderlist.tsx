@@ -175,3 +175,23 @@ export const ClieanFloorListBoard = async (idname: number) => {
     throw error;
   }
 };
+
+//호실방역 층 리스트
+
+export const ClieanFloorList = async (idname: number[]) => {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/posts/sanitation-check/${idname[0]}/floors/${idname[1]}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      }
+    );
+
+    return response;
+  } catch (error) {
+    console.error("게시판 오류 발생:", error);
+    throw error;
+  }
+};
