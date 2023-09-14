@@ -32,8 +32,9 @@ export const ComponentDiv3 = styled.div`
 export const StudentComponent = styled.div`
   margin-left: auto;
   margin-right: auto;
+  overflow: auto;
   width: 80%;
-  height: 100%;
+  height: 500px;
   min-height: 500px;
   margin-bottom: 20px;
   display: flex;
@@ -105,6 +106,7 @@ export const ComponenComplaints = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   select {
     width: 100px;
     height: 30px;
@@ -159,7 +161,6 @@ export const ComponenComplaints = styled.div`
 export const ComponentTable = styled.table`
   border-collapse: collapse;
   width: 100%;
-  top: 100%;
   margin-left: auto;
   margin-right: auto;
 
@@ -186,21 +187,19 @@ export const ComponentTable = styled.table`
 
 export const StudentDataTable = styled.table`
   border-collapse: collapse;
-  border: 1px solid red;
-  overflow: scroll;
-  top: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  width: 250%;
+  width: 100%;
+  margin-left: 30%;
+  margin-top: 522%;
 
   td,
   th {
     border: 1px solid #dddddd;
     text-align: center;
     padding: 8px;
+    white-space: nowrap;
   }
   button {
-    font-size: 16px;
+    font-size: 8px;
     font-weight: bold;
     border-radius: 10px;
     width: 100px;
