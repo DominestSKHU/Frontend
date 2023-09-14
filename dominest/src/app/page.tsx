@@ -17,6 +17,9 @@ function Home({}: Props) {
     } else {
       setTokenBoolean(true);
     }
+    if (authToken) {
+      router.push("/user/home");
+    }
   }, [router]);
 
   return (

@@ -1,7 +1,14 @@
-/** @type {import('next').NextConfig} */
+// next.config.js
+
 module.exports = {
-  reactStrictMode: true,
-  images: {
-    domains: [`domidomi.duckdns.org`], 
-},
-}
+    async redirects() {
+      return [
+        {
+          source: '/',
+          destination: '/user/home', 
+          permanent: true, 
+        },
+      ]
+    },
+  }
+  

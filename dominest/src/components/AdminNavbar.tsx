@@ -61,36 +61,42 @@ const Navbar = (props: { page: string }) => {
                 <li key={favorites.id}>
                   <Link href={favorites.categoryLink} className="Link">
                     <span>{favorites.categoryName}</span>
-                    <CiStar
-                      size={20}
-                      onClick={() => startSelect(Token, favorites.categoryId)}
-                    />
                   </Link>
+                  <CiStar
+                    size={20}
+                    onClick={() => startSelect(Token, favorites.categoryId)}
+                  />
                 </li>
               ))}
             </NavItem>
           </li>
           <li>
-            <p>관리자 목록</p>
+            <p>관리 목록</p>
 
             <NavItem>
               <li>
                 <Link href="/infodata/studentupload" className="Link">
                   <span>학생정보 업로드</span>
-                  <CiStar size={20} />
                 </Link>
+                <CiStar size={20} />
               </li>
               <li>
                 <Link href="/admissionform" className="Link">
                   <span>입관신청서</span>
-                  <CiStar size={20} />
                 </Link>
+                <CiStar size={20} />
               </li>
               <li>
                 <Link href="/departureform" className="Link">
                   <span>퇴관신청서</span>
-                  <CiStar size={20} />
                 </Link>
+                <CiStar size={20} />
+              </li>
+              <li>
+                <Link href="/categories/categoryManage" className="Link">
+                  <span>카테고리 관리</span>
+                </Link>
+                <CiStar size={20} />
               </li>
             </NavItem>
           </li>

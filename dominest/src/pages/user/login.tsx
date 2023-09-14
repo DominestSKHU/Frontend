@@ -5,6 +5,9 @@ import { BiUser } from "react-icons/bi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { css } from "@emotion/react";
 import { loginUtil } from "@/utils/useAuth/loginUtil";
+
+import "../../app/globals.css";
+
 import { useRouter } from "next/router";
 import { LoginMainForm } from "@/style/userStyle/loginStyle";
 

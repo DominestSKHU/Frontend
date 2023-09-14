@@ -33,7 +33,7 @@ export default function ImgPage() {
     const fetchImageData = async () => {
       try {
         if (idname) {
-          const response = await Imageborder(idname[1]);
+          const response = await Imageborder(idname);
           setImageData(response.data.data.postDetail);
         }
       } catch (error) {
@@ -58,7 +58,7 @@ export default function ImgPage() {
         .then((response) => {
           console.log(response.data.data);
           alert("성공적으로 삭제되었습니다.");
-          window.location.href = "/imgboard/categories";
+          window.location.href = `/categories/${idname[1]}/posts/image-types/`;
         })
         .catch((error) => {
           console.error("이미지 삭제 오류 발생:", error);

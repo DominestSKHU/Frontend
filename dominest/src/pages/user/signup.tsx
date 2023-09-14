@@ -1,4 +1,3 @@
-; 
 import Link from "next/link";
 import {
   Form,
@@ -18,7 +17,6 @@ import { useRouter } from "next/router";
 
 export default function signup() {
   const router = useRouter();
-
   const [email, setEmail] = React.useState<string>("");
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -59,8 +57,13 @@ export default function signup() {
         err.code === 400
           ? alert("이미 존재하는 이메일입니다.")
           : alert("회원가입에 실패했습니다.");
+        console.log(err);
       });
   };
+
+  function setbuttonDisabled(arg0: boolean) {
+    throw new Error("Function not implemented.");
+  }
 
   return (
     <div
@@ -110,8 +113,15 @@ export default function signup() {
               &:hover {
                 background-color: #6a6a6a;
               }
+              &:buttondisabled {
+                background-color: #ccc;
+                cursor: not-allowed;
+              }
             `}
-            onClick={() => checkEmailCode(email, code)}
+            onClick={() => {
+              checkEmailCode(email, code);
+              setbuttonDisabled(true);
+            }}
           >
             인증번호확인
           </button>
@@ -121,7 +131,12 @@ export default function signup() {
           <span>이름</span>
         </Label>
         <Label>
-          <Input required type="phone" defaultValue="01000000000"onChange={handlePhone} />
+          <Input
+            required
+            type="phone"
+            defaultValue="01000000000"
+            onChange={handlePhone}
+          />
           <span>연락처</span>
         </Label>
         <Label>
