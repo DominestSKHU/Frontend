@@ -53,45 +53,47 @@ export default function CardInput(props: { idname: any; Token: any }) {
           },
           {
             headers: {
-              Authorization: `Bearer ${props.Token}`,
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
             },
           }
         )
         .then((response) => {
           console.log(response.data.data);
           alert("성공적으로 업로드 되었습니다.");
-          window.location.href = `history.back();`;
+          window.location.href = ``;
         })
 
         .catch((error) => {
-          console.log(`에러다 샹놈아 `, error);
-          console.log(localStorage.getItem("refreshToken"));
-          axios
-            .post(
-              `${process.env.NEXT_PUBLIC_API_URL}/user/token/reissue`,
-              {},
-              {
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem(
-                    "refreshToken"
-                  )}`,
-                },
-              }
-            )
-            .then((response) => {
-              console.log("성공이다 썅놈아", response.data.data);
-              localStorage.setItem("authToken", response.data.data.accessToken);
-              localStorage.setItem(
-                "refreshToken",
-                response.data.data.refreshToken
-              );
-              alert("토큰이 재발급 되었습니다.");
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-
           console.log(error);
+          if (error.response.status === 401) {
+            axios
+              .post(
+                `${process.env.NEXT_PUBLIC_API_URL}/user/token/reissue`,
+                {},
+                {
+                  headers: {
+                    Authorization: `Bearer ${localStorage.getItem(
+                      "refreshToken"
+                    )}`,
+                  },
+                }
+              )
+              .then((response) => {
+                console.log(response.data.data);
+                localStorage.setItem(
+                  "authToken",
+                  response.data.data.accessToken
+                );
+                localStorage.setItem(
+                  "refreshToken",
+                  response.data.data.refreshToken
+                );
+                cardupload();
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
         });
     }
   };

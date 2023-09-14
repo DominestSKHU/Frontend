@@ -23,7 +23,7 @@ const Navbar = (props: { page: string }) => {
   //즐겨찾기 목록
   useEffect(() => {
     const favoritesData = async () => {
-      const favorites = await startList(Token);
+      const favorites = await startList();
 
       setFavoritesList(favorites);
     };
