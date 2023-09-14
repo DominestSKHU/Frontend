@@ -1,13 +1,13 @@
 import styled from "@emotion/styled";
 
 /*
-
 파일 업로드 관련 CSS
     <label htmlFor="file">파일 업로드</label>
     <input type="file" id="file" accept=".zip" />
     <button>업로드 </button>
 위 양식사용을 기준으로 제작
     */
+
 export const FileUpload = styled.div`
   margin: 30px;
   display: flex;

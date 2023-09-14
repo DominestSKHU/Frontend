@@ -42,7 +42,7 @@ export default function CardInput(props: { idname: any; Token: any }) {
     } else {
       axios
         .post(
-          `${process.env.NEXT_PUBLIC_API_URL}/categories/${props.idname}/posts/card-key/`,
+          `${process.env.NEXT_PUBLIC_API_URL}/categories/${props.idname}/posts/card-key `,
           {
             name: name,
             issuedDate: issuedDate,
@@ -64,6 +64,33 @@ export default function CardInput(props: { idname: any; Token: any }) {
         })
 
         .catch((error) => {
+          console.log(`에러다 샹놈아 `, error);
+          console.log(localStorage.getItem("refreshToken"));
+          axios
+            .post(
+              `${process.env.NEXT_PUBLIC_API_URL}/user/token/reissue`,
+              {},
+              {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem(
+                    "refreshToken"
+                  )}`,
+                },
+              }
+            )
+            .then((response) => {
+              console.log("성공이다 썅놈아", response.data.data);
+              localStorage.setItem("authToken", response.data.data.accessToken);
+              localStorage.setItem(
+                "refreshToken",
+                response.data.data.refreshToken
+              );
+              alert("토큰이 재발급 되었습니다.");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+
           console.log(error);
         });
     }
