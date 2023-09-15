@@ -1,6 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import Link from "next/link";
-import React, { useEffect } from "react";
+
+import React, { useEffect, useState } from "react";
+
 import { BiUser } from "react-icons/bi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { css } from "@emotion/react";
@@ -17,7 +19,7 @@ export default function Login() {
   const router = useRouter();
 
   useEffect(() => {
-    // 로컬 스토리지에서 토큰을 가져오기
+
     const authToken = localStorage.getItem("authToken");
     if (authToken) {
       router.push("/user/home");
@@ -98,7 +100,9 @@ export default function Login() {
           </button>
           <Link href="/user/signup">회원가입 하러 가기</Link>
           <Link href="/user/losePassword">비밀번호를 잃어버리셨나요?</Link>
+
         </LoginMainForm>
+
       </div>
     </div>
   );

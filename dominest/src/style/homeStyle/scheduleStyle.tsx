@@ -9,6 +9,7 @@ export const ScheduleTable = styled.table`
   & th {
     border: 1px solid black;
     padding: 1%;
+    text-align: center;
   }
   & td {
     border: 1px solid black;

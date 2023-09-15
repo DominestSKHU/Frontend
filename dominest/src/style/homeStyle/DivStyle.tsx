@@ -246,3 +246,10 @@ export const CalendarStyle = styled.div`
     }
   }
 `;
+
+export const Todo_Title_Component = styled.div`
+  font-size: 1.3rem;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+`;

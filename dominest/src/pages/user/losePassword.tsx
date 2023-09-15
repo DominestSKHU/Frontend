@@ -128,9 +128,10 @@ export default function losePassword() {
         router.push("/user/login");
       })
       .catch((err) => {
-        if (err.response && err.response.data) {
 
-          alert(err.response.data.message);
+        if (err.response.statusCode&&404) {
+          alert("존재하지 않는 이메일입니다.");
+
         } else {
           alert("오류가 발생하였습니다.");
         }

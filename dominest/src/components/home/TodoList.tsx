@@ -8,95 +8,135 @@ import {
   TodoListBtnFalse,
   TodoListBtnTrue,
   TodoUl,
-  datePickerStyle,
+  Todo_Title_Component,
 } from "@/style/homeStyle/DivStyle";
 import React, { useEffect, useState } from "react";
-import { BsTrash3 } from "react-icons/bs";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import { css } from "@emotion/react";
+import {
+  postTodoList,
+  todoListGet,
+  updateTodoList,
+} from "@/utils/home/todoListUtils";
+import router from "next/router";
 
 interface TodoListProps {
-  id: number;
-  value: string;
-  checked: boolean;
+  task: string;
+  receiveRequest: string;
+}
+interface GetTodoListProps {
+  todoId: number;
+  date: string;
+  task: string;
+  userName: string;
+  receiveRequest: string;
+  checkYn: boolean;
 }
 
 const TodoList: () => EmotionJSX.Element = () => {
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
-  const promTodoList = [{ id: 1, value: "할일", checked: false }];
-  const [todolist, setTodoList] = useState<TodoListProps[]>(promTodoList);
+  const [token, setToken] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
   const [todo, setTodo] = useState<TodoListProps>({
-    id: 0,
-    value: "",
-    checked: false,
+    task: "",
+    receiveRequest: username,
   });
+  const [todolist, setTodoList] = useState<GetTodoListProps[]>([]);
 
-  const todolength = todolist.length;
-  //이부분 수정해야함 백이 보내주는거 보고
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    authToken && setToken(authToken);
+    const name = localStorage.getItem("username");
+    name && setUsername(name);
+  }, []);
+
+  useEffect(() => {
+    todoListGet(token)
+      .then((res) => {
+        setTodoList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [token]);
 
   const onChangeTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTodo({
-      id: todolength + 1,
-      value: e.target.value,
-      checked: false,
+      task: e.target.value,
+      receiveRequest: username,
     });
   };
-  const onClickTodo = (item: TodoListProps) => () => {
+  const onClickTodo = (item: GetTodoListProps) => () => {
     const newTodoList = todolist.map((todo) => {
-      if (todo.id === item.id) {
-        return { ...todo, checked: !todo.checked };
+      if (todo.todoId === item.todoId) {
+        return { ...todo, checkYn: !todo.checkYn };
       }
       return todo;
     });
     setTodoList(newTodoList);
+    updateTodoList(token, item.todoId, item.checkYn)
+      .then(() => {
+        alert("수정되었습니다.")
+
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(token);
+      });
+
   };
+
   const addTodoList = (
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
-    setTodoList([...todolist, todo]);
-    setTodo({ id: 0, value: "", checked: false });
+    postTodoList(token, todo.task, todo.receiveRequest)
+      .then((res) => {
+        alert("추가되었습니다.");
+        setTodoList([...todolist, res.data]);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+       router.push("user/home");
+      }
+      );
+    setTodo({ task: "", receiveRequest: username });
   };
-  const deleteTodoList = (item: TodoListProps) => () => {
-    const newTodoList = todolist.filter((todo) => todo.id !== item.id);
-    setTodoList(newTodoList);
-  };
+
+  // const deleteTodoList = (item: TodoListProps) => () => {
+  //   const newTodoList = todolist.filter((todo) => todo.id !== item.id);
+  //   setTodoList(newTodoList);
+  // };
+  // 아직 삭제 기능 구현 안되어서 추후에 추가 예정
 
   return (
     <TodoDiv>
-      <DatePicker
-        css={datePickerStyle}
-        dateFormat="yyyy.MM.dd"
-        shouldCloseOnSelect
-        selected={startDate}
-        onChange={(date: Date | null) => setStartDate(date)}
-        className="datePicker"
-      />
+        <Todo_Title_Component>TodoList</Todo_Title_Component>
       <form onSubmit={addTodoList} css={TodoInputform}>
         <input
           type="text"
           placeholder="내용을 입력해주세요"
           css={TodoInput}
-          value={todo.value}
+          value={todo.task}
           onChange={onChangeTodo}
         />
         <input type="submit" className="todoAdd" value="추가" />
       </form>
       <ul className="todoListUl" css={TodoUl}>
         {todolist.map((item) => (
-          <li css={TodoLi} key={item.id}>
+          <li css={TodoLi} key={item.todoId}>
             <button
-              value={item.value}
+              value={item.task}
               onClick={onClickTodo(item)}
+              
               css={
-                item.checked ? { ...TodoListBtnTrue } : { ...TodoListBtnFalse }
+                item.checkYn ? { ...TodoListBtnTrue } : { ...TodoListBtnFalse }
               }
             >
-              {item.value}
+              {item.task}
             </button>
-            <button
+            {/* <button
               className="todoDelete"
               css={css`
                 background-color: white;
@@ -106,7 +146,8 @@ const TodoList: () => EmotionJSX.Element = () => {
               onClick={deleteTodoList(item)}
             >
               <BsTrash3 size={30} />
-            </button>
+            </button> */}
+            {/* 삭제 기능 아직 구현 안되어서 추후에 추가 예정 */}
           </li>
         ))}
       </ul>

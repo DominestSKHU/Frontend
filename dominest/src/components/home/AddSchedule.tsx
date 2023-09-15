@@ -36,7 +36,9 @@ const days = [
 const startHour = hour.filter((item) => item.time !== "17:00");
 const endhour = hour.filter((item) => item.time !== "09:00");
 
-type DateType = "mon"|"tue"|"wed"|"thu"|"fri"
+
+type DateType = "mon" | "tue" | "wed" | "thu" | "fri";
+
 const AddSchedule = ({ onClose, setWorkTimeProps }: any) => {
   const [worktime, setWorktime] = React.useState<number>(0);
   const [startTime, setStartTime] = React.useState<number>(9);
@@ -92,8 +94,17 @@ const AddSchedule = ({ onClose, setWorkTimeProps }: any) => {
         itemStrat_TimeToNumber >= startTime &&
         itemEnd_TimeToNumber <= endTime
       ) {
-        console.log("item"+item[dateChose as keyof typeof item]);
-        (item[dateChose] as string[]).push(studentName);
+
+        console.log("item" + item[dateChose as keyof typeof item]);
+        let result = (item[dateChose] as string[]).some(
+          (x) => x === studentName
+        );
+        if (result) {
+          alert("이미 중복된 시간에 일정이 존재합니다.");
+        } else {
+          (item[dateChose] as string[]).push(studentName);
+        }
+
       }
     });
     onClose(false);
