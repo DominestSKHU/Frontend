@@ -50,11 +50,15 @@ export default function PdfList(props: Props) {
     formData.append("residenceSemester", props.degree);
     formData.append("pdfType", props.chosenFormType);
     axios
-      .post(`http://domidomi.duckdns.org/residents/${id}/pdf`, formData, {
-        headers: {
-          Authorization: `Bearer ${Token}`,
-        },
-      })
+      .post(
+        `${process.env.NEXT_PUBLIC_API_URL}/residents/${id}/pdf`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${Token}`,
+          },
+        }
+      )
 
       .then((response) => {
         console.log("업로드 성공:", response.data);
@@ -68,7 +72,7 @@ export default function PdfList(props: Props) {
   const fetchData = (degree: string) => {
     axios
       .get(
-        `http://domidomi.duckdns.org/residents/pdf?residenceSemester=${degree}`
+        `${process.env.NEXT_PUBLIC_API_URL}/residents/pdf?residenceSemester=${degree}`
       )
       .then((response) => {
         setData(response.data?.data?.pdfs);

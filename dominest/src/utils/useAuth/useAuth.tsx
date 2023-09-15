@@ -44,6 +44,7 @@ export const useNavbar = () => {
 //로그아웃
 export const onLogout = () => {
   localStorage.removeItem("authToken");
+  localStorage.removeItem("refreshToken");
   localStorage.removeItem("username");
   localStorage.removeItem("role");
   alert("로그아웃이 완료되었습니다.");

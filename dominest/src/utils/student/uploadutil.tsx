@@ -12,18 +12,22 @@ export const handleUpload = (
     formData.append("residenceSemester", degree);
 
     axios
-      .post("http://domidomi.duckdns.org/residents/upload-excel", formData, {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      })
+      .post(
+        `${process.env.NEXT_PUBLIC_API_URL}/residents/upload-excel`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      )
       .then((response) => {
         setShowStudentDate(true);
-        return alert("성공적으로 업로드 되었습니다.");
+        alert("성공적으로 업로드 되었습니다.");
+        return window.location.reload();
       })
       .catch((error) => {
-        console.log(error);
-
+        console.log("엑셀 업로드", error);
         if (
           error.response.data.errorMessage ===
           "읽어들인 컬럼 개수가 21개가 아닙니다."
@@ -75,13 +79,14 @@ export const fetchData = (degree: string, setData: any) => {
 //삭제
 export const StudentDelete = (id: number, authToken: string) => {
   axios
-    .delete(`http://domidomi.duckdns.org/residents/${id}`, {
+    .delete(`${process.env.NEXT_PUBLIC_API_URL}/residents/${id}`, {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
     })
     .then((response) => {
       return alert("삭제를 성공했습니다.");
+      window.location.reload();
     })
     .catch((error) => {
       console.error("데이터 조회 중 오류 발생:", error);

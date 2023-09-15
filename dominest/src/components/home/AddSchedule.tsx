@@ -36,7 +36,9 @@ const days = [
 const startHour = hour.filter((item) => item.time !== "17:00");
 const endhour = hour.filter((item) => item.time !== "09:00");
 
+
 type DateType = "mon" | "tue" | "wed" | "thu" | "fri";
+
 const AddSchedule = ({ onClose, setWorkTimeProps }: any) => {
   const [worktime, setWorktime] = React.useState<number>(0);
   const [startTime, setStartTime] = React.useState<number>(9);
@@ -92,6 +94,7 @@ const AddSchedule = ({ onClose, setWorkTimeProps }: any) => {
         itemStrat_TimeToNumber >= startTime &&
         itemEnd_TimeToNumber <= endTime
       ) {
+
         console.log("item" + item[dateChose as keyof typeof item]);
         let result = (item[dateChose] as string[]).some(
           (x) => x === studentName
@@ -101,6 +104,7 @@ const AddSchedule = ({ onClose, setWorkTimeProps }: any) => {
         } else {
           (item[dateChose] as string[]).push(studentName);
         }
+
       }
     });
     onClose(false);
@@ -121,7 +125,7 @@ const AddSchedule = ({ onClose, setWorkTimeProps }: any) => {
       </div>
       <AddScheduleTitle>스케줄 추가</AddScheduleTitle>
       <AddSelectDiv>
-        <AddSelect onChange={AddStudentName}>
+        <AddSelect onChange={AddStudentName} >
           {student.map((student) => (
             <option key={student.id} value={student.name}>
               {student.name}
