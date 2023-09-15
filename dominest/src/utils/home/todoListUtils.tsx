@@ -36,7 +36,6 @@ export const updateTodoList = (
   ): Promise<any> => {
     return axios.put(`https://domidomi.duckdns.org/todo/${id}/check?checkYn=${checkYn}`, {
       headers: {
-        "Content-Type": `application/json;charset=UTF-8`,
         Accept: "application/json",
         Authorization: `Bearer ${token}`,
       },

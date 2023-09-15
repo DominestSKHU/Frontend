@@ -76,9 +76,11 @@ const TodoList: () => EmotionJSX.Element = () => {
     updateTodoList(token, item.todoId, item.checkYn)
       .then(() => {
         alert("수정되었습니다.")
+
       })
       .catch((err) => {
         console.log(err);
+        console.log(token);
       });
 
   };

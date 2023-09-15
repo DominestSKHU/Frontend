@@ -10,7 +10,7 @@ import {
   TodoListBtnTrue,
   TodoUl,
 } from "@/style/homeStyle/DivStyle";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import moment, { Moment } from "moment";
@@ -42,8 +42,16 @@ const CalendarComponent = () => {
     value: "",
     checked: false,
   });
+
+  const [date, setDate] = useState<string>("");
   const announcelength = announceList.length;
   //이부분 수정해야함 백이 보내주는거 보고
+
+  useEffect(() => {
+    const Date = momentValue.format("YYYY-MM-DD");
+    setDate(Date);
+    console.log(date);
+  }, [value]);
 
   const onChangeAnnounce = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAnnounce({
