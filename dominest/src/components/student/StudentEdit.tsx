@@ -6,6 +6,7 @@ import {
   handleUpdate,
   handleInputChange,
 } from "@/utils/student/EditUtil";
+import { StudentEditStyle2 } from "@/style/ComponentStyle";
 
 interface Student {
   id: string;
@@ -83,7 +84,7 @@ export default function StudentEdit(props: Props) {
       </div>
 
       {showStudentEditData && (
-        <div className="edit">
+        <StudentEditStyle2>
           <table>
             <thead>
               <tr>
@@ -122,7 +123,7 @@ export default function StudentEdit(props: Props) {
               ))}
             </tbody>
           </table>
-        </div>
+        </StudentEditStyle2>
       )}
       {showStudentEdituploadData && residentId && (
         <div className="editresult">

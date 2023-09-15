@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next -p 3000",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "prestart": "npm run build",
+    "start": "next start -p 2949"
+    
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",

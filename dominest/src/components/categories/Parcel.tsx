@@ -6,6 +6,7 @@ import { borderList } from "@/utils/border/borderlist";
 import Link from "next/link";
 import axios from "axios";
 interface Post {
+  auditLog: any;
   id: number;
   title: string;
   writer: string;
@@ -26,6 +27,7 @@ export default function Parcel(props: any) {
     const fetchData = async () => {
       try {
         const response = await borderList(props.idname, currentPage);
+        console.log(response.data.data);
         setPosts(response.data.data.posts);
         setCurrentPage(response.data.data.page.currentPage);
         setTotalPages(response.data.data.page.totalPages);
@@ -60,6 +62,26 @@ export default function Parcel(props: any) {
       });
   };
 
+  //게시글 삭제
+  const deletePost = (id: number) => {
+    axios
+      .delete(
+        `${process.env.NEXT_PUBLIC_API_URL}/posts/undelivered-parcel/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${props.Token}`,
+          },
+        }
+      )
+      .then((response) => {
+        alert("성공적으로 삭제 되었습니다.");
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div>
       <Container>
@@ -71,6 +93,7 @@ export default function Parcel(props: any) {
               <th className="title">제목</th>
               <th>작성자</th>
               <th>작성일</th>
+              <th>삭제</th>
             </tr>
           </thead>
           <tbody>
@@ -83,9 +106,10 @@ export default function Parcel(props: any) {
                       {post.title}
                     </Link>
                   </td>
-                  <td>{post.writer ? post.writer : post.lastModifiedBy}</td>
+                  <td>{post.auditLog.lastModifiedBy}</td>
+                  <td>{post.auditLog.lastModifiedTime}</td>
                   <td>
-                    {post.createTime ? post.createTime : post.lastModifiedTime}
+                    <button onClick={() => deletePost(post.id)}>삭제</button>
                   </td>
                 </tr>
               ))

@@ -3,8 +3,14 @@ import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import StudentData from "@/components/student/StudentData";
-import { ComponentDiv } from "@/style/ComponentStyle";
+import {
+  ComponentDiv,
+  StudentComponent,
+  StudentAddStyle,
+  StudentEditStyle,
+} from "@/style/ComponentStyle";
 import "../../app/globals.css";
+import { ButtonDiv } from "@/style/ComponentStyle";
 import { handleUpload, delet } from "@/utils/student/uploadutil";
 import StudentEdit from "@/components/student/StudentEdit";
 import StudentAdd from "@/components/student/StudentAdd";
@@ -104,7 +110,7 @@ export default function StudentUpload() {
       <br />
       {showStudentManagement && (
         <>
-          <div className="buttondiv">
+          <ButtonDiv>
             <Button
               onClick={() => {
                 setshowStudnetUpload(true);
@@ -162,7 +168,7 @@ export default function StudentUpload() {
             >
               전체 삭제(임시생성)
             </Button>
-          </div>
+          </ButtonDiv>
         </>
       )}
       {showStudnetUpload && (
@@ -200,18 +206,22 @@ export default function StudentUpload() {
       )}
       {showStudentEdit && (
         <>
-          <StudentEdit degree={degree} Token={Token} />
+          <StudentEditStyle>
+            <StudentEdit degree={degree} Token={Token} />
+          </StudentEditStyle>
         </>
       )}
       {showStudentAdd && (
         <>
-          <StudentAdd degree={degree} Token={Token} />
+          <StudentAddStyle>
+            <StudentAdd degree={degree} Token={Token} />
+          </StudentAddStyle>
         </>
       )}
       {showStudentDate && (
-        <ComponentDiv>
+        <StudentComponent>
           <StudentData degree={degree} Token={Token} />
-        </ComponentDiv>
+        </StudentComponent>
       )}
     </div>
   );
