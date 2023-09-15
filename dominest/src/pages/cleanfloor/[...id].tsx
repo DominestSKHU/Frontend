@@ -37,6 +37,7 @@ export default function CleanFloorSelect() {
   const [idname, setIdname] = useState<number[]>([]);
   const [rooms, setRooms] = useState<RoomData[]>([]);
   const [categoryName, setCategoryName] = useState("");
+  const [etcValues, setEtcValues] = useState<{ [roomId: number]: string }>({});
 
   const Token = useAuth();
 
@@ -175,7 +176,7 @@ export default function CleanFloorSelect() {
     <div>
       <Navbar page={"호실방역"} />
       <Container>
-        <h3>{idname[1]}</h3>
+        <h3>방역호실점검</h3>
         <Table>
           <thead>
             <tr>
@@ -289,10 +290,13 @@ export default function CleanFloorSelect() {
                   <td>
                     <input
                       type="text"
-                      value={room.etc ? room.etc : ""}
-                      onChange={(e) =>
-                        handleInputChange(room.id, "etc", e.target.value)
-                      }
+                      value={etcValues[room.id] ?? ""}
+                      onChange={(e) => {
+                        setEtcValues((prevEtcValues) => ({
+                          ...prevEtcValues,
+                          [room.id]: e.target.value,
+                        }));
+                      }}
                     />
                   </td>
                   <td>

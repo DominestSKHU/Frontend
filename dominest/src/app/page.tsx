@@ -9,28 +9,6 @@ function Home({}: Props) {
   const router = useRouter();
 
   useEffect(() => {
-    axios
-      .post(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/token/reissue`,
-        {
-          withCredentials: true,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response.data.data);
-        localStorage.setItem("authToken", response.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, 3000);
-
-  useEffect(() => {
     const authToken = localStorage.getItem("authToken");
 
     if (!authToken) {
