@@ -19,6 +19,10 @@ export const postTodoList = (
     task: task,
     receiveRequest: receiveRequest,
   };
+  if (receiveRequest === "") {
+    alert("수신자를 선택해주세요.");
+    return Promise.reject("수신자를 선택하지 않았습니다.");
+  }
 
   return axios.post("https://domidomi.duckdns.org/todo/save", data, {
     headers: {
@@ -30,14 +34,19 @@ export const postTodoList = (
 };
 
 export const updateTodoList = (
-    token: string,
-    id: number,
-    checkYn: boolean
-  ): Promise<any> => {
-    return axios.put(`https://domidomi.duckdns.org/todo/${id}/check?checkYn=${checkYn}`, {
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  token: string,
+  id: number,
+  checkYn: boolean
+): Promise<any> => {
+  const data = {
+    checkYn: checkYn,
   };
+  return axios.put(`https://domidomi.duckdns.org/todo/${id}/check`, data, {
+    headers: {
+      // "Content-Type": `application/json;charset=UTF-8`,
+      // Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+      // Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBQ0NFU1MiLCJhdWQiOiJlZWVlQGVtYWlsLmNvbTpuYW1lMSIsImlhdCI6MTY5NDY3NDI4NSwiZXhwIjoxNjk1ODg0Nzg1fQ.55d1PLL3ALRLO5Uevc3S7Q8FgPv8ml17uOSh06T71bmjVe_D5eBJ3kI3eN9G-97CXFGREf4VgUjRdnttiFVO8A`,
+    },
+  });
+};
