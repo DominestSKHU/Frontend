@@ -72,6 +72,8 @@ const TodoList: () => EmotionJSX.Element = () => {
   };
 
   const onClickTodo = (item: GetTodoListProps) => () => {
+    console.log(item);
+    console.log(todolist)
     const newTodoList = todolist.map((todo) => {
       if (todo.todoId === item.todoId) {
         return { ...todo, checkYn: !todo.checkYn };
@@ -79,13 +81,13 @@ const TodoList: () => EmotionJSX.Element = () => {
       return todo;
     });
     setTodoList(newTodoList);
+    console.log("호출")
     updateTodoList(token, item.todoId, item.checkYn)
       .then(() => {
         alert("수정되었습니다.");
       })
       .catch((err) => {
         console.log(err);
-        console.log(token);
       });
   };
 
@@ -102,7 +104,7 @@ const TodoList: () => EmotionJSX.Element = () => {
         console.log(err);
       })
       .finally(() => {
-        router.push("user/home");
+        router.push("/user/home");
       });
     setTodo({ task: "", receiveRequest: receiveRequest });
   };
