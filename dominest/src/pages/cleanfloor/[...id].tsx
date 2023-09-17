@@ -37,7 +37,8 @@ export default function CleanFloorSelect() {
   const [idname, setIdname] = useState<number[]>([]);
   const [rooms, setRooms] = useState<RoomData[]>([]);
   const [categoryName, setCategoryName] = useState("");
-  const [etcValues, setEtcValues] = useState<{ [roomId: number]: string }>({});
+  const [etcValues, setEtcValues] = useState([]);
+  const [alll, setAll] = useState(1);
 
   const Token = useAuth();
 
@@ -57,6 +58,7 @@ export default function CleanFloorSelect() {
           const response = await ClieanFloorList(idname);
           setRooms(response.data.data.checkedRooms);
           setCategoryName(response.data.data.category.categoryName);
+          setEtcValues(response.data.data.checkedRooms.etc);
         }
       } catch (error) {
         console.error("에러 발생", error);
@@ -65,7 +67,7 @@ export default function CleanFloorSelect() {
     if (idname !== null && idname[0] !== undefined) {
       fetchData();
     }
-  }, [idname, rooms]);
+  }, [idname, alll]);
 
   //체크박스 업로드
   const handleCheckboxChange = async (roomId: any, field: any, value: any) => {
@@ -134,7 +136,7 @@ export default function CleanFloorSelect() {
       await axios.patch(
         `${process.env.NEXT_PUBLIC_API_URL}/checked-rooms/${roomId}`,
         {
-          [field]: value,
+          ["etc"]: value,
         },
         {
           headers: {
@@ -167,11 +169,44 @@ export default function CleanFloorSelect() {
           },
         }
       );
+      setAll(alll + 1);
     } catch (error) {
       console.error("에러 발생", error);
     }
   };
 
+  const handleUploadEtc = async (roomId: number) => {
+    const newValue = etcValues[roomId];
+
+    try {
+      await axios.patch(
+        `${process.env.NEXT_PUBLIC_API_URL}/checked-rooms/${roomId}`,
+        {
+          ["etc"]: newValue,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        }
+      );
+
+      const updatedRooms = rooms.map((room) => {
+        if (room.id === roomId) {
+          console.log({
+            ["etc"]: newValue,
+          });
+          return { ...room, etc: newValue };
+        }
+
+        return room;
+      });
+
+      setRooms(updatedRooms);
+    } catch (error) {
+      console.error("에러 발생", error);
+    }
+  };
   return (
     <div>
       <Navbar page={"호실방역"} />
@@ -190,7 +225,7 @@ export default function CleanFloorSelect() {
               <th>보관금지</th>
               <th>통과내역</th>
               <th>점검자</th>
-              <th>비고</th>
+
               <th>전체체크</th>
             </tr>
           </thead>
@@ -287,18 +322,7 @@ export default function CleanFloorSelect() {
                       ? room.auditLog.lastModifiedBy
                       : room.auditLog.createdBy}
                   </td>
-                  <td>
-                    <input
-                      type="text"
-                      value={etcValues[room.id] ?? ""}
-                      onChange={(e) => {
-                        setEtcValues((prevEtcValues) => ({
-                          ...prevEtcValues,
-                          [room.id]: e.target.value,
-                        }));
-                      }}
-                    />
-                  </td>
+
                   <td>
                     <input
                       type="checkbox"

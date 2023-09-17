@@ -4,9 +4,9 @@ import {
   ClieanUploadBoard,
 } from "@/utils/border/borderlist";
 import { Container, Table, ButtonContainer } from "@/style/border";
-import { Button } from "@/style/InputStyle";
+
 import { useAuth } from "@/utils/useAuth/useAuth";
-import axios from "axios";
+
 import Navbar from "@/components/AdminNavbar";
 import "../../app/globals.css";
 import { useRouter } from "next/router";
@@ -66,28 +66,6 @@ export default function CleanFloorList() {
       fetchData();
     }
   }, [idname]);
-
-  //axios 삭제
-  const delite = (id: number) => {
-    axios
-      .delete(`${process.env.NEXT_PUBLIC_API_URL}/card-keys/${id}`, {
-        headers: {
-          Authorization: `Bearer ${Token}`,
-        },
-      })
-      .then((response) => {
-        console.log(response.data.data);
-        alert("성공적으로 삭제 되었습니다.");
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const Edit = (id: number) => {
-    setEditId(id);
-  };
 
   return (
     <div>

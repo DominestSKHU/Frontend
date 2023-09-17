@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next -p 3000",
+    "dev": "next dev",
     "build": "next build",
     "prestart": "npm run build",
     "start": "next start -p 2949"
