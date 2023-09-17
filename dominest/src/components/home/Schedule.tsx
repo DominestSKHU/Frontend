@@ -11,21 +11,39 @@ import React, { use, useEffect, useState } from "react";
 import AddSchedule from "./AddSchedule";
 import { css } from "@emotion/react";
 import { CalendarStyle_UL } from "@/style/homeStyle/calendar";
+import { scheduleGet } from "@/utils/home/scheduleUtils";
 
 interface StudentProps {
   id: number;
   name: string;
   phone: string;
 }
+interface workTimeProps {
+  start: number;
+  name: string;
+  worktime: number;
+  data: string;
+}
+
+interface timeProps {
+  timeSlot: string;
+  usernames: string[];
+}
+
+interface scheduleAllProps {
+  dayOfWeek: string;
+  timeSlots: timeProps[];
+}
+
 export const time = [
-  { id: 1, time: "09:00-10:00", mon: [], tue: [], wed: [], thu: [], fri: [] },
-  { id: 2, time: "10:00-11:00", mon: [], tue: [], wed: [], thu: [], fri: [] },
-  { id: 3, time: "11:00-12:00", mon: [], tue: [], wed: [], thu: [], fri: [] },
-  { id: 4, time: "12:00-13:00", mon: [], tue: [], wed: [], thu: [], fri: [] },
-  { id: 5, time: "13:00-14:00", mon: [], tue: [], wed: [], thu: [], fri: [] },
-  { id: 6, time: "14:00-15:00", mon: [], tue: [], wed: [], thu: [], fri: [] },
-  { id: 7, time: "15:00-16:00", mon: [], tue: [], wed: [], thu: [], fri: [] },
-  { id: 8, time: "16:00-17:00", mon: [], tue: [], wed: [], thu: [], fri: [] },
+  { id: 1, time: "09:00 ~ 10:00"},
+  { id: 2, time: "10:00 ~ 11:00"},
+  { id: 3, time: "11:00 ~ 12:00"},
+  { id: 4, time: "12:00 ~ 13:00"},
+  { id: 5, time: "13:00 ~ 14:00"},
+  { id: 6, time: "14:00 ~ 15:00"},
+  { id: 7, time: "15:00 ~ 16:00"},
+  { id: 8, time: "16:00 ~ 17:00"},
 ];
 
 export const student: StudentProps[] = [
@@ -35,14 +53,26 @@ export const student: StudentProps[] = [
   { name: "현식이", id: 4, phone: "010-1234-5678" },
   { name: "슘당이", id: 5, phone: "010-1234-5678" },
 ];
-interface workTimeProps {
-  start: number;
-  name: string;
-  worktime: number;
-  data: string;
-}
 
 const Schedule = () => {
+  const [token, setToken] = useState<string>(""); //token 받아오기
+  const [data, setData] = useState<scheduleAllProps[]>([]);
+
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    authToken && setToken(authToken);
+  }, [token]);
+
+  useEffect(() => {
+    scheduleGet(token)
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   const [scheduleModal, setScheduleModal] = React.useState<boolean>(false);
   const [workTimeProps, setWorkTimeProps] = useState<workTimeProps>({
     start: 0,
@@ -54,10 +84,6 @@ const Schedule = () => {
   const addSchedule = () => {
     setScheduleModal(!scheduleModal);
   };
-  useEffect(() => {
-    console.log(scheduleModal);
-    console.log(workTimeProps);
-  }, [scheduleModal, workTimeProps]);
 
   const handleClose = (newState: boolean) => {
     setScheduleModal(newState); // X 버튼 클릭 시 상태 변경
@@ -82,67 +108,92 @@ const Schedule = () => {
               <td>{item.time}</td>
               <td>
                 <ul css={CalendarStyle_UL}>
-                  {item.mon.map((student) => (
-                    <li
-                      css={css`
-                        list-style: none;
-                      `}
-                    >
-                      {student}
-                    </li>
-                  ))}
+                  {data[0] &&
+                    data[0].timeSlots.map(
+                      (timeslot) =>
+                        timeslot.timeSlot === item.time && (
+                          <li
+                            key={timeslot.timeSlot}
+                            css={css`
+                              list-style: none;
+                            `}
+                          >
+                            {timeslot.usernames}
+                          </li>
+                        )
+                    )}
                 </ul>
               </td>
               <td>
                 <ul css={CalendarStyle_UL}>
-                  {item.tue.map((student) => (
-                    <li
-                      css={css`
-                        list-style: none;
-                      `}
-                    >
-                      {student}
-                    </li>
-                  ))}
+                  {data[1] &&
+                    data[1].timeSlots.map(
+                      (timeslot) =>
+                        timeslot.timeSlot === item.time && (
+                          <li
+                            key={timeslot.timeSlot}
+                            css={css`
+                              list-style: none;
+                            `}
+                          >
+                            {timeslot.usernames}
+                          </li>
+                        )
+                    )}
                 </ul>
               </td>
               <td>
                 <ul css={CalendarStyle_UL}>
-                  {item.wed.map((student) => (
-                    <li
-                      css={css`
-                        list-style: none;
-                      `}
-                    >
-                      {student}
-                    </li>
-                  ))}
+                  {data[2] &&
+                    data[2].timeSlots.map(
+                      (timeslot) =>
+                        timeslot.timeSlot === item.time && (
+                          <li
+                            key={timeslot.timeSlot}
+                            css={css`
+                              list-style: none;
+                            `}
+                          >
+                            {timeslot.usernames}
+                          </li>
+                        )
+                    )}
                 </ul>
               </td>
               <td>
                 <ul css={CalendarStyle_UL}>
-                  {item.thu.map((student) => (
-                    <li
-                      css={css`
-                        list-style: none;
-                      `}
-                    >
-                      {student}
-                    </li>
-                  ))}
+                  {data[3] &&
+                    data[3].timeSlots.map(
+                      (timeslot) =>
+                        timeslot.timeSlot === item.time && (
+                          <li
+                            key={timeslot.timeSlot}
+                            css={css`
+                              list-style: none;
+                            `}
+                          >
+                            {timeslot.usernames}
+                          </li>
+                        )
+                    )}
                 </ul>
               </td>
               <td>
                 <ul css={CalendarStyle_UL}>
-                  {item.fri.map((student) => (
-                    <li
-                      css={css`
-                        list-style: none;
-                      `}
-                    >
-                      {student}
-                    </li>
-                  ))}
+                  {data[4] &&
+                    data[4].timeSlots.map(
+                      (timeslot) =>
+                        timeslot.timeSlot === item.time && (
+                          <li
+                            key={timeslot.timeSlot}
+                            css={css`
+                              list-style: none;
+                            `}
+                          >
+                            {timeslot.usernames}
+                          </li>
+                        )
+                    )}
                 </ul>
               </td>
             </tr>
@@ -162,12 +213,7 @@ const Schedule = () => {
         <ScheduleCommitBtn onClick={addSchedule}>추가</ScheduleCommitBtn>
         <ScheduleCommitBtn>저장</ScheduleCommitBtn>
       </ScheduleBottom>
-      {scheduleModal && (
-        <AddSchedule
-          onClose={handleClose}
-          setWorkTimeProps={setWorkTimeProps}
-        />
-      )}
+      {scheduleModal && <AddSchedule token={token} onClose={handleClose} />}
     </ScheduleDiv>
   );
 };

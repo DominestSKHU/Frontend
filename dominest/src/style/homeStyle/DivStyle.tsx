@@ -8,7 +8,7 @@ export const TodoUl = css`
   padding: 0;
   width: 90%;
   height: fit-content;
-  max-height: 17rem;
+  max-height: 24rem;
   overflow: scroll;
 `;
 export const TodoInput = css`
@@ -22,7 +22,6 @@ export const TodoInput = css`
   font-size: large;
   outline: none;
   border: none;
-  border-bottom: 1px solid #ddd;
   &:hover,
   &:focus {
     box-shadow: 0px 0px 1px gray;
@@ -35,6 +34,14 @@ export const TodoLi = css`
   justify-content: space-between;
   margin: 0.5rem 0;
 `;
+export const TodoTaskLi = css`
+  ${TodoLi}
+  & button{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+`
 export const TodoListBtnFalse = css`
   width: 100%;
 
@@ -247,9 +254,3 @@ export const CalendarStyle = styled.div`
   }
 `;
 
-export const Todo_Title_Component = styled.div`
-  font-size: 1.3rem;
-  font-weight: bold;
-  width: 100%;
-  text-align: center;
-`;
