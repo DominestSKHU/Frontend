@@ -71,7 +71,7 @@ const Navbar = (props: { page: string }) => {
             </NavItem>
           </li>
           <li>
-            <p>관리 목록</p>
+            <p>학생 정보관리</p>
 
             <NavItem>
               <li>
@@ -101,7 +101,7 @@ const Navbar = (props: { page: string }) => {
             </NavItem>
           </li>
           <li>
-            <p>근로생 목록</p>
+            <p>주요 근로 목록</p>
 
             <NavItem>
               {Catago.map((categories) => (

@@ -66,7 +66,7 @@ export default function Complaints(props: any) {
               <option value="전체 조회">전체 조회</option>
               <option value="민원 조회">민원 조회</option>
               <option value="호실 조회">호실 조회</option>
-              <option value="처리 조회">처리 조회</option>
+              {/* <option value="처리 조회">처리 조회</option>*/}
             </select>
             {status === "전체 조회" ? (
               <div></div>
