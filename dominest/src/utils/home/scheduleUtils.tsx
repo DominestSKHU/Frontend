@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const calenderGet = (token: string, date: string): Promise<any> => {
-  return axios.get(`https://domidomi.duckdns.org/calender/get/${date}`, {
+export const scheduleGet = (token: string): Promise<any> => {
+  return axios.get(`https://domidomi.duckdns.org/schedule/all`, {
     headers: {
       "Content-Type": `application/json;charset=UTF-8`,
       Accept: "application/json",
@@ -10,16 +10,19 @@ export const calenderGet = (token: string, date: string): Promise<any> => {
   });
 };
 
-export const calenderPost = (
+export const schedulePost = (
   token: string,
-  date: string,
-  content: string
+  dateChose: string,
+  timeSlot: string,
+  studentName: string
 ): Promise<any> => {
   const data = {
-    date,
-    content,
+    dayOfWeek: dateChose,
+    timeSlot: timeSlot,
+    usernames: [studentName],
   };
-  return axios.post(`https://domidomi.duckdns.org/calender/save`, data, {
+  console.log(data);
+  return axios.post(`https://domidomi.duckdns.org/schedule/save`, data, {
     headers: {
       "Content-Type": `application/json;charset=UTF-8`,
       Accept: "application/json",

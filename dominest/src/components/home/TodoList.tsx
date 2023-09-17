@@ -3,12 +3,10 @@ import { EmotionJSX } from "@emotion/react/types/jsx-namespace";
 import {
   TodoDiv,
   TodoInput,
-  TodoInputform,
-  TodoLi,
   TodoListBtnFalse,
   TodoListBtnTrue,
+  TodoTaskLi,
   TodoUl,
-  Todo_Title_Component,
 } from "@/style/homeStyle/DivStyle";
 import React, { useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
@@ -19,6 +17,8 @@ import {
   updateTodoList,
 } from "@/utils/home/todoListUtils";
 import router from "next/router";
+import { AnnounceForm, RecieverSelect } from "@/style/homeStyle/calendar";
+import { student } from "./Schedule";
 
 interface TodoListProps {
   task: string;
@@ -35,18 +35,16 @@ interface GetTodoListProps {
 
 const TodoList: () => EmotionJSX.Element = () => {
   const [token, setToken] = useState<string>("");
-  const [username, setUsername] = useState<string>("");
+  const [receiveRequest, setReceiveRequest] = useState<string>("");
   const [todo, setTodo] = useState<TodoListProps>({
     task: "",
-    receiveRequest: username,
+    receiveRequest: receiveRequest,
   });
   const [todolist, setTodoList] = useState<GetTodoListProps[]>([]);
 
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
     authToken && setToken(authToken);
-    const name = localStorage.getItem("username");
-    name && setUsername(name);
   }, []);
 
   useEffect(() => {
@@ -62,9 +60,17 @@ const TodoList: () => EmotionJSX.Element = () => {
   const onChangeTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTodo({
       task: e.target.value,
-      receiveRequest: username,
+      receiveRequest: receiveRequest,
     });
   };
+
+  const onClickReciever = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setTodo({
+      task: todo.task,
+      receiveRequest: e.target.value,
+    });
+  };
+
   const onClickTodo = (item: GetTodoListProps) => () => {
     const newTodoList = todolist.map((todo) => {
       if (todo.todoId === item.todoId) {
@@ -75,14 +81,12 @@ const TodoList: () => EmotionJSX.Element = () => {
     setTodoList(newTodoList);
     updateTodoList(token, item.todoId, item.checkYn)
       .then(() => {
-        alert("수정되었습니다.")
-
+        alert("수정되었습니다.");
       })
       .catch((err) => {
         console.log(err);
         console.log(token);
       });
-
   };
 
   const addTodoList = (
@@ -98,10 +102,9 @@ const TodoList: () => EmotionJSX.Element = () => {
         console.log(err);
       })
       .finally(() => {
-       router.push("user/home");
-      }
-      );
-    setTodo({ task: "", receiveRequest: username });
+        router.push("user/home");
+      });
+    setTodo({ task: "", receiveRequest: receiveRequest });
   };
 
   // const deleteTodoList = (item: TodoListProps) => () => {
@@ -112,8 +115,7 @@ const TodoList: () => EmotionJSX.Element = () => {
 
   return (
     <TodoDiv>
-        <Todo_Title_Component>TodoList</Todo_Title_Component>
-      <form onSubmit={addTodoList} css={TodoInputform}>
+      <form onSubmit={addTodoList} css={AnnounceForm}>
         <input
           type="text"
           placeholder="내용을 입력해주세요"
@@ -121,20 +123,26 @@ const TodoList: () => EmotionJSX.Element = () => {
           value={todo.task}
           onChange={onChangeTodo}
         />
+        <RecieverSelect onChange={onClickReciever}>
+          {student.map((student) => (
+            <option key={student.id} value={student.name}>
+              {student.name}
+            </option>
+          ))}
+        </RecieverSelect>
         <input type="submit" className="todoAdd" value="추가" />
       </form>
       <ul className="todoListUl" css={TodoUl}>
         {todolist.map((item) => (
-          <li css={TodoLi} key={item.todoId}>
+          <li css={TodoTaskLi} key={item.todoId}>
             <button
               value={item.task}
               onClick={onClickTodo(item)}
-              
               css={
                 item.checkYn ? { ...TodoListBtnTrue } : { ...TodoListBtnFalse }
               }
             >
-              {item.task}
+              <span>{item.task}</span><span>{item.receiveRequest}</span>
             </button>
             {/* <button
               className="todoDelete"
