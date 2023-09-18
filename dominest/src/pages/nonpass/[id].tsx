@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ClieanFloorList } from "@/utils/border/borderlist";
+import { Clieannopass } from "@/utils/border/borderlist";
 import { Container, Table } from "@/style/border";
 import { useAuth } from "@/utils/useAuth/useAuth";
 import axios from "axios";
@@ -32,7 +32,7 @@ interface RoomData {
   };
 }
 
-export default function CleanFloorSelect() {
+export default function CleanNoPass() {
   const router = useRouter();
   const [idname, setIdname] = useState<number[]>([]);
   const [rooms, setRooms] = useState<RoomData[]>([]);
@@ -55,7 +55,7 @@ export default function CleanFloorSelect() {
     const fetchData = async () => {
       try {
         if (idname !== null) {
-          const response = await ClieanFloorList(idname);
+          const response = await Clieannopass(idname);
           setRooms(response.data.data.checkedRooms);
           setCategoryName(response.data.data.category.categoryName);
           setEtcValues(response.data.data.checkedRooms.etc);

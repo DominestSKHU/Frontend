@@ -4,6 +4,7 @@ import { Container, Table, ButtonContainer } from "@/style/border";
 import { Button } from "@/style/InputStyle";
 import axios from "axios";
 import { useAuth } from "@/utils/useAuth/useAuth";
+import ComplainEdit from "@/components/complain/ComplainEdit";
 
 interface Post {
   id: number;
@@ -26,6 +27,8 @@ export default function ComplainList(props: any) {
   const [totalPages, setTotalPages] = useState(1);
   const [categoryName, setCategoryName] = useState("");
   const Token = useAuth();
+  const [editIndex, setEditIndex] = useState<number | null>(null);
+  const [display, setDisplay] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,6 +63,11 @@ export default function ComplainList(props: any) {
       });
   };
 
+  const OnDisplay = (index: number) => {
+    setDisplay(!display);
+    setEditIndex(index === editIndex ? null : index);
+  };
+
   return (
     <div>
       <Container>
@@ -80,34 +88,43 @@ export default function ComplainList(props: any) {
           </thead>
           <tbody>
             {posts.length > 0 ? (
-              posts.map((post) => (
-                <tr key={post.id}>
-                  <td>{post.id}</td>
-                  <td>{post.roomNo}</td>
-                  <td
-                    style={{
-                      color: post.processState === "처리중" ? "red" : "black",
-                      fontWeight:
-                        post.processState === "처리중" ? "bold" : "normal",
-                    }}
-                  >
-                    {post.processState}
-                  </td>
-                  <td>{post.complaintCause}</td>
-                  <td>{post.complaintResolution}</td>
-                  <td>{post.name}</td>
-                  <td>{post.date}</td>
-                  <td>
-                    <button>수정</button>
-                    <button onClick={() => deleteComplain(post.id)}>
-                      삭제
-                    </button>
-                  </td>
-                </tr>
+              posts.map((post, index) => (
+                <React.Fragment key={post.id}>
+                  <tr key={post.id}>
+                    <td>{post.id}</td>
+                    <td>{post.roomNo}</td>
+                    <td
+                      style={{
+                        color: post.processState === "처리중" ? "red" : "black",
+                        fontWeight:
+                          post.processState === "처리중" ? "bold" : "normal",
+                      }}
+                    >
+                      {post.processState}
+                    </td>
+                    <td>{post.complaintCause}</td>
+                    <td>{post.complaintResolution}</td>
+                    <td>{post.name}</td>
+                    <td>{post.date}</td>
+                    <td>
+                      <button onClick={() => OnDisplay(index)}>수정</button>
+                      <button onClick={() => deleteComplain(post.id)}>
+                        삭제
+                      </button>
+                    </td>
+                  </tr>
+                  {editIndex === index && (
+                    <tr>
+                      <td colSpan={8}>
+                        <ComplainEdit Token={Token} post={post} />
+                      </td>
+                    </tr>
+                  )}
+                </React.Fragment>
               ))
             ) : (
               <tr>
-                <td colSpan={7}>데이터가 없습니다.</td>
+                <td colSpan={8}>데이터가 없습니다.</td>
               </tr>
             )}
           </tbody>

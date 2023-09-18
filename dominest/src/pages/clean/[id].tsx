@@ -4,9 +4,9 @@ import {
   ClieanUploadBoard,
 } from "@/utils/border/borderlist";
 import { Container, Table, ButtonContainer } from "@/style/border";
-import { Button } from "@/style/InputStyle";
+
 import { useAuth } from "@/utils/useAuth/useAuth";
-import axios from "axios";
+
 import Navbar from "@/components/AdminNavbar";
 import "../../app/globals.css";
 import { useRouter } from "next/router";
@@ -67,28 +67,6 @@ export default function CleanFloorList() {
     }
   }, [idname]);
 
-  //axios 삭제
-  const delite = (id: number) => {
-    axios
-      .delete(`${process.env.NEXT_PUBLIC_API_URL}/card-keys/${id}`, {
-        headers: {
-          Authorization: `Bearer ${Token}`,
-        },
-      })
-      .then((response) => {
-        console.log(response.data.data);
-        alert("성공적으로 삭제 되었습니다.");
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const Edit = (id: number) => {
-    setEditId(id);
-  };
-
   return (
     <div>
       <Navbar page={"호실방역"} />
@@ -108,7 +86,7 @@ export default function CleanFloorList() {
               posts.map((post, index: number) => (
                 <React.Fragment key={post.id}>
                   <tr>
-                    <td>{post.id}</td>
+                    <td>{index + 1}</td>
                     <td className="titlecontent">
                       <Link href={`/cleanfloor/${idname}/${post.id}`}>
                         {post.floor}
@@ -125,6 +103,11 @@ export default function CleanFloorList() {
                 <td colSpan={5}>데이터가 없습니다.</td>
               </tr>
             )}
+            <tr>
+              <td colSpan={5}>
+                <Link href={`/nonpass/${idname}/`}>미통과자 모음집</Link>
+              </td>
+            </tr>
           </tbody>
         </Table>
       </Container>
