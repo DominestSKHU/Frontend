@@ -7,11 +7,9 @@ import { BiUser } from "react-icons/bi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { css } from "@emotion/react";
 import { loginUtil } from "@/utils/useAuth/loginUtil";
-
 import "../../app/globals.css";
-
 import { useRouter } from "next/router";
-import { LoginMainForm } from "@/style/userStyle/loginStyle";
+import { LoginMainForm } from "@/style/UserStyle/loginStyle";
 
 export default function Login() {
   const [email, setEmail] = React.useState("");
@@ -19,7 +17,6 @@ export default function Login() {
   const router = useRouter();
 
   useEffect(() => {
-
     const authToken = localStorage.getItem("authToken");
     if (authToken) {
       router.push("/user/home");
@@ -100,9 +97,7 @@ export default function Login() {
           </button>
           <Link href="/user/signup">회원가입 하러 가기</Link>
           <Link href="/user/losePassword">비밀번호를 잃어버리셨나요?</Link>
-
         </LoginMainForm>
-
       </div>
     </div>
   );
