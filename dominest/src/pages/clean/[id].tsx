@@ -86,7 +86,7 @@ export default function CleanFloorList() {
               posts.map((post, index: number) => (
                 <React.Fragment key={post.id}>
                   <tr>
-                    <td>{post.id}</td>
+                    <td>{index + 1}</td>
                     <td className="titlecontent">
                       <Link href={`/cleanfloor/${idname}/${post.id}`}>
                         {post.floor}
@@ -103,6 +103,11 @@ export default function CleanFloorList() {
                 <td colSpan={5}>데이터가 없습니다.</td>
               </tr>
             )}
+            <tr>
+              <td colSpan={5}>
+                <Link href={`/nonpass/${idname}/`}>미통과자 모음집</Link>
+              </td>
+            </tr>
           </tbody>
         </Table>
       </Container>

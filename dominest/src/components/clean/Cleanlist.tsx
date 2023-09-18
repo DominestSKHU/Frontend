@@ -72,20 +72,24 @@ export default function Cleanlist(props: { idname: any[] }) {
               <th>제목</th>
               <th>작성자</th>
               <th>작성일</th>
+              <th>수정</th>
             </tr>
           </thead>
           <tbody>
             {posts.length !== undefined && posts.length > 0 ? (
-              posts.map((post, index: number) => (
+              posts.map((post, index) => (
                 <React.Fragment key={post.id}>
                   <tr>
-                    <td>{post.id}</td>
+                    <td>{index}</td>
                     <td className="titlecontent">
                       <Link href={`/clean/${post.id}`}>{post.title}</Link>
                     </td>
 
                     <td>{post.auditLog.lastModifiedBy}</td>
                     <td>{post.auditLog.createTime}</td>
+                    <td>
+                      <button>수정</button>
+                    </td>
                   </tr>
                 </React.Fragment>
               ))

@@ -195,3 +195,21 @@ export const ClieanFloorList = async (idname: number[]) => {
     throw error;
   }
 };
+
+export const Clieannopass = async (idname: number[]) => {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/posts/sanitation-check/${idname}/not-passed`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      }
+    );
+
+    return response;
+  } catch (error) {
+    console.error("게시판 오류 발생:", error);
+    throw error;
+  }
+};
