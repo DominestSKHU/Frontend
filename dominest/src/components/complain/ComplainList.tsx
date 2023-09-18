@@ -68,23 +68,6 @@ export default function ComplainList(props: any) {
     setEditIndex(index === editIndex ? null : index);
   };
 
-  const EditComplain = (id: number) => {
-    axios
-      .patch(`${process.env.NEXT_PUBLIC_API_URL}/complaints/${id}`, {
-        headers: {
-          Authorization: `Bearer ${Token}`,
-        },
-      })
-      .then((response) => {
-        console.log(response.data.data);
-        alert("성공적으로 수정 되었습니다.");
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   return (
     <div>
       <Container>
@@ -133,7 +116,7 @@ export default function ComplainList(props: any) {
                   {editIndex === index && (
                     <tr>
                       <td colSpan={8}>
-                        <ComplainEdit Token={Token} />
+                        <ComplainEdit Token={Token} post={post} />
                       </td>
                     </tr>
                   )}

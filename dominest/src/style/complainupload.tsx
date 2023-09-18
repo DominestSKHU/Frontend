@@ -70,7 +70,7 @@ export const EditLeftInput = styled.div`
   label {
     display: flex;
     align-items: center;
-    margin-right: 10px;
+    margin-right: 20px;
   }
 `;
 

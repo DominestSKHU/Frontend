@@ -18,13 +18,13 @@ export default function ComplainUpload(props: any) {
   const router = useRouter();
   const [selectedRoom, setSelectedRoom] = useState(0);
   const [idname, setIdname] = useState(router.query.id);
-  const [name, setName] = useState("");
-  const [selectresult, setSelectresult] = useState("처리중");
-  const [complain, setComplain] = useState("");
-  const [result, setResult] = useState("");
-  const [date, setDate] = useState("");
+  const [name, setName] = useState(props.post.name);
+  const [selectresult, setSelectresult] = useState(props.post.processState);
+  const [complain, setComplain] = useState(props.post.complaintCause);
+  const [result, setResult] = useState(props.post.complaintResolution);
+  const [date, setDate] = useState(props.post.date);
   const Token = useAuth();
-
+  console.log(props.post);
   useEffect(() => {
     if (router.query.id !== undefined) {
       setIdname(router.query.id);
@@ -50,18 +50,10 @@ export default function ComplainUpload(props: any) {
     setDate(event.target.value);
   };
 
-  const complainUpload = async () => {
-    if (selectedRoom === 0) {
-      return alert("방번호를 선택해주세요");
-    }
-    const datePattern = /^\d{4}-\d{2}-\d{2}$/;
-    if (!datePattern.test(date)) {
-      return alert("날짜를 0000-00-00 양식으로 입력해주세요");
-    }
-
-    try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/categories/${idname}/posts/complaint`,
+  const EditComplain = () => {
+    axios
+      .patch(
+        `${process.env.NEXT_PUBLIC_API_URL}/complaints/${props.post.id}`,
         {
           roomNo: selectedRoom,
           complaintCause: complain,
@@ -75,14 +67,15 @@ export default function ComplainUpload(props: any) {
             Authorization: `Bearer ${Token}`,
           },
         }
-      );
-      console.log(response);
-      window.location.href = `/categories/${idname}/posts/complaint`;
-      alert("작성완료");
-    } catch (error) {
-      console.error("게시판 오류 발생:", error);
-      throw error;
-    }
+      )
+      .then((response) => {
+        console.log(response.data.data);
+        alert("성공적으로 수정 되었습니다.");
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -98,18 +91,21 @@ export default function ComplainUpload(props: any) {
 
               <label>
                 이름
-                <input onChange={handleNameChange} />
+                <input value={name} onChange={handleNameChange} />
               </label>
 
               <label>
                 민원접수 일자
-                <input onChange={handleDateChange} />
+                <input value={date} onChange={handleDateChange} />
               </label>
             </EditLeftInput>
             <RighttInput>
               <label>
                 처리결과
-                <select onChange={handleSelectresultChange}>
+                <select
+                  value={selectresult}
+                  onChange={handleSelectresultChange}
+                >
                   <option value="처리중">처리중</option>
                   <option value="처리완료">처리완료</option>
                 </select>
@@ -120,26 +116,26 @@ export default function ComplainUpload(props: any) {
             <div>
               <label>
                 민원내용
-                <textarea onChange={handleComplainChange} />
+                <textarea value={complain} onChange={handleComplainChange} />
               </label>
             </div>
             <div>
               <label>
                 처리내용
-                <textarea onChange={handleResultChange} />
+                <textarea value={result} onChange={handleResultChange} />
               </label>
             </div>
           </TowInput>
         </div>
         <ButtonContainer>
-          <button onClick={complainUpload}>작성</button>
+          <button onClick={() => EditComplain()}>작성</button>
         </ButtonContainer>
         <br />
         <hr />
         {selectedRoom !== 0 && (
           <ComplainSelect idname={idname} selectedRoom={selectedRoom} />
         )}
-      </ContainerComplainEdit>{" "}
+      </ContainerComplainEdit>
     </div>
   );
 }
