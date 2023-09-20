@@ -45,19 +45,19 @@ const AddSchedule = ({ token, onClose }: any) => {
     setEndTime(`${parseInt(startTime) + 1}`);
     console.log(endTime);
   }, [startTime]);
+
   const addScheduleWorker = () => {
     const timeSlot = `${startTime}:00 ~ ${endTime}:00`;
+    console.log(timeSlot);
+    console.log(dateChose);
+    console.log(studentName);
 
     schedulePost(token, dateChose, timeSlot, studentName)
-      .then((res) => {
-        console.log(res);
+      .then((result) => {
+        console.log(result);
       })
       .catch((err) => {
         console.log(err);
-      })
-      .finally(() => {
-        onClose(false);
-        router.reload();
       });
   };
 
@@ -129,7 +129,9 @@ const AddSchedule = ({ token, onClose }: any) => {
             <option>{startTime ? parseInt(startTime) + 1 : ""}:00</option>
           </AddSelect>
         </AddSelectDiv>
-        <ScheduleAddBtn type="submit">추가</ScheduleAddBtn>
+        <ScheduleAddBtn type="button" onClick={addScheduleWorker}>
+          추가
+        </ScheduleAddBtn>
       </AddScheduleMain>
     </form>
   );

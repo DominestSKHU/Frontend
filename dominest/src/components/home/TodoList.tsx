@@ -55,7 +55,7 @@ const TodoList: () => EmotionJSX.Element = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [token]);
+  }, [token, todolist]);
 
   const onChangeTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTodo({
@@ -73,7 +73,7 @@ const TodoList: () => EmotionJSX.Element = () => {
 
   const onClickTodo = (item: GetTodoListProps) => () => {
     console.log(item);
-    console.log(todolist)
+    console.log(todolist);
     const newTodoList = todolist.map((todo) => {
       if (todo.todoId === item.todoId) {
         return { ...todo, checkYn: !todo.checkYn };
@@ -81,7 +81,7 @@ const TodoList: () => EmotionJSX.Element = () => {
       return todo;
     });
     setTodoList(newTodoList);
-    console.log("호출")
+    console.log("호출");
     updateTodoList(token, item.todoId, item.checkYn)
       .then(() => {
         alert("수정되었습니다.");
@@ -144,7 +144,8 @@ const TodoList: () => EmotionJSX.Element = () => {
                 item.checkYn ? { ...TodoListBtnTrue } : { ...TodoListBtnFalse }
               }
             >
-              <span>{item.task}</span><span>{item.receiveRequest}</span>
+              <span>{item.task}</span>
+              <span>{item.receiveRequest}</span>
             </button>
             {/* <button
               className="todoDelete"

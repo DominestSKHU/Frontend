@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const scheduleGet = (token: string): Promise<any> => {
-  return axios.get(`https://domidomi.duckdns.org/schedule/all`, {
+  return axios.get(`${process.env.NEXT_PUBLIC_API_URL}/schedule/all`, {
     headers: {
       "Content-Type": `application/json;charset=UTF-8`,
       Accept: "application/json",
@@ -22,7 +22,7 @@ export const schedulePost = (
     usernames: [studentName],
   };
   console.log(data);
-  return axios.post(`https://domidomi.duckdns.org/schedule/save`, data, {
+  return axios.post(`${process.env.NEXT_PUBLIC_API_URL}/schedule/save`, data, {
     headers: {
       "Content-Type": `application/json;charset=UTF-8`,
       Accept: "application/json",

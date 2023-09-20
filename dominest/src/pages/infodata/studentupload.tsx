@@ -166,7 +166,7 @@ export default function StudentUpload() {
                 }
               `}
             >
-              전체 삭제(임시생성)
+              현재 차수 전체 삭제
             </Button>
           </ButtonDiv>
         </>
