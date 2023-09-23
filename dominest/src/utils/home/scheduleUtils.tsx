@@ -24,8 +24,6 @@ export const schedulePost = (
   console.log(data);
   return axios.post(`${process.env.NEXT_PUBLIC_API_URL}/schedule/save`, data, {
     headers: {
-      "Content-Type": `application/json;charset=UTF-8`,
-      Accept: "application/json",
       Authorization: `Bearer ${token}`,
     },
   });

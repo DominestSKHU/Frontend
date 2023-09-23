@@ -48,11 +48,11 @@ export const time = [
 
 export const student: StudentProps[] = [
   { name: "선택해주세요", id: 0, phone: "0" },
-  { name: "누구쎄옹", id: 1, phone: "010-1234-5678" },
-  { name: "땅땅이", id: 2, phone: "010-1234-5678" },
-  { name: "춘식이", id: 3, phone: "010-1234-5678" },
-  { name: "현식이", id: 4, phone: "010-1234-5678" },
-  { name: "슘당이", id: 5, phone: "010-1234-5678" },
+  { name: "반병선", id: 1, phone: "010-1234-5678" },
+  { name: "정인", id: 2, phone: "010-1234-5678" },
+  { name: "안다은", id: 3, phone: "010-1234-5678" },
+  { name: "류채림", id: 4, phone: "010-1234-5678" },
+  { name: "공채원", id: 5, phone: "010-1234-5678" },
 ];
 
 const Schedule = () => {
@@ -62,7 +62,7 @@ const Schedule = () => {
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
     authToken && setToken(authToken);
-  }, [token]);
+  }, [token, data]);
 
   useEffect(() => {
     scheduleGet(token)
@@ -121,6 +121,7 @@ const Schedule = () => {
                             `}
                           >
                             {timeslot.usernames}
+                            <br />
                           </li>
                         )
                     )}
@@ -139,6 +140,7 @@ const Schedule = () => {
                             `}
                           >
                             {timeslot.usernames}
+                            <br />
                           </li>
                         )
                     )}
@@ -157,6 +159,7 @@ const Schedule = () => {
                             `}
                           >
                             {timeslot.usernames}
+                            <br />
                           </li>
                         )
                     )}
@@ -175,6 +178,7 @@ const Schedule = () => {
                             `}
                           >
                             {timeslot.usernames}
+                            <br />
                           </li>
                         )
                     )}
@@ -193,6 +197,7 @@ const Schedule = () => {
                             `}
                           >
                             {timeslot.usernames}
+                            <br />
                           </li>
                         )
                     )}

@@ -48,9 +48,6 @@ const AddSchedule = ({ token, onClose }: any) => {
 
   const addScheduleWorker = () => {
     const timeSlot = `${startTime}:00 ~ ${endTime}:00`;
-    console.log(timeSlot);
-    console.log(dateChose);
-    console.log(studentName);
 
     schedulePost(token, dateChose, timeSlot, studentName)
       .then((result) => {
