@@ -56,7 +56,7 @@ const TodoList: () => EmotionJSX.Element = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [token, todo]);
+  }, [token, todo, receiveRequest]);
 
   const onChangeTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTodo({

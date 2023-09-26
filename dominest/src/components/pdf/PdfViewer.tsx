@@ -22,7 +22,7 @@ export default function PdfViewer(props: { id: any; chosenFormType: any }) {
   const pdfview = () => {
     axios
       .get(
-        `http://domidomi.duckdns.org/residents/${props.id}/pdf?pdfType=${props.chosenFormType}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/${props.id}/pdf?pdfType=${props.chosenFormType}`,
         { responseType: "arraybuffer" }
       )
       .then((response) => {

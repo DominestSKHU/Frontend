@@ -95,8 +95,6 @@ const CalendarComponent = () => {
     }
   };
 
-  
-
   const onChangeAnnounce = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAnnounce(e.target.value);
   };

@@ -36,12 +36,12 @@ export const TodoLi = css`
 `;
 export const TodoTaskLi = css`
   ${TodoLi}
-  & button{
+  & button {
     width: 100%;
     display: flex;
     justify-content: space-between;
   }
-`
+`;
 export const TodoListBtnFalse = css`
   width: 100%;
 
@@ -157,7 +157,7 @@ export const ScheduleDiv = styled.div`
 `;
 
 export const TodoDiv = styled(ScheduleDiv)`
-  width: 42vw;
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -253,4 +253,3 @@ export const CalendarStyle = styled.div`
     }
   }
 `;
-
