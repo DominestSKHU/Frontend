@@ -1,142 +1,21 @@
 import Link from "next/link";
-import styled from "@emotion/styled";
-import { css, keyframes } from "@emotion/react";
+import {
+  Form,
+  Title,
+  FlexContainer,
+  Signin,
+  Label,
+  Input,
+  SubmitButton,
+  passwordError,
+} from "@/style/signInputStyle";
 import React from "react";
+import { css } from "@emotion/react";
 import { sendEmail, checkEmailCode, join } from "@/utils/useAuth/signFcUtil";
 import { useRouter } from "next/router";
 /** @jsxImportSource @emotion/react */
 
-const pulseAnimation = keyframes`
-  from {
-    transform: scale(0.9);
-    opacity: 1;
-  }
-
-  to {
-    transform: scale(1.8);
-    opacity: 0;
-  }
-`;
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 350px;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 20px;
-  position: relative;
-  box-shadow: 0px 0px 24px #cbcbcb;
-`;
-
-const Title = styled.p`
-  font-size: 28px;
-  color: #848484;
-  font-weight: 600;
-  letter-spacing: -1px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding-left: 30px;
-
-  &::before,
-  &::after {
-    position: absolute;
-    content: "";
-    height: 16px;
-    width: 16px;
-    border-radius: 50%;
-    left: 0px;
-    background-color: #848484;
-  }
-
-  &::before {
-    width: 18px;
-    height: 18px;
-    background-color: #848484;
-  }
-
-  &::after {
-    width: 18px;
-    height: 18px;
-    animation: ${pulseAnimation} 1s linear infinite;
-  }
-`;
-
-const FlexContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  gap: 6px;
-`;
-
-const Label = styled.label`
-  position: relative;
-`;
-
-const Input = styled.input`
-  width: 94%;
-  padding: 10px 10px 20px 10px;
-  outline: 0;
-  border: 1px solid rgba(105, 105, 105, 0.397);
-  border-radius: 10px;
-
-  + span {
-    position: absolute;
-    left: 10px;
-    top: 15px;
-    color: grey;
-    font-size: 0.9em;
-    cursor: text;
-    transition: 0.3s ease;
-  }
-
-  &:placeholder-shown + span {
-    top: 15px;
-    font-size: 0.9em;
-  }
-
-  &:focus + span,
-  &:valid + span {
-    top: 30px;
-    font-size: 0.7em;
-    font-weight: 600;
-  }
-`;
-
-const SubmitButton = styled.button`
-  border: none;
-  outline: none;
-  background-color: #848484;
-  padding: 10px;
-  border-radius: 10px;
-  color: #fff;
-  font-size: 16px;
-  &:hover {
-    background-color: #6a6a6a;
-  }
-`;
-
-const Signin = styled.p`
-  color: rgba(88, 87, 87, 0.822);
-  font-size: 14px;
-  text-align: center;
-
-  a {
-    color: royalblue;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-`;
-const passwordError = css`
-  color: red;
-  padding: 0%;
-  margin: auto;
-  font-size: 0.8em;
-`;
-export default function SingUp() {
+export default function signup() {
   const router = useRouter();
   const [email, setEmail] = React.useState<string>("");
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -150,11 +29,18 @@ export default function SingUp() {
     password0: "",
     password1: "",
   });
+  const [phone, setPhone] = React.useState<number>(0);
+  const [name, setName] = React.useState<string>("");
   const [code, setCode] = React.useState<string>("");
   const handleCode = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCode(e.target.value);
   };
-  const [buttonDisabled, setbuttonDisabled] = React.useState<boolean>(false);
+  const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+  const handlePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPhone(Number(e.target.value));
+  };
   const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setPasswords((prevState) => ({ ...prevState, [name]: value }));
@@ -162,16 +48,17 @@ export default function SingUp() {
 
   const onClickJoin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    join(email, passwords.password1)
+    join(email, passwords.password1, name, phone)
       .then(() => {
         alert("회원가입이 완료되었습니다.");
         router.push("/login");
       })
       .catch((err) => {
-        err.code === 400
-          ? alert("이미 존재하는 이메일입니다.")
-          : alert("회원가입에 실패했습니다.");
-        console.log(err);
+        if (err.code === 400) {
+          alert("이미 존재하는 이메일입니다.");
+        } else if (err.code / 100 >= 5) {
+          alert("서버에 예상치 못한 오류가 발생했습니다. 개발자에게 문의 부탁드립니다.")
+        }
       });
   };
 
@@ -205,7 +92,7 @@ export default function SingUp() {
               autoComplete="off"
               onChange={handleCode}
               css={css`
-                width: auto;
+                width: 13em;
               `}
             />
             <span>인증번호</span>
@@ -219,7 +106,7 @@ export default function SingUp() {
               border-radius: 10px;
               color: #fff;
               font-size: 16px;
-              width: auto;
+              width: 9em;
               &:hover {
                 background-color: #6a6a6a;
               }
@@ -230,12 +117,24 @@ export default function SingUp() {
             `}
             onClick={() => {
               checkEmailCode(email, code);
-              setbuttonDisabled(true);
             }}
           >
             인증번호확인
           </button>
         </FlexContainer>
+        <Label>
+          <Input required type="name" onChange={handleName} />
+          <span>이름</span>
+        </Label>
+        <Label>
+          <Input
+            required
+            type="phone"
+            defaultValue="01000000000"
+            onChange={handlePhone}
+          />
+          <span>연락처</span>
+        </Label>
         <Label>
           <Input
             required

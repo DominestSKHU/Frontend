@@ -2,19 +2,25 @@ import React, { useState } from "react";
 import { ParcelInput, ParcelTextbox, ButtonStyle } from "@/style/parcelStyle";
 import axios from "axios";
 export default function Input(props: {
+  datalist: any;
   Token: string;
-  idname: any[];
-  name: string;
-  phone: string;
-  content: string;
-  status: string;
-  id: number;
-}) {
-  const [name, setName] = useState<string>(props.name);
-  const [phone, setPhone] = useState<string>(props.phone);
-  const [content, setContent] = useState<string>(props.content);
-  const [status, setStatus] = useState<string>(props.status);
+  idname: {
+    id: number;
 
+    type: string;
+    lastModifiedBy: string;
+    lastModifiedTime: string;
+    recipientPhoneNum: string;
+    instruction: string;
+    processState: string;
+    name: string;
+  };
+}) {
+  const [name, setName] = useState<string>(props.datalist.lastModifiedBy);
+  const [phone, setPhone] = useState<string>(props.datalist.recipientPhoneNum);
+  const [content, setContent] = useState<string>(props.datalist.instruction);
+  const [status, setStatus] = useState<string>(props.datalist.processState);
+  const [idd, setIdd] = useState<number>(props.datalist.id);
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
@@ -38,9 +44,10 @@ export default function Input(props: {
     ) {
       return alert("모든 항목을 입력해주세요.");
     } else {
+      console.log(idd);
       axios
-        .post(
-          `${process.env.NEXT_PUBLIC_API_URL}/undeliv-parcels/${props.id}}`,
+        .patch(
+          `${process.env.NEXT_PUBLIC_API_URL}/undeliv-parcels/${idd}`,
           {
             recipientName: name,
             recipientPhoneNum: phone,
@@ -55,7 +62,7 @@ export default function Input(props: {
         )
         .then((response) => {
           console.log(response.data.data);
-          alert("성공적으로 업로드 되었습니다.");
+          alert("성공적으로 수정 되었습니다.");
           window.location.reload();
         })
         .catch((error) => {
@@ -104,7 +111,7 @@ export default function Input(props: {
         </ParcelTextbox>
       </div>
       <ButtonStyle>
-        <button onClick={parcelUpload}>업로드</button>
+        <button onClick={parcelUpload}>수정</button>
       </ButtonStyle>
     </div>
   );

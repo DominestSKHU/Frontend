@@ -1,41 +1,52 @@
-import React from "react";
+/** @jsxImportSource @emotion/react */
 import Link from "next/link";
+
+import React, { useEffect, useState } from "react";
+
 import { BiUser } from "react-icons/bi";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { Container } from "@/style/login";
+import { css } from "@emotion/react";
 import { loginUtil } from "@/utils/useAuth/loginUtil";
 import "../../app/globals.css";
-import { Form } from "@/style/login";
 import { useRouter } from "next/router";
-/** @jsxImportSource @emotion/react */
+import { LoginMainForm } from "@/style/UserStyle/loginStyle";
 
 export default function Login() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const router = useRouter();
 
-  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("e.target.value", e.target.value);
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    if (authToken) {
+      router.push("/user/home");
+    }
+  }, [router]);
 
+  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
+
   const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
+
   const onLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     loginUtil(email, password)
       .then((res) => {
-        const token = res.data.data.accessToken;
+        const accessToken = res.data.data.accessToken;
+        const refreshToken = res.data.data.refreshToken;
         const username = res.data.data.username;
         const role = res.data.data.role;
 
-        localStorage.setItem("authToken", token);
+        localStorage.setItem("authToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("username", username);
         localStorage.setItem("role", role);
         alert("로그인이 완료되었습니다.");
-        router.push("/");
+        router.push("/user/home");
       })
       .catch((err) => {
         if (err.response && err.response.data) {
@@ -48,8 +59,16 @@ export default function Login() {
 
   return (
     <div>
-      <Container>
-        <Form action="" className="form_main" onSubmit={onLogin}>
+      <div
+        css={css`
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          background-color: rgb(255, 255, 255);
+        `}
+      >
+        <LoginMainForm action="" className="form_main" onSubmit={onLogin}>
           <p className="heading">Login</p>
           <div className="inputContainer">
             <BiUser />
@@ -78,8 +97,8 @@ export default function Login() {
           </button>
           <Link href="/user/signup">회원가입 하러 가기</Link>
           <Link href="/user/losePassword">비밀번호를 잃어버리셨나요?</Link>
-        </Form>
-      </Container>
+        </LoginMainForm>
+      </div>
     </div>
   );
 }

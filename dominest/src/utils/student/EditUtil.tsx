@@ -49,7 +49,7 @@ export const handleChangeUpdate = (
   setshowStudentEdituploadData(false);
   axios
     .patch(
-      `http://domidomi.duckdns.org/residents/${residentId.id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/residents/${residentId.id}`,
       residentId,
       {
         headers: {

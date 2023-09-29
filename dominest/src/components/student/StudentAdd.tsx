@@ -59,7 +59,7 @@ export default function StuendtAdd(props: { degree: string; Token: string }) {
     }
 
     axios
-      .post(`http://domidomi.duckdns.org/residents`, formData, {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/residents`, formData, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${props.Token}`,
@@ -147,7 +147,7 @@ export default function StuendtAdd(props: { degree: string; Token: string }) {
                 <input
                   type="text"
                   onChange={(e) => handleInputChange(e, "major")}
-                />  
+                />
               </td>
               <td>
                 <input

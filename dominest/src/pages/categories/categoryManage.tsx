@@ -1,4 +1,3 @@
-"use client";
 import Navbar from "@/components/AdminNavbar";
 import {
   formStyle,
@@ -17,14 +16,14 @@ import { BsList } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import { IoIosRemove } from "react-icons/io";
 import { RxDividerVertical } from "react-icons/rx";
-import React, { ChangeEvent, FC, useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { ReactSortable } from "react-sortablejs";
 import { css, Global } from "@emotion/react";
 import {
   deleteCategory,
   getCategory,
   postCategory,
-} from "@/utils/category/category";
+} from "@/utils/cateogry/categoryUtil";
 /** @jsxImportSource @emotion/react */
 
 export const globalStyles = css`
@@ -44,18 +43,27 @@ export const globalStyles = css`
   }
 `;
 
-interface CategoryPlusBoxProps {
-  id: number;
-  name: string;
-  type: string;
+interface CategoryPlusProps {
+  categoryName: string;
+  categoryType: string;
   explanation: string;
 }
 
-const CategoryManage = () => {
+interface CategoryProps {
+  id: number;
+  orderKey: number;
+  name: string;
+  type: string;
+  explanation: string;
+  categoryLink: string;
+}
+
+const categoryManage = () => {
   const router = useRouter();
-  const [category, setCategory] = useState<CategoryPlusBoxProps[]>([]);
-  const [authToken, setAuthToken] = useState<string>("");
+  const [category, setCategory] = useState<CategoryProps[]>([]);
   const [total, setTotal] = useState<number>(0);
+  const [addCategory, setAddCategory] = useState<CategoryPlusProps[]>([]);
+  const [authToken, setAuthToken] = useState<string>("");
 
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
@@ -65,32 +73,35 @@ const CategoryManage = () => {
     }
   }, []);
 
-  useEffect(() => {
-    console.log(category);
-  }, [category]);
+  // useEffect(() => {
+  //   console.log(category);
+  // }, [category]);
 
   useEffect(() => {
     getCategory(authToken)
       .then((res) => {
         setCategory(res.data.data.categories);
+        //카테고리 그대로 저장
         setTotal(res.data.data.categories.length);
       })
       .catch((err) => console.log(err));
   }, []);
 
-  const handleAddCategory = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    const newCategoryId = total + 1; // 임의로 아이디 생성, 필요에 따라 변경 가능
-    const newCategory = {
-      id: newCategoryId,
-      name: "",
-      type: "",
-      explanation: "",
-    };
+  // const handleAddCategory = (e: { preventDefault: () => void }) => {
+  //   e.preventDefault();
+  //   const newCategoryId =  // 임의로 아이디 생성, 필요에 따라 변경 가능
+  //   const newCategory = {
+  //     id: total + 1;
+  //     orderKey: indexOf(newCategoryId);
+  //     name: string;
+  //     type: string;
+  //     explanation: string;
+  //     categoryLink: string;
+  //   };
 
-    setCategory((prevCategory) => [...prevCategory, newCategory]);
-    setTotal((prevTotal) => prevTotal + 1);
-  };
+  //   setCategory((prevCategory) => [...prevCategory, newCategory]);
+  //   setTotal((prevTotal) => prevTotal + 1);
+  // };
 
   const deleteInput = (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -117,14 +128,14 @@ const CategoryManage = () => {
 
     postCategory(authToken, category).then(() => {
       alert("카테고리 저장 성공:");
-      router.push("/categories/categoryManage");
+      router.push("/categoryManage");
     });
   };
 
   return (
     <>
       <Global styles={globalStyles} />
-      <Navbar page="카테고리 관리" />
+      <Navbar page={""} />
       <div className="mainBox">
         <form css={formStyle}>
           <h2
@@ -295,7 +306,7 @@ const CategoryManage = () => {
                       display: flex;
                       align-items: center;
                     `}
-                    onClick={handleAddCategory}
+                    // onClick={handleAddCategory}
                   >
                     <AiOutlinePlus />
                     <span
@@ -325,4 +336,4 @@ const CategoryManage = () => {
     </>
   );
 };
-export default CategoryManage;
+export default categoryManage;

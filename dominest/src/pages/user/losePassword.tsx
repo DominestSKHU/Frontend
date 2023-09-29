@@ -1,5 +1,8 @@
 import { css } from "@emotion/react";
 import Link from "next/link";
+import { passwordResetEmail, tempPassword } from "@/utils/useAuth/loginUtil";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 /** @jsxImportSource @emotion/react */
 
 const body = css`
@@ -108,6 +111,32 @@ const signupLinkText = css`
   font-weight: 400;
 `;
 export default function losePassword() {
+  const [email, setEmail] = useState<string>("");
+  const router = useRouter();
+  useEffect(() => {
+    console.log(email);
+  }, [email]);
+  const passwordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    console.log("passwordSubmit");
+
+    e.preventDefault();
+
+    tempPassword(email)
+      .then((res) => {
+        console.log(res);
+        alert("새로운 비밀번호가 전송되었습니다.");
+        router.push("/user/login");
+      })
+      .catch((err) => {
+
+        if (err.response.statusCode&&404) {
+          alert("존재하지 않는 이메일입니다.");
+
+        } else {
+          alert("오류가 발생하였습니다.");
+        }
+      });
+  };
   return (
     <div css={body}>
       <div css={formContainer} className="form-container">
@@ -115,7 +144,7 @@ export default function losePassword() {
           비밀번호 재발급하기
         </div>
 
-        <form css={form} className="form">
+        <form onSubmit={passwordSubmit} css={form} className="form">
           <div css={formGroup} className="form-group">
             <label css={formGroupLabel} htmlFor="email">
               Email
@@ -126,10 +155,13 @@ export default function losePassword() {
               id="email"
               name="email"
               placeholder="이메일을 작성해주세요"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
             />
           </div>
 
-          <button css={formSubmitBtn} className="form-submit-btn" type="submit">
+          <button css={formSubmitBtn} onClick={()=>passwordResetEmail(email)} className="form-submit-btn" type="submit">
             새로운 비밀번호 요청
           </button>
         </form>
@@ -139,7 +171,7 @@ export default function losePassword() {
           <br />
           <Link
             css={[link, signupLinkText]}
-            href="/signup"
+            href="/user/signup"
             className="signup-link link"
           >
             회원가입 하러 가기

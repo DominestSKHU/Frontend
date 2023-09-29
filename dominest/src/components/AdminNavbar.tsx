@@ -15,7 +15,7 @@ import { startList, startSelect } from "@/utils/navbar/favorites";
 import { categoriesList } from "@/utils/navbar/categoriesList";
 /** @jsxImportSource @emotion/react */
 
-const Navber = (props: { page: string }) => {
+const Navbar = (props: { page: string }) => {
   const { Name, Role, Token } = useNavbar();
   const [FavoritesList, setFavoritesList] = React.useState<any[]>([]);
   const [Catago, setCatago] = React.useState<any[]>([]);
@@ -23,7 +23,7 @@ const Navber = (props: { page: string }) => {
   //즐겨찾기 목록
   useEffect(() => {
     const favoritesData = async () => {
-      const favorites = await startList(Token);
+      const favorites = await startList();
 
       setFavoritesList(favorites);
     };
@@ -40,7 +40,7 @@ const Navber = (props: { page: string }) => {
   //카테고리 전체 조회
   useEffect(() => {
     const fetchData = async () => {
-      const favorites = await startList(Token);
+      const favorites = await startList();
       setFavoritesList(favorites);
     };
 
@@ -48,7 +48,7 @@ const Navber = (props: { page: string }) => {
   }, [Token]);
   return (
     <NavStyle>
-      <Link className="Link" href="/">
+      <Link className="Link" href="/user/home">
         <h1>Dominest</h1>
       </Link>
 
@@ -71,7 +71,7 @@ const Navber = (props: { page: string }) => {
             </NavItem>
           </li>
           <li>
-            <p>관리 목록</p>
+            <p>학생 정보관리</p>
 
             <NavItem>
               <li>
@@ -81,13 +81,13 @@ const Navber = (props: { page: string }) => {
                 <CiStar size={20} />
               </li>
               <li>
-                <Link href="/admissionform" className="Link">
+                <Link href="/pdf/admissionform" className="Link">
                   <span>입관신청서</span>
                 </Link>
                 <CiStar size={20} />
               </li>
               <li>
-                <Link href="/departureform" className="Link">
+                <Link href="/pdf/departureform" className="Link">
                   <span>퇴관신청서</span>
                 </Link>
                 <CiStar size={20} />
@@ -101,7 +101,7 @@ const Navber = (props: { page: string }) => {
             </NavItem>
           </li>
           <li>
-            <p>근로생 목록</p>
+            <p>주요 근로 목록</p>
 
             <NavItem>
               {Catago.map((categories) => (
@@ -167,4 +167,4 @@ const Navber = (props: { page: string }) => {
   );
 };
 
-export default Navber;
+export default Navbar;

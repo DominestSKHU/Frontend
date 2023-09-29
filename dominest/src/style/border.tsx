@@ -18,6 +18,14 @@ export const Container = styled.div`
   }
 `;
 
+export const ContainerComplainEdit = styled.div`
+  width: 100%;
+  margin: 0 auto;
+
+  background-color: #f5f5f5;
+  border: 1px solid #e5e5e5;
+`;
+
 export const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
