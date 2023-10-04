@@ -45,7 +45,7 @@ const AddSchedule = ({ token, onClose }: any) => {
     setEndTime(`${parseInt(startTime) + 1}`);
     console.log(endTime);
   }, [startTime]);
-
+  
   const addScheduleWorker = () => {
     const timeSlot = `${startTime}:00 ~ ${endTime}:00`;
 
