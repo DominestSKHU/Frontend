@@ -165,7 +165,7 @@ export default function signup() {
           회원가입
         </SubmitButton>
         <Signin>
-          이미 계정이 있습니까? <Link href="/login">로그인</Link>
+          이미 계정이 있습니까? <Link href="/user/login">로그인</Link>
         </Signin>
       </Form>
     </div>
