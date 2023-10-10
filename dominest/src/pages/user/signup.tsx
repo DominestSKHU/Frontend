@@ -14,12 +14,22 @@ import { css } from "@emotion/react";
 import { sendEmail, checkEmailCode, join } from "@/utils/useAuth/signFcUtil";
 import { useRouter } from "next/router";
 import { authConfirm } from "@/style/UserStyle/signStyle";
-import { globalMain } from "@/style/globalStyle/globalStyle";
+import { errorText, globalMain } from "@/style/globalStyle/globalStyle";
 /** @jsxImportSource @emotion/react */
 
 export default function signup() {
   const router = useRouter();
   const [email, setEmail] = React.useState<string>("");
+  const [isCodeValid, setIsCodeValid] = React.useState<boolean>(false);
+
+  const handleCodeValid = () => {
+    sendEmail(email);
+    setIsCodeValid(true);
+    setTimeout(() => {
+      setIsCodeValid(false);
+    }, 10000);
+  };
+
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -77,9 +87,18 @@ export default function signup() {
         {!isEmailValid(email) && email !== "" && (
           <p css={passwordError}>올바른 이메일 형식으로 작성해주세요.</p>
         )}
-        <SubmitButton type="button" onClick={() => sendEmail(email)}>
+        <SubmitButton
+          type="button"
+          onClick={() => {
+            if (!isCodeValid) {
+              handleCodeValid();
+            }
+          }}
+          disabled={isCodeValid}
+        >
           인증번호 전송
         </SubmitButton>
+        {isCodeValid && (<div css={errorText}>10초 동안 이메일을 전송하실 수 없습니다.</div>)}
         <FlexContainer>
           <Label>
             <Input

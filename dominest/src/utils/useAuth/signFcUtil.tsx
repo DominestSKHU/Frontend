@@ -10,7 +10,7 @@ export const sendEmail = (email: string) => {
         .then((res) => {
           alert("인증번호가 전송되었습니다.");
         })
-        .catch((err) => console.log(err));
+        .catch((err) => alert("이메일을 다시 확인해주세요"));
 };
 // 이메일 인증번호 정송 api
 
