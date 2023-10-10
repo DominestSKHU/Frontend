@@ -13,6 +13,8 @@ import React from "react";
 import { css } from "@emotion/react";
 import { sendEmail, checkEmailCode, join } from "@/utils/useAuth/signFcUtil";
 import { useRouter } from "next/router";
+import { authConfirm } from "@/style/UserStyle/signStyle";
+import { globalMain } from "@/style/globalStyle/globalStyle";
 /** @jsxImportSource @emotion/react */
 
 export default function signup() {
@@ -57,21 +59,15 @@ export default function signup() {
         if (err.code === 400) {
           alert("이미 존재하는 이메일입니다.");
         } else if (err.code / 100 >= 5) {
-          alert("서버에 예상치 못한 오류가 발생했습니다. 개발자에게 문의 부탁드립니다.")
+          alert(
+            "서버에 예상치 못한 오류가 발생했습니다. 개발자에게 문의 부탁드립니다."
+          );
         }
       });
   };
 
   return (
-    <div
-      css={css`
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: rgb(255, 255, 255);
-      `}
-    >
+    <div css={globalMain}>
       <Form onSubmit={onClickJoin}>
         <Title>회원가입</Title>
         <Label>
@@ -81,7 +77,7 @@ export default function signup() {
         {!isEmailValid(email) && email !== "" && (
           <p css={passwordError}>올바른 이메일 형식으로 작성해주세요.</p>
         )}
-        <SubmitButton onClick={() => sendEmail(email)}>
+        <SubmitButton type="button" onClick={() => sendEmail(email)}>
           인증번호 전송
         </SubmitButton>
         <FlexContainer>
@@ -98,23 +94,8 @@ export default function signup() {
             <span>인증번호</span>
           </Label>
           <button
-            css={css`
-              border: none;
-              outline: none;
-              background-color: #848484;
-              padding: 10px;
-              border-radius: 10px;
-              color: #fff;
-              font-size: 16px;
-              width: 9em;
-              &:hover {
-                background-color: #6a6a6a;
-              }
-              &:buttondisabled {
-                background-color: #ccc;
-                cursor: not-allowed;
-              }
-            `}
+            css={authConfirm}
+            type="button"
             onClick={() => {
               checkEmailCode(email, code);
             }}
@@ -127,12 +108,7 @@ export default function signup() {
           <span>이름</span>
         </Label>
         <Label>
-          <Input
-            required
-            type="phone"
-            defaultValue="01000000000"
-            onChange={handlePhone}
-          />
+          <Input required type="phone" onChange={handlePhone} />
           <span>연락처</span>
         </Label>
         <Label>
