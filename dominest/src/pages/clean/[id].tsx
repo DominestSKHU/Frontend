@@ -69,16 +69,16 @@ export default function CleanFloorList() {
   }, [idname]);
 
   const download = (downloadid: number) => {
-    const url = `https://domidomi.duckdns.org/posts/sanitation-check/${downloadid}/xlsx-all-data`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/posts/sanitation-check/${downloadid}/xlsx-all-data`;
     window.open(url);
   };
   const badDownload = (downloadid: number) => {
-    const url = `https://domidomi.duckdns.org/posts/sanitation-check/${downloadid}/xlsx-penalty-residents`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/posts/sanitation-check/${downloadid}/xlsx-penalty-residents`;
     window.open(url);
   };
 
   const badCounterDownload = (downloadid: number, counter: string) => {
-    const url = `https://domidomi.duckdns.org/posts/sanitation-check/${downloadid}/xlsx-residents?passState=${counter}`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/posts/sanitation-check/${downloadid}/xlsx-residents?passState=${counter}`;
     window.open(url);
   };
 
