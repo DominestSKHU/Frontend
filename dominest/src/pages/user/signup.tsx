@@ -27,7 +27,7 @@ export default function signup() {
     setIsCodeValid(true);
     setTimeout(() => {
       setIsCodeValid(false);
-    }, 10000);
+    }, 30000);
   };
 
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {

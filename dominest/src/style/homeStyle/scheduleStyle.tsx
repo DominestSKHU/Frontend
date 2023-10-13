@@ -18,7 +18,7 @@ export const ScheduleTable = styled.table`
     text-align: center;
     width: 2.5rem;
     height: fit-content;
-}
+  }
 `;
 export const ScheduleInput = css`
   width: 96%;
@@ -103,4 +103,15 @@ export const AddScheduleTitle = styled.div`
   font-size: 1.3rem;
   text-align: center;
   margin-bottom: 0.5rem;
+`;
+
+export const studentLi = css`
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+`;
+export const studentUl = css`
+  padding: 0;
+  list-style: none;
 `;

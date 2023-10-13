@@ -9,7 +9,7 @@ export const TodoUl = css`
   width: 90%;
   height: fit-content;
   max-height: 24rem;
-  overflow: scroll;
+  overflow-y: scroll;
 `;
 export const TodoInput = css`
   margin: 1rem 0 0 0;
@@ -103,7 +103,7 @@ export const TodoListUl = styled.ul`
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: scroll;
+  overflow-y: scroll;
 `;
 
 export const TodoListLi = styled.li`
@@ -153,7 +153,7 @@ export const ScheduleDiv = styled.div`
   border-radius: 15px;
   border: 2px solid #ddd;
   box-shadow: 0px 1px 5px gray;
-  overflow: scroll;
+  overflow-y: scroll;
 `;
 
 export const TodoDiv = styled(ScheduleDiv)`
@@ -171,7 +171,7 @@ export const FixedDiv = styled(ScheduleDiv)`
 export const CalenderDiv = styled(ScheduleDiv)`
   width: 42vw;
   margin-right: 20px;
-  overflow: scroll;
+  overflow-y: scroll;
 `;
 
 export const homeMainDiv = css`

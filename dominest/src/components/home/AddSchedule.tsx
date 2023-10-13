@@ -52,6 +52,7 @@ const AddSchedule = ({ token, onClose }: any) => {
     schedulePost(token, dateChose, timeSlot, studentName)
       .then((result) => {
         console.log(result);
+        router.reload();
       })
       .catch((err) => {
         console.log(err);
