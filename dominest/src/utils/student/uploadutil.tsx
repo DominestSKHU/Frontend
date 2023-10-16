@@ -12,18 +12,22 @@ export const handleUpload = (
     formData.append("residenceSemester", degree);
 
     axios
-      .post("http://domidomi.duckdns.org/residents/upload-excel", formData, {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      })
+      .post(
+        `${process.env.NEXT_PUBLIC_API_URL}/residents/upload-excel`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      )
       .then((response) => {
         setShowStudentDate(true);
-        return alert("성공적으로 업로드 되었습니다.");
+        alert("성공적으로 업로드 되었습니다.");
+        return window.location.reload();
       })
       .catch((error) => {
-        console.log(error);
-
+        console.log("엑셀 업로드", error);
         if (
           error.response.data.errorMessage ===
           "읽어들인 컬럼 개수가 21개가 아닙니다."
@@ -42,25 +46,32 @@ export const handleUpload = (
 
 //data 삭제 함수
 export const delet = (authToken: string) => {
-  axios
-    .delete("http://domidomi.duckdns.org/residents", {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    })
-    .then((response) => {
-      console.log("요청이 성공적으로 전송되었습니다.");
-      return alert("삭제되었습니다.");
-    })
-    .catch((error) => {
-      console.error("요청 전송 중 오류가 발생했습니다:", error);
-    });
+  if (confirm("정말 삭제하시겠습니까??") == true) {
+    axios
+      .delete(`${process.env.NEXT_PUBLIC_API_URL}/residents`, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      })
+      .then((response) => {
+        console.log("요청이 성공적으로 전송되었습니다.");
+        return alert("삭제되었습니다.");
+      })
+      .catch((error) => {
+        console.error("요청 전송 중 오류가 발생했습니다:", error);
+      });
+  } else {
+    //취소
+    return false;
+  }
 };
 
 //data 차수조회
 export const fetchData = (degree: string, setData: any) => {
   axios
-    .get(`http://domidomi.duckdns.org/residents?residenceSemester=${degree}`)
+    .get(
+      `${process.env.NEXT_PUBLIC_API_URL}/residents?residenceSemester=${degree}`
+    )
     .then((response) => {
       setData(response.data?.data?.residents);
       console.log(setData);
@@ -75,13 +86,14 @@ export const fetchData = (degree: string, setData: any) => {
 //삭제
 export const StudentDelete = (id: number, authToken: string) => {
   axios
-    .delete(`http://domidomi.duckdns.org/residents/${id}`, {
+    .delete(`${process.env.NEXT_PUBLIC_API_URL}/residents/${id}`, {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
     })
     .then((response) => {
       return alert("삭제를 성공했습니다.");
+      window.location.reload();
     })
     .catch((error) => {
       console.error("데이터 조회 중 오류 발생:", error);

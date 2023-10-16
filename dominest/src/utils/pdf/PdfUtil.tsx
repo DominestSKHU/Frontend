@@ -14,7 +14,7 @@ export const handleUpload = (
     formData.append("pdfType", chosenFormType);
   }
   axios
-    .post("http://domidomi.duckdns.org/residents/pdf", formData, {
+    .post(`${process.env.NEXT_PUBLIC_API_URL}/residents/pdf`, formData, {
       headers: {
         Authorization: `Bearer ${Token}`,
       },

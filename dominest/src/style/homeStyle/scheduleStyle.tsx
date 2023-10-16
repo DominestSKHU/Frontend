@@ -9,6 +9,7 @@ export const ScheduleTable = styled.table`
   & th {
     border: 1px solid black;
     padding: 1%;
+    text-align: center;
   }
   & td {
     border: 1px solid black;
@@ -68,13 +69,13 @@ export const ScheduleAddBtn = styled(ScheduleCommitBtn)`
 `;
 export const AddScheduleMain = styled.div`
   background-color: whitesmoke;
-  width: 24vw;
-  height: 22vh;
+  width: 22vw;
+  height: 28vh;
   padding: 1% 2% 2% 2%;
   display: flex;
   align-items: center;
   position: absolute;
-  top: 22%;
+  top: 20%;
   left: 15%;
   flex-direction: column;
   border-radius: 15px;

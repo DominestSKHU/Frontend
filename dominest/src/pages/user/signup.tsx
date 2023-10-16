@@ -54,16 +54,13 @@ export default function signup() {
         router.push("/login");
       })
       .catch((err) => {
-        err.code === 400
-          ? alert("이미 존재하는 이메일입니다.")
-          : alert("회원가입에 실패했습니다.");
-        console.log(err);
+        if (err.code === 400) {
+          alert("이미 존재하는 이메일입니다.");
+        } else if (err.code / 100 >= 5) {
+          alert("서버에 예상치 못한 오류가 발생했습니다. 개발자에게 문의 부탁드립니다.")
+        }
       });
   };
-
-  function setbuttonDisabled(arg0: boolean) {
-    throw new Error("Function not implemented.");
-  }
 
   return (
     <div
@@ -120,7 +117,6 @@ export default function signup() {
             `}
             onClick={() => {
               checkEmailCode(email, code);
-              setbuttonDisabled(true);
             }}
           >
             인증번호확인

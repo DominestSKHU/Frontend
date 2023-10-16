@@ -43,18 +43,27 @@ export const globalStyles = css`
   }
 `;
 
-interface CategoryPlusBoxProps {
+interface CategoryPlusProps {
+  categoryName: string;
+  categoryType: string;
+  explanation: string;
+}
+
+interface CategoryProps {
   id: number;
+  orderKey: number;
   name: string;
   type: string;
   explanation: string;
+  categoryLink: string;
 }
 
 const categoryManage = () => {
   const router = useRouter();
-  const [category, setCategory] = useState<CategoryPlusBoxProps[]>([]);
-  const [authToken, setAuthToken] = useState<string>("");
+  const [category, setCategory] = useState<CategoryProps[]>([]);
   const [total, setTotal] = useState<number>(0);
+  const [addCategory, setAddCategory] = useState<CategoryPlusProps[]>([]);
+  const [authToken, setAuthToken] = useState<string>("");
 
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
@@ -64,32 +73,35 @@ const categoryManage = () => {
     }
   }, []);
 
-  useEffect(() => {
-    console.log(category);
-  }, [category]);
+  // useEffect(() => {
+  //   console.log(category);
+  // }, [category]);
 
   useEffect(() => {
     getCategory(authToken)
       .then((res) => {
         setCategory(res.data.data.categories);
+        //카테고리 그대로 저장
         setTotal(res.data.data.categories.length);
       })
       .catch((err) => console.log(err));
   }, []);
 
-  const handleAddCategory = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    const newCategoryId = total + 1; // 임의로 아이디 생성, 필요에 따라 변경 가능
-    const newCategory = {
-      id: newCategoryId,
-      name: "",
-      type: "",
-      explanation: "",
-    };
+  // const handleAddCategory = (e: { preventDefault: () => void }) => {
+  //   e.preventDefault();
+  //   const newCategoryId =  // 임의로 아이디 생성, 필요에 따라 변경 가능
+  //   const newCategory = {
+  //     id: total + 1;
+  //     orderKey: indexOf(newCategoryId);
+  //     name: string;
+  //     type: string;
+  //     explanation: string;
+  //     categoryLink: string;
+  //   };
 
-    setCategory((prevCategory) => [...prevCategory, newCategory]);
-    setTotal((prevTotal) => prevTotal + 1);
-  };
+  //   setCategory((prevCategory) => [...prevCategory, newCategory]);
+  //   setTotal((prevTotal) => prevTotal + 1);
+  // };
 
   const deleteInput = (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -294,7 +306,7 @@ const categoryManage = () => {
                       display: flex;
                       align-items: center;
                     `}
-                    onClick={handleAddCategory}
+                    // onClick={handleAddCategory}
                   >
                     <AiOutlinePlus />
                     <span

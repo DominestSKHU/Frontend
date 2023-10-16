@@ -66,7 +66,7 @@ export default function Complaints(props: any) {
               <option value="전체 조회">전체 조회</option>
               <option value="민원 조회">민원 조회</option>
               <option value="호실 조회">호실 조회</option>
-              <option value="처리 조회">처리 조회</option>
+              {/* <option value="처리 조회">처리 조회</option>*/}
             </select>
             {status === "전체 조회" ? (
               <div></div>
@@ -84,9 +84,7 @@ export default function Complaints(props: any) {
                 <option value="처리완료">처리완료</option>
               </select>
             )}
-            {status === "민원 조회" && (
-              <button onClick={complainsearch}>조회</button>
-            )}
+
             <Link href={urlLink}>
               <button>추가</button>
             </Link>
@@ -96,7 +94,7 @@ export default function Complaints(props: any) {
 
       {status === "전체 조회" && <ComplainList idname={props.idname[0]} />}
       {status === "민원 조회" && serch !== "" && (
-        <ComplainText idname={props.idname[0]} serchresult={serchresult} />
+        <ComplainText idname={props.idname[0]} serch={serch} />
       )}
       {selectedRoom !== 0 && status === "호실 조회" && (
         <Container>

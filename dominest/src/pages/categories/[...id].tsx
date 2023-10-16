@@ -7,6 +7,7 @@ import Img from "@/components/categories/Img";
 import Parcellest from "@/components/categories/Parcel";
 import Complaints from "@/components/categories/Complain";
 import Cd_Key from "@/components/categories/Cd-Key";
+import Cleaning from "@/components/categories/Cleaning";
 
 export default function ImgBoard() {
   const router = useRouter();
@@ -40,6 +41,12 @@ export default function ImgBoard() {
       {typeof idname === "object" &&
         idname.length > 2 &&
         idname[2] === "card-key" && <Cd_Key idname={idname} Token={Token} />}
+
+      {typeof idname === "object" &&
+        idname.length > 2 &&
+        idname[2] === "sanitation-check" && (
+          <Cleaning idname={idname} Token={Token} />
+        )}
     </div>
   );
 }

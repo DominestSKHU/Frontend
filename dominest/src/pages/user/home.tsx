@@ -17,9 +17,9 @@ const Home: React.FC = () => {
       <div css={homeMainDiv}>
         <Schedule />
         <CalendarComponent />
-        <RecentPosts />
-        <TodoList />
       </div>
+      {/*<RecentPosts />*/}
+      <TodoList />
     </>
   );
 };

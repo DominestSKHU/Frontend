@@ -3,100 +3,151 @@ import { EmotionJSX } from "@emotion/react/types/jsx-namespace";
 import {
   TodoDiv,
   TodoInput,
-  TodoInputform,
-  TodoLi,
   TodoListBtnFalse,
   TodoListBtnTrue,
+  TodoTaskLi,
   TodoUl,
-  datePickerStyle,
 } from "@/style/homeStyle/DivStyle";
 import React, { useEffect, useState } from "react";
-import { BsTrash3 } from "react-icons/bs";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import { css } from "@emotion/react";
+import {
+  postTodoList,
+  todoListGet,
+  updateTodoList,
+} from "@/utils/home/todoListUtils";
+import router from "next/router";
+import { AnnounceForm, RecieverSelect } from "@/style/homeStyle/calendar";
+import { student } from "./Schedule";
 
 interface TodoListProps {
-  id: number;
-  value: string;
-  checked: boolean;
+  task: string;
+  receiveRequest: string;
+}
+interface GetTodoListProps {
+  todoId: number;
+  date: string;
+  task: string;
+  userName: string;
+  receiveRequest: string;
+  checkYn: boolean;
 }
 
 const TodoList: () => EmotionJSX.Element = () => {
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
-  const promTodoList = [{ id: 1, value: "할일", checked: false }];
-  const [todolist, setTodoList] = useState<TodoListProps[]>(promTodoList);
+  const [token, setToken] = useState<string>("");
+  const [receiveRequest, setReceiveRequest] = useState<string>("");
   const [todo, setTodo] = useState<TodoListProps>({
-    id: 0,
-    value: "",
-    checked: false,
+    task: "",
+    receiveRequest: receiveRequest,
   });
+  const [todolist, setTodoList] = useState<GetTodoListProps[]>([]);
 
-  const todolength = todolist.length;
-  //이부분 수정해야함 백이 보내주는거 보고
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    authToken && setToken(authToken);
+  }, []);
+
+  useEffect(() => {
+    todoListGet(token)
+      .then((res) => {
+        setTodoList(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [token, todo, receiveRequest]);
 
   const onChangeTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTodo({
-      id: todolength + 1,
-      value: e.target.value,
-      checked: false,
+      task: e.target.value,
+      receiveRequest: receiveRequest,
     });
   };
-  const onClickTodo = (item: TodoListProps) => () => {
+
+  const onClickReciever = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setTodo({
+      task: todo.task,
+      receiveRequest: e.target.value,
+    });
+  };
+
+  const onClickTodo = (item: GetTodoListProps) => () => {
     const newTodoList = todolist.map((todo) => {
-      if (todo.id === item.id) {
-        return { ...todo, checked: !todo.checked };
+      if (todo.todoId === item.todoId) {
+        return { ...todo, checkYn: !todo.checkYn };
       }
       return todo;
     });
     setTodoList(newTodoList);
+
+    item.checkYn = !item.checkYn;
+    updateTodoList(token, item.todoId, item.checkYn)
+      .then((resopn) => {
+        console.log(resopn);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
+
   const addTodoList = (
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
-    setTodoList([...todolist, todo]);
-    setTodo({ id: 0, value: "", checked: false });
+    postTodoList(token, todo.task, todo.receiveRequest)
+      .then((res) => {
+        alert("추가되었습니다.");
+        setTodoList([...todolist, res.data]);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        router.push("/user/home");
+      });
+    setTodo({ task: "", receiveRequest: receiveRequest });
   };
-  const deleteTodoList = (item: TodoListProps) => () => {
-    const newTodoList = todolist.filter((todo) => todo.id !== item.id);
-    setTodoList(newTodoList);
-  };
+
+  // const deleteTodoList = (item: TodoListProps) => () => {
+  //   const newTodoList = todolist.filter((todo) => todo.id !== item.id);
+  //   setTodoList(newTodoList);
+  // };
+  // 아직 삭제 기능 구현 안되어서 추후에 추가 예정
 
   return (
     <TodoDiv>
-      <DatePicker
-        css={datePickerStyle}
-        dateFormat="yyyy.MM.dd"
-        shouldCloseOnSelect
-        selected={startDate}
-        onChange={(date: Date | null) => setStartDate(date)}
-        className="datePicker"
-      />
-      <form onSubmit={addTodoList} css={TodoInputform}>
+      <form onSubmit={addTodoList} css={AnnounceForm}>
         <input
           type="text"
           placeholder="내용을 입력해주세요"
           css={TodoInput}
-          value={todo.value}
+          value={todo.task}
           onChange={onChangeTodo}
         />
+        <RecieverSelect onChange={onClickReciever}>
+          {student.map((student) => (
+            <option key={student.id} value={student.name}>
+              {student.name}
+            </option>
+          ))}
+        </RecieverSelect>
         <input type="submit" className="todoAdd" value="추가" />
       </form>
       <ul className="todoListUl" css={TodoUl}>
         {todolist.map((item) => (
-          <li css={TodoLi} key={item.id}>
+          <li css={TodoTaskLi} key={item.todoId}>
             <button
-              value={item.value}
+              value={item.task}
               onClick={onClickTodo(item)}
               css={
-                item.checked ? { ...TodoListBtnTrue } : { ...TodoListBtnFalse }
+                item.checkYn ? { ...TodoListBtnTrue } : { ...TodoListBtnFalse }
               }
             >
-              {item.value}
+              <span>{item.task}</span>
+              <span>{item.receiveRequest}</span>
             </button>
-            <button
+            {/* <button
               className="todoDelete"
               css={css`
                 background-color: white;
@@ -106,7 +157,8 @@ const TodoList: () => EmotionJSX.Element = () => {
               onClick={deleteTodoList(item)}
             >
               <BsTrash3 size={30} />
-            </button>
+            </button> */}
+            {/* 삭제 기능 아직 구현 안되어서 추후에 추가 예정 */}
           </li>
         ))}
       </ul>
