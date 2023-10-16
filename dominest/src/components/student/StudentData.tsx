@@ -90,21 +90,3 @@ export default function StudentData(props: { degree: string; Token: string }) {
 
   return <div>{renderTable()}</div>;
 }
-const tableStyle = css`
-  border-collapse: collapse;
-  width: 250%;
-
-  th,
-  td {
-    padding: 5px;
-    input {
-      border-round: 0px;
-      text-align: center;
-      border: none;
-      background-color: white;
-      width: 100%;
-      padding: 0;
-      margin: 0;
-    }
-  }
-`;

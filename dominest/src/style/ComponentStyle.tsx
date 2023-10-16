@@ -204,14 +204,12 @@ export const ComponentTable = styled.table`
 export const StudentDataTable = styled.table`
   border-collapse: collapse;
   width: 100%;
-  margin-left: 30%;
-  margin-top: 522%;
 
   td,
   th {
     border: 1px solid #dddddd;
     text-align: center;
-    padding: 8px;
+    padding: 10px;
     white-space: nowrap;
   }
   button {
