@@ -67,14 +67,12 @@ const CalendarComponent = () => {
   };
   const [momentValuedate, setMomentValueDate] = useState<Moment>(moment());
 
-  useEffect(() => {
-    setMomentValueDate(moment());
-  }, []);
 
   useEffect(() => {
     const date = momentValue.format("YYYY-MM-DD");
     setDate(date);
     getCalenderList(momentValuedate.toDate());
+    console.log(momentValuedate);
   }, [momentValuedate]);
 
   const addAnnounce = (e: React.FormEvent<HTMLFormElement>) => {
@@ -110,11 +108,22 @@ const CalendarComponent = () => {
           value={value}
           locale="ko"
           onClickDay={getCalenderList}
+          // onClickMonth={} 이 속성으로 달마다 조회해서 일정 있으면 커스텀 하는 것이 좋아보임
         />
-        <DateDiv className="text-gray-500 mt-4">
-          {momentValue.format("YYYY년 MM월 DD일")}
-        </DateDiv>
         <TodoListDiv>
+          <DateDiv className="text-gray-500 mt-4">
+            {momentValue.format("YYYY년 MM월 DD일")}
+          </DateDiv>
+          <form css={AnnounceForm} onSubmit={addAnnounce}>
+            <input
+              type="text"
+              placeholder="일정을 추가해주세요"
+              css={AnnounceInput}
+              value={announce}
+              onChange={onChangeAnnounce}
+            />
+            <input type="submit" className="todoAdd" value="추가" />
+          </form>
           <ul className="todoListUl" css={TodoUl}>
             {events.value.map((item) => (
               <li css={TodoLi} key={item.calenderId}>
@@ -134,16 +143,6 @@ const CalendarComponent = () => {
               </li>
             ))}
           </ul>
-          <form css={AnnounceForm} onSubmit={addAnnounce}>
-            <input
-              type="text"
-              placeholder="내용을 입력해주세요"
-              css={AnnounceInput}
-              value={announce}
-              onChange={onChangeAnnounce}
-            />
-            <input type="submit" className="todoAdd" value="추가" />
-          </form>
         </TodoListDiv>
       </CalendarStyle>
     </CalenderDiv>

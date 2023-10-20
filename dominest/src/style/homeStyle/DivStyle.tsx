@@ -198,10 +198,15 @@ export const datePickerStyle = css`
 export const CalendarStyle = styled.div`
   width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   & .react-calendar {
-    width: 100%;
+    width: 90%;
     height: fit-content;
-    border: 1px solid #a0a096;
+    border: 2px solid #d6d6d6;
+    box-shadow: 0px 1px 5px gray;
+    border-radius: 15px;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.125em;
     margin: 0;
@@ -218,6 +223,7 @@ export const CalendarStyle = styled.div`
     text-transform: uppercase;
     font-weight: bold;
     font-size: 1em;
+
     padding: 5px;
     abbr[title] {
       text-decoration: none;
@@ -244,7 +250,6 @@ export const CalendarStyle = styled.div`
   }
   & .react-calendar__tile--now {
     background: #727272;
-    color: white;
     border-radius: 15px;
     &:enabled:hover,
     &:enabled:focus {
