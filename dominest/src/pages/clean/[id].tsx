@@ -12,6 +12,7 @@ import "../../app/globals.css";
 import { useRouter } from "next/router";
 
 import Link from "next/link";
+
 interface Post {
   id: number;
   title: string;
@@ -61,11 +62,25 @@ export default function CleanFloorList() {
         console.error("에러 발생", error);
       }
     };
-    console.log(idname);
+
     if (idname !== undefined && idname !== null && idname !== -1) {
       fetchData();
     }
   }, [idname]);
+
+  const download = (downloadid: number) => {
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/posts/sanitation-check/${downloadid}/xlsx-all-data`;
+    window.open(url);
+  };
+  const badDownload = (downloadid: number) => {
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/posts/sanitation-check/${downloadid}/xlsx-penalty-residents`;
+    window.open(url);
+  };
+
+  const badCounterDownload = (downloadid: number, counter: string) => {
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/posts/sanitation-check/${downloadid}/xlsx-residents?passState=${counter}`;
+    window.open(url);
+  };
 
   return (
     <div>
@@ -77,6 +92,7 @@ export default function CleanFloorList() {
             <tr>
               <th>번호</th>
               <th>제목</th>
+
               <th>최종수정자</th>
               <th>삭제</th>
             </tr>
@@ -106,6 +122,78 @@ export default function CleanFloorList() {
             <tr>
               <td colSpan={5}>
                 <Link href={`/nonpass/${idname}/`}>미통과자 모음집</Link>
+              </td>
+            </tr>
+            <tr>
+              <td colSpan={5}>
+                <button onClick={() => download(Number(idname))}>
+                  전체 데이터 다운로드
+                </button>
+                <button onClick={() => badDownload(Number(idname))}>
+                  벌점 부여자 명단 다운로드
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td colSpan={5}>
+                <button
+                  onClick={() => badCounterDownload(Number(idname), "1차 통과")}
+                >
+                  1차 통과자 명단 다운로드
+                </button>
+                <button
+                  onClick={() => badCounterDownload(Number(idname), "2차 통과")}
+                >
+                  2차 통과자 명단 다운로드
+                </button>
+                <button
+                  onClick={() => badCounterDownload(Number(idname), "3차 통과")}
+                >
+                  3차 통과자 명단 다운로드
+                </button>
+                <button
+                  onClick={() => badCounterDownload(Number(idname), "4차 통과")}
+                >
+                  4차 통과자 명단 다운로드
+                </button>
+                <button
+                  onClick={() => badCounterDownload(Number(idname), "5차 통과")}
+                >
+                  5차 통과자 명단 다운로드
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td colSpan={5}>
+                <button
+                  onClick={() => badCounterDownload(Number(idname), "6차 통과")}
+                >
+                  6차 통과자 명단 다운로드
+                </button>
+                <button
+                  onClick={() => badCounterDownload(Number(idname), "7차 통과")}
+                >
+                  7차 통과자 명단 다운로드
+                </button>
+                <button
+                  onClick={() => badCounterDownload(Number(idname), "8차 통과")}
+                >
+                  8차 통과자 명단 다운로드
+                </button>
+                <button
+                  onClick={() => badCounterDownload(Number(idname), "9차 통과")}
+                >
+                  9차 통과자 명단 다운로드
+                </button>
+                <button
+                  onClick={() =>
+                    badCounterDownload(Number(idname), "10차 통과")
+                  }
+                >
+                  10차 통과자 명단 다운로드
+                </button>
               </td>
             </tr>
           </tbody>

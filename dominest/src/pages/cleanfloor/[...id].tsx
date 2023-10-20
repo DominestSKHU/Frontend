@@ -212,6 +212,32 @@ export default function CleanFloorSelect() {
       <Navbar page={"호실방역"} />
       <Container>
         <h3>방역호실점검</h3>
+        <div
+          style={{
+            margin: "10px",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <label>
+            통과
+            <input type="checkbox" checked={true} />
+          </label>
+          <label>
+            미통과
+            <input type="checkbox" checked={false} />
+          </label>
+        </div>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <p>1차 통과 벌점 0점 </p>
+          <p>2차 통과 벌점 3점</p>
+          <p>3차 통과 벌점 6점</p>
+          <p>4차 통과 벌점 9점</p>
+          <p>5차 통과 벌점 12점</p>
+          <p>6차 통과 벌점 15점</p>
+          <p>이후 3점씩 추가</p>
+        </div>
+
         <Table>
           <thead>
             <tr>
@@ -315,6 +341,11 @@ export default function CleanFloorSelect() {
                       <option value="3차 통과">3차 통과</option>
                       <option value="4차 통과">4차 통과</option>
                       <option value="5차 통과">5차 통과</option>
+                      <option value="6차 통과">6차 통과</option>
+                      <option value="7차 통과">7차 통과</option>
+                      <option value="8차 통과">8차 통과</option>
+                      <option value="9차 통과">9차 통과</option>
+                      <option value="10차 통과">10차 통과</option>
                     </select>
                   </td>
                   <td>
