@@ -70,7 +70,6 @@ const Schedule = () => {
     scheduleGet(token)
       .then((res) => {
         setData(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -214,7 +213,7 @@ const Schedule = () => {
         </StudentTable>
         <ScheduleCommitBtn onClick={addSchedule}>추가</ScheduleCommitBtn>
       </ScheduleBottom>
-      {scheduleModal && <AddSchedule token={token} onClose={handleClose} />}
+      {scheduleModal && <AddSchedule token={token} data={data} onClose={handleClose} />}
     </ScheduleDiv>
   );
 };
