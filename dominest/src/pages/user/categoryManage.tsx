@@ -27,7 +27,6 @@ import {
 /** @jsxImportSource @emotion/react */
 
 export const globalStyles = css`
-  overflow-x: hidden;
   html,
   body {
     margin: 0;
