@@ -21,7 +21,9 @@ export const handleUpload = (
     })
     .then((response) => {
       console.log("업로드 성공:", response.data);
-      return alert("업로드에 성공하였습니다.");
+      alert("업로드에 성공하였습니다.");
+      window.location.reload();
+      return;
     })
     .catch((error) => {
       console.error("업로드 실패:", error);
