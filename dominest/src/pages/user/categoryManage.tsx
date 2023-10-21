@@ -19,10 +19,15 @@ import { RxDividerVertical } from "react-icons/rx";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { ReactSortable } from "react-sortablejs";
 import { css, Global } from "@emotion/react";
-import { deleteCategory, getCategory, postCategory } from "@/utils/cateogry/categoryUtil";
+import {
+  deleteCategory,
+  getCategory,
+  postCategory,
+} from "@/utils/cateogry/categoryUtil";
 /** @jsxImportSource @emotion/react */
 
 export const globalStyles = css`
+  overflow-x: hidden;
   html,
   body {
     margin: 0;
@@ -62,8 +67,7 @@ const categoryManage = () => {
 
   useEffect(() => {
     console.log(category);
-  }
-  , [category]);
+  }, [category]);
 
   useEffect(() => {
     getCategory(authToken)
@@ -107,8 +111,6 @@ const categoryManage = () => {
         console.error("카테고리 삭제 실패:", error);
       });
   };
-
- 
 
   const saveChange = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

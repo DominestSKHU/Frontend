@@ -11,7 +11,7 @@ export default function StudentData(props: { degree: string; Token: string }) {
 
   useEffect(() => {
     fetchData(props.degree, setData);
-  }, [props.degree]);
+  }, [props.degree, data]);
 
   const renderTable = () => {
     if (data && Array.isArray(data) && data.length > 0) {
