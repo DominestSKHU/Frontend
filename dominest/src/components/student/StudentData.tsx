@@ -8,10 +8,14 @@ import "../../app/globals.css";
 
 export default function StudentData(props: { degree: string; Token: string }) {
   const [data, setData] = useState<any[]>();
+  const [degree, setDegree] = useState(props.degree);
+  useEffect(() => {
+    setDegree(props.degree);
+  }, [props.degree]);
 
   useEffect(() => {
-    fetchData(props.degree, setData);
-  }, [props.degree, data]);
+    fetchData(degree, setData);
+  }, [degree]);
 
   const renderTable = () => {
     if (data && Array.isArray(data) && data.length > 0) {
