@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import "../../app/globals.css";
 import Navbar from "@/components/AdminNavbar";
 import React, { useEffect } from "react";
 import { Global } from "@emotion/react";

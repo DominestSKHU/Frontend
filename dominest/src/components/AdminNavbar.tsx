@@ -78,25 +78,21 @@ const Navbar = (props: { page: string }) => {
                 <Link href="/infodata/studentupload" className="Link">
                   <span>학생정보 업로드</span>
                 </Link>
-                <CiStar size={20} />
               </li>
               <li>
                 <Link href="/pdf/admissionform" className="Link">
                   <span>입관신청서</span>
                 </Link>
-                <CiStar size={20} />
               </li>
               <li>
                 <Link href="/pdf/departureform" className="Link">
                   <span>퇴관신청서</span>
                 </Link>
-                <CiStar size={20} />
               </li>
               <li>
                 <Link href="/categories/categoryManage" className="Link">
                   <span>카테고리 관리</span>
                 </Link>
-                <CiStar size={20} />
               </li>
             </NavItem>
           </li>

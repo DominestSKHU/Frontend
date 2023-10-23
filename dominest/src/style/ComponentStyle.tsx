@@ -50,15 +50,21 @@ export const StudentComponent = styled.div`
   margin-right: auto;
   overflow: auto;
   width: 80%;
-  height: 500px;
-  min-height: 500px;
+  min-height: 50px;
   margin-bottom: 20px;
-  display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   border: 1px solid black;
   border-radius: 10px;
+
+  .divWidthCenter {
+    width: 100%;
+    p {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+  }
 `;
 
 export const CardKeyDiv = styled.div`
@@ -203,15 +209,13 @@ export const ComponentTable = styled.table`
 
 export const StudentDataTable = styled.table`
   border-collapse: collapse;
-  width: 100%;
-  margin-left: 30%;
-  margin-top: 522%;
+  width: auto;
 
   td,
   th {
     border: 1px solid #dddddd;
     text-align: center;
-    padding: 8px;
+    padding: 10px;
     white-space: nowrap;
   }
   button {

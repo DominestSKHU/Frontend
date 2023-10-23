@@ -67,7 +67,9 @@ export default function StuendtAdd(props: { degree: string; Token: string }) {
       })
       .then((response) => {
         console.log("유저 추가 완료:", response.data);
-        return alert("추가 완료되었습니다.");
+        alert("추가 완료되었습니다.");
+        window.location.reload();
+        return;
       })
       .catch((error) => {
         console.error("유저 수정 실패:", error);
