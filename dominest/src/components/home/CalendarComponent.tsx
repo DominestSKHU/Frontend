@@ -19,7 +19,7 @@ import {
 } from "@/style/homeStyle/calendar";
 import { css } from "@emotion/react";
 import { BsTrash3 } from "react-icons/bs";
-import { calenderGet, calenderPost } from "@/utils/home/calenderUtils";
+import { calenderDelete, calenderGet, calenderPost } from "@/utils/home/calenderUtils";
 import router from "next/router";
 import { student } from "./Schedule";
 
@@ -58,7 +58,7 @@ const CalendarComponent = () => {
     calenderGet(token, date)
       .then((res) => {
         setEvents({ date: new Date(), value: res.data });
-        console.log(res.data);
+        console.log(events);
       })
       .catch((err) => {
         alert(err.response.data.errorMessage);
@@ -66,6 +66,18 @@ const CalendarComponent = () => {
       });
   };
   const [momentValuedate, setMomentValueDate] = useState<Moment>(moment());
+
+  const deleteCalender = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    calenderDelete(token, date)
+      .catch((err) => {
+        alert(err.response.data.errorMessage);
+        setEvents({ date: new Date(), value: [] });
+      })
+      .finally(() => {
+        getCalenderList(momentValuedate.toDate());
+      });
+  }
 
 
   useEffect(() => {
@@ -130,7 +142,7 @@ const CalendarComponent = () => {
                 <button value={item.content} css={TodoListBtnFalse}>
                   {item.content}
                 </button>
-                <button
+                <button onClick={deleteCalender}
                   className="todoDelete"
                   css={css`
                     background-color: white;
