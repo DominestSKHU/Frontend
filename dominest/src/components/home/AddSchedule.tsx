@@ -13,7 +13,7 @@ import {
   backBtnDiv,
   scheduleModalCancelBtn,
 } from "@/style/homeStyle/ScheduleTableStyle";
-import { schedulePost } from "@/utils/home/scheduleUtils";
+import { scheduleGet, schedulePost } from "@/utils/home/scheduleUtils";
 import { useRouter } from "next/router";
 
 const hour = [
@@ -34,7 +34,7 @@ const days = [
   { day: "금요일", value: "fri" },
 ];
 
-const AddSchedule = ({ token, onClose }: any) => {
+const AddSchedule = ({ token, onClose, data }: any) => {
   const router = useRouter();
   const [startTime, setStartTime] = React.useState<string>("09");
   const [endTime, setEndTime] = React.useState<string>("");
@@ -45,13 +45,28 @@ const AddSchedule = ({ token, onClose }: any) => {
     setEndTime(`${parseInt(startTime) + 1}`);
     console.log(endTime);
   }, [startTime]);
-  
   const addScheduleWorker = () => {
     const timeSlot = `${startTime}:00 ~ ${endTime}:00`;
-
+    data.map((item: any) => {
+      if (item.dayOfWeek === dateChose) {
+        item.timeSlots.map((time: any) => {
+          if (time.timeSlot === timeSlot) {
+            if (time.usernames.length > 0) {
+              time.usernames.map((name: any) => {
+                if (name === studentName) {
+                  alert("이미 등록된 스케줄입니다.");
+                  router.reload();
+                }
+              });
+            }
+          }
+        });
+      }
+    });
     schedulePost(token, dateChose, timeSlot, studentName)
       .then((result) => {
         console.log(result);
+        router.reload();
       })
       .catch((err) => {
         console.log(err);

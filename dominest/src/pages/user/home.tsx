@@ -4,7 +4,7 @@ import Navbar from "@/components/AdminNavbar";
 import React, { useEffect } from "react";
 import { Global } from "@emotion/react";
 import { globalStyles } from "./categoryManage";
-import { homeMainDiv } from "@/style/homeStyle/DivStyle";
+import { TodoBox, homeMainDiv } from "@/style/homeStyle/DivStyle";
 import TodoList from "@/components/home/TodoList";
 import RecentPosts from "@/components/home/RecentPosts";
 import Schedule from "@/components/home/Schedule";
@@ -20,7 +20,9 @@ const Home: React.FC = () => {
         <CalendarComponent />
       </div>
       {/*<RecentPosts />*/}
-      <TodoList />
+      <div css={TodoBox}>
+        <TodoList />
+      </div>
     </>
   );
 };

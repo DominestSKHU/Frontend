@@ -25,3 +25,15 @@ export const calenderPost = (
     },
   });
 };
+
+export const calenderDelete = (
+  token: string,
+  date: string,
+): Promise<any> => {
+
+  return axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/calender/delete/${date}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}

@@ -10,6 +10,13 @@ export const TodoUl = css`
   width: 90%;
   height: fit-content;
   max-height: 24rem;
+  overflow-y: scroll;
+`;
+export const TodoBox = css`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
 `;
 export const TodoInput = css`
   margin: 1rem 0 0 0;
@@ -40,7 +47,6 @@ export const TodoTaskLi = css`
   ${TodoLi}
 
   & button {
-    width: 100%;
     display: flex;
     justify-content: space-between;
   }
@@ -107,7 +113,7 @@ export const TodoListUl = styled.ul`
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: scroll;
+  overflow-y: scroll;
 `;
 
 export const TodoListLi = styled.li`
@@ -203,10 +209,15 @@ export const datePickerStyle = css`
 export const CalendarStyle = styled.div`
   width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   & .react-calendar {
-    width: 100%;
+    width: 90%;
     height: fit-content;
-    border: 1px solid #a0a096;
+    border: 2px solid #d6d6d6;
+    box-shadow: 0px 1px 5px gray;
+    border-radius: 15px;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.125em;
     margin: 0;
@@ -223,6 +234,7 @@ export const CalendarStyle = styled.div`
     text-transform: uppercase;
     font-weight: bold;
     font-size: 1em;
+
     padding: 5px;
     abbr[title] {
       text-decoration: none;
@@ -249,7 +261,6 @@ export const CalendarStyle = styled.div`
   }
   & .react-calendar__tile--now {
     background: #727272;
-    color: white;
     border-radius: 15px;
     &:enabled:hover,
     &:enabled:focus {
