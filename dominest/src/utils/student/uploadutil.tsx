@@ -92,8 +92,9 @@ export const StudentDelete = (id: number, authToken: string) => {
       },
     })
     .then((response) => {
-      return alert("삭제를 성공했습니다.");
+      alert("삭제를 성공했습니다.");
       window.location.reload();
+      return;
     })
     .catch((error) => {
       console.error("데이터 조회 중 오류 발생:", error);

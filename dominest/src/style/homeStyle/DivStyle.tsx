@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 
 export const TodoUl = css`
   list-style: none;
+
   padding: 0;
   width: 90%;
   height: fit-content;
@@ -15,10 +16,12 @@ export const TodoBox = css`
   display: flex;
   justify-content: center;
   width: 100%;
+
 `;
 export const TodoInput = css`
   margin: 1rem 0 0 0;
   padding: 0.5rem;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,6 +37,7 @@ export const TodoInput = css`
 `;
 export const TodoLi = css`
   align-items: center;
+
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -41,6 +45,7 @@ export const TodoLi = css`
 `;
 export const TodoTaskLi = css`
   ${TodoLi}
+
   & button {
     display: flex;
     justify-content: space-between;
@@ -65,6 +70,7 @@ export const TodoInputform = css`
   display: flex;
   align-items: center;
   justify-content: center;
+
   width: 60%;
   & > .todoAdd {
     width: 30%;
@@ -157,16 +163,16 @@ export const ScheduleDiv = styled.div`
   border-radius: 15px;
   border: 2px solid #ddd;
   box-shadow: 0px 1px 5px gray;
-  overflow-y: scroll;
+  overflow-x: hidden;
 `;
 
 export const TodoDiv = styled(ScheduleDiv)`
-  width: 60vw;
-  height: 30vh;
+  width: 95%;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 20px 20px 30px 15px;
+  overflow-x: hidden;
 `;
 
 export const FixedDiv = styled(ScheduleDiv)`
@@ -176,7 +182,7 @@ export const FixedDiv = styled(ScheduleDiv)`
 export const CalenderDiv = styled(ScheduleDiv)`
   width: 42vw;
   margin-right: 20px;
-  overflow-y: scroll;
+  overflow-x: hidden;
 `;
 
 export const homeMainDiv = css`

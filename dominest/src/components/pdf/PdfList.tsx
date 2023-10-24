@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { ComponentTable, ComponentDiv2 } from "@/style/ComponentStyle";
-import PdfViewer from "./PdfViewer";
+
 import "../../app/globals.css";
 import axios from "axios";
 import { useAuth } from "@/utils/useAuth/useAuth";
@@ -14,14 +14,22 @@ interface Props {
 
 export default function PdfList(props: Props) {
   const [data, setData] = useState<any[]>();
+  const [pdfdata, setPdfData] = useState("");
   const [selectedFiles, setSelectedFiles] = useState<File | null>(null);
   const [id, setId] = useState("");
   const Token = useAuth();
+  const [upadate, setUpdate] = useState<number>(1);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchData(props.degree);
-  }, [props]);
+  }, [props, upadate]);
 
+  useEffect(() => {
+    if (pdfdata !== "") {
+      openPdfInNewWindow();
+    }
+  }, [pdfdata]);
   useEffect(() => {
     if (selectedFiles !== null) {
       StudentOnePdf(selectedFiles);
@@ -62,7 +70,9 @@ export default function PdfList(props: Props) {
 
       .then((response) => {
         console.log("업로드 성공:", response.data);
-        return alert("업로드에 성공하였습니다.");
+        alert("업로드에 성공하였습니다.");
+        setUpdate(upadate + 1);
+        return;
       })
       .catch((error) => {
         console.error("업로드 중 오류 발생:", error);
@@ -78,6 +88,48 @@ export default function PdfList(props: Props) {
         setData(response.data?.data?.pdfs);
       })
       .catch((error) => {
+        console.error("데이터 조회 중 오류 발생:", error);
+      });
+  };
+
+  const openPdfInNewWindow = () => {
+    setLoading(true);
+    const blob = new Blob([pdfdata], { type: "application/pdf" });
+    const objectUrl = URL.createObjectURL(blob);
+
+    const windowWidth = 800;
+    const windowHeight = 600;
+    const screenWidth = window.screen.availWidth;
+    const screenHeight = window.screen.availHeight;
+    const left = (screenWidth - windowWidth) / 2;
+    const top = (screenHeight - windowHeight) / 2;
+
+    const windowFeatures = `width=${windowWidth},height=${windowHeight},top=${top},left=${left}`;
+
+    const pdfWindow = window.open(objectUrl, "myPdfWindow", windowFeatures);
+
+    pdfWindow?.addEventListener("load", () => {
+      setLoading(false);
+    });
+  };
+  const pdfview = (idd: string, ch: string) => {
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_API_URL}/residents/${idd}/pdf?pdfType=${ch}`,
+        {
+          responseType: "arraybuffer",
+          headers: {
+            Authorization: `Bearer ${Token}`,
+          },
+        }
+      )
+      .then((response) => {
+        setPdfData(response.data);
+        console.log(response);
+        openPdfInNewWindow();
+      })
+      .catch((error) => {
+        console.log(props.chosenFormType);
         console.error("데이터 조회 중 오류 발생:", error);
       });
   };
@@ -103,10 +155,13 @@ export default function PdfList(props: Props) {
                     <td>{pdfs.residentName}</td>
                     <td>{pdfs.existsAdmissionFile}</td>
                     <td>
-                      <PdfViewer
-                        id={pdfs.id}
-                        chosenFormType={props.chosenFormType}
-                      />
+                      <button
+                        onClick={() => {
+                          pdfview(pdfs.id, props.chosenFormType);
+                        }}
+                      >
+                        PDF 보기
+                      </button>
 
                       <button
                         onClick={() => {
@@ -147,10 +202,13 @@ export default function PdfList(props: Props) {
                     <td>{pdfs.residentName}</td>
                     <td>{pdfs.existsDepartureFile}</td>
                     <td>
-                      <PdfViewer
-                        id={pdfs.id}
-                        chosenFormType={props.chosenFormType}
-                      />
+                      <button
+                        onClick={() => {
+                          pdfview(pdfs.id, props.chosenFormType);
+                        }}
+                      >
+                        PDF 보기
+                      </button>
 
                       <button
                         onClick={() => {
