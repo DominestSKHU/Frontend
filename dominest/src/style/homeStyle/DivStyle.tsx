@@ -11,6 +11,11 @@ export const TodoUl = css`
   max-height: 24rem;
   overflow-y: scroll;
 `;
+export const TodoBox = css`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
 export const TodoInput = css`
   margin: 1rem 0 0 0;
   padding: 0.5rem;
@@ -37,7 +42,6 @@ export const TodoLi = css`
 export const TodoTaskLi = css`
   ${TodoLi}
   & button {
-    width: 100%;
     display: flex;
     justify-content: space-between;
   }
@@ -157,7 +161,8 @@ export const ScheduleDiv = styled.div`
 `;
 
 export const TodoDiv = styled(ScheduleDiv)`
-  width: 90%;
+  width: 60vw;
+  height: 30vh;
   display: flex;
   flex-direction: column;
   align-items: center;

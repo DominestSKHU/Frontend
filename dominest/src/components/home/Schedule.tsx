@@ -11,7 +11,6 @@ import {
 } from "@/style/homeStyle/scheduleStyle";
 import React, { use, useEffect, useState } from "react";
 import AddSchedule from "./AddSchedule";
-import { css } from "@emotion/react";
 import { CalendarStyle_UL } from "@/style/homeStyle/calendar";
 import { scheduleGet } from "@/utils/home/scheduleUtils";
 

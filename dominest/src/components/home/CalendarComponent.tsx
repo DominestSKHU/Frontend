@@ -58,7 +58,6 @@ const CalendarComponent = () => {
     calenderGet(token, date)
       .then((res) => {
         setEvents({ date: new Date(), value: res.data });
-        console.log(events);
       })
       .catch((err) => {
         alert(err.response.data.errorMessage);
