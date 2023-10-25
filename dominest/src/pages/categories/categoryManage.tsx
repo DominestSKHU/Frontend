@@ -58,6 +58,15 @@ interface CategoryProps {
   categoryLink: string;
 }
 
+const CategoryType = {
+  TEXT_AND_IMAGE: "게시글",
+  IMAGE_TYPES: "이미지",
+  UNDELIVERED_PARCEL: "택배",
+  COMPLAINT: "민원",
+  CARD_KEY: "카드키",
+  SANITATION_CHECK: "위생점검",
+};
+
 const categoryManage = () => {
   const router = useRouter();
   const [category, setCategory] = useState<CategoryProps[]>([]);
@@ -72,10 +81,6 @@ const categoryManage = () => {
       router.push("/login");
     }
   }, []);
-
-  // useEffect(() => {
-  //   console.log(category);
-  // }, [category]);
 
   useEffect(() => {
     getCategory(authToken)

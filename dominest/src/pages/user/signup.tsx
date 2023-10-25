@@ -32,6 +32,7 @@ export default function signup() {
 
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
+    console.log(email)
   };
   const isEmailValid = (email: string) => {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -44,6 +45,7 @@ export default function signup() {
   const [phone, setPhone] = React.useState<number>(0);
   const [name, setName] = React.useState<string>("");
   const [code, setCode] = React.useState<string>("");
+  
   const handleCode = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCode(e.target.value);
   };
