@@ -6,7 +6,6 @@ import {
   AddSelectDiv,
   ScheduleAddBtn,
 } from "@/style/homeStyle/scheduleStyle";
-import { student, time } from "../home/Schedule";
 import { css } from "@emotion/react";
 import React, { use, useEffect, useState } from "react";
 import {
@@ -34,7 +33,7 @@ const days = [
   { day: "금요일", value: "fri" },
 ];
 
-const AddSchedule = ({ token, onClose, data }: any) => {
+const AddSchedule = ({ users, token, onClose, data }: any) => {
   const router = useRouter();
   const [startTime, setStartTime] = React.useState<string>("09");
   const [endTime, setEndTime] = React.useState<string>("");
@@ -98,11 +97,12 @@ const AddSchedule = ({ token, onClose, data }: any) => {
         <AddScheduleTitle>스케줄 추가</AddScheduleTitle>
         <AddSelectDiv>
           <AddSelect onChange={studentNameChange}>
-            {student.map((student) => (
-              <option key={student.id} value={student.name}>
-                {student.name}
-              </option>
-            ))}
+            {users &&
+              users.map((item: any) => (
+                <option key={item.name} value={item.name}>
+                  {item.name}
+                </option>
+              ))}
           </AddSelect>
         </AddSelectDiv>
         <AddSelectDiv>

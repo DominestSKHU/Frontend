@@ -64,3 +64,13 @@ export const deleteTodoList = (token: string, id: number): Promise<any> => {
     },
   });
 }
+
+export const getWorkerList = (token: string): Promise<any> => {
+  return axios.get(`${process.env.NEXT_PUBLIC_API_URL}/todo/user-name`, {
+    headers: {
+      "Content-Type": `application/json;charset=UTF-8`,
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

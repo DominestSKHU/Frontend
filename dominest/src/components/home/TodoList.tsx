@@ -18,9 +18,9 @@ import {
   updateTodoList,
 } from "@/utils/home/todoListUtils";
 import { AnnounceForm, RecieverSelect } from "@/style/homeStyle/calendar";
-import { student } from "./Schedule";
 import { css } from "@emotion/react";
 import { BsTrash3 } from "react-icons/bs";
+import { ScheduleProps } from "./Schedule";
 
 interface TodoListProps {
   task: string;
@@ -35,7 +35,8 @@ interface GetTodoListProps {
   checkYn: boolean;
 }
 
-const TodoList: () => EmotionJSX.Element = () => {
+const TodoList: React.FC<ScheduleProps> = ({ users }) => {
+  const WorkHuman = users.map((item) => item.name);
   const [token, setToken] = useState<string>("");
   const [receiveRequest, setReceiveRequest] = useState<string>("");
   const [todo, setTodo] = useState<TodoListProps>({
@@ -112,7 +113,7 @@ const TodoList: () => EmotionJSX.Element = () => {
       })
       .finally(() => {
         getTodoList();
-        setTodo({ task: "", receiveRequest: student[0].name });
+        setTodo({ task: "", receiveRequest: users[0].name });
       });
   };
 
@@ -142,11 +143,12 @@ const TodoList: () => EmotionJSX.Element = () => {
           value={todo.receiveRequest}
           key={"Receiver"}
         >
-          {student.map((student) => (
-            <option key={student.id} value={student.name}>
-              {student.name}
-            </option>
-          ))}
+          {WorkHuman &&
+            WorkHuman.map((item) => (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            ))}
         </RecieverSelect>
         <input type="submit" className="todoAdd" value="추가" />
       </form>
