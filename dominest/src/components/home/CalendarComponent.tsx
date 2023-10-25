@@ -14,14 +14,15 @@ import {
   AnnounceForm,
   AnnounceInput,
   DateDiv,
-  RecieverSelect,
   TodoListDiv,
 } from "@/style/homeStyle/calendar";
 import { css } from "@emotion/react";
 import { BsTrash3 } from "react-icons/bs";
-import { calenderDelete, calenderGet, calenderPost } from "@/utils/home/calenderUtils";
-import router from "next/router";
-import { student } from "./Schedule";
+import {
+  calenderDelete,
+  calenderGet,
+  calenderPost,
+} from "@/utils/home/calenderUtils";
 
 type ValuePiece = Date | null;
 
@@ -58,6 +59,7 @@ const CalendarComponent = () => {
     calenderGet(token, date)
       .then((res) => {
         setEvents({ date: new Date(), value: res.data });
+        console.log(events);
       })
       .catch((err) => {
         alert(err.response.data.errorMessage);
@@ -76,8 +78,7 @@ const CalendarComponent = () => {
       .finally(() => {
         getCalenderList(momentValuedate.toDate());
       });
-  }
-
+  };
 
   useEffect(() => {
     const date = momentValue.format("YYYY-MM-DD");
@@ -136,23 +137,25 @@ const CalendarComponent = () => {
             <input type="submit" className="todoAdd" value="추가" />
           </form>
           <ul className="todoListUl" css={TodoUl}>
-            {events.value.map((item) => (
-              <li css={TodoLi} key={item.calenderId}>
-                <button value={item.content} css={TodoListBtnFalse}>
-                  {item.content}
-                </button>
-                <button onClick={deleteCalender}
-                  className="todoDelete"
-                  css={css`
-                    background-color: white;
-                    border: none;
-                    outline: none;
-                  `}
-                >
-                  <BsTrash3 size={30} />
-                </button>
-              </li>
-            ))}
+            {events.value.length > 0 &&
+              events.value.map((item) => (
+                <li css={TodoLi} key={item.calenderId}>
+                  <button value={item.content} css={TodoListBtnFalse}>
+                    {item.content}
+                  </button>
+                  <button
+                    onClick={deleteCalender}
+                    className="todoDelete"
+                    css={css`
+                      background-color: white;
+                      border: none;
+                      outline: none;
+                    `}
+                  >
+                    <BsTrash3 size={30} />
+                  </button>
+                </li>
+              ))}
           </ul>
         </TodoListDiv>
       </CalendarStyle>
