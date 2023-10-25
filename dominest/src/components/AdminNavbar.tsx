@@ -89,11 +89,11 @@ const Navbar = (props: { page: string }) => {
                   <span>퇴관신청서</span>
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="/categories/categoryManage" className="Link">
                   <span>카테고리 관리</span>
                 </Link>
-              </li>
+              </li> */}
             </NavItem>
           </li>
           <li>
