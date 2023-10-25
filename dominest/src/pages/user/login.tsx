@@ -50,7 +50,7 @@ export default function Login() {
       })
       .catch((err) => {
         if (err.response && err.response.data) {
-          alert(err.response.data.message);
+          alert(err.response.data.errorMessage);
         } else {
           alert("오류가 발생하였습니다.");
         }

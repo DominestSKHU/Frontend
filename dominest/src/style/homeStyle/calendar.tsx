@@ -5,6 +5,7 @@ import { css } from "@emotion/react";
 export const DateDiv = styled.div`
   text-align: center;
   font-size: 1.3rem;
+  align-items: center;
   margin: 1rem 0;
 `;
 
@@ -12,7 +13,10 @@ export const TodoListDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
   width: 100%;
+  height: 100%;
+  margin-top: 3rem;
 `;
 
 export const AnnounceInput = css`
@@ -24,9 +28,9 @@ export const AnnounceForm = css`
   ${TodoInputform}
   margin: 0 0 1rem 1rem;
   border-bottom: 1px solid #ddd;
-  width: 80%;
+  width: 90%;
   & .todoAdd {
-    width: 10%;
+    width: 30%;
   }
 `;
 

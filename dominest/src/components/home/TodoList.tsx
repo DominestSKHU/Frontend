@@ -12,13 +12,15 @@ import React, { useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 
 import {
+  deleteTodoList,
   postTodoList,
   todoListGet,
   updateTodoList,
 } from "@/utils/home/todoListUtils";
-import router from "next/router";
 import { AnnounceForm, RecieverSelect } from "@/style/homeStyle/calendar";
 import { student } from "./Schedule";
+import { css } from "@emotion/react";
+import { BsTrash3 } from "react-icons/bs";
 
 interface TodoListProps {
   task: string;
@@ -47,16 +49,18 @@ const TodoList: () => EmotionJSX.Element = () => {
     authToken && setToken(authToken);
   }, []);
 
-  useEffect(() => {
+  const getTodoList = () => {
     todoListGet(token)
       .then((res) => {
         setTodoList(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [token, todo, receiveRequest]);
+  };
+  useEffect(() => {
+    getTodoList();
+  }, [token, receiveRequest]);
 
   const onChangeTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTodo({
@@ -71,6 +75,9 @@ const TodoList: () => EmotionJSX.Element = () => {
       receiveRequest: e.target.value,
     });
   };
+  useEffect(() => {
+    console.log(todo);
+  }, [todo.task, todo.receiveRequest]);
 
   const onClickTodo = (item: GetTodoListProps) => () => {
     const newTodoList = todolist.map((todo) => {
@@ -104,16 +111,21 @@ const TodoList: () => EmotionJSX.Element = () => {
         console.log(err);
       })
       .finally(() => {
-        router.push("/user/home");
+        getTodoList();
+        setTodo({ task: "", receiveRequest: student[0].name });
       });
-    setTodo({ task: "", receiveRequest: receiveRequest });
   };
 
-  // const deleteTodoList = (item: TodoListProps) => () => {
-  //   const newTodoList = todolist.filter((todo) => todo.id !== item.id);
-  //   setTodoList(newTodoList);
-  // };
-  // 아직 삭제 기능 구현 안되어서 추후에 추가 예정
+  const deleteTodo = (id: number) => {
+    deleteTodoList(token, id)
+      .then((res) => {
+        alert("삭제되었습니다.");
+        getTodoList();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <TodoDiv>
@@ -125,7 +137,11 @@ const TodoList: () => EmotionJSX.Element = () => {
           value={todo.task}
           onChange={onChangeTodo}
         />
-        <RecieverSelect onChange={onClickReciever}>
+        <RecieverSelect
+          onChange={onClickReciever}
+          value={todo.receiveRequest}
+          key={"Receiver"}
+        >
           {student.map((student) => (
             <option key={student.id} value={student.name}>
               {student.name}
@@ -140,6 +156,7 @@ const TodoList: () => EmotionJSX.Element = () => {
             <button
               value={item.task}
               onClick={onClickTodo(item)}
+              key={item.todoId}
               css={
                 item.checkYn ? { ...TodoListBtnTrue } : { ...TodoListBtnFalse }
               }
@@ -147,18 +164,17 @@ const TodoList: () => EmotionJSX.Element = () => {
               <span>{item.task}</span>
               <span>{item.receiveRequest}</span>
             </button>
-            {/* <button
+            <button
               className="todoDelete"
               css={css`
                 background-color: white;
                 border: none;
                 outline: none;
               `}
-              onClick={deleteTodoList(item)}
+              onClick={() => deleteTodo(item.todoId)}
             >
-              <BsTrash3 size={30} />
-            </button> */}
-            {/* 삭제 기능 아직 구현 안되어서 추후에 추가 예정 */}
+              <BsTrash3 size={23} />
+            </button>
           </li>
         ))}
       </ul>

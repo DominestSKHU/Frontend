@@ -14,14 +14,15 @@ import {
   AnnounceForm,
   AnnounceInput,
   DateDiv,
-  RecieverSelect,
   TodoListDiv,
 } from "@/style/homeStyle/calendar";
 import { css } from "@emotion/react";
 import { BsTrash3 } from "react-icons/bs";
-import { calenderGet, calenderPost } from "@/utils/home/calenderUtils";
-import router from "next/router";
-import { student } from "./Schedule";
+import {
+  calenderDelete,
+  calenderGet,
+  calenderPost,
+} from "@/utils/home/calenderUtils";
 
 type ValuePiece = Date | null;
 
@@ -58,7 +59,7 @@ const CalendarComponent = () => {
     calenderGet(token, date)
       .then((res) => {
         setEvents({ date: new Date(), value: res.data });
-        console.log(res.data);
+        console.log(events);
       })
       .catch((err) => {
         alert(err.response.data.errorMessage);
@@ -67,14 +68,23 @@ const CalendarComponent = () => {
   };
   const [momentValuedate, setMomentValueDate] = useState<Moment>(moment());
 
-  useEffect(() => {
-    setMomentValueDate(moment());
-  }, []);
+  const deleteCalender = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    calenderDelete(token, date)
+      .catch((err) => {
+        alert(err.response.data.errorMessage);
+        setEvents({ date: new Date(), value: [] });
+      })
+      .finally(() => {
+        getCalenderList(momentValuedate.toDate());
+      });
+  };
 
   useEffect(() => {
     const date = momentValue.format("YYYY-MM-DD");
     setDate(date);
     getCalenderList(momentValuedate.toDate());
+    console.log(momentValuedate);
   }, [momentValuedate]);
 
   const addAnnounce = (e: React.FormEvent<HTMLFormElement>) => {
@@ -110,40 +120,43 @@ const CalendarComponent = () => {
           value={value}
           locale="ko"
           onClickDay={getCalenderList}
+          // onClickMonth={} 이 속성으로 달마다 조회해서 일정 있으면 커스텀 하는 것이 좋아보임
         />
-        <DateDiv className="text-gray-500 mt-4">
-          {momentValue.format("YYYY년 MM월 DD일")}
-        </DateDiv>
         <TodoListDiv>
-          <ul className="todoListUl" css={TodoUl}>
-            {events.value.map((item) => (
-              <li css={TodoLi} key={item.calenderId}>
-                <button value={item.content} css={TodoListBtnFalse}>
-                  {item.content}
-                </button>
-                <button
-                  className="todoDelete"
-                  css={css`
-                    background-color: white;
-                    border: none;
-                    outline: none;
-                  `}
-                >
-                  <BsTrash3 size={30} />
-                </button>
-              </li>
-            ))}
-          </ul>
+          <DateDiv className="text-gray-500 mt-4">
+            {momentValue.format("YYYY년 MM월 DD일")}
+          </DateDiv>
           <form css={AnnounceForm} onSubmit={addAnnounce}>
             <input
               type="text"
-              placeholder="내용을 입력해주세요"
+              placeholder="일정을 추가해주세요"
               css={AnnounceInput}
               value={announce}
               onChange={onChangeAnnounce}
             />
             <input type="submit" className="todoAdd" value="추가" />
           </form>
+          <ul className="todoListUl" css={TodoUl}>
+            {events.value.length > 0 &&
+              events.value.map((item) => (
+                <li css={TodoLi} key={item.calenderId}>
+                  <button value={item.content} css={TodoListBtnFalse}>
+                    {item.content}
+                  </button>
+                  <button
+                    onClick={deleteCalender}
+                    className="todoDelete"
+                    css={css`
+                      background-color: white;
+                      border: none;
+                      outline: none;
+                    `}
+                  >
+                    <BsTrash3 size={30} />
+                  </button>
+                </li>
+              ))}
+          </ul>
         </TodoListDiv>
       </CalendarStyle>
     </CalenderDiv>
