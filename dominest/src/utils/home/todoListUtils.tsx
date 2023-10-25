@@ -54,3 +54,13 @@ export const updateTodoList = (
     }
   );
 };
+
+export const deleteTodoList = (token: string, id: number): Promise<any> => {
+  return axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/todo/delete/${id}`, {
+    headers: {
+      "Content-Type": `application/json;charset=UTF-8`,
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
