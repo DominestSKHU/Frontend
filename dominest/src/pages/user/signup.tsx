@@ -111,7 +111,7 @@ export default function signup() {
           인증번호 전송
         </SubmitButton>
         {isCodeValid && (
-          <div css={errorText}>1분 동안 이메일을 전송하실 수 없습니다.</div>
+          <div css={errorText}>1분 후에 인증코드 재전송 가능합니다..</div>
         )}
         <FlexContainer>
           <Label>
