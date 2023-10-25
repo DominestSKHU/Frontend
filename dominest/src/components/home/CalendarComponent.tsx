@@ -58,8 +58,7 @@ const CalendarComponent = () => {
     setDate(date);
     calenderGet(token, date)
       .then((res) => {
-        setEvents({ date: new Date(), value: res.data });
-        console.log(events);
+        setEvents({ date: new Date(), value: res.data.data });
       })
       .catch((err) => {
         alert(err.response.data.errorMessage);
@@ -84,7 +83,6 @@ const CalendarComponent = () => {
     const date = momentValue.format("YYYY-MM-DD");
     setDate(date);
     getCalenderList(momentValuedate.toDate());
-    console.log(momentValuedate);
   }, [momentValuedate]);
 
   const addAnnounce = (e: React.FormEvent<HTMLFormElement>) => {
