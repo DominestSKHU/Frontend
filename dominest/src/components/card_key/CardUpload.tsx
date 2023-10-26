@@ -14,6 +14,22 @@ export default function CardInput(props: { idname: any; Token: any }) {
     setName(e.target.value);
   };
   const onChangeIssuedDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.replace(/\D/g, "");
+
+    if (value.length == 4) {
+      e.target.value =
+        e.target.value.slice(0, 4) + "-" + e.target.value.slice(4);
+    }
+
+    if (value.length == 7) {
+      e.target.value =
+        e.target.value.slice(0, 7) + "-" + e.target.value.slice(7);
+    }
+
+    if (value.length == 10) {
+      e.target.value = e.target.value.slice(0, 10);
+    }
+
     setIssuedDate(e.target.value);
   };
   const onChangeRoomNo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,6 +39,22 @@ export default function CardInput(props: { idname: any; Token: any }) {
     setReIssueCnt(e.target.value);
   };
   const onChangeDateOfBirth = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.replace(/\D/g, "");
+
+    if (value.length == 4) {
+      e.target.value =
+        e.target.value.slice(0, 4) + "-" + e.target.value.slice(4);
+    }
+
+    if (value.length == 7) {
+      e.target.value =
+        e.target.value.slice(0, 7) + "-" + e.target.value.slice(7);
+    }
+
+    if (value.length == 10) {
+      e.target.value = e.target.value.slice(0, 10);
+    }
+
     setDateOfBirth(e.target.value);
   };
   const onChangeEtc = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
