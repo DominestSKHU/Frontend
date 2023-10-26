@@ -31,13 +31,13 @@ export const join = (
   email: string,
   password: string,
   name: string,
-  phone: number
+  phoneNumber: string
 ) =>
   axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/join`, {
     email,
-    password,
     name,
-    phone,
+    password,
+    phoneNumber,
   });
 
 // 회원가입 api
