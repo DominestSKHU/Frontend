@@ -47,18 +47,18 @@ export const time = [
   { id: 8, time: "16:00 ~ 17:00" },
 ];
 
-export const student: StudentProps[] = [
-  { name: "선택해주세요", id: 0, phone: "0" },
-  { name: "땅땅이", id: 1, phone: "010-1234-5678" },
-  { name: "춘식이", id: 2, phone: "010-1234-5678" },
-  { name: "구름이", id: 3, phone: "010-1234-5678" },
-  { name: "고맙이", id: 4, phone: "010-1234-5678" },
-  { name: "앵글이", id: 5, phone: "010-1234-5678" },
-];
+export interface UsersProps {
+  name: string;
+}
+export interface ScheduleProps {
+  users: UsersProps[];
+}
 
-const Schedule = () => {
+const Schedule: React.FC<ScheduleProps> = ({ users }) => {
   const [token, setToken] = useState<string>(""); //token 받아오기
   const [data, setData] = useState<scheduleAllProps[]>([]);
+
+  const WorkStudentList = users.slice(0, 5)
 
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
@@ -76,12 +76,7 @@ const Schedule = () => {
   }, []);
 
   const [scheduleModal, setScheduleModal] = React.useState<boolean>(false);
-  const [workTimeProps, setWorkTimeProps] = useState<workTimeProps>({
-    start: 0,
-    name: "",
-    worktime: 0,
-    data: "",
-  });
+
 
   const addSchedule = () => {
     setScheduleModal(!scheduleModal);
@@ -199,20 +194,19 @@ const Schedule = () => {
       </ScheduleTable>
       <ScheduleBottom>
         <StudentTable>
-          {student.map(
-            (item) =>
-              item.id !== 0 && (
-                <StudentInfo key={item.id}>
-                  <span>{item.name}</span>
-                  <span>:</span>
-                  <span>{item.phone}</span>
-                </StudentInfo>
-              )
-          )}
+          {WorkStudentList.map((item) => (
+            <StudentInfo key={item.name}>
+              <span>{item.name}</span>
+              <span>:</span>
+              <span>010-0000-0000</span>
+            </StudentInfo>
+          ))}
         </StudentTable>
         <ScheduleCommitBtn onClick={addSchedule}>추가</ScheduleCommitBtn>
       </ScheduleBottom>
-      {scheduleModal && <AddSchedule token={token} data={data} onClose={handleClose} />}
+      {scheduleModal && (
+        <AddSchedule users={users} token={token} data={data} onClose={handleClose} />
+      )}
     </ScheduleDiv>
   );
 };

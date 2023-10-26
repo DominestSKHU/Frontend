@@ -35,6 +35,7 @@ export default function ImgPage() {
         if (idname) {
           const response = await Imageborder(idname);
           setImageData(response.data.data.postDetail);
+          console.log("이미지 데이터", response.data.data.postDetail);
         }
       } catch (error) {
         console.error("이미지 데이터를 불러오는 동안 오류 발생:", error);
@@ -82,10 +83,10 @@ export default function ImgPage() {
               </TextContent>
               <hr />
               <ImageContainer>
-                {imageData.imageUrls.map((imageUrl, index) => (
-                  <Image
+                {imageData.imageUrls.map((index) => (
+                  <img
                     key={index}
-                    src={`${process.env.NEXT_PUBLIC_API_URL}/posts/image-types/images?filename=${imageUrl}`}
+                    src={`${process.env.NEXT_PUBLIC_API_URL}/posts/image-types/images?filename=${index}`}
                     alt={`Image ${index}`}
                     width={450}
                     height={450}

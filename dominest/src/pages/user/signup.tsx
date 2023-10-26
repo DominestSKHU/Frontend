@@ -9,7 +9,7 @@ import {
   SubmitButton,
   passwordError,
 } from "@/style/signInputStyle";
-import React from "react";
+import React, { use, useEffect } from "react";
 import { css } from "@emotion/react";
 import { sendEmail, checkEmailCode, join } from "@/utils/useAuth/signFcUtil";
 import { useRouter } from "next/router";
@@ -32,7 +32,7 @@ export default function signup() {
 
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
-    console.log(email)
+    console.log(email);
   };
   const isEmailValid = (email: string) => {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -42,10 +42,14 @@ export default function signup() {
     password0: "",
     password1: "",
   });
-  const [phone, setPhone] = React.useState<number>(0);
+  const [phone, setPhone] = React.useState<string>("");
   const [name, setName] = React.useState<string>("");
   const [code, setCode] = React.useState<string>("");
-  
+
+  useEffect(() => {
+    console.log(phone);
+  }, [phone]);
+
   const handleCode = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCode(e.target.value);
   };
@@ -53,7 +57,13 @@ export default function signup() {
     setName(e.target.value);
   };
   const handlePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPhone(Number(e.target.value));
+    let phone = e.target.value;
+    if (phone.length === 3) {
+      phone = phone + "-";
+    } else if (phone.length === 8) {
+      phone = phone + "-";
+    }
+    setPhone(phone);
   };
   const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -65,7 +75,7 @@ export default function signup() {
     join(email, passwords.password1, name, phone)
       .then(() => {
         alert("회원가입이 완료되었습니다.");
-        router.push("/login");
+        router.push("/user/login");
       })
       .catch((err) => {
         if (err.code === 400) {
@@ -100,7 +110,9 @@ export default function signup() {
         >
           인증번호 전송
         </SubmitButton>
-        {isCodeValid && (<div css={errorText}>10초 동안 이메일을 전송하실 수 없습니다.</div>)}
+        {isCodeValid && (
+          <div css={errorText}>1분 동안 이메일을 전송하실 수 없습니다.</div>
+        )}
         <FlexContainer>
           <Label>
             <Input
@@ -129,7 +141,7 @@ export default function signup() {
           <span>이름</span>
         </Label>
         <Label>
-          <Input required type="phone" onChange={handlePhone} />
+          <Input required type="phone" value={phone} onChange={handlePhone} />
           <span>연락처</span>
         </Label>
         <Label>
