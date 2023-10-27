@@ -103,7 +103,7 @@ const Schedule: React.FC<ScheduleProps> = ({ users }) => {
           {time.map((item) => (
             <tr key={item.time}>
               <td>{item.time}</td>
-              <td>
+              {<td>
                 <ul css={CalendarStyle_UL}>
                   {data[0] &&
                     data[0].timeSlots.map(
@@ -119,20 +119,20 @@ const Schedule: React.FC<ScheduleProps> = ({ users }) => {
                         )
                     )}
                 </ul>
-              </td>
+              </td>}
               <td>
                 <ul css={CalendarStyle_UL}>
                   {data[1] &&
                     data[1].timeSlots.map(
                       (timeslot) =>
                         timeslot.timeSlot === item.time && (
-                          <li key={timeslot.timeSlot} css={studentUl}>
+                          <ul key={timeslot.timeSlot} css={studentUl}>
                             {timeslot.usernames.map((name) => (
                               <li css={studentLi} key={name}>
                                 {name}
                               </li>
                             ))}
-                          </li>
+                          </ul>
                         )
                     )}
                 </ul>
