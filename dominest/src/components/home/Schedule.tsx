@@ -58,7 +58,7 @@ const Schedule: React.FC<ScheduleProps> = ({ users }) => {
   const [token, setToken] = useState<string>(""); //token 받아오기
   const [data, setData] = useState<scheduleAllProps[]>([]);
 
-  const WorkStudentList = users.slice(0, 5)
+  const WorkStudentList = users.slice(0, 5);
 
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
@@ -76,7 +76,6 @@ const Schedule: React.FC<ScheduleProps> = ({ users }) => {
   }, []);
 
   const [scheduleModal, setScheduleModal] = React.useState<boolean>(false);
-
 
   const addSchedule = () => {
     setScheduleModal(!scheduleModal);
@@ -103,27 +102,10 @@ const Schedule: React.FC<ScheduleProps> = ({ users }) => {
           {time.map((item) => (
             <tr key={item.time}>
               <td>{item.time}</td>
-              {<td>
-                <ul css={CalendarStyle_UL}>
-                  {data[0] &&
-                    data[0].timeSlots.map(
-                      (timeslot) =>
-                        timeslot.timeSlot === item.time && (
-                          <ul css={studentUl} key={timeslot.timeSlot}>
-                            {timeslot.usernames.map((name) => (
-                              <li css={studentLi} key={name}>
-                                {name}
-                              </li>
-                            ))}
-                          </ul>
-                        )
-                    )}
-                </ul>
-              </td>}
-              <td>
-                <ul css={CalendarStyle_UL}>
-                  {data[1] &&
-                    data[1].timeSlots.map(
+              {data?.map((dataOfWeek) => (
+                <td key={dataOfWeek.dayOfWeek}>
+                  <ul css={CalendarStyle_UL}>
+                    {dataOfWeek.timeSlots.map(
                       (timeslot) =>
                         timeslot.timeSlot === item.time && (
                           <ul key={timeslot.timeSlot} css={studentUl}>
@@ -135,59 +117,9 @@ const Schedule: React.FC<ScheduleProps> = ({ users }) => {
                           </ul>
                         )
                     )}
-                </ul>
-              </td>
-              <td>
-                <ul css={CalendarStyle_UL}>
-                  {data[2] &&
-                    data[2].timeSlots.map(
-                      (timeslot) =>
-                        timeslot.timeSlot === item.time && (
-                          <ul key={timeslot.timeSlot} css={studentUl}>
-                            {timeslot.usernames.map((name) => (
-                              <li css={studentLi} key={name}>
-                                {name}
-                              </li>
-                            ))}
-                          </ul>
-                        )
-                    )}
-                </ul>
-              </td>
-              <td>
-                <ul css={CalendarStyle_UL}>
-                  {data[3] &&
-                    data[3].timeSlots.map(
-                      (timeslot) =>
-                        timeslot.timeSlot === item.time && (
-                          <ul key={timeslot.timeSlot} css={studentUl}>
-                            {timeslot.usernames.map((name) => (
-                              <li css={studentLi} key={name}>
-                                {name}
-                              </li>
-                            ))}
-                          </ul>
-                        )
-                    )}
-                </ul>
-              </td>
-              <td>
-                <ul css={CalendarStyle_UL}>
-                  {data[4] &&
-                    data[4].timeSlots.map(
-                      (timeslot) =>
-                        timeslot.timeSlot === item.time && (
-                          <ul key={timeslot.timeSlot} css={studentUl}>
-                            {timeslot.usernames.map((name) => (
-                              <li css={studentLi} key={name}>
-                                {name}
-                              </li>
-                            ))}
-                          </ul>
-                        )
-                    )}
-                </ul>
-              </td>
+                  </ul>
+                </td>
+              ))}
             </tr>
           ))}
         </tbody>
@@ -205,7 +137,12 @@ const Schedule: React.FC<ScheduleProps> = ({ users }) => {
         <ScheduleCommitBtn onClick={addSchedule}>추가</ScheduleCommitBtn>
       </ScheduleBottom>
       {scheduleModal && (
-        <AddSchedule users={users} token={token} data={data} onClose={handleClose} />
+        <AddSchedule
+          users={users}
+          token={token}
+          data={data}
+          onClose={handleClose}
+        />
       )}
     </ScheduleDiv>
   );
