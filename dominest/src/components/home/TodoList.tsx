@@ -53,7 +53,7 @@ const TodoList: React.FC<ScheduleProps> = ({ users }) => {
   const getTodoList = () => {
     todoListGet(token)
       .then((res) => {
-        setTodoList(res.data);
+        setTodoList(res.data.data);
       })
       .catch((err) => {
         console.log(err);
