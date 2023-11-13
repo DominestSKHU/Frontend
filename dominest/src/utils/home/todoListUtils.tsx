@@ -24,7 +24,7 @@ export const postTodoList = (
     return Promise.reject("수신자를 선택하지 않았습니다.");
   }
 
-  return axios.post(`${process.env.NEXT_PUBLIC_API_URL}/todo/save`, data, {
+  return axios.post(`${process.env.NEXT_PUBLIC_API_URL}/todo`, data, {
     headers: {
       "Content-Type": `application/json;charset=UTF-8`,
       Accept: "application/json",
@@ -56,17 +56,17 @@ export const updateTodoList = (
 };
 
 export const deleteTodoList = (token: string, id: number): Promise<any> => {
-  return axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/todo/delete/${id}`, {
+  return axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/todo/${id}`, {
     headers: {
       "Content-Type": `application/json;charset=UTF-8`,
       Accept: "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
-}
+};
 
 export const getWorkerList = (token: string): Promise<any> => {
-  return axios.get(`${process.env.NEXT_PUBLIC_API_URL}/todo/user-name`, {
+  return axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/todo-userinfo`, {
     headers: {
       "Content-Type": `application/json;charset=UTF-8`,
       Accept: "application/json",
