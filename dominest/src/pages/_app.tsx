@@ -17,18 +17,25 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <div>
       <Component {...pageProps} />
-      <div css={Timer}>
-        <div>
-          <h1>{content}</h1>
-          <h3>{time}</h3>
+      <div css={main}>
+        {/*미구현 단계*/}
+        <div css={Timer}>
+          <div>
+            <h1>{content}</h1>
+            <h3>{time}</h3>
 
-          <button>나중에 알림</button>
-          <button>확인</button>
+            <button>나중에 알림</button>
+            <button>확인</button>
+          </div>
         </div>
       </div>
     </div>
   );
 }
+
+const main = css`
+  display: none;
+`;
 
 const Timer = css`
   display: flex;
