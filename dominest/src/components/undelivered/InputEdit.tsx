@@ -16,7 +16,7 @@ export default function Input(props: {
     name: string;
   };
 }) {
-  const [name, setName] = useState<string>(props.datalist.lastModifiedBy);
+  const [name, setName] = useState<string>(props.datalist.recipientName);
   const [phone, setPhone] = useState<string>(props.datalist.recipientPhoneNum);
   const [content, setContent] = useState<string>(props.datalist.instruction);
   const [status, setStatus] = useState<string>(props.datalist.processState);
@@ -33,6 +33,7 @@ export default function Input(props: {
   const onChangeStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setStatus(e.target.value);
   };
+  console.log("props", props.datalist);
 
   // axios 업로드
   const parcelUpload = () => {
@@ -44,7 +45,6 @@ export default function Input(props: {
     ) {
       return alert("모든 항목을 입력해주세요.");
     } else {
-      console.log(idd);
       axios
         .patch(
           `${process.env.NEXT_PUBLIC_API_URL}/undeliv-parcels/${idd}`,

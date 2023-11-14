@@ -33,7 +33,7 @@ interface timeProps {
 
 interface scheduleAllProps {
   dayOfWeek: string;
-  timeSlots: timeProps[];
+  timeSlotInfos: timeProps[];
 }
 
 export const time = [
@@ -68,7 +68,8 @@ const Schedule: React.FC<ScheduleProps> = ({ users }) => {
   useEffect(() => {
     scheduleGet(token)
       .then((res) => {
-        setData(res.data);
+        setData(res.data.data);
+        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);
