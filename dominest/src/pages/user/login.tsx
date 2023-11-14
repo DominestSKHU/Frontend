@@ -60,111 +60,46 @@ export default function Login() {
 
   return (
     <div>
-      {warning ? (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh",
-          }}
-        >
-          <div
-            style={{
-              backgroundColor: "#E0FADF",
-              width: "70%",
-              height: "70%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <div>
-              <p
-                style={{
-                  fontSize: "2rem",
-
-                  textAlign: "center",
-                  color: "black",
-                }}
-              >
-                본 데이터는 더미(가짜)데이터로
-              </p>
-              <br />
-              <p
-                style={{
-                  fontSize: "2rem",
-
-                  textAlign: "center",
-                  color: "black",
-                }}
-              >
-                실제 행복기숙사의 데이터가 아닙니다.
-              </p>
-              <br />
-              <button
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  fontSize: "1.8rem",
-                  fontWeight: "bold",
-                  textAlign: "center",
-                  backgroundColor: "#FFF9BE",
-                  borderRadius: "10px",
-                  padding: "10px",
-                  color: "black",
-                }}
-                onClick={() => {
-                  setWarning(false);
-                }}
-              >
-                닫기
-              </button>
-            </div>
+      <div
+        css={css`
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          background-color: rgb(255, 255, 255);
+        `}
+      >
+        <LoginMainForm action="" className="form_main" onSubmit={onLogin}>
+          <p className="heading">Login</p>
+          <div className="inputContainer">
+            <BiUser />
+            <input
+              type="text"
+              className="inputField"
+              id="username"
+              placeholder="아이디를 입력해주세요"
+              onChange={onChangeEmail}
+            />
           </div>
-        </div>
-      ) : (
-        <div
-          css={css`
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: rgb(255, 255, 255);
-          `}
-        >
-          <LoginMainForm action="" className="form_main" onSubmit={onLogin}>
-            <p className="heading">Login</p>
-            <div className="inputContainer">
-              <BiUser />
-              <input
-                type="text"
-                className="inputField"
-                id="username"
-                placeholder="아이디를 입력해주세요"
-                onChange={onChangeEmail}
-              />
-            </div>
 
-            <div className="inputContainer">
-              <RiLockPasswordLine />
-              <input
-                type="password"
-                className="inputField"
-                id="password"
-                placeholder="비밀번호를 입력해주세요"
-                onChange={onChangePassword}
-              />
-            </div>
+          <div className="inputContainer">
+            <RiLockPasswordLine />
+            <input
+              type="password"
+              className="inputField"
+              id="password"
+              placeholder="비밀번호를 입력해주세요"
+              onChange={onChangePassword}
+            />
+          </div>
 
-            <button type="submit" onSubmit={() => onLogin}>
-              Submit
-            </button>
-            <Link href="/user/signup">회원가입 하러 가기</Link>
-            <Link href="/user/losePassword">비밀번호를 잃어버리셨나요?</Link>
-          </LoginMainForm>
-        </div>
-      )}
+          <button type="submit" onSubmit={() => onLogin}>
+            Submit
+          </button>
+          <Link href="/user/signup">회원가입 하러 가기</Link>
+          <Link href="/user/losePassword">비밀번호를 잃어버리셨나요?</Link>
+        </LoginMainForm>
+      </div>
     </div>
   );
 }

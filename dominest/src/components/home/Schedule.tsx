@@ -33,7 +33,7 @@ interface timeProps {
 
 interface scheduleAllProps {
   dayOfWeek: string;
-  timeSlots: timeProps[];
+  timeSlotInfos: timeProps[];
 }
 
 export const time = [
@@ -58,7 +58,7 @@ const Schedule: React.FC<ScheduleProps> = ({ users }) => {
   const [token, setToken] = useState<string>(""); //token 받아오기
   const [data, setData] = useState<scheduleAllProps[]>([]);
 
-  const WorkStudentList = users.slice(0, 5)
+  const WorkStudentList = users.slice(0, 5);
 
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
@@ -68,7 +68,8 @@ const Schedule: React.FC<ScheduleProps> = ({ users }) => {
   useEffect(() => {
     scheduleGet(token)
       .then((res) => {
-        setData(res.data);
+        setData(res.data.data);
+        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -76,7 +77,6 @@ const Schedule: React.FC<ScheduleProps> = ({ users }) => {
   }, []);
 
   const [scheduleModal, setScheduleModal] = React.useState<boolean>(false);
-
 
   const addSchedule = () => {
     setScheduleModal(!scheduleModal);
@@ -106,7 +106,7 @@ const Schedule: React.FC<ScheduleProps> = ({ users }) => {
               <td>
                 <ul css={CalendarStyle_UL}>
                   {data[0] &&
-                    data[0].timeSlots.map(
+                    data[0].timeSlotInfos.map(
                       (timeslot) =>
                         timeslot.timeSlot === item.time && (
                           <ul css={studentUl} key={timeslot.timeSlot}>
@@ -123,7 +123,7 @@ const Schedule: React.FC<ScheduleProps> = ({ users }) => {
               <td>
                 <ul css={CalendarStyle_UL}>
                   {data[1] &&
-                    data[1].timeSlots.map(
+                    data[1].timeSlotInfos.map(
                       (timeslot) =>
                         timeslot.timeSlot === item.time && (
                           <li key={timeslot.timeSlot} css={studentUl}>
@@ -140,7 +140,7 @@ const Schedule: React.FC<ScheduleProps> = ({ users }) => {
               <td>
                 <ul css={CalendarStyle_UL}>
                   {data[2] &&
-                    data[2].timeSlots.map(
+                    data[2].timeSlotInfos.map(
                       (timeslot) =>
                         timeslot.timeSlot === item.time && (
                           <ul key={timeslot.timeSlot} css={studentUl}>
@@ -157,7 +157,7 @@ const Schedule: React.FC<ScheduleProps> = ({ users }) => {
               <td>
                 <ul css={CalendarStyle_UL}>
                   {data[3] &&
-                    data[3].timeSlots.map(
+                    data[3].timeSlotInfos.map(
                       (timeslot) =>
                         timeslot.timeSlot === item.time && (
                           <ul key={timeslot.timeSlot} css={studentUl}>
@@ -174,7 +174,7 @@ const Schedule: React.FC<ScheduleProps> = ({ users }) => {
               <td>
                 <ul css={CalendarStyle_UL}>
                   {data[4] &&
-                    data[4].timeSlots.map(
+                    data[4].timeSlotInfos.map(
                       (timeslot) =>
                         timeslot.timeSlot === item.time && (
                           <ul key={timeslot.timeSlot} css={studentUl}>
@@ -205,7 +205,12 @@ const Schedule: React.FC<ScheduleProps> = ({ users }) => {
         <ScheduleCommitBtn onClick={addSchedule}>추가</ScheduleCommitBtn>
       </ScheduleBottom>
       {scheduleModal && (
-        <AddSchedule users={users} token={token} data={data} onClose={handleClose} />
+        <AddSchedule
+          users={users}
+          token={token}
+          data={data}
+          onClose={handleClose}
+        />
       )}
     </ScheduleDiv>
   );
