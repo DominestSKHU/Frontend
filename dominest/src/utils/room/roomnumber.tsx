@@ -28,8 +28,12 @@ const generateRoomPattern = () => {
   return roomPattern;
 };
 
-export default function RoomSelector({ onRoomChange }: { onRoomChange: any }) {
-  const handleRoomChange = (event: { target: { value: any } }) => {
+export default function RoomSelector({
+  onRoomChange,
+}: {
+  onRoomChange: (selectedRoom: any) => void;
+}) {
+  const handleRoomChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedRoom = event.target.value;
     onRoomChange(selectedRoom);
   };

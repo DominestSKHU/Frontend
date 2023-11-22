@@ -86,6 +86,7 @@ export default function PdfList(props: Props) {
       )
       .then((response) => {
         setData(response.data?.data?.pdfs);
+        console.log(response.data?.data);
       })
       .catch((error) => {
         console.error("데이터 조회 중 오류 발생:", error);
@@ -155,13 +156,17 @@ export default function PdfList(props: Props) {
                     <td>{pdfs.residentName}</td>
                     <td>{pdfs.existsAdmissionFile}</td>
                     <td>
-                      <button
-                        onClick={() => {
-                          pdfview(pdfs.id, props.chosenFormType);
-                        }}
-                      >
-                        PDF 보기
-                      </button>
+                      {pdfs.existsAdmissionFile === "성공" ? (
+                        <button
+                          onClick={() => {
+                            pdfview(pdfs.id, props.chosenFormType);
+                          }}
+                        >
+                          PDF 보기
+                        </button>
+                      ) : (
+                        <button disabled>PDF 보기</button>
+                      )}
 
                       <button
                         onClick={() => {

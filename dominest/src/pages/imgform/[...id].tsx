@@ -77,9 +77,9 @@ export default function ImgPage() {
               <h1>{imageData.title}</h1>
               <hr />
               <TextContent>
-                <p>작성자 {imageData.writer}</p>
-                <p>작성 시간 {imageData.createTime}</p>
-                <p>수정 시간 {imageData.updateTime}</p>
+                <p>작성자 : {imageData.writer}</p>
+                <p>작성 시간 : {imageData.createTime}</p>
+                <p>수정 시간 : {imageData.updateTime}</p>
               </TextContent>
               <hr />
               <ImageContainer>
@@ -99,7 +99,7 @@ export default function ImgPage() {
           )}
         </div>
         <Containerright>
-          <Button>수정</Button>
+          <Button onClick={imgEdit}>수정</Button>
           <Button onClick={imgDelete}>삭제</Button>
         </Containerright>
       </Container>

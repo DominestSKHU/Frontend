@@ -16,7 +16,7 @@ import { useAuth } from "@/utils/useAuth/useAuth";
 
 export default function ComplainUpload(props: any) {
   const router = useRouter();
-  const [selectedRoom, setSelectedRoom] = useState(0);
+  const [selectedRoom, setSelectedRoom] = useState(props.post.roomNo);
   const [idname, setIdname] = useState(router.query.id);
   const [name, setName] = useState(props.post.name);
   const [selectresult, setSelectresult] = useState(props.post.processState);
@@ -24,7 +24,7 @@ export default function ComplainUpload(props: any) {
   const [result, setResult] = useState(props.post.complaintResolution);
   const [date, setDate] = useState(props.post.date);
   const Token = useAuth();
-  console.log(props.post);
+  console.log(props.post.roomNo);
   useEffect(() => {
     if (router.query.id !== undefined) {
       setIdname(router.query.id);

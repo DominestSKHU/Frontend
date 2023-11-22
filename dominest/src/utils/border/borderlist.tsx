@@ -135,25 +135,26 @@ export const ClieanListBoard = async (idname: any[], currentPage: number) => {
 //호실방역 추가
 
 export const ClieanUploadBoard = async (idname: any[], degree: string) => {
-  try {
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/categories/${idname[0]}/posts/sanitation-check`,
-      {
-        residenceSemester: degree,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+  if (confirm(`${degree} 차수의 게시글을 생성하시겠습니까?`) == true)
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/categories/${idname[0]}/posts/sanitation-check`,
+        {
+          residenceSemester: degree,
         },
-      }
-    );
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        }
+      );
 
-    alert("게시글이 생성되었습니다.");
-    return window.location.reload();
-  } catch (error) {
-    console.error("게시판 오류 발생:", error);
-    throw error;
-  }
+      alert("게시글이 생성되었습니다.");
+      return window.location.reload();
+    } catch (error) {
+      console.error("게시판 오류 발생:", error);
+      throw error;
+    }
 };
 
 //호실방역 층 리스트
