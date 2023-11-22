@@ -30,17 +30,19 @@ const generateRoomPattern = () => {
 
 export default function RoomSelector({
   onRoomChange,
+  roomNumber,
 }: {
   onRoomChange: (selectedRoom: any) => void;
+  roomNumber: string;
 }) {
   const handleRoomChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedRoom = event.target.value;
     onRoomChange(selectedRoom);
   };
-
+  console.log(roomNumber);
   return (
-    <select id="roomSelect" onChange={handleRoomChange}>
-      <option value="">전체 호실</option>
+    <select id="roomSelect" onChange={handleRoomChange} value={roomNumber}>
+      <option>전체 호실</option>
       {generateRoomPattern()}
     </select>
   );

@@ -24,7 +24,7 @@ export default function ComplainUpload(props: any) {
   const [result, setResult] = useState(props.post.complaintResolution);
   const [date, setDate] = useState(props.post.date);
   const Token = useAuth();
-  console.log(props.post.roomNo);
+
   useEffect(() => {
     if (router.query.id !== undefined) {
       setIdname(router.query.id);
@@ -86,7 +86,10 @@ export default function ComplainUpload(props: any) {
             <EditLeftInput>
               <label>
                 방번호
-                <RoomSelector onRoomChange={handleRoomChange} />
+                <RoomSelector
+                  roomNumber={selectedRoom}
+                  onRoomChange={handleRoomChange}
+                />
               </label>
 
               <label>

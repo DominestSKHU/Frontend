@@ -99,7 +99,7 @@ export default function ImgPage() {
           )}
         </div>
         <Containerright>
-          <Button onClick={imgEdit}>수정</Button>
+          <Button>수정</Button>
           <Button onClick={imgDelete}>삭제</Button>
         </Containerright>
       </Container>

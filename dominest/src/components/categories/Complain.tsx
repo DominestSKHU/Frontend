@@ -77,7 +77,7 @@ export default function Complaints(props: any) {
                 onChange={onChangeSerch}
               />
             ) : status === "호실 조회" ? (
-              <RoomSelector onRoomChange={handleRoomChange} />
+              <RoomSelector onRoomChange={handleRoomChange} roomNumber={""} />
             ) : (
               <select onChange={onChangeStatusresult}>
                 <option value="처리중">처리중</option>

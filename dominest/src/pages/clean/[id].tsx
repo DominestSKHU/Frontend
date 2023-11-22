@@ -79,6 +79,7 @@ export default function CleanFloorList() {
 
   const badCounterDownload = (downloadid: number, counter: string) => {
     const url = `${process.env.NEXT_PUBLIC_API_URL}/posts/sanitation-check/${downloadid}/xlsx-residents?passState=${counter}`;
+
     window.open(url);
   };
 
