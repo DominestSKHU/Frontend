@@ -8,7 +8,7 @@ import { Container, Table, ButtonContainer } from "@/style/border";
 import { useAuth } from "@/utils/useAuth/useAuth";
 
 import Navbar from "@/components/AdminNavbar";
-import "../../app/globals.css";
+import "../../app/global.css";
 import { useRouter } from "next/router";
 
 import Link from "next/link";

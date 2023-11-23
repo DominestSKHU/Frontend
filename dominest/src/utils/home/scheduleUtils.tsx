@@ -22,7 +22,7 @@ export const schedulePost = (
     usernames: [studentName],
   };
   console.log(data);
-  return axios.post(`${process.env.NEXT_PUBLIC_API_URL}/schedule`, data, {
+  return axios.post(`${process.env.NEXT_PUBLIC_API_URL}/schedule/save`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

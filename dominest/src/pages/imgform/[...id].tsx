@@ -4,7 +4,7 @@ import Navbar from "@/components/AdminNavbar";
 import styled from "@emotion/styled";
 import { Imageborder } from "@/utils/border/Imagborder";
 import Image from "next/image";
-import "../../app/globals.css";
+import "../../app/global.css";
 import { Button, Containerright } from "@/style/InputStyle";
 import axios from "axios";
 import { useAuth } from "@/utils/useAuth/useAuth";

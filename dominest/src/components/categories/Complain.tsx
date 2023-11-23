@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "../../app/globals.css";
 import { ComponenComplaints } from "@/style/ComponentStyle";
 import RoomSelector from "@/utils/room/roomnumber";
-import "../../app/globals.css";
+import "../../app/global.css";
 import Link from "next/link";
 import ComplainList from "@/components/complain/ComplainList";
 import ComplainSelect from "../complain/ComplainSelect";

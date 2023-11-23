@@ -2,7 +2,6 @@
 import Navbar from "@/components/AdminNavbar";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import axios from "axios";
 type Props = {};
 
 function Home({}: Props) {

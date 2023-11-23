@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import "../../app/globals.css";
+import "../../app/global.css";
 import { useRouter } from "next/router";
 
 import Navbar from "@/components/AdminNavbar";

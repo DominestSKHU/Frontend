@@ -19,17 +19,21 @@ export const calenderPost = (
     date,
     content,
   };
-  return axios.post(`${process.env.NEXT_PUBLIC_API_URL}/calendar`, data, {
+  return axios.post(`${process.env.NEXT_PUBLIC_API_URL}/calender/save`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 };
 
-export const calenderDelete = (token: string, date: string): Promise<any> => {
-  return axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/calendar/${date}`, {
+export const calenderDelete = (
+  token: string,
+  date: string,
+): Promise<any> => {
+
+  return axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/calender/delete/${date}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-};
+}

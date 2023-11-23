@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app)
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## 시작가이드
 
@@ -31,11 +31,11 @@ pnpm dev
 📦 pages                    --> 페이지
  ┣ 📂 categories            --> 게시글 목록 조회
  ┃ ┗ 📜 [...id].tsx
- ┣ 📂 data
+ ┣ 📂 data              
  ┃ ┗ 📜 complaints.tsx      --> 민원대장
- ┣ 📂 image-types
+ ┣ 📂 image-types         
  ┃ ┗ 📜 [id].tsx            --> imge-type 게시글 작성
- ┣ 📂 imgform
+ ┣ 📂 imgform           
  ┃ ┗ 📜 [...id].tsx         --> imge-type 게시글 보기
  ┣ 📂 infodata
  ┃ ┗ 📜 studentupload.tsx   --> 사생 데이터 조회/ 수정/ 삭제
@@ -54,7 +54,7 @@ pnpm dev
 
 ## 컴포넌트 구조
 <pre>
- 📦components
+ 📦components            
  ┣ 📂pdf
  ┃ ┣ 📜PdfList.tsx         -->  pdf 목록 컴포넌트
  ┃ ┗ 📜PdfViewer.tsx       -->  pdf 뷰어 컴포넌

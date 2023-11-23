@@ -4,7 +4,7 @@ import { Container, Table } from "@/style/border";
 import { useAuth } from "@/utils/useAuth/useAuth";
 import axios from "axios";
 import Navbar from "@/components/AdminNavbar";
-import "../../app/globals.css";
+import "../../app/global.css";
 import { useRouter } from "next/router";
 
 interface RoomData {
