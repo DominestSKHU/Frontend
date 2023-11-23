@@ -9,6 +9,7 @@ import {
 } from "@/style/domiStyle/building";
 import React from "react";
 import RoomType from "./RoomType";
+import SelectStudent from "./SelectStudent";
 
 export interface floorProps {
   floor: number;
@@ -59,6 +60,7 @@ export default function TwoThreeFloor({ floor }: floorProps) {
                 )
             )}
           </div>
+          <SelectStudent />
           <RoomType />
         </div>
         <FloorTableY>

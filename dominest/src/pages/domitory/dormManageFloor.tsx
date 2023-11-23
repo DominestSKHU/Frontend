@@ -1,4 +1,9 @@
-import { FloorFrame, Frame, SelectDegree, SelectFloorBtn } from "@/style/domiStyle/building";
+import {
+  FloorFrame,
+  Frame,
+  SelectDegree,
+  SelectFloorBtn,
+} from "@/style/domiStyle/building";
 import "../../app/global.css";
 import React from "react";
 import TwoThreeFloor from "@/components/floorMap/TwoThreeFloor";
@@ -7,6 +12,7 @@ import FourFloor from "@/components/floorMap/FourFloor";
 import FiveUpFloor from "@/components/floorMap/FiveUpFloor";
 import Navbar from "@/components/AdminNavbar";
 import { Semester, Year } from "@/content/date";
+import SelectStudent from "@/components/floorMap/SelectStudent";
 
 const DormManageFloor = () => {
   const [floor, setFloor] = React.useState<number>(2);
@@ -30,6 +36,7 @@ const DormManageFloor = () => {
             (floor) =>
               floor >= 2 && (
                 <SelectFloorBtn
+                  key={floor}
                   className="floorbtn"
                   onClick={() => setFloor(floor)}
                 >
