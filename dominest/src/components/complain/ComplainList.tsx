@@ -80,7 +80,6 @@ export default function ComplainList(props: any) {
               <th>처리결과</th>
               <th>민원내역</th>
               <th>민원답변</th>
-
               <th>민원인</th>
               <th>민원접수일</th>
               <th>수정/삭제</th>

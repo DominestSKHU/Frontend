@@ -8,6 +8,7 @@ import Parcellest from "@/components/categories/Parcel";
 import Complaints from "@/components/categories/Complain";
 import Cd_Key from "@/components/categories/Cd-Key";
 import Cleaning from "@/components/categories/Cleaning";
+import Schedule from "@/components/categories/Schedule";
 
 export default function ImgBoard() {
   const router = useRouter();
@@ -47,6 +48,9 @@ export default function ImgBoard() {
         idname[2] === "sanitation-check" && (
           <Cleaning idname={idname} Token={Token} />
         )}
+      {typeof idname === "object" &&
+        idname.length > 2 &&
+        idname[2] === "schedule" && <Schedule idname={idname} Token={Token} />}
     </div>
   );
 }
