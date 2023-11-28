@@ -1,6 +1,6 @@
 import { Container, Table, ButtonContainer } from "@/style/border";
 import React, { useState, useEffect } from "react";
-import "../../app/globals.css";
+import "../../app/global.css";
 import { Button, Containerright } from "@/style/InputStyle";
 import { borderList } from "@/utils/border/borderlist";
 import Link from "next/link";

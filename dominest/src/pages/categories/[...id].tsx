@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import "../../app/globals.css";
+import "../../app/global.css";
 import Navbar from "@/components/AdminNavbar";
 import { useAuth } from "@/utils/useAuth/useAuth";
 import Img from "@/components/categories/Img";

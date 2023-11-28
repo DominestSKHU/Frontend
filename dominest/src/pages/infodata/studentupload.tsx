@@ -9,7 +9,7 @@ import {
   StudentAddStyle,
   StudentEditStyle,
 } from "@/style/ComponentStyle";
-import "../../app/globals.css";
+import "../../app/global.css";
 import { ButtonDiv } from "@/style/ComponentStyle";
 import { handleUpload, delet } from "@/utils/student/uploadutil";
 import StudentEdit from "@/components/student/StudentEdit";

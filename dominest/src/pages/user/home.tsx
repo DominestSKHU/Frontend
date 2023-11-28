@@ -1,9 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import "../../app/globals.css";
+import "../../app/global.css";
 import Navbar from "@/components/AdminNavbar";
 import React, { useEffect, useState } from "react";
-import { Global } from "@emotion/react";
-import { globalStyles } from "./categoryManage";
 import { TodoBox, homeMainDiv } from "@/style/homeStyle/DivStyle";
 import TodoList from "@/components/home/TodoList";
 import Schedule, { UsersProps } from "@/components/home/Schedule";
@@ -18,7 +16,6 @@ const Home: React.FC = () => {
   }, []);
   return (
     <>
-      <Global styles={globalStyles} />
       <Navbar page={""} />
       <div css={homeMainDiv}>
         <Schedule users={users} />
@@ -26,7 +23,7 @@ const Home: React.FC = () => {
       </div>
       {/*<RecentPosts />*/}
       <div css={TodoBox}>
-        <TodoList users={users}/>
+        <TodoList users={users} />
       </div>
     </>
   );

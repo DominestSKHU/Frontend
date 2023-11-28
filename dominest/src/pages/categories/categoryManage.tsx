@@ -24,24 +24,9 @@ import {
   getCategory,
   postCategory,
 } from "@/utils/cateogry/categoryUtil";
+import { globalStyles } from "@/style/globalStyle/globalStyle";
 /** @jsxImportSource @emotion/react */
 
-export const globalStyles = css`
-  html,
-  body {
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    height: 100vh;
-  }
-  .mainBox {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    height: 94vh;
-  }
-`;
 
 interface CategoryPlusProps {
   categoryName: string;

@@ -14,3 +14,20 @@ export const errorText = css`
   margin-top: 5px;
   margin: auto;
 `;
+
+export const globalStyles = css`
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+  .mainBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 94vh;
+  }
+`;

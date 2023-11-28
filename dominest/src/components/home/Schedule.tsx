@@ -9,22 +9,10 @@ import {
   studentLi,
   studentUl,
 } from "@/style/homeStyle/scheduleStyle";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddSchedule from "./AddSchedule";
 import { CalendarStyle_UL } from "@/style/homeStyle/calendar";
 import { scheduleGet } from "@/utils/home/scheduleUtils";
-
-interface StudentProps {
-  id: number;
-  name: string;
-  phone: string;
-}
-interface workTimeProps {
-  start: number;
-  name: string;
-  worktime: number;
-  data: string;
-}
 
 interface timeProps {
   timeSlot: string;
@@ -69,7 +57,6 @@ const Schedule: React.FC<ScheduleProps> = ({ users }) => {
     scheduleGet(token)
       .then((res) => {
         setData(res.data.data);
-        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -103,44 +90,10 @@ const Schedule: React.FC<ScheduleProps> = ({ users }) => {
           {time.map((item) => (
             <tr key={item.time}>
               <td>{item.time}</td>
-              <td>
-                <ul css={CalendarStyle_UL}>
-                  {data[0] &&
-                    data[0].timeSlotInfos.map(
-                      (timeslot) =>
-                        timeslot.timeSlot === item.time && (
-                          <ul css={studentUl} key={timeslot.timeSlot}>
-                            {timeslot.usernames.map((name) => (
-                              <li css={studentLi} key={name}>
-                                {name}
-                              </li>
-                            ))}
-                          </ul>
-                        )
-                    )}
-                </ul>
-              </td>
-              <td>
-                <ul css={CalendarStyle_UL}>
-                  {data[1] &&
-                    data[1].timeSlotInfos.map(
-                      (timeslot) =>
-                        timeslot.timeSlot === item.time && (
-                          <li key={timeslot.timeSlot} css={studentUl}>
-                            {timeslot.usernames.map((name) => (
-                              <li css={studentLi} key={name}>
-                                {name}
-                              </li>
-                            ))}
-                          </li>
-                        )
-                    )}
-                </ul>
-              </td>
-              <td>
-                <ul css={CalendarStyle_UL}>
-                  {data[2] &&
-                    data[2].timeSlotInfos.map(
+              {data?.map((dataOfWeek) => (
+                <td key={dataOfWeek.dayOfWeek}>
+                  <ul css={CalendarStyle_UL}>
+                    {dataOfWeek.timeSlotInfos.map(
                       (timeslot) =>
                         timeslot.timeSlot === item.time && (
                           <ul key={timeslot.timeSlot} css={studentUl}>
@@ -152,42 +105,9 @@ const Schedule: React.FC<ScheduleProps> = ({ users }) => {
                           </ul>
                         )
                     )}
-                </ul>
-              </td>
-              <td>
-                <ul css={CalendarStyle_UL}>
-                  {data[3] &&
-                    data[3].timeSlotInfos.map(
-                      (timeslot) =>
-                        timeslot.timeSlot === item.time && (
-                          <ul key={timeslot.timeSlot} css={studentUl}>
-                            {timeslot.usernames.map((name) => (
-                              <li css={studentLi} key={name}>
-                                {name}
-                              </li>
-                            ))}
-                          </ul>
-                        )
-                    )}
-                </ul>
-              </td>
-              <td>
-                <ul css={CalendarStyle_UL}>
-                  {data[4] &&
-                    data[4].timeSlotInfos.map(
-                      (timeslot) =>
-                        timeslot.timeSlot === item.time && (
-                          <ul key={timeslot.timeSlot} css={studentUl}>
-                            {timeslot.usernames.map((name) => (
-                              <li css={studentLi} key={name}>
-                                {name}
-                              </li>
-                            ))}
-                          </ul>
-                        )
-                    )}
-                </ul>
-              </td>
+                  </ul>
+                </td>
+              ))}
             </tr>
           ))}
         </tbody>

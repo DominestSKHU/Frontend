@@ -8,7 +8,7 @@ import {
   RighttInput,
   TowInput,
 } from "@/style/complainupload";
-import "../../app/globals.css";
+import "../../app/global.css";
 import RoomSelector from "@/utils/room/roomnumber";
 import ComplainSelect from "@/components/complain/ComplainSelect";
 import axios from "axios";
