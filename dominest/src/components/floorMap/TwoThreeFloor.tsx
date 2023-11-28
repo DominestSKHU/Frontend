@@ -1,5 +1,5 @@
 /* @jsxImportSource @emotion/react */
-import { roomNum } from "@/content/floorRoom";
+import { RoomStudents, roomNum } from "@/content/floorRoom";
 import {
   FloorTable,
   FloorTableY,
@@ -19,6 +19,8 @@ export default function TwoThreeFloor({ floor }: floorProps) {
   const [showstudentState, setShowstudentState] = React.useState<boolean[]>(
     roomNum.map(() => false)
   );
+  const [ChooesStudent, setChooesStudent] = React.useState<number>(0);
+  const [floorNum, setFloorNum] = React.useState<number>(floor);
 
   const controllShow = (unit: number) => {
     setShowstudentState((prev) => {
@@ -27,7 +29,18 @@ export default function TwoThreeFloor({ floor }: floorProps) {
       return newState;
     });
   };
+  const ChooseStudent = (unit: number) => {
+    if (unit === 0) {
+      setChooesStudent(unit);
+    } else {
+      setChooesStudent(unit - 1);
+    }
+  };
+  const SendFloor = (floor: number, unit: number) => {
 
+    let roomNum = floor * 100 + unit;
+    setFloorNum(roomNum);
+  }    
   return (
     <div>
       <FloorTable>
@@ -36,11 +49,20 @@ export default function TwoThreeFloor({ floor }: floorProps) {
             {roomNum.map(
               (unit) =>
                 unit < 18 && (
-                  <div key={unit} onClick={() => controllShow(unit)}>
+                  <div
+                    key={unit}
+                    onClick={() => {
+                      controllShow(unit);
+                      ChooseStudent(unit);
+                      SendFloor(floor, unit);
+                    }}
+                  >
                     {showstudentState[unit] ? (
                       <div css={studentNameUnit}>
-                        <span>홍길동</span>
-                        <span>홍길동</span>
+                        <div>
+                          <span>{RoomStudents[unit - 1].student1}</span>
+                          <span>{RoomStudents[unit - 1].student2}</span>
+                        </div>
                       </div>
                     ) : unit < 10 ? (
                       <div css={yUnitDiv}>
@@ -60,7 +82,7 @@ export default function TwoThreeFloor({ floor }: floorProps) {
                 )
             )}
           </div>
-          <SelectStudent />
+          <SelectStudent students={RoomStudents[ChooesStudent]} floorNum={floorNum} />
           <RoomType />
         </div>
         <FloorTableY>
