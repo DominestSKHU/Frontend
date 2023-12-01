@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-
+import Router from "next/router";
 import "../../app/globals.css";
 import styled from "@emotion/styled";
 
 export default function Schedule(props: any) {
-  const [selectedRoom, setSelectedRoom] = useState(false);
   const [selectedRoom2, setSelectedRoom2] = useState(false);
   const [selectedRoom3, setSelectedRoom3] = useState(false);
 
@@ -55,7 +54,10 @@ export default function Schedule(props: any) {
         </div>
       </div>
       <div className="buttonContain">
-        <button onClick={() => setSelectedRoom(true)}>다른 저장된 일정</button>
+        <button onClick={() => Router.push("/catagoris")}>
+          다른 저장된 일정
+        </button>
+
         <button onClick={() => setSelectedRoom2(true)}>반복일정 저장</button>
         <button onClick={() => setSelectedRoom3(true)}>적용</button>
       </div>
@@ -86,6 +88,9 @@ export default function Schedule(props: any) {
             <div className="inputDiv">
               <input type="text" placeholder="제목" />
               <button>일정 저장</button>
+            </div>
+            <div>
+              <button onClick={() => setSelectedRoom2(false)}>닫기</button>
             </div>
           </div>
         </div>
