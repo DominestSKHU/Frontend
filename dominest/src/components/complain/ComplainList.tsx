@@ -77,12 +77,11 @@ export default function ComplainList(props: any) {
             <tr>
               <th>번호</th>
               <th>방번호</th>
-              <th>민원 결과</th>
-              <th>민원 내역</th>
-              <th>민원 답변</th>
-
+              <th>처리결과</th>
+              <th>민원내역</th>
+              <th>민원답변</th>
               <th>민원인</th>
-              <th>작성일</th>
+              <th>민원접수일</th>
               <th>수정/삭제</th>
             </tr>
           </thead>

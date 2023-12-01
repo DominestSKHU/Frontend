@@ -19,6 +19,7 @@ interface RoomData {
   prohibitedItem: boolean;
   toilet: boolean;
   passed: string;
+  passState: string;
   resident: {
     name: string;
     phon: string;
@@ -39,6 +40,7 @@ export default function CleanFloorSelect() {
   const [categoryName, setCategoryName] = useState("");
   const [etcValues, setEtcValues] = useState([]);
   const [alll, setAll] = useState(1);
+  const [passState, setPassState] = useState(1);
 
   const Token = useAuth();
 
@@ -56,6 +58,7 @@ export default function CleanFloorSelect() {
       try {
         if (idname !== null) {
           const response = await ClieanFloorList(idname);
+          console.log(response);
           setRooms(response.data.data.checkedRooms);
           setCategoryName(response.data.data.category.categoryName);
           setEtcValues(response.data.data.checkedRooms.etc);
@@ -67,7 +70,7 @@ export default function CleanFloorSelect() {
     if (idname !== null && idname[0] !== undefined) {
       fetchData();
     }
-  }, [idname, alll]);
+  }, [idname, alll, passState]);
 
   //체크박스 업로드
   const handleCheckboxChange = async (roomId: any, field: any, value: any) => {
@@ -83,12 +86,14 @@ export default function CleanFloorSelect() {
           },
         }
       );
+
       const updatedRooms = rooms.map((room) => {
         if (room.id === roomId) {
           return { ...room, [field]: value };
         }
         return room;
       });
+
       setRooms(updatedRooms);
     } catch (error) {
       console.error("에러 발생", error);
@@ -120,6 +125,7 @@ export default function CleanFloorSelect() {
         }
         return room;
       });
+      setPassState(passState + 1);
       setRooms(updatedRooms);
     } catch (error) {
       console.error("에러 발생", error);
@@ -330,7 +336,7 @@ export default function CleanFloorSelect() {
                   </td>
                   <td>
                     <select
-                      value={room.passed}
+                      value={room.passState}
                       onChange={(e) =>
                         handleSelectChange(room.id, "passState", e.target.value)
                       }

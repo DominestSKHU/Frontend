@@ -7,7 +7,6 @@
     "build": "next build",
     "prestart": "npm run build",
     "start": "next start -p 2949"
-    
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -19,10 +18,10 @@
     "moment": "^2.29.4",
     "next": "13.4.8",
     "next-images": "^1.8.5",
-    "react": "18.2.0",
+    "react": "^18.2.0",
     "react-calendar": "^4.6.0",
     "react-datepicker": "^4.16.0",
-    "react-dom": "18.2.0",
+    "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
     "react-router-dom": "^6.15.0",
     "react-sortablejs": "^6.1.4"

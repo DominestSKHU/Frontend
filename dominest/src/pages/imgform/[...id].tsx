@@ -77,9 +77,9 @@ export default function ImgPage() {
               <h1>{imageData.title}</h1>
               <hr />
               <TextContent>
-                <p>작성자 {imageData.writer}</p>
-                <p>작성 시간 {imageData.createTime}</p>
-                <p>수정 시간 {imageData.updateTime}</p>
+                <p>작성자 : {imageData.writer}</p>
+                <p>작성 시간 : {imageData.createTime}</p>
+                <p>수정 시간 : {imageData.updateTime}</p>
               </TextContent>
               <hr />
               <ImageContainer>
